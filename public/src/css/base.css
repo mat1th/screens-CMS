@@ -17,3 +17,9 @@ video {
 .none, .disabled {
     display: none !important;
 }
+.center {
+    text-align: center;
+}
+.right{
+  float: right;
+}

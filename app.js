@@ -9,12 +9,20 @@ var express = require('express'),
     mysql = require('mysql'),
     myConnection = require('express-myconnection'),
     //create routes
-    routes = require('./routes/index');
+    index = require('./routes/index'),
+    login = require('./routes/users'),
+    edit = require('./routes/edit'),
     posters = require('./routes/posters');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+//define body parser
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
 
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
@@ -27,6 +35,14 @@ app.use(function(req, res, next) {
         next();
     }
 });
+
+// Add session support
+app.use(session({
+    secret: 'soSecureMuchEncryption',
+    store: new FileStore(),
+    saveUninitialized: true,
+    resave: false
+}));
 
 // Setup Multer to accept uploads
 app.use(multer({
@@ -52,7 +68,9 @@ var dbOptions = {
 app.use(myConnection(mysql, dbOptions, 'single'));
 
 //use routes
-app.use('/', routes);
+app.use('/', index);
+app.use('/users', login);
+app.use('/edit', edit);
 app.use('/posters', posters);
 
 // catch 404 and forward to error handler

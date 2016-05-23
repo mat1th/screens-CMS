@@ -6,10 +6,7 @@
             return document.querySelectorAll(selector);
         };
 
-    function scroll() {
-
-    }
     window.onload = function(event) {
-        scroll();
+
     };
 })();

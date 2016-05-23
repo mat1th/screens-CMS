@@ -1,0 +1,17 @@
+{{#if error}}
+<div class="error">
+  {{error}}
+</div>
+{{/if}}
+<form action="{{postUrl}}" method="post">
+    <h1>Register</h1>
+    <label for="field_email">Email: </label>
+    {{paswordStrength}}
+    <input type="text" id="field_email" name="email" value="" placeholder="naam@example.nl">
+    <label for="field_username">Username: </label>
+    <input type="text" id="field_username" name="username" value="" placeholder="User name">
+    <label for="field_password">Password: </label>
+    <input type="password" id="field_password" name="password" value="" placeholder="****">
+
+    <button type="submit">Signup!</button>
+</form>

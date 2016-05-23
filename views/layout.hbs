@@ -20,9 +20,15 @@
 
 <body>
     <header role="banner">
-        <nav>
+        <nav class="{{navPosition}}">
             <ul>
-              <li></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/edit">Edit</a></li>
+                {{#if logedin}}
+                    <li class="right"><a href="/users/logout">log out</a></li>
+                {{else}}
+                    <li class="right"><a href="/users/login">Login</a></li>
+                {{/if}}
             </ul>
         </nav>
     </header>
@@ -31,13 +37,46 @@
     </main>
 
     <footer role="contentinfo">
-        <section class="rights">
+        <section class="rights center">
             <small>&copy; Matthias Dolstra all rights reserved - Hosted by <a href="https://www.digitalocean.com/?refcode=8c8e592f2431"> Digitalocean</a>
           </small>
         </section>
     </footer>
     <script>
-        !function(e){"use strict";var t=function(t,n,o){function i(e){return s.body?e():void setTimeout(function(){i(e)})}function r(){a.addEventListener&&a.removeEventListener("load",r),a.media=o||"all"}var d,s=e.document,a=s.createElement("link");if(n)d=n;else{var l=(s.body||s.getElementsByTagName("head")[0]).childNodes;d=l[l.length-1]}var f=s.styleSheets;a.rel="stylesheet",a.href=t,a.media="only x",i(function(){d.parentNode.insertBefore(a,n?d:d.nextSibling)});var u=function(e){for(var t=a.href,n=f.length;n--;)if(f[n].href===t)return e();setTimeout(function(){u(e)})};return a.addEventListener&&a.addEventListener("load",r),a.onloadcssdefined=u,u(r),a};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),loadCSS("/css/style.css");
+        ! function(e) {
+            "use strict";
+            var t = function(t, n, o) {
+                function i(e) {
+                    return s.body ? e() : void setTimeout(function() {
+                        i(e)
+                    })
+                }
+
+                function r() {
+                    a.addEventListener && a.removeEventListener("load", r), a.media = o || "all"
+                }
+                var d, s = e.document,
+                    a = s.createElement("link");
+                if (n) d = n;
+                else {
+                    var l = (s.body || s.getElementsByTagName("head")[0]).childNodes;
+                    d = l[l.length - 1]
+                }
+                var f = s.styleSheets;
+                a.rel = "stylesheet", a.href = t, a.media = "only x", i(function() {
+                    d.parentNode.insertBefore(a, n ? d : d.nextSibling)
+                });
+                var u = function(e) {
+                    for (var t = a.href, n = f.length; n--;)
+                        if (f[n].href === t) return e();
+                    setTimeout(function() {
+                        u(e)
+                    })
+                };
+                return a.addEventListener && a.addEventListener("load", r), a.onloadcssdefined = u, u(r), a
+            };
+            "undefined" != typeof exports ? exports.loadCSS = t : e.loadCSS = t
+        }("undefined" != typeof global ? global : this), loadCSS("/css/style.css");
     </script>
 
     <script src="/js/app.js" language="javascript"></script>
