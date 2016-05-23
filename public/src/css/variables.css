@@ -1,0 +1,8 @@
+@custom-media --narrow-window (min-width: 30em);
+:root {
+    --primary-color: #FFCC00;
+    --secondairy-color: #EB5D56;
+    --thirth-color: #004899;
+    --font-color: #000000;
+    --background-color: #efecea;
+}

@@ -1,0 +1,12 @@
+/* Main styling */
+
+@import "reset.css";
+@import "variables.css";
+@import "base.css";
+@import "webfonts.css";
+@import "typography.css";
+
+/* Components */
+@import "components/nav.css";
+@import "components/home.css";
+@import "components/footer.css";
