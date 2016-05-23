@@ -5,23 +5,27 @@ var moment = require('moment');
 
 // GET a photo and present the full photo page
 router.get('/', function(req, res) {
-  console.log(req.getConnection);
     req.getConnection(function(err, connection) {
         if (err) return next(err);
 
-        var sql = 'SELECT id, discription, duration FROM dias';
+        var sql = 'SELECT id, discription, duration FROM posters';
         // Get the photo id and caption using the photo name
         connection.query(sql, function(err, match) {
-          console.log(match);
             if (err) {
                 throw err;
             } else if (match !== '' && match.length > 0) {
-                console.log(match);
-                // photoId = match[0].id;
-                // photoCaption = match[0].caption;
-                // userId = match[0].user_id;
+                var diaId = match[0].id,
+                    diaDiscription = match[0].discription,
+                    diaduration = match[0].duration;
+                    console.log(match);
+                res.render('posters', {
+                    title: 'Posters',
+                    diaId: diaId,
+                    diaDiscription: diaDiscription,
+                    diaduration: diaduration
+                });
             } else {
-                res.send('No such file: ' + req.params.photoName);
+                res.send('No such dia: ');
             }
         });
     });

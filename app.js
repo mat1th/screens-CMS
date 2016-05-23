@@ -10,7 +10,7 @@ var express = require('express'),
     myConnection = require('express-myconnection'),
     //create routes
     routes = require('./routes/index');
-    dias = require('./routes/dias');
+    posters = require('./routes/posters');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -45,7 +45,7 @@ var dbOptions = {
     user: 'root',
     password: 'NietVerteld$jou!!',
     database: 'POSTERS',
-    port: 32778
+    port: 32768
 };
 
 // Add connection middleware
@@ -53,9 +53,7 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 
 //use routes
 app.use('/', routes);
-app.use('/dias', dias);
-
-
+app.use('/posters', posters);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -75,6 +73,6 @@ app.use(function(err, req, res, next) {
     });
 });
 //start app
-app.listen(3003, function() {
-    console.log('listening on port 3003!');
+app.listen(3010, function() {
+    console.log('listening on port 3010!');
 });
