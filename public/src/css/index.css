@@ -9,4 +9,5 @@
 /* Components */
 @import "components/nav.css";
 @import "components/home.css";
+@import "components/edit.css";
 @import "components/footer.css";

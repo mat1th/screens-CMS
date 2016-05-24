@@ -63,12 +63,9 @@ gulp.task('styles', function(cb) {
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
             './public/src/css/components/nav.css',
-            './public/src/css/components/about.css',
+            './public/src/css/components/edit.css',
             './public/src/css/components/slider.css',
             './public/src/css/components/home.css',
-            './public/src/css/components/skills.css',
-            './public/src/css/components/project.css',
-            './public/src/css/components/projectcolors.css',
             './public/src/css/components/footer.css'
         ])
         .pipe(concat('style.css'))

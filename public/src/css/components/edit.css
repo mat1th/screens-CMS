@@ -1,0 +1,13 @@
+.edit-nav{
+  background: var(--primary-color);
+    padding: 0.5em 1em;
+}
+.edit-nav ul {
+    /*margin: 1em;*/
+}
+.edit-nav ul li {
+    display: inline-block;
+}
+.edit-nav a {
+    text-decoration: none;
+}
