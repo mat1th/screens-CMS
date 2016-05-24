@@ -1,0 +1,27 @@
+<section class="edit-nav">
+    <ul>
+        <li><a href="/edit/posters">Posters</a></li>
+        <li>
+            <a href="/edit/slideshows"></a>
+        </li>
+        <li><a href="/edit/displays">Displays</a></li>
+        <li><a href="/edit/users">Users</a></li>
+    </ul>
+</section>
+<section>
+    <h1>Your posters</h1>
+    {{#if data}}
+        {{data.filename}}
+        {{#each data}}
+            {{data}}
+            <a href="/poster/{{id}}">
+                <img src="/download/{{filename}}" alt="" />
+            </a>
+        {{/each}}
+    {{else}}
+        <p>
+            You have got no posters please add one
+        </p>
+        <a href="/edit/posters">New poster</a>
+    {{/if}}
+</section>

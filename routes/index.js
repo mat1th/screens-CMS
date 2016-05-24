@@ -1,7 +1,7 @@
 var fs = require('fs'),
     express = require('express'),
-    checklogin = require('../modules/checklogin.js')
-router = express.Router();
+    checklogin = require('../modules/checklogin.js'),
+    router = express.Router();
 
 router.get('/', function(req, res, next) {
     res.render('home', {
