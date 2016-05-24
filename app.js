@@ -12,6 +12,7 @@ var express = require('express'),
     index = require('./routes/index'),
     login = require('./routes/users'),
     edit = require('./routes/edit'),
+    download = require('./routes/download'),
     posters = require('./routes/posters');
 
 //set vieuw enging
@@ -71,6 +72,7 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 app.use('/', index);
 app.use('/users', login);
 app.use('/edit', edit);
+app.use('/download', download);
 app.use('/posters', posters);
 
 // catch 404 and forward to error handler
