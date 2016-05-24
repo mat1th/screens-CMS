@@ -1,0 +1,48 @@
+<section class="edit-nav">
+    <ul>
+        <li><a href="/edit/posters">Posters</a></li>
+        <li>
+            <a href="/edit/slideshows"></a>
+        </li>
+        <li><a href="/edit/displays">Displays</a></li>
+        <li><a href="/edit/users">Users</a></li>
+    </ul>
+</section>
+<section>
+    <h1>Edit</h1>
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{/if}}
+    <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
+        <div class="">
+            <input type="file" name="imageFile" value="">
+        </div>
+        <div class="">
+          <label for="field_discription">Discription: </label>
+          <input type="text" id="field_discription" name="discription" value="">
+        </div>
+        <div class="">
+          <label for="field_duration">type: </label>
+          <select class="" name="type">
+                <option value="poster">Pooster</option>
+                <option value="video">Video</option>
+                <option value="Poll">Poll</option>
+          </select>
+        </div>
+        <div class="">
+          <label for="field_duration">Duration: </label>
+          <input type="text" id="field_duration" name="duration" value="">
+        </div>
+        <div class="">
+          <label for="field_start_date">Start date: </label>
+          <input type="date" id="field_start_date" name="start_date" value="">
+        </div>
+        <div class="">
+          <label for="field_end_date">End date: </label>
+          <input type="date" id="field_end_date" name="end_date" value="">
+        </div>
+        <button>Upload!</button>
+    </form>
+</section>
