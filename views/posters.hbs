@@ -1,7 +1,46 @@
 <section>
-  <h1>{{diaId}} </h1>
-  <p>
-    {{diaDiscription}}
-    {{diaduration}}
-  </p>
+
+    <h1>{{data.diaId}} </h1>
+    <article class="">
+        <h2>  Discription</h2>
+
+        <img src="/download/{{data.filename}}" alt="" />
+        <p>
+            {{data.discription}}
+        </p>
+    </article>
+    <table>
+        <tr>
+            <th>Duration</th>
+            <td>{{data.duration}}</td>
+        </tr>
+        <tr>
+            <th>Animation</th>
+            <td>{{data.animation}}</td>
+        </tr>
+
+        <tr>
+            <th>type</th>
+            <td>{{data.type}}</td>
+        </tr>
+        <tr>
+            <th>date_begin</th>
+            <td>{{data.date_begin}}</td>
+        </tr>
+        <tr>
+            <th>date_end</th>
+            <td>{{data.date_end}}</td>
+        </tr>
+        <tr>
+            <th>date_created</th>
+            <td>{{data.date_created}}</td>
+        </tr>
+
+    </table>
+
+
+
+    <p>
+        {{data.diaDiscription}} {{data.diaduration}}
+    </p>
 </section>

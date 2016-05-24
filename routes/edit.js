@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     var login = checklogin(req.session);
     if (login) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT filename, type FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
+            var sql = 'SELECT filename, type, id FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
             var email = req.session.email;
             // Get the user id using username
             connection.query(sql, [email], function(err, match) {
@@ -64,8 +64,9 @@ router.post('/posters', function(req, res) {
         type = body.type,
         date_start = body.date_start,
         date_end = body.date_end,
+        now = moment(),
         upload = req.files;
-    if (isValidDate(date_start)  && isValidDate(date_end)) {
+    if (isValidDate(date_start) && isValidDate(date_end)) {
         req.getConnection(function(err, connection) {
             var sql = 'SELECT id FROM users WHERE email = ?';
             // Get the user id using username
@@ -73,7 +74,7 @@ router.post('/posters', function(req, res) {
                 if (err) {
                     throw err;
                 }
-                console.log('1');
+
                 if (match !== '' && match.length > 0 && upload.imageFile && type !== null) {
                     var sqlQuery = 'INSERT INTO posters SET ?',
                         sqlValues = {
@@ -83,16 +84,15 @@ router.post('/posters', function(req, res) {
                             duration: duration,
                             type: type,
                             date_start: date_start,
-                            date_end: date_end
+                            date_end: date_end,
+                            date_created: now
                         };
-                    console.log('2');
 
                     // Insert the new photo data
                     connection.query(sqlQuery, sqlValues, function(err, user) {
                         if (err) {
                             throw err;
                         }
-                        console.log('4');
                         res.redirect('/edit');
                     });
 
@@ -109,7 +109,6 @@ router.post('/posters', function(req, res) {
             });
         });
     } else {
-        console.log('5');
         var renderData = {
             title: 'Edit Posters',
             postUrl: '/edit/posters',

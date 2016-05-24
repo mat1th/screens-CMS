@@ -13,7 +13,7 @@ var express = require('express'),
     login = require('./routes/users'),
     edit = require('./routes/edit'),
     download = require('./routes/download'),
-    posters = require('./routes/posters');
+    poster = require('./routes/posters');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -73,7 +73,7 @@ app.use('/', index);
 app.use('/users', login);
 app.use('/edit', edit);
 app.use('/download', download);
-app.use('/posters', posters);
+app.use('/poster', poster);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
