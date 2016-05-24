@@ -1,11 +1,41 @@
 var fs = require('fs'),
     express = require('express'),
-    checklogin = require('../modules/checklogin.js')
-router = express.Router();
+    moment = require('moment'),
+    checklogin = require('../modules/checklogin.js'),
+    isValidDate = require('../modules/isValidDate.js'),
+    router = express.Router();
+
 router.get('/', function(req, res, next) {
     var login = checklogin(req.session);
     if (login) {
-        res.redirect('/edit/posters');
+        req.getConnection(function(err, connection) {
+            var sql = 'SELECT filename, type FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
+            var email = req.session.email;
+            // Get the user id using username
+            connection.query(sql, [email], function(err, match) {
+                if (err) {
+                    throw err;
+                }
+                if (match !== '' && match.length > 0) {
+                    res.render('edit/index', {
+                        title: 'Your posters',
+                        data: match,
+                        error: false,
+                        logedin: login
+                    });
+
+                } else {
+                    res.render('edit/index', {
+                        title: 'Your posters',
+                        data: match[0],
+                        error: 'You have got no posters',
+                        logedin: login
+                    });
+                    //error
+                }
+            });
+        });
+
     } else {
         res.redirect('/users/login');
     }
@@ -15,8 +45,9 @@ router.get('/posters', function(req, res, next) {
     var login = checklogin(req.session);
     if (login) {
         res.render('edit/posters', {
-            title: 'Home',
+            title: 'Edit posters',
             postUrl: '/edit/posters',
+            error: false,
             logedin: login
         });
     } else {
@@ -31,82 +62,89 @@ router.post('/posters', function(req, res) {
         discription = body.discription,
         duration = body.duration,
         type = body.type,
-        start_date = body.start_date,
-        end_date = body.end_date,
-        upload = req.files,
-        userId;
+        date_start = body.date_start,
+        date_end = body.date_end,
+        upload = req.files;
+    if (isValidDate(date_start)  && isValidDate(date_end)) {
+        req.getConnection(function(err, connection) {
+            var sql = 'SELECT id FROM users WHERE email = ?';
+            // Get the user id using username
+            connection.query(sql, [email], function(err, match) {
+                if (err) {
+                    throw err;
+                }
+                console.log('1');
+                if (match !== '' && match.length > 0 && upload.imageFile && type !== null) {
+                    var sqlQuery = 'INSERT INTO posters SET ?',
+                        sqlValues = {
+                            user_id: match[0].id,
+                            discription: discription,
+                            filename: upload.imageFile.name,
+                            duration: duration,
+                            type: type,
+                            date_start: date_start,
+                            date_end: date_end
+                        };
+                    console.log('2');
 
-    req.getConnection(function(err, connection) {
-        var sql = 'SELECT id FROM users WHERE email = ?';
+                    // Insert the new photo data
+                    connection.query(sqlQuery, sqlValues, function(err, user) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log('4');
+                        res.redirect('/edit');
+                    });
 
-        console.log('req.session:', req.session);
-
-        // Get the user id using username
-        connection.query(sql, [email], function(err, match) {
-            if (err) {
-                throw err;
-            }
-
-            if (match !== '' && match.length > 0 && upload.imageFile && type !== null) {
-
-                console.log('user:', match);
-                user_id = match[0].id;
-
-                var sqlQuery = 'INSERT INTO posters SET ?',
-                    sqlValues = {
-                        user_id: user_id,
-                        discription: discription,
-                        filename: upload.imageFile.name,
-                        duration: duration,
-                        type: type,
-                        start_date: start_date,
-                        end_date: end_date
+                } else {
+                    var renderData = {
+                        title: 'Edit Posters',
+                        postUrl: '/edit/posters',
+                        logedin: checklogin(req.session),
+                        error: 'Something went wrong while uploading your poster photo.'
                     };
 
-                // Insert the new photo data
-                connection.query(sqlQuery, sqlValues, function(err, user) {
-                    if (err) {
-                        throw err;
-                    }
-
-                    res.redirect('/edit/posters');
-                });
-            } else {
-                var renderData = {
-                    error: 'Something went wrong while uploading your poster photo.'
-                };
-
-                res.render('photos/upload', renderData);
-            }
+                    res.render('edit/posters', renderData);
+                }
+            });
         });
-    });
+    } else {
+        console.log('5');
+        var renderData = {
+            title: 'Edit Posters',
+            postUrl: '/edit/posters',
+            logedin: checklogin(req.session),
+            error: 'You have submit a wrong date'
+        };
+        res.render('edit/posters', renderData);
+    }
 });
-
-router.post('/', function(req, res) {
-    var body = req.body;
-    //
-    //     req.getConnection(function(err, connection) {
-    //         var sql = 'SELECT email, password FROM users WHERE email = ? AND password = ?';
-    //         connection.query(sql, [email, password], function(err, match) {
-    //             if (err) {
-    //                 throw err;
-    //             }
-    //             if (match != '' && match.length > 0) {
-    //                 req.session.email = email;
-    //                 res.redirect('/edit');
-    //             } else {
-    //
-    //                 var data = {
-    //                     error: 'Gebruikersnaam en/of wachtwoord onjuist.',
-    //                     logedin: checklogin(req.session),
-    //                     title: 'Login',
-    //                     postUrl: '/users/login'
-    //                 };
-    //                 res.render('users/login', data);
-    //             }
-    //         });
-    //     });
-});
+//
+// router.post('/', function(req, res) {
+//     var body = req.body;
+//
+//     //     req.getConnection(function(err, connection) {
+//     //         var sql = 'SELECT email, password FROM users WHERE email = ? AND password = ?';
+//     //         connection.query(sql, [email, password], function(err, match) {
+//     //             if (err) {
+//     //                 throw err;
+//     //             }
+//     //             if (match != '' && match.length > 0) {
+//     //                 req.session.email = email;
+//     //                 res.redirect('/edit');
+//     //             } else {
+//     //
+//     //                 var data = {
+//     //                     error: 'Gebruikersnaam en/of wachtwoord onjuist.',
+//     //                     logedin: checklogin(req.session),
+//     //                     title: 'Login',
+//     //                     postUrl: '/users/login'
+//     //                 };
+//     //                 res.render('users/login', data);
+//     //             }
+//     //         });
+//     //     });
+// });
 
 
 router.get('/displays', function(req, res, next) {
