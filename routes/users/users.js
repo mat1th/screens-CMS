@@ -1,8 +1,8 @@
 var fs = require('fs'),
     express = require('express'),
     mysql = require('mysql'),
-    paswordStrength = require('../modules/paswordStrength.js'),
-    checklogin = require('../modules/checklogin.js'),
+    paswordStrength = require('../../modules/paswordStrength.js'),
+    checklogin = require('../../modules/checklogin.js'),
     router = express.Router();
 
 
@@ -34,7 +34,7 @@ router.post('/login', function(req, res) {
             }
             if (match != '' && match.length > 0) {
                 req.session.email = email;
-                res.redirect('/edit');
+                res.redirect('/admin');
             } else {
 
                 var data = {

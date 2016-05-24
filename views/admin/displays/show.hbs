@@ -1,0 +1,35 @@
+<section class="edit-nav">
+  <ul>
+      <li><a href="/admin/posters">Posters</a></li>
+      <li><a href="/admin/displays">Displays</a></li>
+      <li><a href="/admin/slideshows">slideshows</a></li>
+      <li><a href="/admin/users">Users</a></li>
+  </ul>
+</section>
+<section>
+    <h1>Displays</h1>
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{else}}
+        <table>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">linked slideshow id</th>
+                <th scope="col">edit</th>
+            </tr>
+            {{#each data}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{slideshow_id}}</td>
+                    <td><a href="#">Edit</a></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    {{/if}}
+
+</section>

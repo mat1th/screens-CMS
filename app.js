@@ -8,12 +8,17 @@ var express = require('express'),
     multer = require('multer'),
     mysql = require('mysql'),
     myConnection = require('express-myconnection'),
-    //create routes
+    //get files for routes for not loged in
     index = require('./routes/index'),
-    login = require('./routes/users'),
-    edit = require('./routes/edit'),
     download = require('./routes/download'),
-    poster = require('./routes/posters');
+    // get files for login
+    userAcounts = require('./routes/users/users'),
+    //get files for admin
+    dashboard = require('./routes/admin/index'),
+    displays = require('./routes/admin/displays/index'),
+    posters = require('./routes/admin/posters/index'),
+    slideshows = require('./routes/admin/slideshows/index'),
+    users = require('./routes/admin/users/index');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -70,10 +75,15 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 
 //use routes
 app.use('/', index);
-app.use('/users', login);
-app.use('/edit', edit);
 app.use('/download', download);
-app.use('/poster', poster);
+// get files for login
+app.use('/users', userAcounts);
+//get files for admin
+app.use('/admin', dashboard);
+app.use('/admin/displays', displays);
+app.use('/admin/posters', posters);
+app.use('/admin/slideshows', slideshows);
+app.use('/admin/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

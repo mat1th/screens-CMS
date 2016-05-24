@@ -1,12 +1,10 @@
 <section class="edit-nav">
-    <ul>
-        <li><a href="/edit/posters">Posters</a></li>
-        <li>
-            <a href="/edit/slideshows"></a>
-        </li>
-        <li><a href="/edit/displays">Displays</a></li>
-        <li><a href="/edit/users">Users</a></li>
-    </ul>
+  <ul>
+      <li><a href="/admin/posters">Posters</a></li>
+      <li><a href="/admin/displays">Displays</a></li>
+      <li><a href="/admin/slideshows">slideshows</a></li>
+      <li><a href="/admin/users">Users</a></li>
+  </ul>
 </section>
 <section>
     <h1>Your posters</h1>
@@ -14,7 +12,7 @@
         {{data.filename}}
         {{#each data}}
             {{data}}
-            <a href="/poster/{{id}}">
+            <a href="/admin/posters/show/{{id}}">
                 <img src="/download/{{filename}}" alt="" />
             </a>
         {{/each}}

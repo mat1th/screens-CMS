@@ -1,15 +1,13 @@
 <section class="edit-nav">
-    <ul>
-        <li><a href="/edit/posters">Posters</a></li>
-        <li>
-            <a href="/edit/slideshows"></a>
-        </li>
-        <li><a href="/edit/displays">Displays</a></li>
-        <li><a href="/edit/users">Users</a></li>
-    </ul>
+  <ul>
+      <li><a href="/admin/posters">Posters</a></li>
+      <li><a href="/admin/displays">Displays</a></li>
+      <li><a href="/admin/slideshows">slideshows</a></li>
+      <li><a href="/admin/users">Users</a></li>
+  </ul>
 </section>
 <section>
-    <h1>Edit</h1>
+    <h1>Add a poster</h1>
     {{#if error}}
         <div class="error">
             {{error}}
@@ -20,20 +18,20 @@
             <input type="file" name="imageFile" value="">
         </div>
         <div class="">
-          <label for="field_discription">Discription: </label>
-          <input type="text" id="field_discription" name="discription" value="">
+            <label for="field_discription">Discription: </label>
+            <input type="text" id="field_discription" name="discription" value="">
         </div>
         <div class="">
-          <label for="field_duration">type: </label>
-          <select class="" name="type">
+            <label for="field_duration">type: </label>
+            <select class="" name="type">
                 <option value="poster">Pooster</option>
                 <option value="video">Video</option>
                 <option value="Poll">Poll</option>
-          </select>
+            </select>
         </div>
         <div class="">
-          <label for="field_duration">Duration: </label>
-          <select class="" name="duration">
+            <label for="field_duration">Duration: </label>
+            <select class="" name="duration">
                 <option value="1000">10 sec</option>
                 <option value="2000">20 sec</option>
                 <option value="3000">30 sec</option>
@@ -42,15 +40,15 @@
                 <option value="60000">1 min</option>
                 <option value="90000">1 min 30 sec</option>
                 <option value="120000">2 min</option>
-          </select>
+            </select>
         </div>
         <div class="">
-          <label for="field_date_start">Start date: </label>
-          <input type="date" id="field_date_start" name="date_start" value="">
+            <label for="field_date_start">Start date: </label>
+            <input type="date" id="field_date_start" name="date_start" value="">
         </div>
         <div class="">
-          <label for="field_date_end">End date: </label>
-          <input type="date" id="field_date_end" name="date_end" value="">
+            <label for="field_date_end">End date: </label>
+            <input type="date" id="field_date_end" name="date_end" value="">
         </div>
         <button>Upload!</button>
     </form>
