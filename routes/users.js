@@ -7,14 +7,18 @@ var fs = require('fs'),
 
 
 router.get('/login', function(req, res, next) {
-    var data = {
-        error: false,
-        logedin: checklogin(req.session),
-        title: 'Login',
-        postUrl: '/users/login'
-    };
+    // if (checklogin(req.session)) {
+    //     res.redirect('/edit');
+    // } else {
+        var data = {
+            error: false,
+            logedin: checklogin(req.session),
+            title: 'Login',
+            postUrl: '/users/login'
+        };
 
-    res.render('users/login', data);
+        res.render('users/login', data);
+    // }
 });
 
 router.post('/login', function(req, res) {
