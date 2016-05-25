@@ -5,7 +5,7 @@ var fs = require('fs'),
     isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
-    router.get('/', function(req, res, next) {
+    router.get('/:slideshowID', function(req, res, next) {
         if (req.session.email) {
             req.getConnection(function(err, connection) {
                 var sql = 'SELECT id, discription, posters FROM slideshows';

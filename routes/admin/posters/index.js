@@ -7,16 +7,18 @@ var fs = require('fs'),
 
 
 router.get('/', function(req, res, next) {
+
     var login = checklogin(req.session);
     if (login) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT filename, type, id FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
+            var sql = 'SELECT filename, type, name, id FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
             var email = req.session.email;
             // Get the user id using username
             connection.query(sql, [email], function(err, match) {
                 if (err) {
                     throw err;
                 }
+
                 if (match !== '' && match.length > 0) {
                     res.render('admin/posters/show', {
                         title: 'Your posters',
@@ -25,7 +27,7 @@ router.get('/', function(req, res, next) {
                         logedin: login
                     });
                 } else {
-                    res.render('admin/index', {
+                    res.render('admin/posters/show', {
                         title: 'Your posters',
                         data: match[0],
                         error: 'You have got no posters',
@@ -61,7 +63,7 @@ router.get('/show/:posterId', function(req, res) {
         if (err) return next(err);
         var posterId = req.params.posterId;
 
-        var sql = 'SELECT id, discription, duration, animation, filename, type, date_start, date_end, date_created FROM posters WHERE id = ?';
+        var sql = 'SELECT id, name,discription, duration, animation, filename, type, date_start, date_end, date_created FROM posters WHERE id = ?';
 
         // Get the photo id and caption using the photo name
         connection.query(sql, [posterId], function(err, match) {
@@ -72,6 +74,7 @@ router.get('/show/:posterId', function(req, res) {
                     id: match[0].id,
                     discription: match[0].discription,
                     duration: match[0].duration,
+                    name: match[0].name,
                     animation: match[0].animation,
                     filename: match[0].filename,
                     type: match[0].type,
@@ -94,6 +97,7 @@ router.get('/show/:posterId', function(req, res) {
 router.post('/add', function(req, res) {
     var email = req.session.email,
         body = req.body,
+        name = body.name,
         discription = body.discription,
         duration = body.duration,
         type = body.type,
@@ -101,6 +105,7 @@ router.post('/add', function(req, res) {
         date_end = body.date_end,
         now = new Date(),
         upload = req.files;
+
     if (isValidDate(date_start) && isValidDate(date_end)) {
         req.getConnection(function(err, connection) {
             var sql = 'SELECT id FROM users WHERE email = ?';
@@ -114,6 +119,7 @@ router.post('/add', function(req, res) {
                     var sqlQuery = 'INSERT INTO posters SET ?',
                         sqlValues = {
                             user_id: match[0].id,
+                            name: name,
                             discription: discription,
                             filename: upload.imageFile.name,
                             duration: duration,

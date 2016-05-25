@@ -15,10 +15,10 @@ var express = require('express'),
     userAcounts = require('./routes/users/users'),
     //get files for admin
     dashboard = require('./routes/admin/index'),
-    displays = require('./routes/admin/displays/index'),
+    displaysAdmin = require('./routes/admin/displays/index'),
     posters = require('./routes/admin/posters/index'),
-    slideshowsAdmin = require('./routes/admin/slideshows/index'),
-    slideshow = require('./routes/slideshow/index'),
+    slideshows = require('./routes/admin/slideshows/index'),
+    display = require('./routes/display/index'),
     users = require('./routes/admin/users/index');
 
 //set vieuw enging
@@ -81,12 +81,12 @@ app.use('/download', download);
 app.use('/users', userAcounts);
 //get files for admin
 app.use('/admin', dashboard);
-app.use('/admin/displays', displays);
+app.use('/admin/displays', displaysAdmin);
 app.use('/admin/posters', posters);
-app.use('/admin/slideshows', slideshowsAdmin);
+app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
-app.use('/slideshow', slideshow);
+app.use('/display', display);
 
 
 // catch 404 and forward to error handler

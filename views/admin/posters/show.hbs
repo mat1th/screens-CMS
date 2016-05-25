@@ -15,12 +15,15 @@
             {{data}}
             <a href="/admin/posters/show/{{id}}">
                 <img src="/download/{{filename}}" alt="" />
+                <p>
+                  {{name}}
+                </p>
             </a>
         {{/each}}
     {{else}}
         <p>
             You have got no posters please add one
         </p>
-        <a href="/edit/posters">New poster</a>
+        <a href="/admin/posters/add">New poster</a>
     {{/if}}
 </section>

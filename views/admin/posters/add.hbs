@@ -1,10 +1,10 @@
 <section class="edit-nav">
-  <ul>
-      <li><a href="/admin/posters">Posters</a></li>
-      <li><a href="/admin/displays">Displays</a></li>
-      <li><a href="/admin/slideshows">slideshows</a></li>
-      <li><a href="/admin/users">Users</a></li>
-  </ul>
+    <ul>
+        <li><a href="/admin/posters">Posters</a></li>
+        <li><a href="/admin/displays">Displays</a></li>
+        <li><a href="/admin/slideshows">slideshows</a></li>
+        <li><a href="/admin/users">Users</a></li>
+    </ul>
 </section>
 <section>
     <h1>Add a poster</h1>
@@ -16,6 +16,10 @@
     <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
         <div class="">
             <input type="file" name="imageFile" value="">
+        </div>
+        <div class="">
+            <label for="field_name">Name: </label>
+            <input type="text" id="field_name" name="name" value="">
         </div>
         <div class="">
             <label for="field_discription">Discription: </label>
