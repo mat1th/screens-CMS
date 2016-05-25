@@ -6,36 +6,9 @@ var fs = require('fs'),
     router = express.Router();
 
 router.get('/', function(req, res, next) {
-
-    if (req.session.email) {
-        req.getConnection(function(err, connection) {
-            var sql = 'SELECT posters FROM slideshows WHERE id  IN( SELECT slideshow_id FROM displays WHERE id = ? )';
-            // Get the user id using username
-            connection.query(sql, [id], function(err, match) {
-                if (err) {
-                    throw err;
-                }
-
-                if (match !== '' && match.length > 0) {
-                    res.render('admin/slideshows/show', {
-                        title: 'Home',
-                        logedin: checklogin(req.session),
-                        data: match
-                    });
-                } else {
-                    res.render('admin/slideshows/show', {
-                        title: 'Home',
-                        logedin: checklogin(req.session),
-                        error: 'You have no displays jet',
-                        data: match
-                    });
-                }
-            });
-        });
-    } else {
-        res.redirect('/users/login');
-    }
+    res.redirect('/admin/displays');
 });
+
 router.get('/:displayId', function(req, res, next) {
     var displayId = req.params.displayId;
     var login = checklogin(req.session)
@@ -49,36 +22,45 @@ router.get('/:displayId', function(req, res, next) {
                 if (err) {
                     throw err;
                 }
-                var posterIds = JSON.parse(match[0].posters);
-                //create string for posters
-                posterIds.forEach(function(currentValue, index) {
-                    if (index === posterIds.length - 1) {
-                        sqlGetFilname += 'id = ' + currentValue;
-                    } else {
-                        sqlGetFilname += 'id = ' + currentValue + ' OR ';
-                    }
-                });
-                connection.query(sqlGetFilname, function(err, match) {
-                    if (err) {
-                        throw err;
-                    }
-                    if (match !== '' && match.length > 0) {
-                        res.render('display/view', {
-                            title: 'Display ' + displayId,
-                            layout: 'layout2',
-                            logedin: login,
-                            data: match
-                        });
-                    } else {
-                        res.render('admin/slideshows/show', {
-                            title: 'Home',
-                            logedin: checklogin(req.session),
-                            error: 'There are no posters in your slideshow',
-                            data: match
-                        });
-                    }
+                if (match !== '' && match.length > 0) {
+                    var posterIds = JSON.parse(match[0].posters);
+                    //create string for posters
+                    posterIds.forEach(function(currentValue, index) {
+                        if (index === posterIds.length - 1) {
+                            sqlGetFilname += 'id = ' + currentValue;
+                        } else {
+                            sqlGetFilname += 'id = ' + currentValue + ' OR ';
+                        }
+                    });
+                    connection.query(sqlGetFilname, function(err, match) {
+                        if (err) {
+                            throw err;
+                        }
+                        if (match !== '' && match.length > 0) {
+                            res.render('display/view', {
+                                title: 'Display ' + displayId,
+                                layout: 'layout2',
+                                logedin: login,
+                                data: match
+                            });
+                        } else {
+                            res.render('admin/slideshows/show', {
+                                title: 'Display ' + displayId,
+                                logedin: checklogin(req.session),
+                                error: 'There are no posters in your slideshow',
+                                data: match
+                            });
+                        }
+                    });
 
-                });
+                } else {
+                    res.render('admin/slideshows/show', {
+                        title: 'Display ' + displayId,
+                        logedin: checklogin(req.session),
+                        error: 'This display does not exsist ',
+                        data: match
+                    });
+                }
             });
         });
     } else {
