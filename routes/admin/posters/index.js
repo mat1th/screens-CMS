@@ -6,26 +6,46 @@ var fs = require('fs'),
     router = express.Router();
 
 
-
 router.get('/', function(req, res, next) {
     var login = checklogin(req.session);
     if (login) {
-        res.render('admin/posters/show', {
-            title: 'Add a poster',
-            postUrl: '/edit/posters',
-            error: false,
-            logedin: login
+        req.getConnection(function(err, connection) {
+            var sql = 'SELECT filename, type, id FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
+            var email = req.session.email;
+            // Get the user id using username
+            connection.query(sql, [email], function(err, match) {
+                if (err) {
+                    throw err;
+                }
+                if (match !== '' && match.length > 0) {
+                    res.render('admin/posters/show', {
+                        title: 'Your posters',
+                        data: match,
+                        error: false,
+                        logedin: login
+                    });
+                } else {
+                    res.render('admin/index', {
+                        title: 'Your posters',
+                        data: match[0],
+                        error: 'You have got no posters',
+                        logedin: login
+                    });
+                }
+            });
         });
     } else {
         res.redirect('/users/login');
     }
 });
+
+
 router.get('/add', function(req, res, next) {
     var login = checklogin(req.session);
     if (login) {
         res.render('admin/posters/add', {
             title: 'Add a poster',
-            postUrl: '/edit/posters',
+            postUrl: '/admin/posters/add',
             error: false,
             logedin: login
         });
@@ -40,10 +60,11 @@ router.get('/show/:posterId', function(req, res) {
     req.getConnection(function(err, connection) {
         if (err) return next(err);
         var posterId = req.params.posterId;
-        var sql = 'SELECT id, discription, duration, animation, filename, type, date_begin, date_end, date_created FROM posters WHERE id = ?';
+
+        var sql = 'SELECT id, discription, duration, animation, filename, type, date_start, date_end, date_created FROM posters WHERE id = ?';
+
         // Get the photo id and caption using the photo name
         connection.query(sql, [posterId], function(err, match) {
-            console.log(match[0]);
             if (err) {
                 throw err;
             } else if (match !== '' && match.length > 0) {
@@ -70,7 +91,7 @@ router.get('/show/:posterId', function(req, res) {
     });
 });
 
-router.post('/edit', function(req, res) {
+router.post('/add', function(req, res) {
     var email = req.session.email,
         body = req.body,
         discription = body.discription,
@@ -78,7 +99,7 @@ router.post('/edit', function(req, res) {
         type = body.type,
         date_start = body.date_start,
         date_end = body.date_end,
-        now = moment(),
+        now = new Date(),
         upload = req.files;
     if (isValidDate(date_start) && isValidDate(date_end)) {
         req.getConnection(function(err, connection) {
@@ -107,29 +128,29 @@ router.post('/edit', function(req, res) {
                         if (err) {
                             throw err;
                         }
-                        res.redirect('/edit');
+                        res.redirect('/admin/posters');
                     });
 
                 } else {
                     var renderData = {
                         title: 'Edit Posters',
-                        postUrl: '/edit/posters',
+                        postUrl: '/admin/posters/add',
                         logedin: checklogin(req.session),
                         error: 'Something went wrong while uploading your poster photo.'
                     };
 
-                    res.render('admin/posters', renderData);
+                    res.render('admin/posters/add', renderData);
                 }
             });
         });
     } else {
         var renderData = {
             title: 'Edit Posters',
-            postUrl: '/edit/posters',
+            postUrl: '/admin/posters/add',
             logedin: checklogin(req.session),
             error: 'You have submit a wrong date'
         };
-        res.render('admin/posters', renderData);
+        res.render('admin/posters/add', renderData);
     }
 });
 

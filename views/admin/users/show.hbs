@@ -7,5 +7,28 @@
   </ul>
 </section>
 <section>
-  <h1>Users</h1>
+    <h1>Users</h1>
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{else}}
+        <table>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">email</th>
+                <th scope="col">role</th>
+            </tr>
+            {{#each data}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{email}}</td>
+                    <td>{{role}}</td>
+                    <td><a href="#">Edit</a></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    {{/if}}
+
 </section>

@@ -17,7 +17,8 @@ var express = require('express'),
     dashboard = require('./routes/admin/index'),
     displays = require('./routes/admin/displays/index'),
     posters = require('./routes/admin/posters/index'),
-    slideshows = require('./routes/admin/slideshows/index'),
+    slideshowsAdmin = require('./routes/admin/slideshows/index'),
+    slideshow = require('./routes/slideshow/index'),
     users = require('./routes/admin/users/index');
 
 //set vieuw enging
@@ -82,8 +83,11 @@ app.use('/users', userAcounts);
 app.use('/admin', dashboard);
 app.use('/admin/displays', displays);
 app.use('/admin/posters', posters);
-app.use('/admin/slideshows', slideshows);
+app.use('/admin/slideshows', slideshowsAdmin);
 app.use('/admin/users', users);
+//get files for slidewhows
+app.use('/slideshow', slideshow);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
