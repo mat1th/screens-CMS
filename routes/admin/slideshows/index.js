@@ -5,35 +5,49 @@ var fs = require('fs'),
     isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
-    router.get('/', function(req, res, next) {
-        if (req.session.email) {
-            req.getConnection(function(err, connection) {
-                var sql = 'SELECT id, discription, posters FROM slideshows';
-                // Get the user id using username
-                connection.query(sql, function(err, match) {
-                    if (err) {
-                        throw err;
-                    }
+router.get('/', function(req, res, next) {
+    if (req.session.email) {
+        req.getConnection(function(err, connection) {
+            var sql = 'SELECT id, discription, posters FROM slideshows';
+            // Get the user id using username
+            connection.query(sql, function(err, match) {
+                if (err) {
+                    throw err;
+                }
 
-                    if (match !== '' && match.length > 0) {
-                        res.render('admin/slideshows/show', {
-                            title: 'Slideshows',
-                            logedin: checklogin(req.session),
-                            data: match
-                        });
-                    }else{
-                      res.render('admin/slideshows/show', {
-                          title: 'Slideshows',
-                          logedin: checklogin(req.session),
-                          error: 'You have no displays jet',
-                          data: match
-                      });
-                    }
-                });
+                if (match !== '' && match.length > 0) {
+                    res.render('admin/slideshows/show', {
+                        title: 'Slideshows',
+                        logedin: checklogin(req.session),
+                        data: match
+                    });
+                } else {
+                    res.render('admin/slideshows/show', {
+                        title: 'Slideshows',
+                        logedin: checklogin(req.session),
+                        error: 'You have no displays jet',
+                        data: match
+                    });
+                }
             });
-        } else {
-            res.redirect('/users/login');
-        }
-    });
+        });
+    } else {
+        res.redirect('/users/login');
+    }
+});
+router.get('/add', function(req, res, next) {
+    var login = checklogin(req.session);
+    if (login) {
+        res.render('admin/slideshows/add', {
+            title: 'Add a poster',
+            postUrl: '/admin/slideshows/add',
+            error: false,
+            logedin: login
+        });
+    } else {
+        res.redirect('/users/login');
+    }
+
+});
 
 module.exports = router;

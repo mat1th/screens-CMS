@@ -35,6 +35,21 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/add', function(req, res, next) {
+    var login = checklogin(req.session);
+    if (login) {
+        res.render('admin/users/add', {
+            title: 'Add a poster',
+            postUrl: '/admin/slideshows/add',
+            error: false,
+            logedin: login
+        });
+    } else {
+        res.redirect('/users/login');
+    }
+
+});
+
 
 
 module.exports = router;
