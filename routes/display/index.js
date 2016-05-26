@@ -40,7 +40,7 @@ router.get('/:displayId', function(req, res, next) {
                         if (match !== '' && match.length > 0) {
                             res.render('display/view', {
                                 title: 'Display ' + displayId,
-                                layout: 'layout/layout2',
+                                layout: 'layout2',
                                 logedin: login,
                                 data: match
                             });
