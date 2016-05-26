@@ -25,6 +25,7 @@ router.get('/:displayId', function(req, res, next) {
                 if (match !== '' && match.length > 0) {
                     var posterIds = JSON.parse(match[0].posters);
                     //create string for posters
+                      var sqlGetFilname = 'SELECT filename FROM posters WHERE '
                     posterIds.forEach(function(currentValue, index) {
                         if (index === posterIds.length - 1) {
                             sqlGetFilname += 'id = ' + currentValue;
@@ -39,7 +40,7 @@ router.get('/:displayId', function(req, res, next) {
                         if (match !== '' && match.length > 0) {
                             res.render('display/view', {
                                 title: 'Display ' + displayId,
-                                layout: 'layout2',
+                                layout: 'layout/layout2',
                                 logedin: login,
                                 data: match
                             });

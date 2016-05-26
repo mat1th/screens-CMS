@@ -7,6 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     mysql = require('mysql'),
+    hbs = require('hbs'),
     myConnection = require('express-myconnection'),
     //get files for routes for not loged in
     index = require('./routes/index'),
@@ -23,6 +24,7 @@ var express = require('express'),
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
 //define body parser
