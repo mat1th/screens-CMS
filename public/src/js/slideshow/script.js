@@ -1,0 +1,12 @@
+(function() {
+    var $ = function(selector) {
+            return document.querySelector(selector);
+        },
+        $$ = function(selector) {
+            return document.querySelectorAll(selector);
+        };
+
+    window.onload = function(event) {
+
+    };
+})();
