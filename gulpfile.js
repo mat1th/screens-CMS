@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     cssnext = require('cssnext'),
     mqpacker = require('css-mqpacker'),
     csswring = require('csswring'),
+    sourcemaps = require('gulp-sourcemaps'),
     called = false,
     // responsive = require('gulp-responsive'),
     imgConfig = [{
@@ -74,9 +75,11 @@ gulp.task('styles', function(cb) {
             './public/src/css/components/home.css',
             './public/src/css/components/footer.css'
         ])
+        .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
         .pipe(postcss(processors))
         .pipe(cssnano())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'))
         .pipe(notify({
             message: 'styles task complete'
@@ -86,12 +89,21 @@ gulp.task('styles', function(cb) {
 // Scripts app
 gulp.task('scripts-app', function(cb) {
     // './node_modules/gsap/src/minified/TweenMax.min.js'
-    return gulp.src(['./public/src/js/app/*.js'])
+
+    return gulp.src([
+            './public/src/js/app/DPstart.js',
+            './public/src/js/app/DPhelper.js',
+            './public/src/js/app/DProutes.js',
+            './public/src/js/app/DPposter.js',
+            './public/src/js/app/DPinit.js'
+        ])
+        .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
         .pipe(notify({
             message: 'Scripts-app task complete'
@@ -101,11 +113,13 @@ gulp.task('scripts-app', function(cb) {
 gulp.task('scripts-slideshow', function(cb) {
     // './node_modules/gsap/src/minified/TweenMax.min.js'
     return gulp.src(['./public/src/js/slideshow/*.js'])
+        .pipe(sourcemaps.init())
         .pipe(concat('slideshow.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
         .pipe(notify({
             message: 'Scripts-slideshow task complete'
