@@ -1,12 +1,5 @@
-<section class="edit-nav">
-  <ul>
-      <li><a href="/admin/posters">Posters</a></li>
-      <li><a href="/admin/displays">Displays</a></li>
-      <li><a href="/admin/slideshows">slideshows</a></li>
-      <li><a href="/admin/users">Users</a></li>
-  </ul>
-</section>
-<section>
+  {{> nav}}
+<section class="content scrollable">
     <h1>Users</h1>
     {{#if error}}
         <div class="error">

@@ -1,15 +1,18 @@
-  {{> nav}}
-<section>
-    <h1>Your posters</h1>
+ {{> nav}}
+<section class="content scrollable">
+    <section class="content-header">
+        <h1>Your posters</h1>
+        <a href="/admin/posters/add">Add new poster</a>
+    </section>
+
     {{#if data}}
-          <a href="/admin/posters/add">Add new poster</a>
         {{data.filename}}
         {{#each data}}
             {{data}}
             <a href="/admin/posters/show/{{id}}">
                 <img src="/download/{{filename}}" alt="" />
                 <p>
-                  {{name}}
+                    {{name}}
                 </p>
             </a>
         {{/each}}
