@@ -8,7 +8,7 @@ var fs = require('fs'),
 router.get('/', function(req, res, next) {
     if (req.session.email) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT id, discription, posters FROM slideshows';
+            var sql = 'SELECT id, name, posters FROM slideshows';
             // Get the user id using username
             connection.query(sql, function(err, match) {
                 if (err) {
