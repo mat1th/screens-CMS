@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     cssnext = require('cssnext'),
     mqpacker = require('css-mqpacker'),
     csswring = require('csswring'),
+    called = false,
     // responsive = require('gulp-responsive'),
     imgConfig = [{
         width: 1500,
@@ -67,6 +68,7 @@ gulp.task('styles', function(cb) {
             './public/src/css/components/buttons.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/content.css',
+            './public/src/css/components/posters.css',
             './public/src/css/components/edit.css',
             './public/src/css/components/slider.css',
             './public/src/css/components/home.css',
@@ -81,9 +83,10 @@ gulp.task('styles', function(cb) {
         }));
 });
 
-// Scripts
-gulp.task('scripts', function(cb) {
-    return gulp.src(['./node_modules/gsap/src/minified/TweenMax.min.js', './public/src/js/script.js'])
+// Scripts app
+gulp.task('scripts-app', function(cb) {
+    // './node_modules/gsap/src/minified/TweenMax.min.js'
+    return gulp.src(['./public/src/js/app/*.js'])
         .pipe(concat('app.js'))
         .pipe(babel({
             presets: ['es2015']
@@ -91,7 +94,21 @@ gulp.task('scripts', function(cb) {
         .pipe(uglify())
         .pipe(gulp.dest('./public/dist/js/'))
         .pipe(notify({
-            message: 'Scripts task complete'
+            message: 'Scripts-app task complete'
+        }));
+});
+// Scripts slideshow
+gulp.task('scripts-slideshow', function(cb) {
+    // './node_modules/gsap/src/minified/TweenMax.min.js'
+    return gulp.src(['./public/src/js/slideshow/*.js'])
+        .pipe(concat('slideshow.js'))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/dist/js/'))
+        .pipe(notify({
+            message: 'Scripts-slideshow task complete'
         }));
 });
 
@@ -160,7 +177,7 @@ gulp.task('layoutimg', function() {
         .pipe(gulp.dest('public/dist/img/layout/'));
 });
 
-var called = false;
+
 gulp.task('toggleimg', function() {
     return gulp.src('public/src/img/togglebuttons/*.{jpg,png}')
         .pipe(responsive({
@@ -187,6 +204,12 @@ gulp.task('browser-sync', ['nodemon', 'watch'], function() {
     });
 });
 
+// Default task
+gulp.task('default', function() {
+    gulp.start('styles', 'scripts');
+});
+
+
 gulp.task('nodemon', function(cb) {
     nodemon({
             script: './app.js'
@@ -210,13 +233,9 @@ gulp.task('nodemon', function(cb) {
         });
 });
 
-// Default task
-gulp.task('default', function() {
-    gulp.start('styles', 'scripts');
-});
-
 // Watch
 gulp.task('watch', function() {
     gulp.watch('./public/src/css/**/*.css', ['styles'], browserSync.reload);
-    gulp.watch('./public/src/js/*.js', ['scripts'], browserSync.reload);
+    gulp.watch('./public/src/js/app/*.js', ['scripts-app'], browserSync.reload);
+    gulp.watch('./public/src/js/slideshow/*.js', ['scripts-slideshow'], browserSync.reload);
 });
