@@ -1,11 +1,12 @@
-body {
+body, html {
     width: 100%;
-    background: var( --background-color);
+    height: 100%;
+    margin: 0;
+    background: var( --background-color-normal);
 }
 main {
     width: 100%;
-    min-width: 13em;
-    margin: 0 auto 0 auto;
+    height: calc(100% - 60px);
 }
 img {
     width: 100%;
@@ -14,12 +15,26 @@ video {
     width: 100%;
     height: auto;
 }
+a {
+    text-decoration: none;
+}
 .none, .disabled {
     display: none !important;
+}
+.scrollable {
+    overflow-y: auto;
 }
 .center {
     text-align: center;
 }
-.right{
-  float: right;
+.right {
+    float: right;
+}
+@media (--narrow-window) {
+    main {
+        display: flex;
+        flex-direction: row;
+        align-content: stretch;
+        margin: 0 auto 0 auto;
+    }
 }
