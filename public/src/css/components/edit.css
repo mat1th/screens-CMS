@@ -1,17 +1,15 @@
 .edit-nav {
-    /*height: 100%;*/
-    /*width:100%;*/
     background: var(--primary-color);
-      text-align: center;
+    text-align: center;
 }
 .edit-nav li {
-  text-align: center;
     display: inline-block;
+    text-align: center;
 }
 .edit-nav a {
-  text-align: center;
-    padding: 0.5em 0.5em;
     display: block;
+    padding: 0.5em 0.5em;
+    text-align: center;
 }
 .edit-nav a:hover {
     background: var( --background-color-dark);
@@ -23,16 +21,16 @@
         text-align: left;
     }
     .edit-nav {
-        height: 100%;
         width: 7em;
+        height: 100%;
     }
     .edit-nav a {
+        display: block;
+        padding: 1em 1em;
         border-bottom-width: 0.5px;
         border-bottom-style: solid;
-        display: block;
-        color: var(--font-color-dark);
         border-bottom-color: var( --background-color-dark);
-        padding: 1em 1em;
+        color: var(--font-color-dark);
         text-align: center;
     }
 }

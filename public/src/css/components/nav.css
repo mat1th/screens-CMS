@@ -2,19 +2,19 @@
 
 header > nav {
     box-sizing: border-box;
-    width: 100%;
     position: relative;
+    width: 100%;
     min-width: 13em;
     padding: 1em;
     border-bottom-width: 0.5px;
     border-bottom-style: solid;
     border-bottom-color: RGBA(254, 254, 254, 0.22);
-    z-index: 15;
     background: var(--background-color-dark);
+    z-index: 15;
 }
 header > nav.home {
-  background: none;
-  position: absolute;
+    position: absolute;
+    background: none;
 }
 header ul {
     margin: 0;

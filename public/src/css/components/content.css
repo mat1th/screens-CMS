@@ -1,12 +1,12 @@
 .content {
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
     flex-wrap: wrap;
-    justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
+    justify-content: flex-start;
     padding: 1em;
-    flex-grow: 1;
 }
 .content-header {
     display: flex;
@@ -15,8 +15,8 @@
     margin-bottom: 1em;
 }
 .content-header h1 {
-    flex-grow: 1;
     display: inline-block;
+    flex-grow: 1;
 }
 .content-body {
     flex-grow: 1;
@@ -25,12 +25,12 @@
 /*table*/
 
 .content-body table {
-    text-align: left;
     width: 100%;
+    text-align: left;
 }
 .content-body table {
-    border-collapse: collapse;
     width: 100%;
+    border-collapse: collapse;
 }
 .content-body th, td {
     text-align: left;
@@ -48,24 +48,24 @@
     border-bottom: 1px solid var(--background-color-light);
 }
 .content-body td:before {
-    content: attr(data-th) ": ";
+    display: inline-block;
+    width: 6.5em;
+    padding: 0.5em;
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
     font-weight: bold;
     text-align: right;
-    width: 6.5em;
-    color: var(--font-color-light);
-    background-color: var(--eddit-color);
-    padding: 0.5em;
-    display: inline-block;
+    content: attr(data-th) ": ";
 }
 
 /*card*/
 
 .card {
-    background: var(--background-color-light);
     min-width: 10em;
     min-height: 10em;
-    padding: 0.5em;
     margin: 0.5em;
+    padding: 0.5em;
+    background: var(--background-color-light);
     box-shadow: var(--shadow-normal);
 }
 .card-header {
@@ -77,8 +77,8 @@
 }
 @media (--narrow-window) {
     .card {
-        padding: 1em;
         min-width: 15em;
+        padding: 1em;
     }
     .content-body th, .content-body td {
         padding: 1.5em;

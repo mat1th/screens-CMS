@@ -1,14 +1,14 @@
 .banner {
+    display: flex;
+    flex-grow: 1;
+    height: 30em;
     background: url(../../img/background.jpg);
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-size: cover;
-    flex-grow: 1;
-    height: 30em;
-    display: flex;
 }
 .banner h1 {
-    color: #fff;
     margin: auto auto;
+    color: #fff;
 }
