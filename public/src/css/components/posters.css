@@ -3,7 +3,7 @@
 .poster {
     display: inline-block;
     position: relative;
-    max-width: 20em;
+    max-width: 15em;
 }
 .poster img {
     margin: 0;
