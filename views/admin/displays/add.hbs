@@ -1,0 +1,26 @@
+ {{> nav}}
+<section class="content scrollable">
+    <section class="content-header">
+        <h1>Add a display</h1>
+    </section>
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{/if}}
+    <form action="{{postUrl}}" method="post">
+        <div class="">
+            <label for="field_name">Name: </label>
+            <input type="text" id="field_name" name="name" value="">
+        </div>
+        <div class="">
+            <label for="field_slideshow">Slideshow: </label>
+            <select class="" id="field_slideshow" name="slideshow_id">
+                {{#each data}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button>Upload!</button>
+    </form>
+</section>

@@ -1,0 +1,33 @@
+  {{> nav}}
+<section class="content scrollable">
+  <section class="content-header">
+      <h1>Users</h1>
+      <!-- <a href="/admin/users/add" class="btn btn-default">Add a new user</a> -->
+  </section>
+  <section class="content-body">
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{else}}
+        <table>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+            </tr>
+            {{#each data}}
+                <tr>
+                    <td data-th="Name">{{name}}</td>
+                    <td data-th="Email">{{email}}</td>
+                    <td data-th="Role">{{role}}</td>
+                    <td data-th="Edit"><a href="#">Edit</a></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    {{/if}}
+
+</section>
+</section>

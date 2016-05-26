@@ -8,10 +8,14 @@ var gulp = require('gulp'),
     postcss = require('gulp-postcss'),
     critical = require('critical'),
     autoprefixer = require('autoprefixer'),
+    browserSync = require('browser-sync').create(),
     svgmin = require('gulp-svgmin'),
+    nodemon = require('gulp-nodemon'),
     cssnext = require('cssnext'),
     mqpacker = require('css-mqpacker'),
     csswring = require('csswring'),
+    sourcemaps = require('gulp-sourcemaps'),
+    called = false,
     // responsive = require('gulp-responsive'),
     imgConfig = [{
         width: 1500,
@@ -62,39 +66,67 @@ gulp.task('styles', function(cb) {
             './public/src/css/base.css',
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
+            './public/src/css/components/buttons.css',
             './public/src/css/components/nav.css',
-            './public/src/css/components/about.css',
+            './public/src/css/components/content.css',
+            './public/src/css/components/posters.css',
+            './public/src/css/components/edit.css',
             './public/src/css/components/slider.css',
             './public/src/css/components/home.css',
-            './public/src/css/components/skills.css',
-            './public/src/css/components/project.css',
-            './public/src/css/components/projectcolors.css',
             './public/src/css/components/footer.css'
         ])
+        .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
         .pipe(postcss(processors))
         .pipe(cssnano())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'))
         .pipe(notify({
             message: 'styles task complete'
         }));
 });
 
-// Scripts
-gulp.task('scripts', function(cb) {
-    return gulp.src(['./node_modules/gsap/src/minified/TweenMax.min.js', './public/src/js/script.js'])
+// Scripts app
+gulp.task('scripts-app', function(cb) {
+    // './node_modules/gsap/src/minified/TweenMax.min.js'
+
+    return gulp.src([
+            './public/src/js/app/DPstart.js',
+            './public/src/js/app/DPhelper.js',
+            './public/src/js/app/DProutes.js',
+            './public/src/js/app/DPposter.js',
+            './public/src/js/app/DPinit.js'
+        ])
+        .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
         .pipe(notify({
-            message: 'Scripts task complete'
+            message: 'Scripts-app task complete'
+        }));
+});
+// Scripts slideshow
+gulp.task('scripts-slideshow', function(cb) {
+    // './node_modules/gsap/src/minified/TweenMax.min.js'
+    return gulp.src(['./public/src/js/slideshow/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(concat('slideshow.js'))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./public/dist/js/'))
+        .pipe(notify({
+            message: 'Scripts-slideshow task complete'
         }));
 });
 
-gulp.task('critical', function (cb) {
+gulp.task('critical', function(cb) {
     return critical.generate({
         base: './',
         src: 'index.html',
@@ -102,13 +134,13 @@ gulp.task('critical', function (cb) {
         dimensions: [{
             width: 320,
             height: 480
-    }, {
+        }, {
             width: 768,
             height: 400
-    }, {
+        }, {
             width: 1280,
             height: 400
-    }],
+        }],
         dest: 'public/dist/css/critical.css',
         ignore: ['@font-face', /url\(/],
         minify: true,
@@ -178,14 +210,46 @@ gulp.task('toggleimg', function() {
         .pipe(gulp.dest('public/dist/img/togglebuttons/'));
 });
 
+gulp.task('browser-sync', ['nodemon', 'watch'], function() {
+    browserSync.init({
+        proxy: "http://localhost:3010",
+        files: ["**/*.*"],
+        port: 7000
+    });
+});
 
 // Default task
 gulp.task('default', function() {
     gulp.start('styles', 'scripts');
 });
 
+
+gulp.task('nodemon', function(cb) {
+    nodemon({
+            script: './app.js'
+        })
+        .on('start', function() {
+            if (!called) {
+                cb();
+            }
+            called = true;
+        })
+        .on('restart', function onRestart() {
+            setTimeout(function reload() {
+                browserSync.reload({
+                    stream: false
+                });
+            }, 500);
+        })
+        .on('error', function(err) {
+            // Make sure failure causes gulp to exit
+            throw err;
+        });
+});
+
 // Watch
 gulp.task('watch', function() {
-    gulp.watch('./public/src/css/**/*.css', ['styles']);
-    gulp.watch('./public/src/js/*.js', ['scripts']);
+    gulp.watch('./public/src/css/**/*.css', ['styles'], browserSync.reload);
+    gulp.watch('./public/src/js/app/*.js', ['scripts-app'], browserSync.reload);
+    gulp.watch('./public/src/js/slideshow/*.js', ['scripts-slideshow'], browserSync.reload);
 });

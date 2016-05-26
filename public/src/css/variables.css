@@ -1,9 +1,15 @@
 @custom-media --narrow-window (min-width: 30em);
 :root {
     --primary-color: #FFCC00;
-    --secondairy-color: #EB5D56;
-    --thirth-color: #004899;
-    --font-color: #000000;
+    --warn-color: #EB5D56;
+    --eddit-color: #004899;
+    --normal-color: #009B8F;
+    --font-color-dark: #000000;
     --font-color-light: #fff;
-    --background-color: #efecea;
+    --background-color-dark: #000000;
+    --background-color-light: #fff;
+    --background-color-normal: #efecea;
+    --background-color-semidark: #c4c4c3;
+    /*shadows*/
+    --shadow-normal: rgba(0, 0, 0, 0.14902) 4px 4px 8px 0px;
 }

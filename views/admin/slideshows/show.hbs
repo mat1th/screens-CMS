@@ -1,0 +1,35 @@
+ {{> nav}}
+<section class="content scrollable">
+  <section class="content-header">
+      <h1>Slidehows</h1>
+      <a href="/admin/slideshows/add" class="btn btn-default">Add new slideshow</a>
+  </section>
+  <section class="content-body">
+    {{#if error}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{else}}
+        <table>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Posters</th>
+                <th scope="col">Edit</th>
+            </tr>
+            {{#each data}}
+                <tr>
+                    <td data-th="Id">{{id}}</td>
+                    <td data-th="Discription">{{name}}</td>
+                    <td data-th="Posters">{{posters}}</td>
+                    <td data-th="Edit"><a href="#">Edit</a></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    {{/if}}
+  </section>
+
+
+
+</section>

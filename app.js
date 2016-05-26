@@ -7,15 +7,24 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     multer = require('multer'),
     mysql = require('mysql'),
+    hbs = require('hbs'),
     myConnection = require('express-myconnection'),
-    //create routes
+    //get files for routes for not loged in
     index = require('./routes/index'),
-    login = require('./routes/users'),
-    edit = require('./routes/edit'),
-    posters = require('./routes/posters');
+    download = require('./routes/download'),
+    // get files for login
+    userAcounts = require('./routes/users/users'),
+    //get files for admin
+    dashboard = require('./routes/admin/index'),
+    displaysAdmin = require('./routes/admin/displays/index'),
+    posters = require('./routes/admin/posters/index'),
+    slideshows = require('./routes/admin/slideshows/index'),
+    display = require('./routes/display/index'),
+    users = require('./routes/admin/users/index');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
 //define body parser
@@ -69,9 +78,18 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 
 //use routes
 app.use('/', index);
-app.use('/users', login);
-app.use('/edit', edit);
-app.use('/posters', posters);
+app.use('/download', download);
+// get files for login
+app.use('/users', userAcounts);
+//get files for admin
+app.use('/admin', dashboard);
+app.use('/admin/displays', displaysAdmin);
+app.use('/admin/posters', posters);
+app.use('/admin/slideshows', slideshows);
+app.use('/admin/users', users);
+//get files for slidewhows
+app.use('/display', display);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

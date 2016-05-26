@@ -1,0 +1,36 @@
+.edit-nav {
+    background: var(--primary-color);
+    text-align: center;
+}
+.edit-nav li {
+    display: inline-block;
+    text-align: center;
+}
+.edit-nav a {
+    display: block;
+    padding: 0.5em 0.5em;
+    text-align: center;
+}
+.edit-nav a:hover {
+    background: var( --background-color-dark);
+    color: var(--font-color-light);
+}
+@media (--narrow-window) {
+    .edit-nav li {
+        display: block;
+        text-align: left;
+    }
+    .edit-nav {
+        width: 7em;
+        height: 100%;
+    }
+    .edit-nav a {
+        display: block;
+        padding: 1em 1em;
+        border-bottom-width: 0.5px;
+        border-bottom-style: solid;
+        border-bottom-color: var( --background-color-dark);
+        color: var(--font-color-dark);
+        text-align: center;
+    }
+}

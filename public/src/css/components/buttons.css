@@ -1,0 +1,21 @@
+.btn {
+    box-sizing: border-box;
+    display: inline-block;
+    flex-grow: 0;
+    height: 2.4em;
+    margin: auto;
+    padding: .5em 1em;
+    border-radius: 2px;
+    font-size: 100%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 1;
+}
+.btn-default {
+    background-color: var(--normal-color);
+    color: var(--font-color-light);
+}
+.btn-default:hover {
+    background-color: rgb(24, 184, 98);
+}

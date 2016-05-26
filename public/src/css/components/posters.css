@@ -1,0 +1,25 @@
+.posters {
+}
+.poster {
+    display: inline-block;
+    position: relative;
+    max-width: 15em;
+}
+.poster img {
+    margin: 0;
+    padding: 0;
+}
+/*.poster:hover {
+    opacity: 0.8;
+}*/
+.poster div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.86) 100%);
+    color: var(--font-color-light);
+    z-index: 1;
+}
+.poster h2 {
+    padding: 0.5em;
+}

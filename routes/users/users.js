@@ -1,20 +1,24 @@
 var fs = require('fs'),
     express = require('express'),
     mysql = require('mysql'),
-    paswordStrength = require('../modules/paswordStrength.js'),
-    checklogin = require('../modules/checklogin.js'),
+    paswordStrength = require('../../modules/paswordStrength.js'),
+    checklogin = require('../../modules/checklogin.js'),
     router = express.Router();
 
 
 router.get('/login', function(req, res, next) {
-    var data = {
-        error: false,
-        logedin: checklogin(req.session),
-        title: 'Login',
-        postUrl: '/users/login'
-    };
+    // if (checklogin(req.session)) {
+    //     res.redirect('/edit');
+    // } else {
+        var data = {
+            error: false,
+            logedin: checklogin(req.session),
+            title: 'Login',
+            postUrl: '/users/login'
+        };
 
-    res.render('users/login', data);
+        res.render('users/login', data);
+    // }
 });
 
 router.post('/login', function(req, res) {
@@ -30,7 +34,7 @@ router.post('/login', function(req, res) {
             }
             if (match != '' && match.length > 0) {
                 req.session.email = email;
-                res.redirect('/edit');
+                res.redirect('/admin');
             } else {
 
                 var data = {

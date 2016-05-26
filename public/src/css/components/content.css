@@ -1,0 +1,94 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 1em;
+}
+.content-header {
+    display: flex;
+    flex-grow: 0;
+    width: 100%;
+    margin-bottom: 1em;
+}
+.content-header h1 {
+    display: inline-block;
+    flex-grow: 1;
+}
+.content-body {
+    flex-grow: 1;
+}
+
+/*table*/
+
+.content-body table {
+    width: 100%;
+    text-align: left;
+}
+.content-body table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.content-body th, td {
+    text-align: left;
+}
+.content-body tr:nth-child(even) {
+    background-color: var(--background-color-semidark);
+}
+.content-body th {
+    display: none;
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
+}
+.content-body td {
+    display: block;
+    border-bottom: 1px solid var(--background-color-light);
+}
+.content-body td:before {
+    display: inline-block;
+    width: 6.5em;
+    padding: 0.5em;
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
+    font-weight: bold;
+    text-align: right;
+    content: attr(data-th) ": ";
+}
+
+/*card*/
+
+.card {
+    min-width: 10em;
+    min-height: 10em;
+    margin: 0.5em;
+    padding: 0.5em;
+    background: var(--background-color-light);
+    box-shadow: var(--shadow-normal);
+}
+.card-header {
+    width: 100%;
+}
+.card-body {
+    max-width: 20em;
+    margin: 0.5em 1em 1em 0;
+}
+@media (--narrow-window) {
+    .card {
+        min-width: 15em;
+        padding: 1em;
+    }
+    .content-body th, .content-body td {
+        padding: 1.5em;
+        border-bottom: none;
+    }
+    .content-body td:before {
+        display: none;
+    }
+    .content-body th, .content-body td {
+        display: table-cell;
+        padding: .25em .5em;
+    }
+}
