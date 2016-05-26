@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.4",
-    "multer": "^1.1.0",
+    "multer": "^0.1.6",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.10.1",
     "gsap": "^1.18.2",
