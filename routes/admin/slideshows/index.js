@@ -17,13 +17,13 @@ var fs = require('fs'),
 
                     if (match !== '' && match.length > 0) {
                         res.render('admin/slideshows/show', {
-                            title: 'Home',
+                            title: 'Slideshows',
                             logedin: checklogin(req.session),
                             data: match
                         });
                     }else{
                       res.render('admin/slideshows/show', {
-                          title: 'Home',
+                          title: 'Slideshows',
                           logedin: checklogin(req.session),
                           error: 'You have no displays jet',
                           data: match

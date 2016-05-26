@@ -16,13 +16,13 @@ router.get('/', function(req, res, next) {
                 }
                 if (match !== '' && match.length > 0) {
                     res.render('admin/displays/show', {
-                        title: 'Home',
+                        title: 'Displays',
                         logedin: checklogin(req.session),
                         data: match
                     });
                 } else {
                     res.render('admin/displays/show', {
-                        title: 'Home',
+                        title: 'Displays',
                         logedin: checklogin(req.session),
                         error: 'You have no displays jet',
                         data: match

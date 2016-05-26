@@ -6,18 +6,67 @@
     align-content: flex-start;
     align-items: flex-start;
     padding: 1em;
+    flex-grow: 1;
 }
 .content-header {
+    display: flex;
+    flex-grow: 0;
+    width: 100%;
+    margin-bottom: 1em;
+}
+.content-header h1 {
+    flex-grow: 1;
+    display: inline-block;
+}
+.content-body {
+    flex-grow: 1;
+}
+
+/*table*/
+
+.content-body table {
+    text-align: left;
     width: 100%;
 }
+.content-body table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.content-body th, td {
+    text-align: left;
+}
+.content-body tr:nth-child(even) {
+    background-color: var(--background-color-semidark);
+}
+.content-body th {
+    display: none;
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
+}
+.content-body td {
+    display: block;
+    border-bottom: 1px solid var(--background-color-light);
+}
+.content-body td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    text-align: right;
+    width: 6.5em;
+    color: var(--font-color-light);
+    background-color: var(--eddit-color);
+    padding: 0.5em;
+    display: inline-block;
+}
+
+/*card*/
+
 .card {
     background: var(--background-color-light);
     min-width: 10em;
     min-height: 10em;
-    /*flex-grow: 1;*/
     padding: 0.5em;
     margin: 0.5em;
-    box-shadow: rgba(0, 0, 0, 0.14902) 4px 4px 8px 0px;
+    box-shadow: var(--shadow-normal);
 }
 .card-header {
     width: 100%;
@@ -30,5 +79,16 @@
     .card {
         padding: 1em;
         min-width: 15em;
+    }
+    .content-body th, .content-body td {
+        padding: 1.5em;
+        border-bottom: none;
+    }
+    .content-body td:before {
+        display: none;
+    }
+    .content-body th, .content-body td {
+        display: table-cell;
+        padding: .25em .5em;
     }
 }

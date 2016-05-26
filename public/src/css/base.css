@@ -30,6 +30,9 @@ a {
 .right {
     float: right;
 }
+.error {
+    margin: 2em auto;
+}
 @media (--narrow-window) {
     main {
         display: flex;

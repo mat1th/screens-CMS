@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
                 }
                 if (match !== '' && match.length > 0) {
                     res.render('admin/index', {
-                        title: 'Your posters',
+                        title: 'Dashboard',
                         data: match,
                         error: false,
                         logedin: login
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
                 } else {
                     res.render('admin/index', {
-                        title: 'Your posters',
+                        title: 'Dashboard',
                         data: match[0],
                         error: 'You have got no posters',
                         logedin: login
