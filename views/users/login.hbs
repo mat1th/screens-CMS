@@ -1,14 +1,23 @@
-{{#if error}}
-<div class="error">
-  {{error}}
-</div>
-{{/if}}
-<form action="{{postUrl}}" method="post">
-    <h1>Login</h1>
-    <label for="field_email">Email: </label>
-    <input type="text" id="field_email" name="email" value="" placeholder="">
-    <label for="field_password">Password: </label>
-    <input type="password" id="field_password" name="password" value="">
-    <button type="submit">Login!</button>
-</form>
-<a href="/users/register">Register</a>
+<section class="content scrollable users-form">
+    <section class="form">
+        <form action="{{postUrl}}" method="post">
+            <h1>Login</h1>
+            {{#if error}}
+                <div class="error">
+                    {{error}}
+                </div>
+            {{/if}}
+
+            <label for="field_email">Email: </label>
+            <input type="text" id="field_email" name="email" value="" placeholder="naam@example.nl">
+
+            <label for="field_password">Password: </label>
+            <input type="password" id="field_password" name="password" value="" placeholder="*********">
+
+            <button type="submit" class="btn btn-default">Login!</button>
+            <a href="/users/register" class="btn btn-default">Register</a>
+        </form>
+
+    </section>
+
+</section>

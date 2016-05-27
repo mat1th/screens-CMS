@@ -1,0 +1,25 @@
+.users-form {
+    display: flex;
+    height: 100vh;
+    background: red;
+    background: url(/img/background.jpg);
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-size: cover;
+}
+.form {
+    margin: 4em auto auto auto;
+    background: var(--background-color-light);
+    padding: 1em;
+}
+.form label{
+  display: block;
+}
+
+.form input{
+  border: 1px solid var(--background-color-semidark);
+  display: block;
+  font-size: 1.1em;
+  padding: 0.3em;
+}

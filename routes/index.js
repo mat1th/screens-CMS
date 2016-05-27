@@ -6,7 +6,7 @@ var fs = require('fs'),
 router.get('/', function(req, res, next) {
     res.render('home', {
         title: 'Home',
-        navPosition: 'home',
+        navPosition: 'transparant',
         logedin: checklogin(req.session),
         data: 'hio'
     });

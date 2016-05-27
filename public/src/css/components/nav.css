@@ -12,7 +12,7 @@ header > nav {
     background: var(--background-color-dark);
     z-index: 15;
 }
-header > nav.home {
+header > nav.transparant {
     position: absolute;
     background: none;
 }
