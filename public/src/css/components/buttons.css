@@ -14,10 +14,24 @@
     z-index: 1;
     border: none;
 }
+.btn-normal {
+    background-color: var(--background-color-semidark);
+    color: var(--font-color-dark);
+}
+.btn-normal:hover {
+    background-color: rgb(89, 89, 89);
+    color: var(--font-color-light);
+}
 .btn-default {
     background-color: var(--normal-color);
     color: var(--font-color-light);
 }
 .btn-default:hover {
-    background-color: rgb(24, 184, 98);
+    background-color: #137d73;
+}
+input {
+    border: 1px solid var(--background-color-semidark);
+    display: block;
+    font-size: 1em;
+    padding: 0.3em;
 }
