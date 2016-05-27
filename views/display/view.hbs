@@ -1,11 +1,20 @@
 {{#if data}}
-{{#each data}}
-<div class="">
-  <img src="/download/{{filename}}" alt="" />
-</div>
-{{/each}}
+    <section class="slideshow">
+        {{#each data}}
+            {{#checkTypeOfPoster type equals="poster" }}
+                <div class="slide" data-animation="{{animation}}" data-duration="{{duration}}">
+                    <img src="/download/{{filename}}" alt="" />
+                </div>
+            {{/checkTypeOfPoster}}
+            {{#checkTypeOfPoster type equals="vimeo" }}
+                <div class="slide" data-animation="{{animation}}" data-duration="{{duration}}">
+                    <iframe src="//player.vimeo.com/video/{{filename}}" width="WIDTH" height="HEIGHT" frameborder="0" autoplay="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            {{/checkTypeOfPoster}}
+        {{/each}}
+    </section>
 {{else}}
-<p>
-  You have no slidewhow assigned
-</p>
+    <p>
+        You have no slidewhow assigned
+    </p>
 {{/if}}

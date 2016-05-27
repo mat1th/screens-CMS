@@ -11,9 +11,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/:displayId', function(req, res, next) {
     var displayId = req.params.displayId;
-    var login = checklogin(req.session)
+    var login = checklogin(req.session);
     var posterUrls = [];
-    if (login) {
+    // if (login) {
         req.getConnection(function(err, connection) {
             var sqlGetFilname = 'SELECT filename FROM posters WHERE '
             var sql = 'SELECT posters FROM slideshows WHERE id IN( SELECT slideshow_id FROM displays WHERE id = ? )';
@@ -25,7 +25,7 @@ router.get('/:displayId', function(req, res, next) {
                 if (match !== '' && match.length > 0) {
                     var posterIds = JSON.parse(match[0].posters);
                     //create string for posters
-                      var sqlGetFilname = 'SELECT filename FROM posters WHERE '
+                      var sqlGetFilname = 'SELECT filename, animation, duration, type FROM posters WHERE '
                     posterIds.forEach(function(currentValue, index) {
                         if (index === posterIds.length - 1) {
                             sqlGetFilname += 'id = ' + currentValue;
@@ -64,9 +64,9 @@ router.get('/:displayId', function(req, res, next) {
                 }
             });
         });
-    } else {
-        res.redirect('/users/login');
-    }
+    // } else {
+    //     res.redirect('/users/login');
+    // }
 });
 
 

@@ -36,6 +36,15 @@ app.use(bodyParser.json());
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
 
+hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
+    if (conditional == options.hash.equals) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
+
+
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
     if (req.url.substr(-1) == '/' && req.url.length > 1) {
