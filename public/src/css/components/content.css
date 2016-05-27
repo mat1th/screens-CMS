@@ -45,7 +45,7 @@
 }
 .content-body td {
     display: block;
-    border-bottom: 1px solid var(--background-color-light);
+    border-bottom: 0.0625rem solid var(--background-color-light);
 }
 .content-body td:before {
     display: inline-block;

@@ -6,7 +6,7 @@
     margin: auto;
     font-weight: 400;
     padding: .5em 1em;
-    border-radius: 2px;
+    border-radius: 0.125rem;
     font-size: 100%;
     text-align: center;
     text-decoration: none;
@@ -30,7 +30,7 @@
     background-color: #137d73;
 }
 input {
-    border: 1px solid var(--background-color-semidark);
+    border: 0.0625rem solid var(--background-color-semidark);
     display: block;
     font-size: 1em;
     padding: 0.3em;

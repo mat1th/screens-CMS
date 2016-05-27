@@ -6,7 +6,7 @@ header > nav {
     width: 100%;
     min-width: 13em;
     padding: 1em;
-    border-bottom-width: 0.5px;
+    border-bottom-width: 0.065rem;
     border-bottom-style: solid;
     border-bottom-color: RGBA(254, 254, 254, 0.22);
     background: var(--background-color-dark);

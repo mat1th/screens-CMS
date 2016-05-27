@@ -18,7 +18,7 @@
 }
 
 .form input{
-  border: 1px solid var(--background-color-semidark);
+  border: 0.125rem solid var(--background-color-semidark);
   display: block;
   font-size: 1.1em;
   padding: 0.3em;

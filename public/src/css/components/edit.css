@@ -28,7 +28,7 @@
     .edit-nav a {
         display: block;
         padding: 1em 1em;
-        border-bottom-width: 0.5px;
+        border-bottom-width: 0.065rem;
         border-bottom-style: solid;
         border-bottom-color: var( --background-color-dark);
         color: var(--font-color-dark);
