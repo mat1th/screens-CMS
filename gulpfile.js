@@ -93,6 +93,7 @@ gulp.task('scripts-app', function(cb) {
     return gulp.src([
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
+            './public/src/js/app/DPfiledrag.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPposter.js',
             './public/src/js/app/DPinit.js'
