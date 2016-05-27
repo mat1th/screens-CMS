@@ -9,9 +9,14 @@
               {{error}}
           </div>
       {{/if}}
-      <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
+      <!-- <div id="messages">
+        <p>Status Messages</p>
+      </div> -->
+              <!-- <div id="filedrag">or drop files here</div> -->
+        <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
           <div class="">
               <input type="file" name="imageFile" value="" id="field_file">
+
           </div>
           <div class="">
               <label for="field_name">Name: </label>
@@ -52,6 +57,7 @@
           </div>
           <button>Upload!</button>
       </form>
+
       <img src="" alt="" id="input_preview"/>
     </section>
 

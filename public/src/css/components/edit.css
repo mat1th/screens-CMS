@@ -1,6 +1,7 @@
 .edit-nav {
     background: var(--primary-color);
     text-align: center;
+    min-width: 7em;
 }
 .edit-nav li {
     display: inline-block;
