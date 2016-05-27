@@ -68,6 +68,7 @@ gulp.task('styles', function(cb) {
             './public/src/css/typography.css',
             './public/src/css/components/buttons.css',
             './public/src/css/components/nav.css',
+            './public/src/css/components/login.css',
             './public/src/css/components/content.css',
             './public/src/css/components/posters.css',
             './public/src/css/components/edit.css',

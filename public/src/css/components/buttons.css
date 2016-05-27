@@ -4,6 +4,7 @@
     flex-grow: 0;
     height: 2.4em;
     margin: auto;
+    font-weight: 400;
     padding: .5em 1em;
     border-radius: 2px;
     font-size: 100%;
@@ -11,6 +12,7 @@
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
+    border: none;
 }
 .btn-default {
     background-color: var(--normal-color);

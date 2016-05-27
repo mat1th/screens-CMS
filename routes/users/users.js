@@ -10,14 +10,15 @@ router.get('/login', function(req, res, next) {
     // if (checklogin(req.session)) {
     //     res.redirect('/edit');
     // } else {
-        var data = {
-            error: false,
-            logedin: checklogin(req.session),
-            title: 'Login',
-            postUrl: '/users/login'
-        };
+    var data = {
+        error: false,
+        logedin: checklogin(req.session),
+        title: 'Login',
+        navPosition: 'transparant',
+        postUrl: '/users/login'
+    };
 
-        res.render('users/login', data);
+    res.render('users/login', data);
     // }
 });
 
@@ -41,6 +42,7 @@ router.post('/login', function(req, res) {
                     error: 'Gebruikersnaam en/of wachtwoord onjuist.',
                     logedin: checklogin(req.session),
                     title: 'Login',
+                    navPosition: 'transparant',
                     postUrl: '/users/login'
                 };
                 res.render('users/login', data);
@@ -53,6 +55,7 @@ router.post('/login', function(req, res) {
 router.get('/register', function(req, res) {
     var data = {
         error: false,
+        navPosition: 'transparant',
         logedin: checklogin(req.session),
         postUrl: '/users/register'
     }
@@ -86,6 +89,7 @@ router.post('/register', function(req, res) {
     } else {
         var data = {
             postUrl: '/users/register',
+            navPosition: 'transparant',
             logedin: checklogin(req.session),
             error: 'Gebruikersnaam en/of wachtwoord leeg.'
         }
