@@ -11,6 +11,8 @@ const express = require('express'),
     mysql = require('mysql'),
     hbs = require('hbs'),
     myConnection = require('express-myconnection'),
+    //own modules
+    generateUUID = require('./modules/generateUUID.js'),
     //get files for routes for not loged in
     index = require('./routes/index'),
     download = require('./routes/download'),
@@ -59,6 +61,10 @@ app.use(function(req, res, next) {
 // Add session support
 app.use(session({
     secret: 'soSecureMuchEncryption',
+    genid: function(req) {
+      console.log(generateUUID());
+        return generateUUID() // use UUIDs for session IDs
+    },
     store: new FileStore(),
     saveUninitialized: true,
     resave: false
@@ -128,7 +134,7 @@ const options = {
 
 // Create an HTTPS service identical to the HTTP service.
 https.createServer(options, app)
-                  .listen(4433, 'localhost');
+    .listen(4433, 'localhost');
 
 //start app
 app.listen(3010, function() {
