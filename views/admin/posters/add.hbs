@@ -20,31 +20,38 @@
             </div>
             <div class="">
                 <input type="file" name="imageFile" value="" id="field_file">
-
             </div>
             <div class="">
                 <label for="field_discription">Discription: </label>
                 <input type="text" id="field_discription" name="discription" value="">
             </div>
             <div class="">
-                <label for="field_duration">type: </label>
+                <label for="field_duration">Type: </label>
                 <select class="" name="type">
                     <option value="poster">Pooster</option>
-                    <option value="video">Video</option>
-                    <option value="Poll">Poll</option>
+                    <option value="video">Vimeo video</option>
+                    <!-- <option value="Poll">Poll</option> -->
+                </select>
+            </div>
+            <div class="">
+                <label for="field_animation">Animation: </label>
+                <select class="" name="animation">
+                    <option value="pop">pop</option>
+                    <option value="top-push">push from top</option>
+                    <option value="left-push">push from left</option>
                 </select>
             </div>
             <div class="">
                 <label for="field_duration">Duration: </label>
                 <select class="" name="duration">
-                    <option value="1000">10 sec</option>
-                    <option value="2000">20 sec</option>
-                    <option value="3000">30 sec</option>
-                    <option value="4000">40 sec</option>
-                    <option value="5000">50 sec</option>
-                    <option value="60000">1 min</option>
-                    <option value="90000">1 min 30 sec</option>
-                    <option value="120000">2 min</option>
+                    <option value="10">10 sec</option>
+                    <option value="20">20 sec</option>
+                    <option value="30">30 sec</option>
+                    <option value="40">40 sec</option>
+                    <option value="50">50 sec</option>
+                    <option value="60">1 min</option>
+                    <option value="90">1,5 min</option>
+                    <option value="120">2 min</option>
                 </select>
             </div>
             <div class="">
@@ -56,7 +63,7 @@
                 <input type="date" id="field_date_end" name="date_end" value="">
             </div>
             <a href="/admin/posters" class="btn btn-normal">Cancel</a>
-            <button class="btn btn-default">Upload!</button>
+            <button class="btn btn-default">Upload the poster</button>
         </form>
 
         <img src="" alt="" id="input_preview" />
