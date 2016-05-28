@@ -56,9 +56,9 @@ slideshow.start = (function() {
                     opacity: 1,
                     ease: Power4.easeIn
                 }).to(element, animationTime, {
-                    x: windowWidth * 2,
-                    opacity: 0,
-                    ease: Power4.easeIn,
+                    // x: windowWidth * 2,
+                    // opacity: 0,
+                    // ease: Power4.easeIn,
                     delay: duration,
                     onComplete: slideshow.vimeo.pauze,
                     onCompleteParams: [type]
@@ -74,9 +74,9 @@ slideshow.start = (function() {
                     opacity: 1,
                     ease: Power4.easeIn
                 }).to(element, animationTime, {
-                    x: windowHeight * 2,
-                    opacity: 0,
-                    ease: Power4.easeIn,
+                    // x: windowHeight * 2,
+                    // opacity: 0,
+                    // ease: Power4.easeIn,
                     delay: duration,
                     onComplete: slideshow.vimeo.pauze,
                     onCompleteParams: [type]
@@ -93,9 +93,9 @@ slideshow.start = (function() {
                     scale: 1,
                     rotation: 0
                 }).to(element, animationTime, {
-                    opacity: 0,
-                    scale: 0,
-                    rotation: -180,
+                    // opacity: 0,
+                    // scale: 0,
+                    // rotation: -180,
                     delay: duration,
                     onComplete: slideshow.vimeo.pauze,
                     onCompleteParams: [type]

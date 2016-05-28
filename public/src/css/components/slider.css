@@ -2,6 +2,8 @@ html, body {
     background: var(--primary-color);
 }
 .slideshow {
+    background: url('/img/cmd_brand.png') no-repeat center center fixed;
+    background-size: contain;
     overflow: visible;
     position: relative;
 }
@@ -35,6 +37,6 @@ html, body {
     top: -100vh;
     opacity: 0;
 }
-.pop{
-  transform: scale(0);
+.pop {
+    transform: scale(0);
 }

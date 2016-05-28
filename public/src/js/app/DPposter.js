@@ -23,3 +23,4 @@ DP.poster = (function() {
         uploadPreview: uploadPreview
     };
 })();
+ // http://vimeo.com/api/v2/video/125229524.json
