@@ -16,7 +16,7 @@ router.get('/:displayId', function(req, res, next) {
     // if (login) {
         req.getConnection(function(err, connection) {
             var sqlGetFilname = 'SELECT filename FROM posters WHERE '
-            var sql = 'SELECT posters FROM slideshows WHERE id IN( SELECT slideshow_id FROM displays WHERE id = ? )';
+            var sql = 'SELECT posters FROM slideshows WHERE id IN( SELECT slideshowId FROM displays WHERE id = ? )';
             // Get the user id using username
             connection.query(sql, [displayId], function(err, match) {
                 if (err) {

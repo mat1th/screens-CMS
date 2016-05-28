@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     if (login) {
         if (admin) {
             req.getConnection(function(err, connection) {
-                var sql = 'SELECT id, slideshow_id, name FROM displays';
+                var sql = 'SELECT id, slideshowId, name FROM displays';
                 // Get the user id using username
                 connection.query(sql, function(err, match) {
                     if (err) {
@@ -60,7 +60,7 @@ router.post('/add', function(req, res) {
     var email = email,
         body = req.body,
         name = body.name,
-        slideshowId = body.slideshow_id,
+        slideshowId = body.slideshowId,
         now = new Date();
 
     if (name !== undefined && name.length !== 0 && slideshowId !== null) {
@@ -68,8 +68,8 @@ router.post('/add', function(req, res) {
             var sqlQuery = 'INSERT INTO displays SET ?',
                 sqlValues = {
                     name: name,
-                    slideshow_id: slideshowId,
-                    date_created: now
+                    slideshowId: slideshowId,
+                    dataCreated: now
                 };
 
             // Insert the new photo data
