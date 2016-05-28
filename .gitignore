@@ -35,3 +35,8 @@ node_modules
 public/dist
 sessions/
 uploads/
+*.pem
+
+*.csr
+
+public/src/js/app/DPfiledrag.js
