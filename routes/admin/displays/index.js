@@ -60,32 +60,34 @@ router.get('/add', function(req, res) {
 });
 
 router.post('/add', function(req, res) {
-    var login = login;
-    var email = email,
+    var cr = credentials(req.session),
+        login = cr.login,
+        admin = cr.admin,
         body = req.body,
         name = body.name,
         slideshowId = body.slideshowId,
         now = new Date();
+    if (login) {
+        if (name !== undefined && name.length !== 0 && slideshowId !== null) {
+            req.getConnection(function(err, connection) {
+                var sqlQuery = 'INSERT INTO displays SET ?',
+                    sqlValues = {
+                        name: name,
+                        slideshowId: slideshowId,
+                        dataCreated: now
+                    };
 
-    if (name !== undefined && name.length !== 0 && slideshowId !== null) {
-        req.getConnection(function(err, connection) {
-            var sqlQuery = 'INSERT INTO displays SET ?',
-                sqlValues = {
-                    name: name,
-                    slideshowId: slideshowId,
-                    dataCreated: now
-                };
-
-            // Insert the new photo data
-            connection.query(sqlQuery, sqlValues, function(err) {
-                if (err) {
-                    throw err;
-                }
-                res.redirect('/admin/displays');
+                // Insert the new photo data
+                connection.query(sqlQuery, sqlValues, function(err) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.redirect('/admin/displays');
+                });
             });
-        });
-    } else {
-        getDisplayNames(req, res, 'You haven\'t filled in a name', login);
+        } else {
+            getDisplayNames(req, res, 'You haven\'t filled in a name', login);
+        }
     }
 });
 
