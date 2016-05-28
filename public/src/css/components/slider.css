@@ -1,0 +1,40 @@
+html, body {
+    background: var(--primary-color);
+}
+.slideshow {
+    overflow: visible;
+    position: relative;
+}
+.mask {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.slide {
+    position: absolute;
+    list-style: none;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+.slide iframe, .slide img {
+    display: block;
+    height: 100vh;
+    z-index: 1;
+    width: 100vw;
+    object-fit: contain;
+}
+
+/*css for differnt animaions*/
+
+.left-push {
+    left: -100vw;
+    opacity: 0;
+}
+.top-push {
+    top: -100vh;
+    opacity: 0;
+}
+.pop{
+  transform: scale(0);
+}

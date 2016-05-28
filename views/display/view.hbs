@@ -1,17 +1,21 @@
 {{#if data}}
     <section class="slideshow">
-        {{#each data}}
-            {{#checkTypeOfPoster type equals="poster" }}
-                <div class="slide" data-animation="{{animation}}" data-duration="{{duration}}">
-                    <img src="/download/{{filename}}" alt="" />
-                </div>
-            {{/checkTypeOfPoster}}
-            {{#checkTypeOfPoster type equals="vimeo" }}
-                <div class="slide" data-animation="{{animation}}" data-duration="{{duration}}">
-                    <iframe src="//player.vimeo.com/video/{{filename}}" width="WIDTH" height="HEIGHT" frameborder="0" autoplay="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div>
-            {{/checkTypeOfPoster}}
-        {{/each}}
+        <div class="mask">
+            <ul>
+                {{#each data}}
+                    {{#checkTypeOfPoster type equals="poster" }}
+                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
+                            <img src="/download/{{filename}}" alt="{{type}}" />
+                        </li>
+                    {{/checkTypeOfPoster}}
+                    {{#checkTypeOfPoster type equals="vimeo" }}
+                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
+                            <iframe id="player1" src="https://player.vimeo.com/video/{{filename}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </li>
+                    {{/checkTypeOfPoster}}
+                {{/each}}
+            </ul>
+        </div>
     </section>
 {{else}}
     <p>
