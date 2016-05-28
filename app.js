@@ -1,10 +1,12 @@
 //load packages
-var express = require('express'),
+const express = require('express'),
     path = require('path'),
     app = express(),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
     bodyParser = require('body-parser'),
+    https = require('https'),
+    fs = require('fs'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
@@ -117,6 +119,17 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+const options = {
+    key: fs.readFileSync('./keys/localhost-key.pem'),
+    cert: fs.readFileSync('./keys/localhost-cert.pem')
+};
+
+// Create an HTTPS service identical to the HTTP service.
+https.createServer(options, app)
+                  .listen(4433, 'localhost');
+
 //start app
 app.listen(3010, function() {
     console.log('listening on port 3010!');
