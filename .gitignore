@@ -36,3 +36,5 @@ public/dist
 sessions/
 uploads/
 public/src/js/app/DPfiledrag.js
+keys/
+*.pem
