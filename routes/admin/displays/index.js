@@ -20,15 +20,19 @@ router.get('/', function(req, res) {
                     if (match !== '' && match.length > 0) {
                         res.render('admin/displays/show', {
                             title: 'Displays',
-                            admin: admin,
-                            logedin: login,
+                            rights: {
+                                admin: admin,
+                                logedin: login
+                            },
                             data: match
                         });
                     } else {
                         res.render('admin/displays/show', {
                             title: 'Displays',
-                            logedin: login,
-                            admin: admin,
+                            rights: {
+                                admin: admin,
+                                logedin: login
+                            },
                             error: 'You have no displays jet',
                             data: match
                         });
@@ -95,11 +99,13 @@ function getDisplayNames(req, res, error, login, admin) {
             }
             res.render('admin/displays/add', {
                 title: 'Add a display',
-                admin: admin,
+                rights: {
+                    admin: admin,
+                    logedin: login
+                },
                 postUrl: '/admin/displays/add',
                 error: error,
-                data: match,
-                logedin: login
+                data: match
             });
         });
     });

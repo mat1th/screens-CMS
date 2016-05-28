@@ -26,18 +26,22 @@ router.get('/', function(req, res) {
                 if (match !== '' && match.length > 0) {
                     res.render('admin/index', {
                         title: 'Dashboard',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match[0],
-                        admin: admin,
-                        error: false,
-                        logedin: login
+                        error: false
                     });
                 } else {
                     res.render('admin/index', {
                         title: 'Dashboard',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match[0],
-                        admin: admin,
-                        error: 'You have got no posters',
-                        logedin: login
+                        error: 'You have got no posters'
                     });
                 }
             });

@@ -28,18 +28,22 @@ router.get('/', function(req, res) {
                 if (match !== '' && match.length > 0) {
                     res.render('admin/posters/show', {
                         title: 'Your posters',
-                        admin: admin,
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match,
-                        error: false,
-                        logedin: login
+                        error: false
                     });
                 } else {
                     res.render('admin/posters/show', {
                         title: 'Your posters',
-                        admin: admin,
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match[0],
-                        error: 'You have got no posters',
-                        logedin: login
+                        error: 'You have got no posters'
                     });
                 }
             });
@@ -57,10 +61,12 @@ router.get('/add', function(req, res) {
     if (login) {
         res.render('admin/posters/add', {
             title: 'Add a poster',
-            admin: admin,
+            rights: {
+                admin: admin,
+                logedin: login
+            },
             postUrl: '/admin/posters/add',
-            error: false,
-            logedin: login
+            error: false
         });
     } else {
         res.redirect('/users/login');
@@ -104,8 +110,10 @@ router.get('/show/:posterId', function(req, res) {
                     };
                     res.render('admin/posters/detail', {
                         title: 'Posters',
-                        admin: admin,
-                        logedin: login,
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: data
                     });
                 } else {
@@ -166,9 +174,11 @@ router.post('/add', function(req, res) {
                 } else {
                     var renderData = {
                         title: 'Edit Posters',
-                        admin: admin,
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         postUrl: '/admin/posters/add',
-                        logedin: login,
                         error: 'Something went wrong while uploading your poster photo.'
                     };
 
@@ -182,9 +192,11 @@ router.post('/add', function(req, res) {
         } else {
             var renderData = {
                 title: 'Edit Posters',
-                admin: admin,
+                rights: {
+                    admin: admin,
+                    logedin: login
+                },
                 postUrl: '/admin/posters/add',
-                logedin: login,
                 error: 'You have submit a wrong date'
             };
             res.render('admin/posters/add', renderData);
