@@ -29,7 +29,7 @@
     background: var( --background-color-dark);
     color: var(--font-color-light);
 }
-@media (--narrow-window) {
+@media screen and (--narrow-window-width) {
     .edit-nav li {
         display: inline-block;
         width: 100%;
@@ -44,7 +44,8 @@
         text-align: center;
     }
 }
-@media (--medium-window) {
+
+@media screen and (--medium-window-width) {
     .edit-nav {
         max-width: 8em;
         min-width: 8em;

@@ -75,7 +75,7 @@
     max-width: 20em;
     margin: 0.5em 1em 1em 0;
 }
-@media (--narrow-window) {
+@media (--narrow-window-width) {
     .card {
         min-width: 15em;
         padding: 1em;

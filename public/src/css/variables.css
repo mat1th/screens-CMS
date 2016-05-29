@@ -1,5 +1,7 @@
-@custom-media --narrow-window (min-width: 30em);
-@custom-media --medium-window (min-width: 40em);
+@custom-media --narrow-window-width (min-width: 30em);
+@custom-media --medium-window-width  (min-width: 40em);
+/*@custom-media --medium-window-height  (min-height: 10em);*/
+
 :root {
     --primary-color: #FFCC00;
     --warn-color: #EB5D56;
