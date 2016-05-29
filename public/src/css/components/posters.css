@@ -1,5 +1,4 @@
-.posters {
-}
+.posters {}
 .poster {
     display: inline-block;
     position: relative;
@@ -9,14 +8,16 @@
     margin: 0;
     padding: 0;
 }
+
 /*.poster:hover {
     opacity: 0.8;
 }*/
+
 .poster div {
     position: absolute;
-    bottom: 0;
+    bottom: 0.3em;
     width: 100%;
-    background-image: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.86) 100%);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.86) 0%, rgba(255, 255, 255, 0) 100%);
     color: var(--font-color-light);
     z-index: 1;
 }
