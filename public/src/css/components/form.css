@@ -1,22 +1,24 @@
 label {
     font-size: 1em;
     color: var( --font-color-gray);
-    display: block;
+    display: inline-block;
 }
-
 textarea {
-  min-height: 5em;
-  resize: vertical;
-  overflow: auto;
+    min-height: 5em;
+    resize: vertical;
+    overflow: auto;
 }
-/*input*/
 
-input[type="text"], input[type="email"], input[type="date"],input[type="password"], textarea, select, legend {
+/*input
+
+inpired by https://codyhouse.co/gem/css-contact-form/*/
+
+input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea, select, legend {
     display: block;
     width: 100%;
     appearance: none;
 }
-input[type="text"], input[type="email"], input[type="date"],input[type="password"], textarea, select {
+input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea, select {
     padding: 0.5em;
     box-sizing: border-box;
     width: 100%;
@@ -27,7 +29,7 @@ input[type="text"], input[type="email"], input[type="date"],input[type="password
     border: 0.0625em solid rgb(207, 217, 219);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
-input[type="text"]:focus, input[type="email"]:focus,input[type="password"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--normal-color);
     box-shadow: 0 0 0.3125em rgba(0, 156, 144, 0.2);
@@ -57,6 +59,18 @@ select {
 }
 select::-ms-expand {
     display: none;
+}
+
+/*lists in form*/
+
+form ul {
+    list-style-type: none;
+}
+form li {
+    display: inline-block;
+    position: relative;
+    user-select: none;
+    margin: 0 26px 16px 0;
 }
 
 /*file upload */

@@ -14,6 +14,16 @@
       </div> -->
         <!-- <div id="filedrag">or drop files here</div> -->
         <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
+          <div class="">
+              <label for="field_duration">Type: </label>
+              <div class="select-icon">
+                  <select class="" name="type">
+                      <option value="poster">Pooster</option>
+                      <option value="vimeo">Vimeo video</option>
+                      <!-- <option value="Poll">Poll</option> -->
+                  </select>
+              </div>
+          </div>
             <div class="">
                 <label for="field_name">Name: </label>
                 <input type="text" id="field_name" name="name" value="">
@@ -22,21 +32,15 @@
                 <label for="field_discription">Discription: </label>
                 <textarea name="discription" rows="2" cols="40" value="" id="field_discription"></textarea>
             </div>
+            <div class="">
+                <label for="field_vimeo_id">Vimeo id: </label>
+                <input type="text" id="field_vimeo_id" name="vimeoId" value="" placeholder="125229524">
+            </div>
             <div class="file_input">
                 <span class="filename">Select your file</span>
                 <label for="field_file" class="btn btn-default ">Browse
                     <input type="file" name="imageFile" for="hio" value="" id="field_file">
                 </label>
-            </div>
-            <div class="">
-                <label for="field_duration">Type: </label>
-                <div class="select-icon">
-                    <select class="" name="type">
-                        <option value="poster">Pooster</option>
-                        <option value="video">Vimeo video</option>
-                        <!-- <option value="Poll">Poll</option> -->
-                    </select>
-                </div>
             </div>
 
             <div class="">
@@ -67,11 +71,11 @@
             </div>
             <div class="">
                 <label for="field_date_start">Start date: </label>
-                <input type="date" id="field_date_start" name="date_start" value="" placeholder="dd-mm-jj">
+                <input type="date" id="field_date_start" name="dateStart" value="" placeholder="dd-mm-jj">
             </div>
             <div class="">
                 <label for="field_date_end">End date: </label>
-                <input type="date" id="field_date_end" name="date_end" value="" placeholder="dd-mm-jj">
+                <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
             </div>
 
             <button class="btn btn-default normal-margin">Submit</button>

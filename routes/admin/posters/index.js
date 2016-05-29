@@ -133,6 +133,7 @@ router.post('/add', function(req, res) {
         body = req.body,
         name = body.name,
         discription = body.discription,
+        vimeoId = body.vimeoId,
         duration = body.duration,
         type = body.type,
         dateStart = body.dateStart,
@@ -156,6 +157,7 @@ router.post('/add', function(req, res) {
                             name: name,
                             discription: discription,
                             filename: upload.imageFile.name,
+                            vimeoId: vimeoId,
                             duration: duration,
                             type: type,
                             dateStart: dateStart,
@@ -179,7 +181,7 @@ router.post('/add', function(req, res) {
                             logedin: login
                         },
                         postUrl: '/admin/posters/add',
-                        error: 'Something went wrong while uploading your poster photo.'
+                        error: 'Something went wrong while uploading your poster.'
                     };
 
                     res.render('admin/posters/add', renderData);
