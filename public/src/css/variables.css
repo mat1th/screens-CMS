@@ -7,12 +7,16 @@
     --warn-color: #EB5D56;
     --eddit-color: #004899;
     --normal-color: #009B8F;
+    --normal-color-hover: #137d73;
     --font-color-dark: #000000;
     --font-color-light: #fff;
+    --font-color-gray: #777474;
     --background-color-dark: #000000;
     --background-color-light: #fff;
     --background-color-normal: #efecea;
     --background-color-semidark: #c4c4c3;
+    --background-color-semidark: #c4c4c3;
     /*shadows*/
     --shadow-normal: rgba(0, 0, 0, 0.14902) 4px 4px 8px 0px;
+    --border-radius: 0.21em;
 }
