@@ -11,15 +11,19 @@
 .form {
     margin: 4em auto auto auto;
     background: var(--background-color-light);
-    padding: 1em;
+    padding: 2em;
+    width: 15em;
 }
-.form label{
-  display: block;
+.form .message {
+    text-align: center;
+    color: var(--background-color-semidark);
+    font-size: 0.8em;
 }
-
-.form input{
-  border: 0.125rem solid var(--background-color-semidark);
-  display: block;
-  font-size: 1.1em;
-  padding: 0.3em;
+.form .message a {
+    color: var(--normal-color);
+    text-decoration: none;
+}
+.form .message a:hover {
+    color: var(--normal-color-hover);
+    text-decoration: none;
 }
