@@ -25,7 +25,7 @@ router.get('/:displayId', function(req, res, next) {
                 if (match !== '' && match.length > 0) {
                     var posterIds = JSON.parse(match[0].posters);
                     //create string for posters
-                      var sqlGetFilname = 'SELECT filename, animation, duration, type FROM posters WHERE '
+                      var sqlGetFilname = 'SELECT filename, animation, duration, vimeoId, type FROM posters WHERE '
                     posterIds.forEach(function(currentValue, index) {
                         if (index === posterIds.length - 1) {
                             sqlGetFilname += 'id = ' + currentValue;

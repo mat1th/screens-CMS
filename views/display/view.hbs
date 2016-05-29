@@ -10,7 +10,7 @@
                     {{/checkTypeOfPoster}}
                     {{#checkTypeOfPoster type equals="vimeo" }}
                         <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
-                            <iframe id="player1" src="https://player.vimeo.com/video/{{filename}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <iframe id="player1" src="https://player.vimeo.com/video/{{vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </li>
                     {{/checkTypeOfPoster}}
                 {{/each}}
