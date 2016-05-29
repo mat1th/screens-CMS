@@ -67,6 +67,7 @@ gulp.task('styles-app', function(cb) {
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
             './public/src/css/components/buttons.css',
+            './public/src/css/components/form.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
             './public/src/css/components/content.css',
