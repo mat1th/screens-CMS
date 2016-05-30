@@ -36,6 +36,22 @@ a {
 .not-found {
     margin: 2em auto;
 }
+.js-warning {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 1em auto 0 auto;
+    text-align: center;
+    z-index: 16;
+}
+.js-warning small {
+    padding: 0.2em 0.5em;
+    border-radius: var(--border-radius);
+    background: var( --warn-color);
+    color: var(--font-color-light);
+    font-size: 1.1em;
+}
 @media (--narrow-window-width) {
     main {
         display: flex;
@@ -43,4 +59,7 @@ a {
         align-content: stretch;
         margin: 0 auto 0 auto;
     }
+}
+::selection {
+    background: var(--primary-color);
 }

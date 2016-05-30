@@ -73,6 +73,7 @@ gulp.task('styles-app', function(cb) {
             './public/src/css/components/content.css',
             './public/src/css/components/posters.css',
             './public/src/css/components/edit.css',
+            './public/src/css/components/slideshow-editor.css',
             './public/src/css/components/home.css',
             './public/src/css/components/footer.css'
         ])

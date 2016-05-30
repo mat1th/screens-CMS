@@ -51,18 +51,31 @@ router.get('/', function(req, res) {
 router.get('/add', function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
-        admin = cr.admin;
+        admin = cr.admin,
+        sqlPosters, sqlSlideshows;
+
     if (login) {
         if (admin) {
-            res.render('admin/slideshows/add', {
-                title: 'Add a poster',
-                rights: {
-                    admin: admin,
-                    logedin: login
-                },
-                navStyle: 'icons-only',
-                postUrl: '/admin/slideshows/add',
-                error: false
+            req.getConnection(function(err, connection) {
+                sqlPosters = 'SELECT filename, type, name, id FROM posters'
+
+                connection.query(sqlPosters, function(err, postersMatch) {
+                    if (err) throw err;
+
+                    res.render('admin/slideshows/add', {
+                        title: 'Add a poster',
+                        data: {
+                            picker: postersMatch
+                        },
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
+                        navStyle: 'icons-only',
+                        postUrl: '/admin/slideshows/add',
+                        error: false
+                    });
+                });
             });
         } else {
             res.redirect('/admin');
@@ -70,7 +83,6 @@ router.get('/add', function(req, res) {
     } else {
         res.redirect('/users/login');
     }
-
 });
 
 module.exports = router;
