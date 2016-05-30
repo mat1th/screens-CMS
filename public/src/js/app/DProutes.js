@@ -6,6 +6,8 @@ DP.routes = (function() {
     var _checkRoutes = function() {
         if (pathname('/admin/posters/add')) {
             DP.poster.uploadPreview();
+        } else if (pathname('/admin/slideshows/add')) {
+            DP.slideshows.init();
         }
     };
     var init = function() {

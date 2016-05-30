@@ -67,6 +67,7 @@ gulp.task('styles-app', function(cb) {
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
             './public/src/css/components/buttons.css',
+            './public/src/css/components/animations.css',
             './public/src/css/components/form.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
@@ -122,8 +123,9 @@ gulp.task('scripts-app', function(cb) {
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
             './public/src/js/app/DPfiledrag.js',
-            './public/src/js/app/DProutes.js',
             './public/src/js/app/DPposter.js',
+            './public/src/js/app/DProutes.js',
+            './public/src/js/app/DPslideshows.js',
             './public/src/js/app/DPinit.js'
         ])
         .pipe(sourcemaps.init())

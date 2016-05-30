@@ -18,8 +18,8 @@
     overflow: hidden;
 }
 .slideshow-content .add {
-  box-sizing: border-box;
-  display: block;
+    box-sizing: border-box;
+    display: block;
     width: 100%;
     margin: 0;
     padding: 1em;
@@ -80,13 +80,13 @@
     opacity: 0.8;
 }
 
-/*previeuw*/
+/*preview*/
 
-.slideshow-previeuw {
+.slideshow-preview {
     display: flex;
     width: 100%;
 }
-.slideshow-previeuw img {
+.slideshow-preview img {
     width: 50%;
     margin: auto auto;
 }

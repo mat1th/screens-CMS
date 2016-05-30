@@ -1,0 +1,9 @@
+.animate {
+    transition: all 0.3s ease;
+}
+
+/*animations */
+
+.rotate-right {
+    transform: rotate(30deg);
+}
