@@ -38,3 +38,6 @@ uploads/
 public/src/js/app/DPfiledrag.js
 keys/
 *.pem
+
+*.csr
+
