@@ -1,5 +1,6 @@
 @custom-media --narrow-window-width (min-width: 30em);
 @custom-media --medium-window-width  (min-width: 40em);
+@custom-media --medium-big-window-width  (min-width: 55em);
 /*@custom-media --medium-window-height  (min-height: 10em);*/
 
 :root {
