@@ -1,14 +1,18 @@
 //load packages
-var express = require('express'),
+const express = require('express'),
     path = require('path'),
     app = express(),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
     bodyParser = require('body-parser'),
+    https = require('https'),
+    fs = require('fs'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
     myConnection = require('express-myconnection'),
+    //own modules
+    generateUUID = require('./modules/generateUUID.js'),
     //get files for routes for not loged in
     index = require('./routes/index'),
     download = require('./routes/download'),
@@ -36,6 +40,15 @@ app.use(bodyParser.json());
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
 
+hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
+    if (conditional == options.hash.equals) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
+
+
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
     if (req.url.substr(-1) == '/' && req.url.length > 1) {
@@ -48,6 +61,10 @@ app.use(function(req, res, next) {
 // Add session support
 app.use(session({
     secret: 'soSecureMuchEncryption',
+    genid: function(req) {
+      console.log(generateUUID());
+        return generateUUID() // use UUIDs for session IDs
+    },
     store: new FileStore(),
     saveUninitialized: true,
     resave: false
@@ -108,6 +125,17 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+// const options = {
+//     key: fs.readFileSync('./keys/localhost-key.pem'),
+//     cert: fs.readFileSync('./keys/localhost-cert.pem')
+// };
+//
+// // Create an HTTPS service identical to the HTTP service.
+// https.createServer(options, app)
+//     .listen(4433, 'localhost');
+
 //start app
 app.listen(3010, function() {
     console.log('listening on port 3010!');

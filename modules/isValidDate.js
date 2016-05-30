@@ -4,7 +4,7 @@ var isValidDate = function(s) {
 
     if (dateFormat.test(s)) {
         // remove any leading zeros from date values
-        s = s.replace(/0*(\d*)/gi, "$1");
+        s = s.replace(/0*(\d*)/gi, '$1');
         var dateArray = s.split(/[\.|\/|-]/);
 
         // correct month value
@@ -25,6 +25,6 @@ var isValidDate = function(s) {
     } else {
         return false;
     }
-}
+};
 
 module.exports = isValidDate;

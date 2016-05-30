@@ -1,36 +1,72 @@
 .edit-nav {
     background: var(--primary-color);
     text-align: center;
+    width: auto;
+    min-width: 4em;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 }
 .edit-nav li {
     display: inline-block;
     text-align: center;
+    width: auto;
 }
 .edit-nav a {
+    width: auto;
     display: block;
     padding: 0.5em 0.5em;
     text-align: center;
+}
+.edit-nav small {
+    font-size: 0.8em;
+    display: none;
+}
+.edit-nav.icons-only small {
+    display: none;
+}
+.edit-nav.icons-only {
+    max-width: 4em;
+    min-width: 4em;
+}
+.edit-nav a:hover svg {
+    fill: var(--font-color-light);
 }
 .edit-nav a:hover {
     background: var( --background-color-dark);
     color: var(--font-color-light);
 }
-@media (--narrow-window) {
+@media screen and (--narrow-window-width) {
     .edit-nav li {
-        display: block;
-        text-align: left;
-    }
-    .edit-nav {
-        width: 7em;
-        height: 100%;
+        display: inline-block;
+        width: 100%;
     }
     .edit-nav a {
         display: block;
         padding: 1em 1em;
-        border-bottom-width: 0.5px;
+        border-bottom-width: 0.065rem;
         border-bottom-style: solid;
         border-bottom-color: var( --background-color-dark);
         color: var(--font-color-dark);
         text-align: center;
+    }
+}
+@media screen and (--medium-window-width) {
+    .edit-nav {
+        max-width: 8em;
+        min-width: 8em;
+    }
+    .edit-nav a {
+        display: flex;
+        text-align: left;
+    }
+    .edit-nav small {
+        height: 100%;
+        margin: auto 0;
+        vertical-align: center;
+        display: inline-block;
+    }
+    .edit-nav svg {
+        margin-right: 1em;
     }
 }

@@ -9,5 +9,5 @@ DP.helper = (function() {
     return {
         select: select,
         selectAll: selectAll
-    }
+    };
 })();

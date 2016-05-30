@@ -1,7 +1,7 @@
 DP.poster = (function() {
     var uploadPreview = function() {
-        var field_file = DP.helper.select('#field_file'),
-            input_preview = DP.helper.select('#input_preview')
+        var fieldFile = DP.helper.select('#field_file'),
+            inputPreview = DP.helper.select('#input_preview');
 
         function readURL(input) {
             var files = input.target.files;
@@ -9,17 +9,18 @@ DP.poster = (function() {
                 var reader = new FileReader();
 
                 reader.onload = function(event) {
-                    input_preview.src = event.target.result
-                }
+                    inputPreview.src = event.target.result;
+                };
                 reader.readAsDataURL(files[0]);
             }
         }
 
-        field_file.addEventListener("change", function(e) {
+        fieldFile.addEventListener('change', function(e) {
             readURL(e);
         });
-    }
+    };
     return {
         uploadPreview: uploadPreview
-    }
+    };
 })();
+ // http://vimeo.com/api/v2/video/125229524.json
