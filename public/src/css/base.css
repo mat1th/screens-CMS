@@ -9,7 +9,7 @@ main {
     height: calc(100% - 60px);
 }
 img {
-    width: 100%;
+    max-width: 100%;
 }
 video {
     width: 100%;
@@ -31,9 +31,12 @@ a {
     float: right;
 }
 .error {
+    color: var( --warn-color);
+}
+.not-found {
     margin: 2em auto;
 }
-@media (--narrow-window) {
+@media (--narrow-window-width) {
     main {
         display: flex;
         flex-direction: row;

@@ -6,7 +6,8 @@
     margin: auto;
     font-weight: 400;
     padding: .5em 1em;
-    border-radius: 2px;
+    border-radius: var(--border-radius);
+    color: var(--font-color-dark);
     font-size: 100%;
     text-align: center;
     text-decoration: none;
@@ -14,10 +15,25 @@
     z-index: 1;
     border: none;
 }
+.btn-normal {
+    background-color: var(--background-color-semidark);
+    color: var(--font-color-dark);
+}
+.btn-normal:hover {
+    background-color: rgb(89, 89, 89);
+    color: var(--font-color-light);
+}
 .btn-default {
     background-color: var(--normal-color);
     color: var(--font-color-light);
 }
 .btn-default:hover {
-    background-color: rgb(24, 184, 98);
+    background-color: var(--normal-color-hover);
+}
+button.fullwith {
+    margin: 1em 0;
+    width: 100%;
+}
+button.normal-margin {
+    margin: 1em 0;
 }

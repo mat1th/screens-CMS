@@ -1,49 +1,71 @@
-var fs = require('fs'),
-    express = require('express'),
-    moment = require('moment'),
-    checklogin = require('../../../modules/checklogin.js'),
-    isValidDate = require('../../../modules/isValidDate.js'),
+var express = require('express'),
+    credentials = require('../../../modules/credentials.js'),
+    // isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
-router.get('/', function(req, res, next) {
-    if (req.session.email) {
-        req.getConnection(function(err, connection) {
-            var sql = 'SELECT id, name, posters FROM slideshows';
-            // Get the user id using username
-            connection.query(sql, function(err, match) {
-                if (err) {
-                    throw err;
-                }
+router.get('/', function(req, res) {
+    var cr = credentials(req.session),
+        login = cr.login,
+        admin = cr.admin,
+        sql;
 
-                if (match !== '' && match.length > 0) {
-                    res.render('admin/slideshows/show', {
-                        title: 'Slideshows',
-                        logedin: checklogin(req.session),
-                        data: match
-                    });
-                } else {
-                    res.render('admin/slideshows/show', {
-                        title: 'Slideshows',
-                        logedin: checklogin(req.session),
-                        error: 'You have no displays jet',
-                        data: match
-                    });
-                }
+    if (login) {
+        if (admin) {
+            req.getConnection(function(err, connection) {
+                sql = 'SELECT id, name, posters FROM slideshows';
+                // Get the user id using username
+                connection.query(sql, function(err, match) {
+                    if (err) {
+                        throw err;
+                    }
+
+                    if (match !== '' && match.length > 0) {
+                        res.render('admin/slideshows/show', {
+                            title: 'Slideshows',
+                            rights: {
+                                admin: admin,
+                                logedin: login
+                            },
+                            data: match
+                        });
+                    } else {
+                        res.render('admin/slideshows/show', {
+                            title: 'Slideshows',
+                            rights: {
+                                admin: admin,
+                                logedin: login
+                            },
+                            error: 'You have no displays jet',
+                            data: match
+                        });
+                    }
+                });
             });
-        });
+        } else {
+            res.redirect('/admin');
+        }
     } else {
         res.redirect('/users/login');
     }
 });
-router.get('/add', function(req, res, next) {
-    var login = checklogin(req.session);
+router.get('/add', function(req, res) {
+    var cr = credentials(req.session),
+        login = cr.login,
+        admin = cr.admin;
     if (login) {
-        res.render('admin/slideshows/add', {
-            title: 'Add a poster',
-            postUrl: '/admin/slideshows/add',
-            error: false,
-            logedin: login
-        });
+        if (admin) {
+            res.render('admin/slideshows/add', {
+                title: 'Add a poster',
+                rights: {
+                    admin: admin,
+                    logedin: login
+                },
+                postUrl: '/admin/slideshows/add',
+                error: false
+            });
+        } else {
+            res.redirect('/admin');
+        }
     } else {
         res.redirect('/users/login');
     }

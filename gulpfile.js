@@ -51,7 +51,7 @@ gulp.task('icons', function() {
 });
 
 // Styles
-gulp.task('styles', function(cb) {
+gulp.task('styles-app', function(cb) {
     var processors = [
         autoprefixer({
             browsers: ['> 10%', 'IE 11']
@@ -67,12 +67,12 @@ gulp.task('styles', function(cb) {
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
             './public/src/css/components/buttons.css',
+            './public/src/css/components/form.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
             './public/src/css/components/content.css',
             './public/src/css/components/posters.css',
             './public/src/css/components/edit.css',
-            './public/src/css/components/slider.css',
             './public/src/css/components/home.css',
             './public/src/css/components/footer.css'
         ])
@@ -86,14 +86,41 @@ gulp.task('styles', function(cb) {
             message: 'styles task complete'
         }));
 });
+gulp.task('styles-slider', function(cb) {
+    var processors = [
+        autoprefixer({
+            browsers: ['> 10%', 'IE 11']
+        }),
+        //        mqpacker,
+        csswring,
+        cssnext()
+    ];
+    return gulp.src([
+            './public/src/css/reset.css',
+            './public/src/css/variables.css',
+            './public/src/css/base.css',
+            './public/src/css/webfonts.css',
+            './public/src/css/typography.css',
+            './public/src/css/components/slider.css'
+        ])
+        .pipe(sourcemaps.init())
+        .pipe(concat('slider.css'))
+        .pipe(postcss(processors))
+        .pipe(cssnano())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./public/dist/css/'))
+        .pipe(notify({
+            message: 'styles task complete'
+        }));
+});
 
 // Scripts app
 gulp.task('scripts-app', function(cb) {
     // './node_modules/gsap/src/minified/TweenMax.min.js'
-
     return gulp.src([
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
+            './public/src/js/app/DPfiledrag.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPposter.js',
             './public/src/js/app/DPinit.js'
@@ -112,14 +139,13 @@ gulp.task('scripts-app', function(cb) {
 });
 // Scripts slideshow
 gulp.task('scripts-slideshow', function(cb) {
-    // './node_modules/gsap/src/minified/TweenMax.min.js'
-    return gulp.src(['./public/src/js/slideshow/*.js'])
+    return gulp.src(['./node_modules/gsap/src/minified/TweenMax.min.js', './public/src/js/slideshow/*.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('slideshow.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
         .pipe(notify({
@@ -250,7 +276,8 @@ gulp.task('nodemon', function(cb) {
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch('./public/src/css/**/*.css', ['styles'], browserSync.reload);
+    gulp.watch('./public/src/css/**/*.css', ['styles-app'], browserSync.reload);
+    gulp.watch('./public/src/css/**/*.css', ['styles-slider'], browserSync.reload);
     gulp.watch('./public/src/js/app/*.js', ['scripts-app'], browserSync.reload);
     gulp.watch('./public/src/js/slideshow/*.js', ['scripts-slideshow'], browserSync.reload);
 });

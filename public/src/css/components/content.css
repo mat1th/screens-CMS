@@ -45,7 +45,7 @@
 }
 .content-body td {
     display: block;
-    border-bottom: 1px solid var(--background-color-light);
+    border-bottom: 0.0625rem solid var(--background-color-light);
 }
 .content-body td:before {
     display: inline-block;
@@ -75,7 +75,7 @@
     max-width: 20em;
     margin: 0.5em 1em 1em 0;
 }
-@media (--narrow-window) {
+@media (--narrow-window-width) {
     .card {
         min-width: 15em;
         padding: 1em;

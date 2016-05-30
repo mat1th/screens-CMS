@@ -28,16 +28,17 @@ router.post('/login', function(req, res) {
         password = body.password;
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT email, password FROM users WHERE email = ? AND password = ?';
+        var sql = 'SELECT email, password, role FROM users WHERE email = ? AND password = ?';
         connection.query(sql, [email, password], function(err, match) {
             if (err) {
                 throw err;
             }
             if (match != '' && match.length > 0) {
+                req.session.cookie.expires = new Date(Date.now() + 3600000)
                 req.session.email = email;
+                req.session.role = match[0].role;
                 res.redirect('/admin');
             } else {
-
                 var data = {
                     error: 'Gebruikersnaam en/of wachtwoord onjuist.',
                     logedin: checklogin(req.session),
@@ -102,6 +103,5 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     })
 })
-
 
 module.exports = router;

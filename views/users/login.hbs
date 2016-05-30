@@ -9,13 +9,14 @@
             {{/if}}
 
             <label for="field_email">Email: </label>
-            <input type="text" id="field_email" name="email" value="" placeholder="naam@example.nl">
+            <input type="email" id="field_email" name="email" value="" placeholder="E-mail">
 
             <label for="field_password">Password: </label>
-            <input type="password" id="field_password" name="password" value="" placeholder="*********">
+            <input type="password" id="field_password" name="password" value="" placeholder="Password">
 
-            <button type="submit" class="btn btn-default">Login!</button>
-            <a href="/users/register" class="btn btn-default">Register</a>
+            <button type="submit" class="btn btn-default fullwith">Login!</button>
+
+            <p class="message">Not registered? <a href="/users/register">Create an account</a></p>
         </form>
 
     </section>

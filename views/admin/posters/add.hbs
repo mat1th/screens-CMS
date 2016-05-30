@@ -3,56 +3,85 @@
     <section class="content-header">
         <h1>Add a poster</h1>
     </section>
-    <section class="content-body">
-      {{#if error}}
-          <div class="error">
-              {{error}}
-          </div>
-      {{/if}}
-      <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
+    <section class="content-body add-poster">
+        {{#if error}}
+            <div class="error">
+                {{error}}
+            </div>
+        {{/if}}
+        <!-- <div id="messages">
+        <p>Status Messages</p>
+      </div> -->
+        <!-- <div id="filedrag">or drop files here</div> -->
+        <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
           <div class="">
-              <input type="file" name="imageFile" value="" id="field_file">
+              <label for="field_duration">Type: </label>
+              <div class="select-icon">
+                  <select class="" name="type">
+                      <option value="poster">Pooster</option>
+                      <option value="vimeo">Vimeo video</option>
+                      <!-- <option value="Poll">Poll</option> -->
+                  </select>
+              </div>
           </div>
-          <div class="">
-              <label for="field_name">Name: </label>
-              <input type="text" id="field_name" name="name" value="">
-          </div>
-          <div class="">
-              <label for="field_discription">Discription: </label>
-              <input type="text" id="field_discription" name="discription" value="">
-          </div>
-          <div class="">
-              <label for="field_duration">type: </label>
-              <select class="" name="type">
-                  <option value="poster">Pooster</option>
-                  <option value="video">Video</option>
-                  <option value="Poll">Poll</option>
-              </select>
-          </div>
-          <div class="">
-              <label for="field_duration">Duration: </label>
-              <select class="" name="duration">
-                  <option value="1000">10 sec</option>
-                  <option value="2000">20 sec</option>
-                  <option value="3000">30 sec</option>
-                  <option value="4000">40 sec</option>
-                  <option value="5000">50 sec</option>
-                  <option value="60000">1 min</option>
-                  <option value="90000">1 min 30 sec</option>
-                  <option value="120000">2 min</option>
-              </select>
-          </div>
-          <div class="">
-              <label for="field_date_start">Start date: </label>
-              <input type="date" id="field_date_start" name="date_start" value="">
-          </div>
-          <div class="">
-              <label for="field_date_end">End date: </label>
-              <input type="date" id="field_date_end" name="date_end" value="">
-          </div>
-          <button>Upload!</button>
-      </form>
-      <img src="" alt="" id="input_preview"/>
+            <div class="">
+                <label for="field_name">Name: </label>
+                <input type="text" id="field_name" name="name" value="">
+            </div>
+            <div class="">
+                <label for="field_discription">Discription: </label>
+                <textarea name="discription" rows="2" cols="40" value="" id="field_discription"></textarea>
+            </div>
+            <div class="">
+                <label for="field_vimeo_id">Vimeo id: </label>
+                <input type="text" id="field_vimeo_id" name="vimeoId" value="" placeholder="125229524">
+            </div>
+            <div class="file_input">
+                <span class="filename">Select your file</span>
+                <label for="field_file" class="btn btn-default ">Browse
+                    <input type="file" name="imageFile" for="hio" value="" id="field_file">
+                </label>
+            </div>
+
+            <div class="">
+                <label for="field_animation">Animation: </label>
+                <div class="select-icon">
+                    <select class="" name="animation">
+                        <option value="pop">pop</option>
+                        <option value="top-push">push from top</option>
+                        <option value="left-push">push from left</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="">
+                <label for="field_duration">Duration: </label>
+                <div class="select-icon">
+                    <select class="" name="duration">
+                        <option value="10">10 sec</option>
+                        <option value="20">20 sec</option>
+                        <option value="30">30 sec</option>
+                        <option value="40">40 sec</option>
+                        <option value="50">50 sec</option>
+                        <option value="60">1 min</option>
+                        <option value="90">1,5 min</option>
+                        <option value="120">2 min</option>
+                    </select>
+                </div>
+            </div>
+            <div class="">
+                <label for="field_date_start">Start date: </label>
+                <input type="date" id="field_date_start" name="dateStart" value="" placeholder="dd-mm-jj">
+            </div>
+            <div class="">
+                <label for="field_date_end">End date: </label>
+                <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
+            </div>
+
+            <button class="btn btn-default normal-margin">Submit</button>
+            <a href="/admin/posters" class="btn normal-margin">Cancel</a>
+        </form>
+        <img src="/img/no-poster.jpg" alt="" id="input_preview" class="img-preview"/>
     </section>
 
 

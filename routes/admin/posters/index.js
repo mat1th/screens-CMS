@@ -1,18 +1,24 @@
-var fs = require('fs'),
-    express = require('express'),
+var express = require('express'),
     moment = require('moment'),
-    checklogin = require('../../../modules/checklogin.js'),
+    credentials = require('../../../modules/credentials.js'),
     isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
+    var cr = credentials(req.session),
+        login = cr.login,
+        email = cr.email,
+        admin = cr.admin,
+        sql;
 
-    var login = checklogin(req.session);
     if (login) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT filename, type, name, id FROM posters WHERE user_id  IN( SELECT id FROM users WHERE email = ? )';
-            var email = req.session.email;
+            if (admin) {
+                sql = 'SELECT filename, type, name, id FROM posters';
+            } else {
+                sql = 'SELECT filename, type, name, id FROM posters WHERE userId  IN( SELECT id FROM users WHERE email = ? )';
+            }
             // Get the user id using username
             connection.query(sql, [email], function(err, match) {
                 if (err) {
@@ -22,16 +28,22 @@ router.get('/', function(req, res, next) {
                 if (match !== '' && match.length > 0) {
                     res.render('admin/posters/show', {
                         title: 'Your posters',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match,
-                        error: false,
-                        logedin: login
+                        error: false
                     });
                 } else {
                     res.render('admin/posters/show', {
                         title: 'Your posters',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         data: match[0],
-                        error: 'You have got no posters',
-                        logedin: login
+                        error: 'You have got no posters'
                     });
                 }
             });
@@ -41,15 +53,20 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/add', function(req, res) {
+    var cr = credentials(req.session),
+        login = cr.login,
+        admin = cr.admin;
 
-router.get('/add', function(req, res, next) {
-    var login = checklogin(req.session);
     if (login) {
         res.render('admin/posters/add', {
             title: 'Add a poster',
+            rights: {
+                admin: admin,
+                logedin: login
+            },
             postUrl: '/admin/posters/add',
-            error: false,
-            logedin: login
+            error: false
         });
     } else {
         res.redirect('/users/login');
@@ -59,54 +76,72 @@ router.get('/add', function(req, res, next) {
 
 // GET a poster and present the full poster page
 router.get('/show/:posterId', function(req, res) {
-    req.getConnection(function(err, connection) {
-        if (err) return next(err);
-        var posterId = req.params.posterId;
+    var posterId = req.params.posterId,
+        cr = credentials(req.session),
+        login = cr.login,
+        email = cr.email,
+        admin = cr.admin,
+        sql;
 
-        var sql = 'SELECT id, name,discription, duration, animation, filename, type, date_start, date_end, date_created FROM posters WHERE id = ?';
-
-        // Get the photo id and caption using the photo name
-        connection.query(sql, [posterId], function(err, match) {
-            if (err) {
-                throw err;
-            } else if (match !== '' && match.length > 0) {
-                var data = {
-                    id: match[0].id,
-                    discription: match[0].discription,
-                    duration: match[0].duration,
-                    name: match[0].name,
-                    animation: match[0].animation,
-                    filename: match[0].filename,
-                    type: match[0].type,
-                    date_begin: moment(match[0].date_begin).format('LL'),
-                    date_end: moment(match[0].date_end).format('LL'),
-                    date_created: moment(match[0].date_created).startOf('day').fromNow()
-                }
-                res.render('admin/posters/detail', {
-                    title: 'Posters',
-                    logedin: checklogin(req.session),
-                    data: data
-                });
+    if (login) {
+        req.getConnection(function(err, connection, next) {
+            if (err) return next(err);
+            if (admin) {
+                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ?';
             } else {
-                res.send('No such poster: ' + posterId);
+                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
+            // Get the photo id and caption using the photo name
+            connection.query(sql, [posterId, email], function(err, match) {
+                if (err) {
+                    throw err;
+                } else if (match !== '' && match.length > 0) {
+                    var data = {
+                        id: match[0].id,
+                        discription: match[0].discription,
+                        duration: match[0].duration,
+                        name: match[0].name,
+                        animation: match[0].animation,
+                        filename: match[0].filename,
+                        type: match[0].type,
+                        dateStart: moment(match[0].dateStart).format('LL'),
+                        dateEnd: moment(match[0].dateEnd).format('LL'),
+                        dataCreated: moment(match[0].dataCreated).startOf('day').fromNow()
+                    };
+                    res.render('admin/posters/detail', {
+                        title: 'Posters',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
+                        data: data
+                    });
+                } else {
+                    res.send('No such poster: ' + posterId);
+                }
+            });
         });
-    });
+    }
+
 });
 
 router.post('/add', function(req, res) {
-    var email = req.session.email,
+    var cr = credentials(req.session),
+        login = cr.login,
+        email = cr.email,
+        admin = cr.admin,
         body = req.body,
         name = body.name,
         discription = body.discription,
+        vimeoId = body.vimeoId,
         duration = body.duration,
         type = body.type,
-        date_start = body.date_start,
-        date_end = body.date_end,
+        dateStart = body.dateStart,
+        dateEnd = body.dateEnd,
         now = new Date(),
         upload = req.files;
 
-    if (isValidDate(date_start) && isValidDate(date_end)) {
+    if (isValidDate(dateStart) && isValidDate(dateEnd) && login) {
         req.getConnection(function(err, connection) {
             var sql = 'SELECT id FROM users WHERE email = ?';
             // Get the user id using username
@@ -118,15 +153,16 @@ router.post('/add', function(req, res) {
                 if (match !== '' && match.length > 0 && upload.imageFile && type !== null) {
                     var sqlQuery = 'INSERT INTO posters SET ?',
                         sqlValues = {
-                            user_id: match[0].id,
+                            userId: match[0].id,
                             name: name,
                             discription: discription,
                             filename: upload.imageFile.name,
+                            vimeoId: vimeoId,
                             duration: duration,
                             type: type,
-                            date_start: date_start,
-                            date_end: date_end,
-                            date_created: now
+                            dateStart: dateStart,
+                            dateEnd: dateEnd,
+                            dataCreated: now
                         };
 
                     // Insert the new photo data
@@ -140,9 +176,12 @@ router.post('/add', function(req, res) {
                 } else {
                     var renderData = {
                         title: 'Edit Posters',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
                         postUrl: '/admin/posters/add',
-                        logedin: checklogin(req.session),
-                        error: 'Something went wrong while uploading your poster photo.'
+                        error: 'Something went wrong while uploading your poster.'
                     };
 
                     res.render('admin/posters/add', renderData);
@@ -150,13 +189,20 @@ router.post('/add', function(req, res) {
             });
         });
     } else {
-        var renderData = {
-            title: 'Edit Posters',
-            postUrl: '/admin/posters/add',
-            logedin: checklogin(req.session),
-            error: 'You have submit a wrong date'
-        };
-        res.render('admin/posters/add', renderData);
+        if (!login) {
+            res.redirect('/users/login');
+        } else {
+            var renderData = {
+                title: 'Edit Posters',
+                rights: {
+                    admin: admin,
+                    logedin: login
+                },
+                postUrl: '/admin/posters/add',
+                error: 'You have submit a wrong date'
+            };
+            res.render('admin/posters/add', renderData);
+        }
     }
 });
 

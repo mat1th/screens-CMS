@@ -23,7 +23,7 @@
         <nav class="{{navPosition}}">
             <ul>
                 <li><a href="/">Home</a></li>
-                {{#if logedin}}
+                {{#if rights.logedin}}
                     <li><a href="/admin">Admin</a> </li>
                     <li class="right"><a href="/users/logout">log out</a></li>
                 {{else}}
@@ -36,13 +36,6 @@
     <main>
         {{{body}}}
     </main>
-
-    <!-- <footer role="contentinfo">
-        <section class="rights center">
-            <small>&copy; Matthias Dolstra all rights reserved - Hosted by <a href="https://www.digitalocean.com/?refcode=8c8e592f2431"> Digitalocean</a>
-          </small>
-        </section>
-    </footer> -->
     <script>
         ! function(e) {
             "use strict";
