@@ -65,7 +65,7 @@ router.get('/add', function(req, res) {
                     res.render('admin/slideshows/add', {
                         title: 'Add a poster',
                         data: {
-                            picker: postersMatch
+                            posters: postersMatch
                         },
                         rights: {
                             admin: admin,

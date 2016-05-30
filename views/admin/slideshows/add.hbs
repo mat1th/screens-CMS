@@ -1,17 +1,20 @@
  {{> nav}}
- <noscript>
-   <div class="js-warning">
-     <small> Not all functions of the app will work, please enable JS</small>
-   </div>
- </noscript>
+<noscript>
+    <div class="js-warning">
+        <small> Not all functions of the app will work, please enable JS</small>
+    </div>
+</noscript>
 <section class="slideshow-add">
     <!-- the posters you can choose from -->
-    <section class="slideshow-picker scrollable">
+    <section class="slideshow-content scrollable">
+        <!-- add button  -->
         <button class="add">
+            <!-- <a href="#" class="add"> -->
             <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
+            <!-- </a> -->
         </button>
         {{#each data.picker}}
             <div class="imagerow">
@@ -23,6 +26,17 @@
         {{/each}}
     </section>
 
+    <section class="slideshow-picker none">
+        <div class="select scrollable">
+            {{#each data.posters}}
+                <div class="image" data-id="{{id}}">
+                    <img src="/download/{{filename}}" alt="" />
+                </div>
+
+            {{/each}}
+        </div>
+    </section>
+
     <!-- a preview of the poster  -->
     <section class="slideshow-previeuw">
         <img src="/img/no-poster.jpg" alt="" />
@@ -30,7 +44,7 @@
 
     <section class="slideshow-poster-settings scrollable">
         <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
-          <h2>Edit poster</h2>
+            <h2>Edit poster</h2>
             <div class="">
                 <label for="field_animation">Animation: </label>
                 <div class="select-icon">
