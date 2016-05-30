@@ -26,6 +26,7 @@ router.get('/', function(req, res) {
                                 admin: admin,
                                 logedin: login
                             },
+                            navStyle: 'icons-only',
                             data: match
                         });
                     } else {
@@ -35,6 +36,7 @@ router.get('/', function(req, res) {
                                 admin: admin,
                                 logedin: login
                             },
+                            navStyle: 'icons-only',
                             error: 'You have no displays jet',
                             data: match
                         });

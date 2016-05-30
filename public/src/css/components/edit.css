@@ -25,9 +25,13 @@
 .edit-nav.icons-only small {
     display: none;
 }
+.edit-nav.icons-only svg {
+    margin: 0 auto;
+}
 .edit-nav.icons-only {
-    max-width: 4em;
-    min-width: 4em;
+    text-align: center;
+    max-width: 4.3em;
+    min-width: 4.3em;
 }
 .edit-nav a:hover svg {
     fill: var(--font-color-light);
