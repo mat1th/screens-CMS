@@ -2,17 +2,26 @@ DP.slideshows = (function() {
     var _plusButton = DP.helper.select('.add'),
         _plusButtonIcon = DP.helper.select('.add svg'),
         _selector = DP.helper.select('.slideshow-picker'),
-        _posterlist = DP.helper.select('#posterlist'),
         _numbers = DP.helper.selectAll('.number'),
         _selectImage = DP.helper.selectAll('.select-image'),
         _addImages = DP.helper.select('.slideshow-picker button');
 
+    var _getIds = function() {
+        var _posterlistItemImage = DP.helper.selectAll('.posteritem .image');
+        var dataIds = [];
+        for (var i = 0; i < _posterlistItemImage.length; i++) {
+            dataIds.push(_posterlistItemImage[i].getAttribute('data-id'));
+        }
+        return dataIds;
+    };
 
     var _addNewPoster = function() {
+        var _posterlist = DP.helper.select('#posterlist');
+
         _plusButton.addEventListener('click', function() {
             _toggleAddNewPoster();
-
         });
+
         _addImages.addEventListener('click', function() {
             _toggleAddNewPoster();
             var liElement = function(id, filename) {
@@ -26,17 +35,17 @@ DP.slideshows = (function() {
                     '  </li>';
             };
 
-            var list = _posterlist;
             for (var i = 0; i < _selectImage.length; i++) {
 
                 if (_selectImage[i].checked) {
                     var id = _selectImage[i].getAttribute('data-id'),
                         filename = _selectImage[i].getAttribute('data-image');
-                        console.log(_posterlist);
-                        // document.body.appendChild();
+                    // document.body.appendChild();
                     _posterlist.innerHTML += liElement(id, filename);
                 }
             }
+
+            DP.helper.postData(DP.routes.currentPath(), 'posters=' + _getIds());
         });
     };
     var _toggleAddNewPoster = function() {
@@ -45,8 +54,8 @@ DP.slideshows = (function() {
     };
     var _sortable = function() {
         // inspiration form http://codepen.io/agate1/pen/vOoRvj
-        var item;
-        var ul;
+        var _posterlist = DP.helper.select('#posterlist'),
+            item, ul;
 
         var posteritems = DP.helper.selectAll('.posteritem');
 
@@ -107,6 +116,7 @@ DP.slideshows = (function() {
         _addNewPoster();
         _sortable();
     };
+
 
     return {
         init: init
