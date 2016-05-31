@@ -62,7 +62,6 @@ app.use(function(req, res, next) {
 app.use(session({
     secret: 'soSecureMuchEncryption',
     genid: function(req) {
-      console.log(generateUUID());
         return generateUUID() // use UUIDs for session IDs
     },
     store: new FileStore(),
