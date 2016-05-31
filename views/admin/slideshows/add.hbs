@@ -15,17 +15,17 @@
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </button>
-        <ul id="posterrow">
-            {{#each data.posters}}
-                <li class="posteritem list" id="list1" draggable="true">
+        <ul id="posterlist">
+            <!-- {{#each data.posters}}
+                <li class="posteritem list" draggable="true">
                     <a href="#">
-                        <small>{{@index}}</small>
+                        <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
                             <img src="/download/{{filename}}" alt="" draggable="false" />
                         </div>
                     </a>
                 </li>
-            {{/each}}
+            {{/each}} -->
         </ul>
     </section>
 
@@ -33,7 +33,7 @@
         <div class="select scrollable">
             {{#each data.posters}}
                 <div>
-                    <input type="checkbox" id="lab{{id}}" name="chk{{id}}" data-id="{{id}}">
+                    <input class="select-image" type="checkbox" id="lab{{id}}" name="chk{{id}}" data-id="{{id}}" data-image="{{filename}}">
                     <div class="image no-overflow">
                         <img src="/download/{{filename}}" alt="" />
                     </div>
