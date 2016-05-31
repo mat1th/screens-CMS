@@ -8,38 +8,55 @@
     <!-- the posters you can choose from -->
     <section class="slideshow-content scrollable">
         <!-- add button  -->
+
         <button class="add">
-            <!-- <a href="#" class="add"> -->
             <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
-            <!-- </a> -->
         </button>
-        {{#each data.picker}}
-            <div class="imagerow">
-                <small>{{@index}}</small>
-                <div class="image" data-id="{{id}}">
-                    <img src="/download/{{filename}}" alt="" />
-                </div>
-            </div>
-        {{/each}}
+        <ul id="posterrow">
+            {{#each data.posters}}
+                <li class="posteritem list" id="list1" draggable="true">
+                    <a href="#">
+                        <small>{{@index}}</small>
+                        <div class="image" data-id="{{id}}">
+                            <img src="/download/{{filename}}" alt="" draggable="false" />
+                        </div>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
     </section>
 
     <section class="slideshow-picker none">
         <div class="select scrollable">
             {{#each data.posters}}
-                <div class="image" data-id="{{id}}">
-                    <img src="/download/{{filename}}" alt="" />
+                <div>
+                    <input type="checkbox" id="lab{{id}}" name="chk{{id}}" data-id="{{id}}">
+                    <div class="image">
+                      <img src="/download/{{filename}}" alt="" />
+                    </div>
+                    <label for="lab{{id}}"></label>
                 </div>
-
             {{/each}}
+
         </div>
+          <button type="button" name="add" class="btn btn-default add-image">Add images</button>
+
+        <!-- <ul class="">
+            {{#each data.posters}}
+                <li class="image" data-id="{{id}}">
+                  <input type="checkbox" class="styled" style="background: url('/download/{{filename}}')" />
+
+                </li>
+            {{/each}}
+        </ul>-->
     </section>
 
     <!-- a preview of the poster  -->
     <section class="slideshow-preview">
-        <img src="/img/no-poster.jpg" alt="" />
+        <img src="/img/no-poster.jpg" alt="no poster image" />
     </section>
 
     <section class="slideshow-poster-settings scrollable">
