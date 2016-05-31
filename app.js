@@ -24,7 +24,8 @@ const express = require('express'),
     posters = require('./routes/admin/posters/index'),
     slideshows = require('./routes/admin/slideshows/index'),
     display = require('./routes/display/index'),
-    users = require('./routes/admin/users/index');
+    users = require('./routes/admin/users/index'),
+    api = require('./routes/api/index');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -105,6 +106,7 @@ app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
 app.use('/display', display);
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler
