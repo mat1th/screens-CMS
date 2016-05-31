@@ -15,7 +15,6 @@
     width: 6em;
     height: 8em;
     padding: 0.3em;
-    overflow: hidden;
 }
 .slideshow-content .add {
     box-sizing: border-box;
@@ -70,9 +69,6 @@
 .slideshow-picker input {
     display: none;
 }
-.select {
-  /*padding-bottom: -3em;*/
-}
 .select input[type=checkbox]:checked+.image {
     opacity: 1;
 }
@@ -83,7 +79,6 @@
 }
 .select .image {
     position: relative;
-    overflow: hidden;
     margin: 0.3em;
     float: left;
     width: 4em;
@@ -101,11 +96,11 @@
     position: relative;
     width: 4em;
 }
-.slideshow-picker  button{
-  width: 100%;
-  bottom: 0em;
-  left: 0;
-  position: absolute;
+.slideshow-picker button {
+    width: 100%;
+    bottom: 0em;
+    left: 0;
+    position: absolute;
 }
 
 /*preview*/

@@ -7,15 +7,16 @@
     max-width: 15em;
 }
 .poster img {
+    display: inline-block;
     margin: 0;
     padding: 0;
 }
+.poster .image {
+    display: inline-block;
+    height: 20em;
+}
 
-/*.poster:hover {
-    opacity: 0.8;
-}*/
-
-.poster div {
+.poster .name {
     position: absolute;
     bottom: 0.3em;
     width: 100%;

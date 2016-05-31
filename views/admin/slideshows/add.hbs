@@ -20,7 +20,7 @@
                 <li class="posteritem list" id="list1" draggable="true">
                     <a href="#">
                         <small>{{@index}}</small>
-                        <div class="image" data-id="{{id}}">
+                        <div class="image no-overflow" data-id="{{id}}">
                             <img src="/download/{{filename}}" alt="" draggable="false" />
                         </div>
                     </a>
@@ -34,24 +34,15 @@
             {{#each data.posters}}
                 <div>
                     <input type="checkbox" id="lab{{id}}" name="chk{{id}}" data-id="{{id}}">
-                    <div class="image">
-                      <img src="/download/{{filename}}" alt="" />
+                    <div class="image no-overflow">
+                        <img src="/download/{{filename}}" alt="" />
                     </div>
                     <label for="lab{{id}}"></label>
                 </div>
             {{/each}}
 
         </div>
-          <button type="button" name="add" class="btn btn-default add-image">Add images</button>
-
-        <!-- <ul class="">
-            {{#each data.posters}}
-                <li class="image" data-id="{{id}}">
-                  <input type="checkbox" class="styled" style="background: url('/download/{{filename}}')" />
-
-                </li>
-            {{/each}}
-        </ul>-->
+        <button type="button" name="add" class="btn btn-default add-image">Add images</button>
     </section>
 
     <!-- a preview of the poster  -->

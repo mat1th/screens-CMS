@@ -9,9 +9,11 @@
             {{#each data}}
                 <div class="poster">
                     <a href="/admin/posters/show/{{id}}">
-                        <img src="/download/{{filename}}" alt="" />
-                        <div class="">
-                          <h2>{{name}}</h2>
+                        <div class="image no-overflow">
+                            <img src="/download/{{filename}}" alt="" />
+                        </div>
+                        <div class="name">
+                            <h2>{{name}}</h2>
                         </div>
                     </a>
                 </div>

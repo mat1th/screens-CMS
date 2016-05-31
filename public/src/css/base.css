@@ -21,6 +21,9 @@ a {
 .none, .disabled {
     display: none !important;
 }
+.no-overflow {
+    overflow: hidden;
+}
 .scrollable {
     overflow-y: auto;
 }
