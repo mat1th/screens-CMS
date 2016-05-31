@@ -1,3 +1,7 @@
+.edit-nav ol {
+    list-style-position: inside;
+    list-style-type: decimal;
+}
 .edit-nav {
     background: var(--primary-color);
     text-align: center;

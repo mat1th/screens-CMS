@@ -5,7 +5,7 @@ DP.helper = (function() {
         selectAll = function(selector) {
             return document.querySelectorAll(selector);
         },
-        getData = function() { //Source https://stackoverflow.com/questions/247483/http-get-request-in-javascript
+        GetData = function() { //Source https://stackoverflow.com/questions/247483/http-get-request-in-javascript
             if (window.XMLHttpRequest) {
                 this.get = function(aUrl, aCallback) {
                     var anHttpRequest = new XMLHttpRequest();
@@ -41,7 +41,7 @@ DP.helper = (function() {
     return {
         select: select,
         selectAll: selectAll,
-        getData: getData,
+        getData: GetData,
         postData: postData
     };
 })();

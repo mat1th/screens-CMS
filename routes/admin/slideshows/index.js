@@ -10,43 +10,39 @@ router.get('/', function(req, res) {
         admin = cr.admin,
         sql;
 
-    if (login) {
-        if (admin) {
-            req.getConnection(function(err, connection) {
-                sql = 'SELECT id, name, posters FROM slideshows';
-                // Get the user id using username
-                connection.query(sql, function(err, match) {
-                    if (err) {
-                        throw err;
-                    }
+    if (admin) {
+        req.getConnection(function(err, connection) {
+            sql = 'SELECT id, name, posters FROM slideshows';
+            // Get the user id using username
+            connection.query(sql, function(err, match) {
+                if (err) {
+                    throw err;
+                }
 
-                    if (match !== '' && match.length > 0) {
-                        res.render('admin/slideshows/show', {
-                            title: 'Slideshows',
-                            rights: {
-                                admin: admin,
-                                logedin: login
-                            },
-                            data: match
-                        });
-                    } else {
-                        res.render('admin/slideshows/show', {
-                            title: 'Slideshows',
-                            rights: {
-                                admin: admin,
-                                logedin: login
-                            },
-                            error: 'You have no displays jet',
-                            data: match
-                        });
-                    }
-                });
+                if (match !== '' && match.length > 0) {
+                    res.render('admin/slideshows/show', {
+                        title: 'Slideshows',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
+                        data: match
+                    });
+                } else {
+                    res.render('admin/slideshows/show', {
+                        title: 'Slideshows',
+                        rights: {
+                            admin: admin,
+                            logedin: login
+                        },
+                        error: 'You have no displays jet',
+                        data: match
+                    });
+                }
             });
-        } else {
-            res.redirect('/admin');
-        }
+        });
     } else {
-        res.redirect('/users/login');
+        res.redirect('/admin');
     }
 });
 router.get('/add', function(req, res) {
@@ -60,67 +56,65 @@ router.get('/add/:slideshowId', function(req, res) {
         newPosters = [],
         oldPosters = [];
 
+    if (login && admin) {
+        req.getConnection(function(err, connection) {
+            var sqlPosters = 'SELECT filename, type, name, animation, duration, dateStart,dateEnd, id FROM posters';
+            connection.query(sqlPosters, function(err, allPosters) {
+                if (err) throw err;
 
-    if (login) {
-        if (admin) {
-            req.getConnection(function(err, connection) {
-                var sqlPosters = 'SELECT filename, type, name, id FROM posters';
                 var sqlSlideshows = 'SELECT posters, id, name FROM slideshows WHERE id = ?';
-
-                connection.query(sqlPosters, function(err, postersMatch) {
+                connection.query(sqlSlideshows, [slideshowId], function(err, slideshowMatch) {
                     if (err) throw err;
-                    connection.query(sqlSlideshows, [slideshowId], function(err, slideshowsMatch) {
-                        if (err) throw err;
-                        if (slideshowsMatch !== '' && slideshowsMatch.length > 0) {
-                            var posters = JSON.parse(slideshowsMatch[0].posters);
-                            posters.forEach(function(posterID) {
-                                postersMatch.forEach(function(value) {
-                                    if (posterID === value.id) {
-                                        // console.log();
-                                        oldPosters.push(value);
-                                    } else {
-                                        newPosters.push(value);
-                                    }
-
-                                });
+                    if (slideshowMatch !== '' && slideshowMatch.length > 0) {
+                        var AllPosters = JSON.parse(slideshowMatch[0].posters),
+                            usedposters = [];
+                        AllPosters.forEach(function(singlePoster) {
+                            allPosters.forEach(function(poster) {
+                                if (singlePoster === poster.id) {
+                                    usedposters.push(poster);
+                                }
                             });
-                            res.render('admin/slideshows/add', {
-                                title: 'Add a poster',
-                                data: {
-                                    posters: newPosters,
-                                    oldPosters: oldPosters
-                                },
-                                rights: {
-                                    admin: admin,
-                                    logedin: login
-                                },
-                                navStyle: 'icons-only',
-                                postUrl: '/admin/slideshows/add',
-                                error: false
-                            });
-                        }
-                    });
+                        });
+                        renderPage(usedposters, allPosters);
+                    } else {
+                        renderPage(null, allPosters);
+                    }
                 });
             });
-        } else {
-            res.redirect('/admin');
-        }
+        });
     } else {
-        res.redirect('/users/login');
+        res.redirect('/admin');
+    }
+
+    function renderPage(usedposters, allPosters) {
+        res.render('admin/slideshows/add', {
+            title: 'Add a poster',
+            data: {
+                usedposters: usedposters || null,
+                allPosters: allPosters
+            },
+            rights: {
+                admin: admin,
+                logedin: login
+            },
+            navStyle: 'icons-only',
+            postUrl: '/admin/slideshows/add',
+            error: false
+
+        });
     }
 });
 
 router.post('/add/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
-        login = cr.login,
+        admin = cr.admin,
         email = cr.email,
         // admin = cr.admin,
         body = req.body,
         posters = '[' + body.posters + ']',
         sqlQuery;
-    if (login) {
-
+    if (admin) {
         req.getConnection(function(err, connection) {
             var sql = 'SELECT id FROM users WHERE email = ?';
             connection.query(sql, [email], function(err, matchUser) {
@@ -156,6 +150,8 @@ router.post('/add/:slideshowId', function(req, res) {
                 }
             });
         });
+    } else {
+        res.redirect('/admin');
     }
 });
 

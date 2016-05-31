@@ -15,25 +15,26 @@
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </button>
-        <ul id="posterlist">
-            {{#each data.oldPosters}}
+        <ol id="posterlist">
+            {{#each data.usedposters}}
                 <li class="posteritem list" draggable="true">
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
-                            <img src="/download/{{filename}}" alt="" draggable="false" />
+                            <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}"/>
                         </div>
                     </a>
                 </li>
             {{/each}}
-        </ul>
+        </ol>
     </section>
 
     <section class="slideshow-picker none">
         <div class="select scrollable">
-            {{#each data.posters}}
+            {{#each data.allPosters}}
                 <div>
-                    <input class="select-image" type="checkbox" id="lab{{id}}" name="chk{{id}}" data-id="{{id}}" data-image="{{filename}}">
+                    <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
+                    <!-- data-settings="{'animation': '{{animation}}', 'duration': '{{duration}}', 'dateStart': '{{dateStart}}', 'dateEnd': '{{dateEnd}}'}" -->
                     <div class="image no-overflow">
                         <img src="/download/{{filename}}" alt="" />
                     </div>
@@ -53,20 +54,20 @@
     <section class="slideshow-poster-settings scrollable">
         <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
             <h2>Edit poster</h2>
-            <div class="">
+            <div>
                 <label for="field_animation">Animation: </label>
                 <div class="select-icon">
-                    <select class="" name="animation">
+                    <select name="animation" id="field_animation">
                         <option value="pop">pop</option>
                         <option value="top-push">push from top</option>
                         <option value="left-push">push from left</option>
                     </select>
                 </div>
             </div>
-            <div class="">
+            <div>
                 <label for="field_duration">Duration: </label>
                 <div class="select-icon">
-                    <select class="" name="duration">
+                    <select name="duration" id="field_duration">
                         <option value="10">10 sec</option>
                         <option value="20">20 sec</option>
                         <option value="30">30 sec</option>
@@ -78,11 +79,11 @@
                     </select>
                 </div>
             </div>
-            <div class="">
+            <div>
                 <label for="field_date_start">Start date: </label>
                 <input type="date" id="field_date_start" name="dateStart" value="" placeholder="dd-mm-jj">
             </div>
-            <div class="">
+            <div>
                 <label for="field_date_end">End date: </label>
                 <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
             </div>

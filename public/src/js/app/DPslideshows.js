@@ -14,6 +14,16 @@ DP.slideshows = (function() {
         }
         return dataIds;
     };
+    var CreateLi = function(id, filename) {
+        return '<li class="posteritem list" draggable="true">' +
+            '  <a href="#">' +
+            ' <small class="number">' + id + '</small>' +
+            '  <div class="image no-overflow" data-id="' + id + '">' +
+            '      <img src="/download/' + filename + '" alt="" draggable="false" />' +
+            '  </div>' +
+            '  </a>' +
+            '  </li>';
+    };
 
     var _addNewPoster = function() {
         var _posterlist = DP.helper.select('#posterlist');
@@ -24,34 +34,24 @@ DP.slideshows = (function() {
 
         _addImages.addEventListener('click', function() {
             _toggleAddNewPoster();
-            var liElement = function(id, filename) {
-                return '<li class="posteritem list" draggable="true">' +
-                    '  <a href="#">' +
-                    ' <small class="number">5</small>' +
-                    '  <div class="image no-overflow" data-id="' + id + '">' +
-                    '      <img src="/download/' + filename + '" alt="" draggable="false" />' +
-                    '  </div>' +
-                    '  </a>' +
-                    '  </li>';
-            };
-
             for (var i = 0; i < _selectImage.length; i++) {
-
                 if (_selectImage[i].checked) {
                     var id = _selectImage[i].getAttribute('data-id'),
                         filename = _selectImage[i].getAttribute('data-image');
-                    // document.body.appendChild();
-                    _posterlist.innerHTML += liElement(id, filename);
+
+                    _posterlist.innerHTML += CreateLi(id, filename);
                 }
             }
-
+            //post data to the server
             DP.helper.postData(DP.routes.currentPath(), 'posters=' + _getIds());
         });
     };
+
     var _toggleAddNewPoster = function() {
         _selector.classList.toggle('none');
         _plusButtonIcon.classList.toggle('rotate-right');
     };
+
     var _sortable = function() {
         // inspiration form http://codepen.io/agate1/pen/vOoRvj
         var _posterlist = DP.helper.select('#posterlist'),
@@ -70,9 +70,7 @@ DP.slideshows = (function() {
         });
 
         _posterlist.addEventListener('dragend', function() {
-
             item.classList.remove('placeholder');
-
             return false;
         });
         _posterlist.addEventListener('drop', function functionName(ev) {
@@ -104,17 +102,51 @@ DP.slideshows = (function() {
                 }
             }
         }
-        var recount = function() {
-            for (var n = 0; n < _numbers.length; n++) {
-                // console.log(ul.children.querySelectorAll('.number'));
-                _numbers[n].innerHTML = n;
+
+    };
+    var recount = function() {
+        for (var n = 0; n < _numbers.length; n++) {
+            // console.log(ul.children.querySelectorAll('.number'));
+            _numbers[n].innerHTML = n;
+        }
+    };
+    var _edditPoster = function() {
+        var _client = new DP.helper.getData(),
+            _posterlist = DP.helper.select('#posterlist'),
+            _preview = DP.helper.select('.slideshow-preview img'),
+            formElements = {
+                animaion: DP.helper.select('#field_animation'),
+                duration: DP.helper.select('#field_duration'),
+                startDate: DP.helper.select('#field_date_start'),
+                endDate: DP.helper.select('#field_date_end')
+            };
+
+        _posterlist.addEventListener('click', function functionName(ev) {
+            if (ev.target.tagName === 'IMG') {
+                var posterID = ev.target.getAttribute('data-id');
+
+                _client.get('/api/poster/' + posterID, function(response) {
+                    var data = JSON.parse(response);
+                    formElements.animaion.value = data.animation;
+                    formElements.duration.value = data.duration;
+                    formElements.startDate.value = data.dateStart;
+                    formElements.endDate.value = data.dateEnd;
+                });
+                _preview.src = ev.target.src;
+
             }
-        };
+            //
+        });
+    };
+
+    var _showPosters = function() {
+        _addNewPoster();
+        _sortable();
     };
 
     var init = function() {
-        _addNewPoster();
-        _sortable();
+        _showPosters();
+        _edditPoster();
     };
 
 
