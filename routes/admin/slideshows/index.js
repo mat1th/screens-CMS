@@ -52,9 +52,7 @@ router.get('/add/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         login = cr.login,
-        admin = cr.admin,
-        newPosters = [],
-        oldPosters = [];
+        admin = cr.admin;
 
     if (login && admin) {
         req.getConnection(function(err, connection) {
@@ -62,23 +60,35 @@ router.get('/add/:slideshowId', function(req, res) {
             connection.query(sqlPosters, function(err, allPosters) {
                 if (err) throw err;
 
-                var sqlSlideshows = 'SELECT posters, id, name FROM slideshows WHERE id = ?';
+                var sqlSlideshows = 'SELECT posters, id, name, discription FROM slideshows WHERE id = ?';
                 connection.query(sqlSlideshows, [slideshowId], function(err, slideshowMatch) {
                     if (err) throw err;
-                    if (slideshowMatch !== '' && slideshowMatch.length > 0) {
-                        var AllPosters = JSON.parse(slideshowMatch[0].posters),
-                            usedposters = [];
-                        AllPosters.forEach(function(singlePoster) {
-                            allPosters.forEach(function(poster) {
-                                if (singlePoster === poster.id) {
-                                    usedposters.push(poster);
-                                }
+
+                    var displaySql = 'SELECT id, name FROM displays';
+                    // Get the user id using username
+                    connection.query(displaySql, function(err, displayMatch) {
+                        if (err) throw err;
+
+                        if (slideshowMatch !== '' && slideshowMatch.length > 0) {
+                            var AllPosters = JSON.parse(slideshowMatch[0].posters),
+                                slideshowSettings = {
+                                    id: slideshowMatch[0].id,
+                                    name: slideshowMatch[0].name,
+                                    discription: slideshowMatch[0].discription
+                                },
+                                usedposters = [];
+                            AllPosters.forEach(function(singlePoster) {
+                                allPosters.forEach(function(poster) {
+                                    if (singlePoster === poster.id) {
+                                        usedposters.push(poster);
+                                    }
+                                });
                             });
-                        });
-                        renderPage(usedposters, allPosters);
-                    } else {
-                        renderPage(null, allPosters);
-                    }
+                            renderPage(usedposters, allPosters, slideshowSettings, displayMatch);
+                        } else {
+                            renderPage(null, allPosters, null, displayMatch);
+                        }
+                    });
                 });
             });
         });
@@ -86,19 +96,25 @@ router.get('/add/:slideshowId', function(req, res) {
         res.redirect('/admin');
     }
 
-    function renderPage(usedposters, allPosters) {
+    function renderPage(usedposters, allPosters, slideshowSettings, displayMatch) {
         res.render('admin/slideshows/add', {
             title: 'Add a poster',
             data: {
                 usedposters: usedposters || null,
-                allPosters: allPosters
+                allPosters: allPosters,
+                displays: displayMatch,
+                slideshowSettings: slideshowSettings || null
             },
             rights: {
                 admin: admin,
                 logedin: login
             },
             navStyle: 'icons-only',
-            postUrl: '/admin/slideshows/add',
+            postUrl: {
+                settings: '/admin/slideshows/add',
+                posters: '/admin/posters/add',
+                displays: '/admin/posters/add'
+            },
             error: false
 
         });
