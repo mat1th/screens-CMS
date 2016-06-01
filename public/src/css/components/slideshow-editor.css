@@ -113,10 +113,12 @@
     width: 50%;
     margin: auto auto;
 }
-.slideshow-poster-settings {
-    min-width: 16em;
-    padding: 1em;
+.right-panel {
+    min-width: 18em;
     background: var(--background-color-semidark);
+}
+.right-panel section{
+      padding: 1em;
 }
 
 /*shortable list */
