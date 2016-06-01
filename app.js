@@ -10,6 +10,7 @@ const express = require('express'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
+    Promise = require('bluebird'),
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -40,6 +41,7 @@ app.use(bodyParser.json());
 
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
+// app.use(express.static(path.join(__dirname, 'uploads')));
 
 hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
     if (conditional == options.hash.equals) {
@@ -91,7 +93,9 @@ var dbOptions = {
 };
 
 // Add connection middleware
+
 app.use(myConnection(mysql, dbOptions, 'single'));
+
 
 //use routes
 app.use('/', index);

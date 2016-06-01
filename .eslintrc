@@ -26,6 +26,7 @@
   },
   "globals": {
     "TimelineMax": true,
+    "Promise": true,
     "Sine": true,
     "DP": true,
     "moment": true,
