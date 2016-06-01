@@ -5,8 +5,8 @@
         <a href="/admin/posters/add" class="btn btn-default">Add new poster</a>
     </section>
     <section class="content-body posters">
-        {{#if data}}
-            {{#each data}}
+        {{#if data.general}}
+            {{#each data.general}}
                 <div class="poster">
                     <a href="/admin/posters/show/{{id}}">
                         <div class="image no-overflow">

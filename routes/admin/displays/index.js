@@ -6,44 +6,36 @@ var express = require('express'),
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
-        admin = cr.admin;
-
-    if (login) {
-        if (admin) {
-            req.getConnection(function(err, connection) {
-                var sql = 'SELECT id, slideshowId, name FROM displays';
-                // Get the user id using username
-                connection.query(sql, function(err, match) {
-                    if (err) {
-                        throw err;
-                    }
-                    if (match !== '' && match.length > 0) {
-                        res.render('admin/displays/show', {
-                            title: 'Displays',
-                            rights: {
-                                admin: admin,
-                                logedin: login
-                            },
-                            data: match
-                        });
-                    } else {
-                        res.render('admin/displays/show', {
-                            title: 'Displays',
-                            rights: {
-                                admin: admin,
-                                logedin: login
-                            },
-                            error: 'You have no displays jet',
-                            data: match
-                        });
-                    }
-                });
+        admin = cr.admin,
+        renderPage = function(data, error) {
+            res.render('admin/displays/show', {
+                title: 'Displays',
+                rights: {
+                    admin: admin,
+                    logedin: login
+                },
+                error: error,
+                data: data
             });
-        } else {
-            res.redirect('/admin');
-        }
+        };
+
+    if (admin) {
+        req.getConnection(function(err, connection) {
+            var sql = 'SELECT id, slideshowId, name FROM displays';
+            // Get the user id using username
+            connection.query(sql, function(err, match) {
+                if (err) throw err;
+
+                if (match !== '' && match.length > 0) {
+                    renderPage(match);
+
+                } else {
+                    renderPage(match, 'You have no displays jet');
+                }
+            });
+        });
     } else {
-        res.redirect('/users/login');
+        res.redirect('/admin');
     }
 });
 
@@ -52,10 +44,10 @@ router.get('/add', function(req, res) {
         login = cr.login,
         admin = cr.admin;
 
-    if (login) {
+    if (admin) {
         getDisplayNames(req, res, false, login, admin);
     } else {
-        res.redirect('/users/login');
+        res.redirect('/admin');
     }
 });
 
@@ -67,7 +59,8 @@ router.post('/add', function(req, res) {
         name = body.name,
         slideshowId = body.slideshowId,
         now = new Date();
-    if (login) {
+
+    if (admin) {
         if (name !== undefined && name.length !== 0 && slideshowId !== null) {
             req.getConnection(function(err, connection) {
                 var sqlQuery = 'INSERT INTO displays SET ?',
@@ -88,6 +81,8 @@ router.post('/add', function(req, res) {
         } else {
             getDisplayNames(req, res, 'You haven\'t filled in a name', login);
         }
+    } else {
+        res.redirect('/admin');
     }
 });
 

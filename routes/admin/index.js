@@ -1,49 +1,40 @@
 var express = require('express'),
     // moment = require('moment'),
+    getSpecificData = require('../../modules/getSpecificData.js'),
+    renderTemplate = require('../../modules/renderTemplate.js'),
     credentials = require('../../modules/credentials.js'),
     router = express.Router();
 
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin,
-        email = cr.email,
+        general = {
+            title: 'Your posters',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+                // navStyle: 'icons-only'
+        },
         sql;
 
-    if (login) {
+    if (general.login) {
         req.getConnection(function(err, connection) {
-            if (admin) {
+            if (general.admin) {
                 sql = "SELECT (SELECT COUNT(id) FROM posters) AS 'posters', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(id) FROM displays) AS 'displays'";
             } else {
-                sql = "SELECT (SELECT COUNT(id) FROM posters WHERE userId  IN( SELECT id FROM users WHERE email = ? )) AS 'posters', (SELECT COUNT(id) FROM slideshows WHERE userId  IN( SELECT id FROM users WHERE email = ? )) AS 'slideshows'";
+                // sqlOud = "SELECT (SELECT COUNT(id) FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )) AS 'posters', (SELECT COUNT(id) FROM slideshows WHERE userId  IN( SELECT id FROM users WHERE email = ? )) AS 'slideshows'";
+                sql = 'SELECT COUNT(id) AS posters FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ?)';
             }
 
-            // Get the user id using username
-            connection.query(sql, [email, email], function(err, match) {
-                if (err) {
-                    throw err;
-                }
-                if (match !== '' && match.length > 0) {
-                    res.render('admin/index', {
-                        title: 'Dashboard',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: match[0],
-                        error: false
-                    });
-                } else {
-                    res.render('admin/index', {
-                        title: 'Dashboard',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: match[0],
-                        error: 'You have got no posters'
-                    });
-                }
+            getSpecificData(sql, connection, [general.email]).then(function(rows) {
+                var data = {
+                    general: rows[0]
+                };
+
+                //renderTemplate
+                renderTemplate(res, 'admin/index', data, general, {}, false);
+                //
+            }).catch(function(err) {
+                throw err;
             });
         });
     } else {
