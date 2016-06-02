@@ -39,7 +39,7 @@ a {
 .not-found {
     margin: 2em auto;
 }
-.js-warning {
+.warning {
     position: absolute;
     top: 0;
     right: 0;
@@ -48,7 +48,7 @@ a {
     text-align: center;
     z-index: 16;
 }
-.js-warning small {
+.warning small {
     padding: 0.2em 0.5em;
     border-radius: var(--border-radius);
     background: var( --warn-color);

@@ -1,6 +1,11 @@
 {{#if data}}
     <section class="slideshow">
         <div class="mask">
+          {{#if error}}
+          <div class="warning">
+              <small>You have got no posters assigned to this display</small>
+          </div>
+          {{/if}}
             <ul>
                 {{#each data}}
                     {{#checkTypeOfPoster type equals="poster" }}
