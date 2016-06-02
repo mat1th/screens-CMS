@@ -181,32 +181,4 @@ router.post('/add/settings/:slideshowId', function(req, res) {
     }
 });
 
-// router.get('/test', function(req, res) {
-//     var cr = credentials(req.session),
-//         slideshowId = req.params.slideshowId,
-//         general = {
-//             title: 'Add a poster',
-//             login: cr.login,
-//             admin: cr.admin,
-//             navStyle: 'icons-only'
-//         },
-//         postUrls = {
-//             settings: '/admin/slideshows/edit',
-//             posters: '/admin/posters/edit',
-//             displays: '/admin/posters/edit'
-//         };
-//
-//     req.getConnection(function(err, connection) {
-//         getData('SELECT * FROM posters', connection).then(function(rows) {
-//             var data = {
-//                 general: rows
-//             };
-//             //renderTemplate
-//             renderTemplate(res, 'admin/posters/show', data, general, postUrls, false);
-//             //
-//         }).catch(function(err) {
-//             throw err;
-//         });
-//     });
-// });
 module.exports = router;
