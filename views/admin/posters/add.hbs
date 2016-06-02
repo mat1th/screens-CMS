@@ -4,55 +4,57 @@
         <h1>Add a poster</h1>
     </section>
     <section class="content-body add-poster">
-        {{#if error}}
-            <div class="error">
-                {{error}}
-            </div>
-        {{/if}}
+
         <!-- <div id="messages">
         <p>Status Messages</p>
       </div> -->
         <!-- <div id="filedrag">or drop files here</div> -->
-
         <form action="{{postUrl.general}}" method="post" enctype="multipart/form-data">
-            <div class="">
-                <label for="field_duration">Type: </label>
-
-                <ul class="form-list">
+            {{#if error}}
+                <div class="error">
+                    {{error}}
+                </div>
+            {{/if}}
+            <div>
+                <ul id="radio-option-field">
                     <li>
-                        <input type="radio" name="type" value="poster" id="field_poster" checked>
-                        <label for="field_poster">Poster</label>
+                        <input type="radio" name="type" value="poster" id="field-poster" checked>
+                        <label for="field-poster">Poster</label>
                     </li>
 
                     <li>
-                        <input type="radio" name="type" value="vimeo" id="field_vimeo">
-                        <label for="field_vimeo">Vimeo video</label>
+                        <input type="radio" name="type" value="vimeo" id="field-vimeo">
+                        <label for="field-vimeo">Vimeo video</label>
                     </li>
                 </ul>
             </div>
-            <div class="">
-                <label for="field_name">Name: </label>
-                <input type="text" id="field_name" name="name" value="">
-            </div>
-            <div class="">
-                <label for="field_discription">Discription: </label>
-                <textarea name="discription" rows="2" cols="40" value="" id="field_discription"></textarea>
-            </div>
-            <div class="">
-                <label for="field_vimeo_id">Vimeo id: </label>
-                <input type="text" id="field_vimeo_id" name="vimeoId" value="" placeholder="125229524">
-            </div>
-            <div class="file_input">
-                <span class="filename">Select your file</span>
-                <label for="field_file" class="btn btn-default ">Browse
-                    <input type="file" name="imageFile" for="hio" value="" id="field_file">
+
+            <div class="file-input">
+                <span class="filename" id="filename">Select your file</span>
+                <label for="field-file" class="btn btn-default ">Browse
+                    <input type="file" name="imageFile" for="hio" value="" id="field-file">
                 </label>
             </div>
 
-            <div class="">
-                <label for="field_animation">Animation: </label>
+            <div id="vimeo-id-input">
+                <label for="field-vimeo-id">Vimeo id: </label>
+                <input type="text" id="field-vimeo-id" name="vimeoId" value="" placeholder="125229524">
+            </div>
+
+            <div>
+                <label for="field-name">Name: </label>
+                <input type="text" id="field-name" name="name" value="">
+            </div>
+
+            <div>
+                <label for="field-discription">Discription: </label>
+                <textarea name="discription" rows="2" cols="40" value="" id="field-discription"></textarea>
+            </div>
+
+            <div>
+                <label for="field-animation">Animation: </label>
                 <div class="select-icon">
-                    <select class="" name="animation">
+                    <select class="" name="animation" id="field-animation">
                         <option value="pop">pop</option>
                         <option value="top-push">push from top</option>
                         <option value="left-push">push from left</option>
@@ -60,10 +62,11 @@
                 </div>
             </div>
 
-            <div class="">
-                <label for="field_duration">Duration: </label>
-                <div class="select-icon">
-                    <select class="" name="duration">
+            <div>
+                <label for="field-duration">Duration: </label>
+                <input type="number" id="field-duration" name="duration" value="" placeholder="60 (is one min)">
+                <!-- <div class="select-icon">
+                    <select class="" name="duration" id="field-duration">
                         <option value="10">10 sec</option>
                         <option value="20">20 sec</option>
                         <option value="30">30 sec</option>
@@ -73,21 +76,26 @@
                         <option value="90">1,5 min</option>
                         <option value="120">2 min</option>
                     </select>
-                </div>
+                </div> -->
             </div>
-            <div class="">
-                <label for="field_date_start">Start date: </label>
-                <input type="date" id="field_date_start" name="dateStart" value="" placeholder="dd-mm-jj">
+
+            <div>
+                <label for="field-date-start">Start date: </label>
+                <input type="date" id="field-date-start" name="dateStart" value="" placeholder="dd-mm-jj">
             </div>
-            <div class="">
-                <label for="field_date_end">End date: </label>
-                <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
+
+            <div>
+                <label for="field-date-end">End date: </label>
+                <input type="date" id="field-date-end" name="dateEnd" value="" placeholder="dd-mm-jj">
             </div>
 
             <button class="btn btn-default top-margin">Submit</button>
+
             <a href="/admin/posters" class="btn top-margin">Cancel</a>
+
         </form>
-        <img src="/img/no-poster.jpg" alt="" id="input_preview" class="img-preview" />
+
+        <img src="/img/no-poster.jpg" alt="" id="input-preview" class="img-preview" />
     </section>
 
 
