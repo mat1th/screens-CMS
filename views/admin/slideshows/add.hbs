@@ -52,6 +52,7 @@
     </section>
 
     <section class="right-panel scrollable">
+      <a href="#" class="btn btn-general left-rigt-margin">Preview</a>
         <div class="toggle-buttons">
             <button type="button" name="button" active>Settings</button>
             <button type="button" name="button" >Poster</button>
@@ -63,22 +64,21 @@
                 <h2>Slideshow settings</h2>
                 <div>
                     <label for="field_name">Name: </label>
-                    <input type="date" id="field_name" name="name" value="{{data.slideshowSettings.name}}">
+                    <input type="date" id="field_name" name="name" value="{{data.general.1.slideshow_name}}">
                 </div>
                 <div>
                     <label for="field_discription">Discription: </label>
-                    <input type="date" id="field_discription" name="discription" value="{{data.slideshowSettings.discription}}">
+                    <input type="date" id="field_discription" name="discription" value="{{data.general.1.slideshow_discription}}">
                 </div>
-
                 <button class="btn btn-default top-margin">Save</button>
             </form>
         </section>
         <section>
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
-                {{#each data.displays}}
+                {{#each data.general}}
                     <div>
-                        <input type="checkbox" id="field_name{{id}}" name="name" value="">
+                        <input type="checkbox" id="field_name{{id}}" name="name" value="" >
                         <label for="field_name{{id}}">{{name}}</label>
                     </div>
                 {{/each}}

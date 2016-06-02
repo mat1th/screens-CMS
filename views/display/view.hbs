@@ -7,7 +7,7 @@
           </div>
           {{/if}}
             <ul>
-                {{#each data}}
+                {{#each data.general}}
                     {{#checkTypeOfPoster type equals="poster" }}
                         <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
                             <img src="/download/{{filename}}" alt="{{type}}" />
