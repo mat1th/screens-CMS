@@ -70,6 +70,7 @@ DP.slideshows = (function() {
         });
 
         _posterlist.addEventListener('dragend', function() {
+            DP.helper.postData(DP.routes.currentPath(), 'posters=' + _getIds());
             item.classList.remove('placeholder');
             return false;
         });
