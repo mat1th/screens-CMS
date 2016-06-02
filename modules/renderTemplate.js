@@ -2,11 +2,11 @@ var renderTemplate = function(res, template, data, general, postUrls, error) {
     res.render(template, {
         title: general.title,
         data: {
-            general: data.general || null
-                // usedposters: usedposters || null,
-                // allPosters: allPosters,
-                // displays: displayMatch,
-                // slideshowSettings: slideshowSettings || null
+            general: data.general || null,
+            // usedposters: usedposters || null,
+            allPosters: data.posters
+            // displays: data.posters,
+            // slideshowSettings: slideshowSettings || null
         },
         rights: {
             admin: general.admin,
