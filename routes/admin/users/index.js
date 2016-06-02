@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
             title: 'Displays',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         sql;
@@ -22,9 +23,13 @@ router.get('/', function(req, res) {
                     throw err;
                 }
                 if (match !== '' && match.length > 0) {
-                    renderTemplate(res, 'admin/users/show', {general: match}, general, {}, false);
+                    renderTemplate(res, 'admin/users/show', {
+                        general: match
+                    }, general, {}, false);
                 } else {
-                    renderTemplate(res, 'admin/users/show', {general: match}, general, {}, 'There are no users');
+                    renderTemplate(res, 'admin/users/show', {
+                        general: match
+                    }, general, {}, 'There are no users');
                 }
             });
         });

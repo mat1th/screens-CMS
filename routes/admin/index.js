@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your posters',
-            admin: cr.admin,
+              admin: cr.admin, editor: cr.editor,
             login: cr.login,
             email: cr.email
         },

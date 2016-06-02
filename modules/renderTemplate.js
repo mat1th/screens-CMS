@@ -7,6 +7,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         },
         rights: {
             admin: general.admin,
+            editor: general.editor,
             logedin: general.login
         },
         navStyle: general.navStyle,

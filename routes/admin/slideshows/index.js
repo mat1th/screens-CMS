@@ -81,6 +81,7 @@ router.get('/add/:slideshowId', function(req, res) {
             title: 'Your posters',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email,
             navStyle: 'icons-only'
         },
