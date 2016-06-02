@@ -3,14 +3,13 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Displays',
             login: cr.login,
             admin: cr.admin,
             email: cr.email
-                // navStyle: 'icons-only'
         },
         sql;
 
@@ -35,7 +34,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-// router.get('/add', function(req, res, next) {
+// router.get('/edit', function(req, res, next) {
 //     var cr = credentials(req.session),
 //         login = cr.login,
 //         admin = cr.admin;

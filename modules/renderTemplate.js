@@ -3,10 +3,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         title: general.title,
         data: {
             general: data.general || null,
-            // usedposters: usedposters || null,
             allPosters: data.posters
-            // displays: data.posters,
-            // slideshowSettings: slideshowSettings || null
         },
         rights: {
             admin: general.admin,
