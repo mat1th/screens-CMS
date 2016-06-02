@@ -1,6 +1,8 @@
 .slideshow-add {
     display: flex;
+    justify-content: space-between;
     height: 100%;
+    width: 100%;
 }
 .slideshow-content {
     display: inline-block;
@@ -110,15 +112,17 @@
     width: 100%;
 }
 .slideshow-preview img {
+    background: var(--background-color-semidark);
     width: 50%;
+    max-width: 30em;
     margin: auto auto;
 }
 .right-panel {
     min-width: 18em;
     background: var(--background-color-semidark);
 }
-.right-panel section{
-      padding: 1em;
+.right-panel section {
+    padding: 1em;
 }
 
 /*shortable list */

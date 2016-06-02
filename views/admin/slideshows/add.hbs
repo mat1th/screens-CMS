@@ -1,6 +1,6 @@
  {{> nav}}
 <noscript>
-    <div class="warning">
+    <div class="warning" role="alert">
         <small> Not all functions of the app will work, please enable JS</small>
     </div>
 </noscript>
@@ -48,7 +48,7 @@
 
     <!-- a preview of the poster  -->
     <section class="slideshow-preview">
-        <img src="/img/no-poster.jpg" alt="no poster image" />
+        <img src="/download/{{data.general.0.filename}}" alt="no poster image" />
     </section>
 
     <section class="right-panel scrollable">
@@ -88,6 +88,7 @@
         </section>
 
         <section class="slideshow-poster-settings scrollable">
+        <section class="slideshow-poster-settings scrollable" aria-hidden="true">
             <form action="{{postUrl.posters}}" method="post">
                 <h2>Edit poster</h2>
                 <div>
