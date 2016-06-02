@@ -15,7 +15,8 @@ router.get('/:displayId', function(req, res, next) {
     var posterUrls = [];
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
+        var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
+        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
 
         getSpecificData(sql, connection, [displayId]).then(function(rows) {
             var data = {
