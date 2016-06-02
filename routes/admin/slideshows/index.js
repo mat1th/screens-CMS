@@ -1,123 +1,106 @@
 var express = require('express'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
+    getData = require('../../../modules/getData.js'),
+    getSpecificData = require('../../../modules/getSpecificData.js'),
+    insertData = require('../../../modules/insertData.js'),
+    renderTemplate = require('../../../modules/renderTemplate.js'),
     // isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin,
+        general = {
+            title: 'Your posters',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
         sql;
 
-    if (admin) {
-        req.getConnection(function(err, connection) {
-            sql = 'SELECT id, name, posters FROM slideshows';
-            // Get the user id using username
-            connection.query(sql, function(err, match) {
-                if (err) {
-                    throw err;
-                }
+    if (general.admin) {
 
-                if (match !== '' && match.length > 0) {
-                    res.render('admin/slideshows/show', {
-                        title: 'Slideshows',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: match
-                    });
+        req.getConnection(function(err, connection) {
+            sql = 'SELECT id, slideshow_name FROM slideshows';
+            // Get the user id using username
+            getData(sql, connection).then(function(rows) {
+                var data = {
+                    general: rows
+                };
+                //renderTemplate
+                if (rows.length > 0) {
+                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, false);
                 } else {
-                    res.render('admin/slideshows/show', {
-                        title: 'Slideshows',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        error: 'You have no displays jet',
-                        data: match
-                    });
+                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
                 }
+                //
+            }).catch(function(err) {
+                throw err;
             });
         });
     } else {
         res.redirect('/admin');
     }
 });
+
+//create unique id and redirect
 router.get('/add', function(req, res) {
-    res.redirect('/admin/slideshows/add/' + randNumber());
+    var cr = credentials(req.session),
+        email = cr.email,
+        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = (SELECT id FROM users WHERE email = ?)',
+        number = randNumber(1000000);
+
+    req.getConnection(function(err, connection) {
+        insertData(createSlideshow, [number, email], connection).then(function() {
+
+            res.redirect('/admin/slideshows/add/' + number);
+
+        }).catch(function(err) {
+            throw err;
+        });
+    });
 });
+
 router.get('/add/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
-        login = cr.login,
-        admin = cr.admin;
+        general = {
+            title: 'Your posters',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email,
+            navStyle: 'icons-only'
+        },
+        postUrls = {
+            settings: '/admin/slideshows/add/settings/' + slideshowId,
+            posters: '/admin/posters/edit',
+            displays: '/admin/posters/edit'
+        };
 
-    if (login && admin) {
+    if (general.admin) {
+        var sql = 'SELECT * FROM posters_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN posters T3 ON T1.poster_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
+        var sqlPosters = 'SELECT * FROM posters';
+
         req.getConnection(function(err, connection) {
-            var sqlPosters = 'SELECT filename, type, name, animation, duration, dateStart,dateEnd, id FROM posters';
-            connection.query(sqlPosters, function(err, allPosters) {
-                if (err) throw err;
-
-                var sqlSlideshows = 'SELECT posters, id, name, discription FROM slideshows WHERE id = ?';
-                connection.query(sqlSlideshows, [slideshowId], function(err, slideshowMatch) {
-                    if (err) throw err;
-
-                    var displaySql = 'SELECT id, name FROM displays';
-                    // Get the user id using username
-                    connection.query(displaySql, function(err, displayMatch) {
-                        if (err) throw err;
-
-                        if (slideshowMatch !== '' && slideshowMatch.length > 0) {
-                            var AllPosters = JSON.parse(slideshowMatch[0].posters),
-                                slideshowSettings = {
-                                    id: slideshowMatch[0].id,
-                                    name: slideshowMatch[0].name,
-                                    discription: slideshowMatch[0].discription
-                                },
-                                usedposters = [];
-                            AllPosters.forEach(function(singlePoster) {
-                                allPosters.forEach(function(poster) {
-                                    if (singlePoster === poster.id) {
-                                        usedposters.push(poster);
-                                    }
-                                });
-                            });
-                            renderPage(usedposters, allPosters, slideshowSettings, displayMatch);
-                        } else {
-                            renderPage(null, allPosters, null, displayMatch);
-                        }
-                    });
+            getData(sqlPosters, connection).then(function(posters) {
+                getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
+                    // if (rows.length > 0) {
+                    var data = {
+                        general: rows,
+                        posters: posters
+                    };
+                    renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
+                    // }
+                }).catch(function(err) {
+                    throw err;
                 });
+            }).catch(function(err) {
+
+                throw err;
             });
         });
     } else {
         res.redirect('/admin');
-    }
-
-    function renderPage(usedposters, allPosters, slideshowSettings, displayMatch) {
-        res.render('admin/slideshows/add', {
-            title: 'Add a poster',
-            data: {
-                usedposters: usedposters || null,
-                allPosters: allPosters,
-                displays: displayMatch,
-                slideshowSettings: slideshowSettings || null
-            },
-            rights: {
-                admin: admin,
-                logedin: login
-            },
-            navStyle: 'icons-only',
-            postUrl: {
-                settings: '/admin/slideshows/add',
-                posters: '/admin/posters/add',
-                displays: '/admin/posters/add'
-            },
-            error: false
-
-        });
     }
 });
 
@@ -125,45 +108,64 @@ router.post('/add/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,
-        email = cr.email,
         // admin = cr.admin,
         body = req.body,
-        posters = '[' + body.posters + ']',
-        sqlQuery;
+        posters = JSON.parse('[' + body.posters + ']');
+    console.log(posters);
     if (admin) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT id FROM users WHERE email = ?';
-            connection.query(sql, [email], function(err, matchUser) {
-                if (err) throw err;
+            var sqlQueryInsert = 'INSERT INTO posters_In_slideshow SET poster_id = ?, slideshow_id = ?, short = ?';
+            var sqlQueryUpdate = 'UPDATE posters_In_slideshow SET short = ? WHERE poster_id = ? AND slideshow_id = ?';
+            var sqlQueryGet = 'SELECT * FROM posters_In_slideshow WHERE poster_id = ? AND slideshow_id = ?';
 
-                if (matchUser !== '' && matchUser.length > 0) {
-                    var sqlSlideshows = 'SELECT id FROM slideshows WHERE id = ?';
-                    connection.query(sqlSlideshows, [slideshowId], function(err, match) {
-                        if (err) throw err;
-                        if (match !== '' && match.length === 0) {
-                            var sqlValues = {
-                                id: slideshowId,
-                                userId: matchUser[0].id,
-                                posters: posters
-                            };
-                            sqlQuery = 'INSERT INTO slideshows SET ?';
+            posters.forEach(function(poster, index) {
+                getSpecificData(sqlQueryGet, connection, [poster, slideshowId]).then(function(rows) {
+                    if (rows.length === 0) {
+                        insertData(sqlQueryInsert, [poster, slideshowId, index], connection).then(function() {
 
-                            connection.query(sqlQuery, sqlValues, function(err) {
-                                if (err) {
-                                    throw err;
-                                }
-                                res.send('done');
-                            });
+                        }).catch(function(err) {
+                            throw err;
+                        });
+                    } else {
+                        insertData(sqlQueryUpdate, [index, poster, slideshowId], connection).then(function() {
 
-                        } else {
-                            sqlQuery = 'UPDATE slideshows SET posters = ? WHERE id= ?';
-                            connection.query(sqlQuery, [posters, match[0].id], function(err) {
-                                if (err) throw err;
-                                res.send('done');
-                            });
-                        }
-                    });
-                }
+                        }).catch(function(err) {
+                            throw err;
+                        });
+                    }
+                }).catch(function(err) {
+                    res.send('error', err);
+                    throw err;
+                });
+            });
+            res.send('succes');
+        });
+    } else {
+        res.redirect('/admin');
+    }
+});
+
+router.post('/add/settings/:slideshowId', function(req, res) {
+    var cr = credentials(req.session),
+        slideshowId = req.params.slideshowId,
+        admin = cr.admin,
+        // admin = cr.admin,
+        body = req.body,
+        discription = body.discription,
+        name = body.name;
+
+    if (admin) {
+        req.getConnection(function(err, connection) {
+            var sqlQueryInsert = 'UPDATE slideshows SET slideshow_discription = ?, slideshow_name = ? WHERE id = ?';
+
+            insertData(sqlQueryInsert, [discription, name, slideshowId], connection).then(function() {
+
+                res.redirect('/admin/slideshows/add/' + slideshowId);
+
+            }).catch(function(err) {
+                console.log(err);
+                res.send('err' + err);
+                throw err;
             });
         });
     } else {
