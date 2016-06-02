@@ -1,6 +1,5 @@
 /*overview*/
 
-.posters {}
 .poster {
     display: inline-block;
     position: relative;
@@ -15,12 +14,11 @@
     display: inline-block;
     height: 20em;
 }
-
 .poster .name {
     position: absolute;
     bottom: 0.3em;
     width: 100%;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.86) 0%, rgba(255, 255, 255, 0) 100%);
+      background: rgba(67, 69, 61, 0.80);
     color: var(--font-color-light);
     z-index: 1;
 }
@@ -30,6 +28,16 @@
 .img-preview {
     margin: 1em;
 }
+.play-icon {
+    position: absolute;
+    margin-right: auto;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(67, 69, 61, 0.80);
+}
+
 
 /*add a new poster*/
 

@@ -4,7 +4,7 @@
         <h1>Your posters</h1>
         <a href="/admin/posters/add" class="btn btn-default">Add new poster</a>
     </section>
-    <section class="content-body posters">
+    <section class="content-body">
         {{#if data.general}}
             {{#each data.general}}
                 <div class="poster">
@@ -12,6 +12,16 @@
                         <div class="image no-overflow">
                             <img src="/download/{{filename}}" alt="" />
                         </div>
+
+                        {{#checkTypeOfPoster type equals="vimeo" }}
+                            <div class="play-icon">
+                                <svg fill="#fff" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5v14l11-7z" />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                </svg>
+                            </div>
+                        {{/checkTypeOfPoster}}
+
                         <div class="name">
                             <h2>{{name}}</h2>
                         </div>
@@ -24,3 +34,12 @@
         {{/if}}
     </section>
 </section>
+
+
+
+<!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="80" width="80" viewBox="0 0 36.2 36.2" xml:space="preserve">
+
+    <circle style="fill:rgba(67, 69, 61, 0.80)" cx="18.1" cy="18.1" r="18.1" />
+    <path style="fill:none;" d="M6.1,6.1h24v24h-24V6.1z" />
+    <path style="fill:#FFFFFF;" d="M14.1,11.1v14l11-7L14.1,11.1z" />
+</svg> -->
