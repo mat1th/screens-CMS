@@ -20,6 +20,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
             displays: postUrls.displays || null
         },
         error: error,
+        navPosition: general.navPosition,
         layout: layout || 'layout'
     });
 };
