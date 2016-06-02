@@ -31,9 +31,50 @@
     background-color: var(--normal-color-hover);
 }
 button.fullwith {
+    box-sizing: border-box;
     margin: 1em 0;
     width: 100%;
 }
-button.normal-margin {
+button.top-margin, a.top-margin {
+    box-sizing: border-box;
     margin: 1em 0;
+}
+button.left-rigt-margin, a.left-rigt-margin {
+    margin: auto 0.5em;
+}
+.toggle-buttons {
+    padding: 1em;
+    background: var(--background-color-semidark);
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+.toggle-buttons button {
+    font-size: 0.8em;
+    width: 33%;
+    margin: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 0.15em solid var(--normal-color);
+    padding: 0.8em 1em;
+    color: var(--font-color-dark);
+}
+.toggle-buttons button[aria-selected=true] {
+    background: var(--normal-color);
+    color: var(--font-color-light);
+}
+.toggle-buttons button:active {
+    background: var(--normal-color-hover);
+    color: var(--font-color-light);
+}
+.toggle-buttons button:first-child {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-right: 0;
+}
+.toggle-buttons button:last-child {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-left: 0;
 }

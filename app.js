@@ -10,6 +10,7 @@ const express = require('express'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
+    Promise = require('bluebird'),
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -24,7 +25,8 @@ const express = require('express'),
     posters = require('./routes/admin/posters/index'),
     slideshows = require('./routes/admin/slideshows/index'),
     display = require('./routes/display/index'),
-    users = require('./routes/admin/users/index');
+    users = require('./routes/admin/users/index'),
+    api = require('./routes/api/index');
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +41,7 @@ app.use(bodyParser.json());
 
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
+// app.use(express.static(path.join(__dirname, 'uploads')));
 
 hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
     if (conditional == options.hash.equals) {
@@ -62,7 +65,6 @@ app.use(function(req, res, next) {
 app.use(session({
     secret: 'soSecureMuchEncryption',
     genid: function(req) {
-      console.log(generateUUID());
         return generateUUID() // use UUIDs for session IDs
     },
     store: new FileStore(),
@@ -91,7 +93,9 @@ var dbOptions = {
 };
 
 // Add connection middleware
+
 app.use(myConnection(mysql, dbOptions, 'single'));
+
 
 //use routes
 app.use('/', index);
@@ -106,6 +110,7 @@ app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
 app.use('/display', display);
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler

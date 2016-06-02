@@ -1,14 +1,18 @@
 var fs = require('fs'),
     express = require('express'),
-    checklogin = require('../modules/checklogin.js'),
+    credentials = require('../modules/credentials.js'),
     router = express.Router();
 
 router.get('/', function(req, res, next) {
+    var cr = credentials(req.session),
+        login = cr.login;
+
     res.render('home', {
         title: 'Home',
         navPosition: 'transparant',
-        logedin: checklogin(req.session),
-        data: 'hio'
+        rights: {
+            logedin: login
+        }
     });
 });
 

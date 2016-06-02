@@ -8,7 +8,7 @@
             {{error}}
         </div>
     {{/if}}
-    <form action="{{postUrl}}" method="post">
+    <form action="{{postUrl.general}}" method="post">
         <div class="">
             <label for="field_name">Name: </label>
             <input type="text" id="field_name" name="name" value="">
@@ -17,7 +17,7 @@
             <label for="field_slideshow">Slideshow: </label>
             <select class="" id="field_slideshow" name="slideshowId">
                 {{#each data}}
-                    <option value="{{id}}">{{name}}</option>
+                    <option value="{{id}}">{{slideshow_name}}</option>
                 {{/each}}
             </select>
         </div>

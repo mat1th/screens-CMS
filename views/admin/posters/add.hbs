@@ -13,7 +13,8 @@
         <p>Status Messages</p>
       </div> -->
         <!-- <div id="filedrag">or drop files here</div> -->
-        <form action="{{postUrl}}" method="post" enctype="multipart/form-data">
+
+        <form action="{{postUrl.general}}" method="post" enctype="multipart/form-data">
           <div class="">
               <label for="field_duration">Type: </label>
               <div class="select-icon">
@@ -78,8 +79,8 @@
                 <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
             </div>
 
-            <button class="btn btn-default normal-margin">Submit</button>
-            <a href="/admin/posters" class="btn normal-margin">Cancel</a>
+            <button class="btn btn-default top-margin">Submit</button>
+            <a href="/admin/posters" class="btn top-margin">Cancel</a>
         </form>
         <img src="/img/no-poster.jpg" alt="" id="input_preview" class="img-preview"/>
     </section>

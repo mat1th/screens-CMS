@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.4.0",
     "body-parser": "^1.10.1",
     "express": "^4.13.4",
     "express-myconnection": "^1.0.4",

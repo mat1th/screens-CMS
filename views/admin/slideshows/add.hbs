@@ -1,8 +1,131 @@
  {{> nav}}
-<section class="content scrollable">
-    <section class="content-header">
-        <h1>Add a slideshow</h1>
+<noscript>
+    <div class="warning" role="alert">
+        <small> Not all functions of the app will work, please enable JS</small>
+    </div>
+</noscript>
+<section class="slideshow-add">
+    <!-- the posters you can choose from -->
+    <section class="slideshow-content scrollable">
+        <!-- add button  -->
+
+        <button class="add">
+            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+        </button>
+        <ol id="posterlist">
+            {{#each data.general}}
+                <li class="posteritem list" draggable="true">
+                    <a href="#">
+                        <small class="number">{{@index}}</small>
+                        <div class="image no-overflow" data-id="{{id}}">
+                            <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
+                        </div>
+                    </a>
+                </li>
+            {{/each}}
+        </ol>
     </section>
-    <section class="content-body">
+
+    <section class="slideshow-picker none">
+        <div class="select scrollable">
+            {{#each data.allPosters}}
+                <div>
+                    <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
+                    <!-- data-settings="{'animation': '{{animation}}', 'duration': '{{duration}}', 'dateStart': '{{dateStart}}', 'dateEnd': '{{dateEnd}}'}" -->
+                    <div class="image no-overflow">
+                        <img src="/download/{{filename}}" alt="" />
+                    </div>
+                    <label for="lab{{id}}"></label>
+                </div>
+            {{/each}}
+
+        </div>
+        <button type="button" name="add" class="btn btn-default add-image">Add images</button>
     </section>
+
+    <!-- a preview of the poster  -->
+    <section class="slideshow-preview">
+        <img src="/download/{{data.general.0.filename}}" alt="no poster image" />
+    </section>
+
+    <section class="right-panel scrollable">
+        <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
+        <section class="toggle-buttons" role="tablist">
+            <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
+            <button id="posters" type="button" name="button" aria-selected="false">Poster</button>
+            <button id="displays" type="button" name="button" aria-selected="false">Displays</button>
+        </section>
+
+        <section aria-hidden="false" class="tabcontent">
+            <form action="{{postUrl.settings}}" method="post">
+                <h2>Slideshow settings</h2>
+                <div>
+                    <label for="field_name">Name: </label>
+                    <input type="date" id="field_name" name="name" value="{{data.general.1.slideshow_name}}">
+                </div>
+                <div>
+                    <label for="field_discription">Discription: </label>
+                    <input type="date" id="field_discription" name="discription" value="{{data.general.1.slideshow_discription}}">
+                </div>
+                <button class="btn btn-default top-margin">Save</button>
+            </form>
+        </section>
+        <section class="slideshow-poster-settings scrollable tabcontent" aria-hidden="true">
+            <form action="{{postUrl.posters}}" method="post">
+                <h2>Edit poster</h2>
+                <div>
+                    <label for="field_animation">Animation: </label>
+                    <div class="select-icon">
+                        <select name="animation" id="field_animation">
+                            <option value="pop">pop</option>
+                            <option value="top-push">push from top</option>
+                            <option value="left-push">push from left</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="field_duration">Duration: </label>
+                    <div class="select-icon">
+                        <select name="duration" id="field_duration">
+                            <option value="10">10 sec</option>
+                            <option value="20">20 sec</option>
+                            <option value="30">30 sec</option>
+                            <option value="40">40 sec</option>
+                            <option value="50">50 sec</option>
+                            <option value="60">1 min</option>
+                            <option value="90">1,5 min</option>
+                            <option value="120">2 min</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="field_date_start">Start date: </label>
+                    <input type="date" id="field_date_start" name="dateStart" value="" placeholder="dd-mm-jj">
+                </div>
+                <div>
+                    <label for="field_date_end">End date: </label>
+                    <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
+                </div>
+
+                <button class="btn btn-default top-margin">Save</button>
+            </form>
+        </section>
+        <section aria-hidden="true" class="tabcontent">
+            <form action="{{postUrl.displays}}" method="post">
+                <h2>Conect to displays</h2>
+                {{#each data.general}}
+                    <div>
+                        <input type="checkbox" id="field_name{{id}}" name="name" value="">
+                        <label for="field_name{{id}}">{{name}}</label>
+                    </div>
+                {{/each}}
+
+                <button class="btn btn-default top-margin">Save</button>
+            </form>
+        </section>
+    </section>
+
 </section>

@@ -5,13 +5,15 @@
         <a href="/admin/posters/add" class="btn btn-default">Add new poster</a>
     </section>
     <section class="content-body posters">
-        {{#if data}}
-            {{#each data}}
+        {{#if data.general}}
+            {{#each data.general}}
                 <div class="poster">
                     <a href="/admin/posters/show/{{id}}">
-                        <img src="/download/{{filename}}" alt="" />
-                        <div class="">
-                          <h2>{{name}}</h2>
+                        <div class="image no-overflow">
+                            <img src="/download/{{filename}}" alt="" />
+                        </div>
+                        <div class="name">
+                            <h2>{{name}}</h2>
                         </div>
                     </a>
                 </div>

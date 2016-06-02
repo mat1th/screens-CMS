@@ -1,5 +1,8 @@
 var express = require('express'),
     moment = require('moment'),
+    getSpecificData = require('../../../modules/getSpecificData.js'),
+    renderTemplate = require('../../../modules/renderTemplate.js'),
+    insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
@@ -7,45 +10,37 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
-        login = cr.login,
-        email = cr.email,
-        admin = cr.admin,
+        general = {
+            title: 'Your posters',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+                // navStyle: 'icons-only'
+        },
+        postUrls = {
+            settings: '/admin/slideshows/edit',
+            posters: '/admin/posters/edit',
+            displays: '/admin/posters/edit'
+        },
         sql;
 
-    if (login) {
+    if (general.login) {
         req.getConnection(function(err, connection) {
-            if (admin) {
+            if (general.admin) {
                 sql = 'SELECT filename, type, name, id FROM posters';
             } else {
-                sql = 'SELECT filename, type, name, id FROM posters WHERE userId  IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT filename, type, name, id FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )';
             }
-            // Get the user id using username
-            connection.query(sql, [email], function(err, match) {
-                if (err) {
-                    throw err;
-                }
-
-                if (match !== '' && match.length > 0) {
-                    res.render('admin/posters/show', {
-                        title: 'Your posters',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: match,
-                        error: false
-                    });
-                } else {
-                    res.render('admin/posters/show', {
-                        title: 'Your posters',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: match[0],
-                        error: 'You have got no posters'
-                    });
-                }
+            // sql = 'CASE'
+            getSpecificData(sql, connection, [general.email]).then(function(rows) {
+                var data = {
+                    general: rows
+                };
+                //renderTemplate
+                renderTemplate(res, 'admin/posters/show', data, general, postUrls, false);
+                //
+            }).catch(function(err) {
+                throw err;
             });
         });
     } else {
@@ -55,19 +50,18 @@ router.get('/', function(req, res) {
 
 router.get('/add', function(req, res) {
     var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin;
-
-    if (login) {
-        res.render('admin/posters/add', {
+        general = {
             title: 'Add a poster',
-            rights: {
-                admin: admin,
-                logedin: login
-            },
-            postUrl: '/admin/posters/add',
-            error: false
-        });
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
+        postUrls = {
+            general: '/admin/posters/add'
+        };
+
+    if (general.login) {
+        renderTemplate(res, 'admin/posters/add', {}, general, postUrls, false);
     } else {
         res.redirect('/users/login');
     }
@@ -78,47 +72,43 @@ router.get('/add', function(req, res) {
 router.get('/show/:posterId', function(req, res) {
     var posterId = req.params.posterId,
         cr = credentials(req.session),
-        login = cr.login,
-        email = cr.email,
-        admin = cr.admin,
+        general = {
+            title: 'Add a poster',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
         sql;
 
-    if (login) {
+    if (general.login) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
-            if (admin) {
+            if (general.admin) {
                 sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ?';
             } else {
                 sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
-            // Get the photo id and caption using the photo name
-            connection.query(sql, [posterId, email], function(err, match) {
-                if (err) {
-                    throw err;
-                } else if (match !== '' && match.length > 0) {
-                    var data = {
-                        id: match[0].id,
-                        discription: match[0].discription,
-                        duration: match[0].duration,
-                        name: match[0].name,
-                        animation: match[0].animation,
-                        filename: match[0].filename,
-                        type: match[0].type,
-                        dateStart: moment(match[0].dateStart).format('LL'),
-                        dateEnd: moment(match[0].dateEnd).format('LL'),
-                        dataCreated: moment(match[0].dataCreated).startOf('day').fromNow()
-                    };
-                    res.render('admin/posters/detail', {
-                        title: 'Posters',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        data: data
-                    });
-                } else {
-                    res.send('No such poster: ' + posterId);
-                }
+            getSpecificData(sql, connection, [posterId, general.email]).then(function(rows) {
+                var data = {
+                    general: {
+                        id: rows[0].id,
+                        discription: rows[0].discription,
+                        duration: rows[0].duration,
+                        name: rows[0].name,
+                        animation: rows[0].animation,
+                        filename: rows[0].filename,
+                        type: rows[0].type,
+                        dateStart: moment(rows[0].dateStart).format('LL'),
+                        dateEnd: moment(rows[0].dateEnd).format('LL'),
+                        dataCreated: moment(rows[0].dataCreated).startOf('day').fromNow()
+                    }
+                };
+                //renderTemplate
+                renderTemplate(res, 'admin/posters/detail', data, general, {}, false);
+                //
+            }).catch(function(err) {
+                console.log(err);
+                throw err;
             });
         });
     }
@@ -127,85 +117,84 @@ router.get('/show/:posterId', function(req, res) {
 
 router.post('/add', function(req, res) {
     var cr = credentials(req.session),
-        login = cr.login,
-        email = cr.email,
-        admin = cr.admin,
+        general = {
+            title: 'Add a poster',
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
         body = req.body,
-        name = body.name,
-        discription = body.discription,
-        vimeoId = body.vimeoId,
-        duration = body.duration,
-        type = body.type,
-        dateStart = body.dateStart,
-        dateEnd = body.dateEnd,
-        now = new Date(),
-        upload = req.files;
+        data = {
+            name: body.name,
+            animation: body.animation,
+            discription: body.discription,
+            vimeoId: body.vimeoId,
+            duration: body.duration,
+            type: body.type,
+            dateStart: body.dateStart,
+            dateEnd: body.dateEnd,
+            dataCreated: new Date(),
+            upload: req.files
+        };
 
-    if (isValidDate(dateStart) && isValidDate(dateEnd) && login) {
-        req.getConnection(function(err, connection) {
-            var sql = 'SELECT id FROM users WHERE email = ?';
-            // Get the user id using username
-            connection.query(sql, [email], function(err, match) {
-                if (err) {
-                    throw err;
-                }
+    if (general.login) {
+        //check if data is valid
+        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+            if (data.upload.imageFile && data.type !== null) {
+                req.getConnection(function(err, connection) {
+                    var sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?";
 
-                if (match !== '' && match.length > 0 && upload.imageFile && type !== null) {
-                    var sqlQuery = 'INSERT INTO posters SET ?',
-                        sqlValues = {
-                            userId: match[0].id,
-                            name: name,
-                            discription: discription,
-                            filename: upload.imageFile.name,
-                            vimeoId: vimeoId,
-                            duration: duration,
-                            type: type,
-                            dateStart: dateStart,
-                            dateEnd: dateEnd,
-                            dataCreated: now
-                        };
-
-                    // Insert the new photo data
-                    connection.query(sqlQuery, sqlValues, function(err, user) {
-                        if (err) {
-                            throw err;
-                        }
+                    insertData(sqlQuery, [data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
                         res.redirect('/admin/posters');
+                    }).catch(function(err) {
+                        console.log(err);
+                        throw err;
                     });
-
-                } else {
-                    var renderData = {
-                        title: 'Edit Posters',
-                        rights: {
-                            admin: admin,
-                            logedin: login
-                        },
-                        postUrl: '/admin/posters/add',
-                        error: 'Something went wrong while uploading your poster.'
-                    };
-
-                    res.render('admin/posters/add', renderData);
-                }
-            });
-        });
-    } else {
-        if (!login) {
-            res.redirect('/users/login');
+                });
+            } else {
+                renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have got no image uploaded');
+            }
         } else {
-            var renderData = {
-                title: 'Edit Posters',
-                rights: {
-                    admin: admin,
-                    logedin: login
-                },
-                postUrl: '/admin/posters/add',
-                error: 'You have submit a wrong date'
-            };
-            res.render('admin/posters/add', renderData);
+            renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have submit a wrong date');
         }
+    } else {
+        res.redirect('/users/login');
     }
 });
 
+router.post('/edit/:posterId', function(req, res) {
+    var cr = credentials(req.session),
+        general = {
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
+        body = req.body,
+        data = {
+            animation: body.animation,
+            duration: body.duration,
+            dateStart: body.dateStart,
+            dateEnd: body.dateEnd,
+            posterId: req.params.posterId
+        };
 
+    var sqlQuery = 'UPDATE posters SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
+
+    if (general.login) {
+        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+            req.getConnection(function(err, connection) {
+                insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.posterId], connection).then(function() {
+                    res.redirect('admin/slideshows/');
+                }).catch(function(err) {
+                    res.send('error:' + err);
+                    console.log(err);
+                    throw err;
+                });
+            });
+        } else {
+            res.send('your dates are wrong!');
+        }
+    }
+});
 
 module.exports = router;

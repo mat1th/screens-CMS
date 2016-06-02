@@ -1,0 +1,149 @@
+.slideshow-add {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+.slideshow-content {
+    display: inline-block;
+    width: 13em;
+    min-width: 7em;
+    height: 100%;
+    background: var(--background-color-semidark);
+    text-align: center;
+}
+.slideshow-content .image {
+    display: inline-block;
+    width: 6em;
+    height: 8em;
+    padding: 0.3em;
+}
+.slideshow-content .add {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    cursor: pointer;
+}
+.slideshow-content .add:hover {
+    background: var(--font-color-gray);
+}
+.slideshow-content .add:active {
+    background: var(--normal-color);
+}
+
+/*picker*/
+
+.slideshow-picker {
+    text-align: center;
+    display: block;
+    position: absolute;
+    top: 6.9em;
+    left: 0.9em;
+    max-width: 14em;
+    width: 14em;
+    height: 12em;
+    max-height: 12em;
+    border: 0.5em solid #fff;
+    border-radius: var(--border-radius);
+    background: var(--background-color-light);
+    z-index: 10;
+}
+.slideshow-picker:after {
+    display: block;
+    position: absolute;
+    top: -1.4em;
+    right: 0;
+    left: 0;
+    width: 0;
+    margin: 0 auto 0 auto;
+    border-width: 0 1em 1em;
+    border-style: solid;
+    border-color: var(--background-color-light) transparent;
+    content: "";
+}
+.slideshow-picker .scrollable {
+    height: 80%;
+    width: 100%;
+}
+.slideshow-picker input {
+    display: none;
+}
+.select input[type=checkbox]:checked+.image {
+    opacity: 1;
+}
+.select input[type=checkbox]+.image {
+    width: 4em;
+    height: 5em;
+    opacity: 0.4;
+}
+.select .image {
+    position: relative;
+    margin: 0.3em;
+    float: left;
+    width: 4em;
+    height: 5em;
+}
+.select label {
+    width: 4em;
+    height: 5em;
+    position: absolute;
+    left: 0;
+    display: inline-block;
+}
+.select div {
+    display: inline-block;
+    position: relative;
+    width: 4em;
+}
+.slideshow-picker button {
+    width: 100%;
+    bottom: 0em;
+    left: 0;
+    position: absolute;
+}
+
+/*preview*/
+
+.slideshow-preview {
+    display: flex;
+    width: 100%;
+}
+.slideshow-preview img {
+    background: var(--background-color-semidark);
+    width: 50%;
+    max-width: 30em;
+    margin: auto auto;
+}
+.right-panel {
+    min-width: 18em;
+    background: var(--background-color-semidark);
+}
+.right-panel section {
+    padding: 1em;
+}
+
+/*shortable list */
+
+.posteritem {
+    background: var(--background-color-semidark);
+    display: block;
+    z-index: 2;
+}
+.posteritem.placeholder {
+    background: var(--font-color-gray);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.posteritem a {
+    color: var(--font-color-dark);
+    text-decoration: none;
+}
+.posteritem.placeholder a {
+    text-decoration: none;
+}
+.posterlist {
+    position: relative;
+    padding: 60px;
+}

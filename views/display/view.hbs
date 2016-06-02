@@ -1,8 +1,13 @@
 {{#if data}}
     <section class="slideshow">
         <div class="mask">
+          {{#if error}}
+          <div class="warning">
+              <small>You have got no posters assigned to this display</small>
+          </div>
+          {{/if}}
             <ul>
-                {{#each data}}
+                {{#each data.general}}
                     {{#checkTypeOfPoster type equals="poster" }}
                         <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
                             <img src="/download/{{filename}}" alt="{{type}}" />
