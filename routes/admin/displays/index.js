@@ -5,39 +5,7 @@ var express = require('express'),
 
 
 router.get('/', function(req, res) {
-    var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin,
-        renderPage = function(data, error) {
-            res.render('admin/displays/show', {
-                title: 'Displays',
-                rights: {
-                    admin: admin,
-                    logedin: login
-                },
-                error: error,
-                data: data
-            });
-        };
-
-    if (admin) {
-        req.getConnection(function(err, connection) {
-            var sql = 'SELECT display_id, slideshowId, name FROM displays';
-            // Get the user id using username
-            connection.query(sql, function(err, match) {
-                if (err) throw err;
-
-                if (match !== '' && match.length > 0) {
-                    renderPage(match);
-
-                } else {
-                    renderPage(match, 'You have no displays jet');
-                }
-            });
-        });
-    } else {
-        res.redirect('/admin');
-    }
+    res.redirect('/admin/slideshows');
 });
 
 router.get('/add', function(req, res) {

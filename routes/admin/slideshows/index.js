@@ -16,23 +16,31 @@ router.get('/', function(req, res) {
             admin: cr.admin,
             email: cr.email
         },
-        sql;
+        sql, sqlDisplays;
 
     if (general.admin) {
 
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
+            sqlDisplays = 'SELECT display_id, name, slideshowId FROM displays';
             // Get the user id using username
-            getData(sql, connection).then(function(rows) {
-                var data = {
-                    general: rows
-                };
-                //renderTemplate
-                if (rows.length > 0) {
-                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, false);
-                } else {
-                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
-                }
+            getData(sql, connection).then(function(slideshows) {
+                getData(sqlDisplays, connection).then(function(displays) {
+                    var data = {
+                        general: {
+                            slideshows: slideshows,
+                            displays: displays
+                        }
+                    };
+                    //renderTemplate
+                    if (slideshows.length > 0) {
+                        renderTemplate(res, 'admin/slideshows/show', data, general, {}, false);
+                    } else {
+                        renderTemplate(res, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
+                    }
+                }).catch(function(err) {
+                    throw err;
+                });
                 //
             }).catch(function(err) {
                 throw err;
@@ -111,7 +119,7 @@ router.post('/add/:slideshowId', function(req, res) {
         // admin = cr.admin,
         body = req.body,
         posters = JSON.parse('[' + body.posters + ']');
-    console.log(posters);
+
     if (admin) {
         req.getConnection(function(err, connection) {
             var sqlQueryInsert = 'INSERT INTO posters_In_slideshow SET poster_id = ?, slideshow_id = ?, short = ?';
@@ -173,4 +181,32 @@ router.post('/add/settings/:slideshowId', function(req, res) {
     }
 });
 
+// router.get('/test', function(req, res) {
+//     var cr = credentials(req.session),
+//         slideshowId = req.params.slideshowId,
+//         general = {
+//             title: 'Add a poster',
+//             login: cr.login,
+//             admin: cr.admin,
+//             navStyle: 'icons-only'
+//         },
+//         postUrls = {
+//             settings: '/admin/slideshows/edit',
+//             posters: '/admin/posters/edit',
+//             displays: '/admin/posters/edit'
+//         };
+//
+//     req.getConnection(function(err, connection) {
+//         getData('SELECT * FROM posters', connection).then(function(rows) {
+//             var data = {
+//                 general: rows
+//             };
+//             //renderTemplate
+//             renderTemplate(res, 'admin/posters/show', data, general, postUrls, false);
+//             //
+//         }).catch(function(err) {
+//             throw err;
+//         });
+//     });
+// });
 module.exports = router;

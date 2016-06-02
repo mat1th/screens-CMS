@@ -1,35 +1,67 @@
  {{> nav}}
 <section class="content scrollable">
-  <section class="content-header">
-      <h1>Slidehows</h1>
-        <a href="/admin/displays/add" class="btn btn-default left-rigt-margin">New display</a>
-      <a href="/admin/slideshows/add" class="btn btn-default left-rigt-margin">New slideshow</a>
-  </section>
-  <section class="content-body">
-    {{#if error}}
-        <div class="error">
-            {{error}}
-        </div>
-    {{else}}
-        <table>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <!-- <th scope="col">Posters</th> -->
-                <th scope="col">Edit</th>
-            </tr>
-            {{#each data.general}}
+    <section class="content-header">
+        <h1>Slidehows</h1>
+        <a href="/admin/slideshows/add" class="btn btn-default left-rigt-margin">New slideshow</a>
+    </section>
+    <section class="content-body">
+        {{#if error}}
+            <div class="error">
+                {{error}}
+            </div>
+        {{else}}
+            <table>
                 <tr>
-                    <td data-th="Id">{{id}}</td>
-                    <td data-th="Discription">{{slideshow_name}}</td>
-                    <!-- <td data-th="Posters">{{posters}}</td> -->
-                    <td data-th="Edit"><a href="/admin/slideshows/add/{{id}}">Edit</a></td>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <!-- <th scope="col">Posters</th> -->
+                    <th scope="col">Edit</th>
                 </tr>
-            {{/each}}
+                {{#each data.general.slideshows}}
+                    <tr>
+                        <td data-th="Id">{{id}}</td>
+                        <td data-th="Discription">{{slideshow_name}}</td>
+                        <!-- <td data-th="Posters">{{posters}}</td> -->
+                        <td data-th="Edit"><a href="/admin/slideshows/add/{{id}}">Edit</a></td>
+                    </tr>
+                {{/each}}
 
-        </table>
-    {{/if}}
-  </section>
+            </table>
+        {{/if}}
+    </section>
+
+    <section class="content-header">
+        <h1>Displays</h1>
+        <a href="/admin/displays/add" class="btn btn-default left-rigt-margin">New display</a>
+    </section>
+
+    <section class="content-body">
+
+        {{#if error}}
+            <div class="error">
+                {{error}}
+            </div>
+        {{else}}
+            <table>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Slideshows</th>
+                    <th scope="col">Edit</th>
+                </tr>
+                {{#each data.general.displays}}
+                    <tr>
+                        <td data-th="Id">{{id}}</td>
+                        <td data-th="Name"><a href="/display/{{display_id}}">{{name}}</a></td>
+                        <td data-th="Slideshows">{{slideshowId}}</td>
+                        <td data-th="Edit"><a href="#">Edit</a></td>
+                    </tr>
+                {{/each}}
+
+            </table>
+        {{/if}}
+
+    </section>
 
 
 
