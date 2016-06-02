@@ -2,6 +2,9 @@ DP.helper = (function() {
     var select = function(selector) {
             return document.querySelector(selector);
         },
+        selectId = function(selector) {
+            return document.getElementById(selector);
+        },
         selectAll = function(selector) {
             return document.querySelectorAll(selector);
         },
@@ -13,6 +16,8 @@ DP.helper = (function() {
                     anHttpRequest.onreadystatechange = function() {
                         if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200) {
                             aCallback(anHttpRequest.responseText);
+                        } else if (anHttpRequest.status == 404) {
+                            aCallback('error');
                         }
                     };
                     anHttpRequest.open('GET', aUrl, true);
@@ -40,6 +45,7 @@ DP.helper = (function() {
 
     return {
         select: select,
+        selectId: selectId,
         selectAll: selectAll,
         getData: GetData,
         postData: postData
