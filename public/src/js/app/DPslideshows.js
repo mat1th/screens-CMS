@@ -116,6 +116,7 @@ DP.slideshows = (function() {
             _posterlist = DP.helper.select('#posterlist'),
             _preview = DP.helper.select('.slideshow-preview img'),
             formElements = {
+                form: DP.helper.select('.slideshow-poster-settings form'),
                 animaion: DP.helper.select('#field_animation'),
                 duration: DP.helper.select('#field_duration'),
                 startDate: DP.helper.select('#field_date_start'),
@@ -128,15 +129,15 @@ DP.slideshows = (function() {
 
                 _client.get('/api/poster/' + posterID, function(response) {
                     var data = JSON.parse(response);
+
+                    formElements.form.action = '/admin/posters/edit/' + data.id;
                     formElements.animaion.value = data.animation;
                     formElements.duration.value = data.duration;
                     formElements.startDate.value = data.dateStart;
                     formElements.endDate.value = data.dateEnd;
                 });
                 _preview.src = ev.target.src;
-
             }
-            //
         });
     };
 

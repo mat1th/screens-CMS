@@ -124,59 +124,76 @@ router.post('/add', function(req, res) {
             email: cr.email
         },
         body = req.body,
-        name = body.name,
-        discription = body.discription,
-        vimeoId = body.vimeoId,
-        duration = body.duration,
-        type = body.type,
-        dateStart = body.dateStart,
-        dateEnd = body.dateEnd,
-        now = new Date(),
-        upload = req.files;
+        data = {
+            name: body.name,
+            animation: body.animation,
+            discription: body.discription,
+            vimeoId: body.vimeoId,
+            duration: body.duration,
+            type: body.type,
+            dateStart: body.dateStart,
+            dateEnd: body.dateEnd,
+            dataCreated: new Date(),
+            upload: req.files
+        };
 
     if (general.login) {
         //check if data is valid
-        if (isValidDate(dateStart) && isValidDate(dateEnd)) {
-            req.getConnection(function(err, connection) {
-                var sql = 'SELECT id FROM users WHERE email = ?';
-                // Get the user id using username
-                getSpecificData(sql, connection, [general.email]).then(function(rows) {
-                    if (rows.length > 0 && upload.imageFile && type !== null) {
-                        var sqlQuery = 'INSERT INTO posters SET ?',
-                            sqlValues = {
-                                userId: rows[0].id,
-                                name: name,
-                                discription: discription,
-                                filename: upload.imageFile.name,
-                                vimeoId: vimeoId,
-                                duration: duration,
-                                type: type,
-                                dateStart: dateStart,
-                                dateEnd: dateEnd,
-                                dataCreated: now
-                            };
+        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+            if (data.upload.imageFile && data.type !== null) {
+                req.getConnection(function(err, connection) {
+                    var sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?";
 
-                        insertData(sqlQuery, sqlValues, connection).then(function() {
-                            res.redirect('/admin/posters');
-                        }).catch(function(err) {
-                            throw err;
-                        });
-
-                    } else {
-                        renderTemplate(res, 'admin/posters/add', {}, general, {}, 'There is something wrong with your image');
-                    }
-                    //renderTemplate
-                    renderTemplate(res, 'admin/posters/detail', {}, general, {}, false);
-                    //
-                }).catch(function(err) {
-                    throw err;
+                    insertData(sqlQuery, [data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
+                        res.redirect('/admin/posters');
+                    }).catch(function(err) {
+                        console.log(err);
+                        throw err;
+                    });
                 });
-            });
+            } else {
+                renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have got no image uploaded');
+            }
         } else {
             renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have submit a wrong date');
         }
     } else {
         res.redirect('/users/login');
+    }
+});
+
+router.post('/edit/:posterId', function(req, res) {
+    var cr = credentials(req.session),
+        general = {
+            login: cr.login,
+            admin: cr.admin,
+            email: cr.email
+        },
+        body = req.body,
+        data = {
+            animation: body.animation,
+            duration: body.duration,
+            dateStart: body.dateStart,
+            dateEnd: body.dateEnd,
+            posterId: req.params.posterId
+        };
+
+    var sqlQuery = 'UPDATE posters SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
+
+    if (general.login) {
+        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+            req.getConnection(function(err, connection) {
+                insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.posterId], connection).then(function() {
+                    res.redirect('admin/slideshows/');
+                }).catch(function(err) {
+                    res.send('error:' + err);
+                    console.log(err);
+                    throw err;
+                });
+            });
+        } else {
+            res.send('your dates are wrong!');
+        }
     }
 });
 
