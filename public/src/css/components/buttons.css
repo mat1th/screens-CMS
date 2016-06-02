@@ -4,16 +4,16 @@
     flex-grow: 0;
     height: 2.4em;
     margin: auto;
-    font-weight: 400;
     padding: .5em 1em;
+    border: none;
     border-radius: var(--border-radius);
     color: var(--font-color-dark);
     font-size: 100%;
+    font-weight: 400;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
-    border: none;
 }
 .btn-normal {
     background-color: var(--background-color-semidark);
@@ -32,8 +32,8 @@
 }
 button.fullwith {
     box-sizing: border-box;
-    margin: 1em 0;
     width: 100%;
+    margin: 1em 0;
 }
 button.top-margin, a.top-margin {
     box-sizing: border-box;
@@ -43,24 +43,24 @@ button.left-rigt-margin, a.left-rigt-margin {
     margin: auto 0.5em;
 }
 .toggle-buttons {
-    padding: 1em;
-    background: var(--background-color-semidark);
     box-sizing: border-box;
+    display: flex;
     position: sticky;
     top: 0;
-    display: flex;
     width: 100%;
+    padding: 1em;
+    background: var(--background-color-semidark);
     text-align: center;
 }
 .toggle-buttons button {
-    font-size: 0.8em;
-    width: 33%;
-    margin: 0;
     box-sizing: border-box;
     display: inline-block;
-    border: 0.15em solid var(--normal-color);
+    width: 33%;
+    margin: 0;
     padding: 0.8em 1em;
+    border: 0.15em solid var(--normal-color);
     color: var(--font-color-dark);
+    font-size: 0.8em;
 }
 .toggle-buttons button[aria-selected=true] {
     background: var(--normal-color);
@@ -71,10 +71,10 @@ button.left-rigt-margin, a.left-rigt-margin {
     color: var(--font-color-light);
 }
 .toggle-buttons button:first-child {
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
     border-right: 0;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 .toggle-buttons button:last-child {
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     border-left: 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }

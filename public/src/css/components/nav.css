@@ -1,26 +1,26 @@
 /*menu styling*/
 
 header > nav {
+    background: var(--background-color-dark);
+    border-bottom-color: RGBA(254, 254, 254, 0.22);
+    border-bottom-style: solid;
+    border-bottom-width: 0.065rem;
     box-sizing: border-box;
-    position: relative;
-    width: 100%;
     min-width: 13em;
     padding: 1em;
-    border-bottom-width: 0.065rem;
-    border-bottom-style: solid;
-    border-bottom-color: RGBA(254, 254, 254, 0.22);
-    background: var(--background-color-dark);
+    position: relative;
+    width: 100%;
     z-index: 15;
 }
 header > nav.transparant {
-    position: absolute;
     background: none;
+    position: absolute;
 }
 header ul {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
     list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
 }
 header ul > li {
     float: left;
@@ -30,16 +30,16 @@ header ul > li.right {
 }
 header ul > .name > a {
     display: none;
-    padding: 0 1em 0 0;
     font-size: 1em;
     font-weight: 600;
+    padding: 0 1em 0 0;
 }
 header ul > li > a {
-    display: block;
-    padding: 0.35em 1em 0 0;
     color: var(--font-color-light);
+    display: block;
     font-size: 0.8em;
     font-weight: 400;
+    padding: 0.35em 1em 0 0;
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -49,8 +49,8 @@ header ul > li > a:hover {
     transition: color .2s ease-out;
 }
 header > nav.nav-black {
-    top: 0px;
-    border-bottom-width: 0.5px;
-    border-bottom-style: solid;
     border-bottom-color: RGBA(0, 0, 0, 0.22);
+    border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+    top: 0px;
 }

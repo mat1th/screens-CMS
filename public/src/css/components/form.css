@@ -1,12 +1,12 @@
 label {
-    font-size: 1em;
-    color: var( --font-color-gray);
     display: inline-block;
+    color: var( --font-color-gray);
+    font-size: 1em;
 }
 textarea {
     min-height: 5em;
-    resize: vertical;
     overflow: auto;
+    resize: vertical;
 }
 
 /*input
@@ -14,24 +14,24 @@ textarea {
 inpired by https://codyhouse.co/gem/css-contact-form/*/
 
 input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea, select, legend {
+    appearance: none;
     display: block;
     width: 100%;
-    appearance: none;
 }
 input[type="text"], input[type="email"], input[type="date"], input[type="password"], textarea, select {
-    padding: 0.5em;
     box-sizing: border-box;
-    width: 100%;
     display: block;
-    font-size: 1.1em;
-    background-color: #ffffff;
-    border-radius: var(--border-radius);
+    width: 100%;
+    padding: 0.5em;
     border: 0.0625em solid rgb(207, 217, 219);
+    border-radius: var(--border-radius);
+    background-color: #ffffff;
+    font-size: 1.1em;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
-    outline: none;
     border-color: var(--normal-color);
+    outline: none;
     box-shadow: 0 0 0.3125em rgba(0, 156, 144, 0.2);
 }
 
@@ -41,17 +41,17 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
     position: relative;
 }
 .select-icon::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    right: 1em;
-    top: 50%;
-    margin-top: -0.5em;
     display: block;
+    position: absolute;
+    top: 50%;
+    right: 1em;
     width: 1em;
     height: 1em;
+    margin-top: -0.5em;
     background: url("/img/icons/down.svg") no-repeat center center;
+    content: '';
     pointer-events: none;
+    z-index: 1;
 }
 select {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -67,9 +67,9 @@ form ul {
     list-style-type: none;
 }
 form li {
+    user-select: none;
     display: inline-block;
     position: relative;
-    user-select: none;
     margin: 0 26px 16px 0;
 }
 
@@ -80,27 +80,26 @@ form li {
     left: -999em;
 }
 .file_input {
-    margin: 1em 0;
     display: flex;
+    margin: 1em 0;
 }
 .file_input label[for="field_file"] {
-    width: 30%;
-    float: right;
-    padding: 0.5em;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     display: inline-block;
+    width: 30%;
+    padding: 0.5em;
+    float: right;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
 }
 .file_input span.filename {
     box-sizing: border-box;
-    width: 70%;
     display: inline-block;
-    background: var(--background-color-light);
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
-    font-size: 1em;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+    width: 70%;
     padding: 0.5em;
-    /*width: 150px;*/
-    white-space: nowrap;
     overflow: hidden;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    background: var(--background-color-light);
+    font-size: 1em;
+    white-space: nowrap;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
