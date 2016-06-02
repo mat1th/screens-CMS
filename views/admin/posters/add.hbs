@@ -15,16 +15,21 @@
         <!-- <div id="filedrag">or drop files here</div> -->
 
         <form action="{{postUrl.general}}" method="post" enctype="multipart/form-data">
-          <div class="">
-              <label for="field_duration">Type: </label>
-              <div class="select-icon">
-                  <select class="" name="type">
-                      <option value="poster">Pooster</option>
-                      <option value="vimeo">Vimeo video</option>
-                      <!-- <option value="Poll">Poll</option> -->
-                  </select>
-              </div>
-          </div>
+            <div class="">
+                <label for="field_duration">Type: </label>
+
+                <ul class="form-list">
+                    <li>
+                        <input type="radio" name="type" value="poster" id="field_poster" checked>
+                        <label for="field_poster">Poster</label>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="type" value="vimeo" id="field_vimeo">
+                        <label for="field_vimeo">Vimeo video</label>
+                    </li>
+                </ul>
+            </div>
             <div class="">
                 <label for="field_name">Name: </label>
                 <input type="text" id="field_name" name="name" value="">
@@ -82,7 +87,7 @@
             <button class="btn btn-default top-margin">Submit</button>
             <a href="/admin/posters" class="btn top-margin">Cancel</a>
         </form>
-        <img src="/img/no-poster.jpg" alt="" id="input_preview" class="img-preview"/>
+        <img src="/img/no-poster.jpg" alt="" id="input_preview" class="img-preview" />
     </section>
 
 
