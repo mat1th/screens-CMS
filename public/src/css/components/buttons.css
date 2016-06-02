@@ -62,7 +62,7 @@ button.left-rigt-margin, a.left-rigt-margin {
     padding: 0.8em 1em;
     color: var(--font-color-dark);
 }
-.toggle-buttons button[active] {
+.toggle-buttons button[aria-selected=true] {
     background: var(--normal-color);
     color: var(--font-color-light);
 }

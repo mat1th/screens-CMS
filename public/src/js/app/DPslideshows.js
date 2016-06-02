@@ -138,16 +138,45 @@ DP.slideshows = (function() {
                 });
                 _preview.src = ev.target.src;
             }
+
         });
     };
+    var _toggleButtons = function() {
+        var toggleButtonsDiv = DP.helper.select('.toggle-buttons');
 
-    var _showPosters = function() {
-        _addNewPoster();
-        _sortable();
+        toggleButtonsDiv.addEventListener('click', function(e) {
+            var target = e.target;
+            if (target.nodeName === 'BUTTON') {
+                toggleAll(target, []);
+            }
+            console.log(target.nodeName);
+
+        });
+    };
+    var toggleAll = function(target, show) {
+        var toggleButtons = DP.helper.selectAll('.toggle-buttons button'),
+            tabcontent = DP.helper.selectAll('.tabcontent');
+        for (var i = 0; i < toggleButtons.length; i++) {
+            if (target === toggleButtons[i] || show[i]) {
+                tabcontent[i].classList.remove('none');
+                tabcontent[i].setAttribute('aria-hidden', false);
+                toggleButtons[i].setAttribute('aria-selected', true);
+            } else {
+                tabcontent[i].classList.add('none');
+                tabcontent[i].setAttribute('aria-hidden', true);
+                toggleButtons[i].setAttribute('aria-selected', false);
+            }
+        }
     };
 
     var init = function() {
-        _showPosters();
+        window.onload = function functionName() {
+            toggleAll(false, [true, false, false]);
+        };
+
+        _toggleButtons();
+        _addNewPoster();
+        _sortable();
         _edditPoster();
     };
 

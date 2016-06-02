@@ -52,14 +52,14 @@
     </section>
 
     <section class="right-panel scrollable">
-      <a href="#" class="btn btn-general left-rigt-margin">Preview</a>
-        <div class="toggle-buttons">
-            <button type="button" name="button" active>Settings</button>
-            <button type="button" name="button" >Poster</button>
-            <button type="button" name="button">Displays</button>
-        </div>
+        <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
+        <section class="toggle-buttons" role="tablist">
+            <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
+            <button id="posters" type="button" name="button" aria-selected="false">Poster</button>
+            <button id="displays" type="button" name="button" aria-selected="false">Displays</button>
+        </section>
 
-        <section>
+        <section aria-hidden="false" class="tabcontent">
             <form action="{{postUrl.settings}}" method="post">
                 <h2>Slideshow settings</h2>
                 <div>
@@ -73,22 +73,7 @@
                 <button class="btn btn-default top-margin">Save</button>
             </form>
         </section>
-        <section>
-            <form action="{{postUrl.displays}}" method="post">
-                <h2>Conect to displays</h2>
-                {{#each data.general}}
-                    <div>
-                        <input type="checkbox" id="field_name{{id}}" name="name" value="" >
-                        <label for="field_name{{id}}">{{name}}</label>
-                    </div>
-                {{/each}}
-
-                <button class="btn btn-default top-margin">Save</button>
-            </form>
-        </section>
-
-        <section class="slideshow-poster-settings scrollable">
-        <section class="slideshow-poster-settings scrollable" aria-hidden="true">
+        <section class="slideshow-poster-settings scrollable tabcontent" aria-hidden="true">
             <form action="{{postUrl.posters}}" method="post">
                 <h2>Edit poster</h2>
                 <div>
@@ -124,6 +109,19 @@
                     <label for="field_date_end">End date: </label>
                     <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="dd-mm-jj">
                 </div>
+
+                <button class="btn btn-default top-margin">Save</button>
+            </form>
+        </section>
+        <section aria-hidden="true" class="tabcontent">
+            <form action="{{postUrl.displays}}" method="post">
+                <h2>Conect to displays</h2>
+                {{#each data.general}}
+                    <div>
+                        <input type="checkbox" id="field_name{{id}}" name="name" value="">
+                        <label for="field_name{{id}}">{{name}}</label>
+                    </div>
+                {{/each}}
 
                 <button class="btn btn-default top-margin">Save</button>
             </form>
