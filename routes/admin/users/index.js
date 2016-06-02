@@ -3,14 +3,14 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Displays',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
-                // navStyle: 'icons-only'
         },
         sql;
 
@@ -23,9 +23,13 @@ router.get('/', function(req, res, next) {
                     throw err;
                 }
                 if (match !== '' && match.length > 0) {
-                    renderTemplate(res, 'admin/users/show', {general: match}, general, {}, false);
+                    renderTemplate(res, 'admin/users/show', {
+                        general: match
+                    }, general, {}, false);
                 } else {
-                    renderTemplate(res, 'admin/users/show', {general: match}, general, {}, 'There are no users');
+                    renderTemplate(res, 'admin/users/show', {
+                        general: match
+                    }, general, {}, 'There are no users');
                 }
             });
         });
@@ -35,7 +39,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-// router.get('/add', function(req, res, next) {
+// router.get('/edit', function(req, res, next) {
 //     var cr = credentials(req.session),
 //         login = cr.login,
 //         admin = cr.admin;

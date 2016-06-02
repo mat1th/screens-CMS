@@ -1,20 +1,21 @@
 <section class="content scrollable users-form">
     <section class="form">
-
-        {{#if error}}
-            <div class="error">
-                {{error}}
-            </div>
-        {{/if}}
-        <form action="{{postUrl}}" method="post">
+        <form action="{{postUrl.general}}" method="post">
             <h1>Register</h1>
+            {{#if error}}
+                <div class="error">
+                    {{error}}
+                </div>
+            {{/if}}
             <label for="field_email">Email: </label>
             {{paswordStrength}}
             <input type="email" id="field_email" name="email" value="" placeholder="naam@example.nl">
             <label for="field_username">Username: </label>
             <input type="text" id="field_username" name="username" value="" placeholder="User name">
             <label for="field_password">Password: </label>
-            <input type="password" id="field_password" name="password" value="" placeholder="*********">
+            <input type="password" id="field_password" name="password" value="" placeholder="Password">
+            <label for="field_password_check">Password check: </label>
+            <input type="password" id="field_password_check" name="passwordcheck" value="" placeholder="Password check">
             <button type="submit" class="btn btn-default">Signup!</button>
         </form>
     </section>

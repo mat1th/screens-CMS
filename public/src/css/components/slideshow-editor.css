@@ -1,8 +1,8 @@
 .slideshow-add {
     display: flex;
     justify-content: space-between;
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 .slideshow-content {
     display: inline-block;
@@ -37,18 +37,18 @@
 /*picker*/
 
 .slideshow-picker {
-    text-align: center;
     display: block;
     position: absolute;
     top: 6.9em;
     left: 0.9em;
-    max-width: 14em;
     width: 14em;
+    max-width: 14em;
     height: 12em;
     max-height: 12em;
     border: 0.5em solid #fff;
     border-radius: var(--border-radius);
     background: var(--background-color-light);
+    text-align: center;
     z-index: 10;
 }
 .slideshow-picker:after {
@@ -65,8 +65,8 @@
     content: "";
 }
 .slideshow-picker .scrollable {
-    height: 80%;
     width: 100%;
+    height: 80%;
 }
 .slideshow-picker input {
     display: none;
@@ -81,17 +81,17 @@
 }
 .select .image {
     position: relative;
+    width: 4em;
+    height: 5em;
     margin: 0.3em;
     float: left;
-    width: 4em;
-    height: 5em;
 }
 .select label {
-    width: 4em;
-    height: 5em;
+    display: inline-block;
     position: absolute;
     left: 0;
-    display: inline-block;
+    width: 4em;
+    height: 5em;
 }
 .select div {
     display: inline-block;
@@ -99,10 +99,10 @@
     width: 4em;
 }
 .slideshow-picker button {
-    width: 100%;
+    position: absolute;
     bottom: 0em;
     left: 0;
-    position: absolute;
+    width: 100%;
 }
 
 /*preview*/
@@ -112,10 +112,10 @@
     width: 100%;
 }
 .slideshow-preview img {
-    background: var(--background-color-semidark);
     width: 50%;
     max-width: 30em;
     margin: auto auto;
+    background: var(--background-color-semidark);
 }
 .right-panel {
     min-width: 18em;
@@ -128,8 +128,8 @@
 /*shortable list */
 
 .posteritem {
-    background: var(--background-color-semidark);
     display: block;
+    background: var(--background-color-semidark);
     z-index: 2;
 }
 .posteritem.placeholder {

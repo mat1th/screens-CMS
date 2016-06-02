@@ -9,10 +9,9 @@ router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your posters',
+              admin: cr.admin, editor: cr.editor,
             login: cr.login,
-            admin: cr.admin,
             email: cr.email
-                // navStyle: 'icons-only'
         },
         sql;
 
@@ -21,7 +20,6 @@ router.get('/', function(req, res) {
             if (general.admin) {
                 sql = "SELECT (SELECT COUNT(id) FROM posters) AS 'posters', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
             } else {
-                // sqlOud = "SELECT (SELECT COUNT(id) FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )) AS 'posters', (SELECT COUNT(id) FROM slideshows WHERE userId  IN( SELECT id FROM users WHERE email = ? )) AS 'slideshows'";
                 sql = 'SELECT COUNT(id) AS posters FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ?)';
             }
 

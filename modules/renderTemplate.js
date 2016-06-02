@@ -3,13 +3,11 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         title: general.title,
         data: {
             general: data.general || null,
-            // usedposters: usedposters || null,
             allPosters: data.posters
-            // displays: data.posters,
-            // slideshowSettings: slideshowSettings || null
         },
         rights: {
             admin: general.admin,
+            editor: general.editor,
             logedin: general.login
         },
         navStyle: general.navStyle,
@@ -20,6 +18,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
             displays: postUrls.displays || null
         },
         error: error,
+        navPosition: general.navPosition,
         layout: layout || 'layout'
     });
 };

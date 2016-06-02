@@ -14,6 +14,7 @@ router.get('/', function(req, res) {
             title: 'Your posters',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
                 // navStyle: 'icons-only'
         },
@@ -54,6 +55,7 @@ router.get('/add', function(req, res) {
             title: 'Add a poster',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         postUrls = {
@@ -76,6 +78,7 @@ router.get('/show/:posterId', function(req, res) {
             title: 'Add a poster',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         sql;
@@ -121,6 +124,7 @@ router.post('/add', function(req, res) {
             title: 'Add a poster',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         body = req.body,
@@ -167,6 +171,7 @@ router.post('/edit/:posterId', function(req, res) {
         general = {
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         body = req.body,

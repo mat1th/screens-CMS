@@ -3,28 +3,28 @@
     list-style-type: decimal;
 }
 .edit-nav {
-    background: var(--primary-color);
-    text-align: center;
-    width: auto;
-    min-width: 4em;
     position: sticky;
     top: 0;
+    width: auto;
+    min-width: 4em;
+    background: var(--primary-color);
+    text-align: center;
     z-index: 3;
 }
 .edit-nav li {
     display: inline-block;
-    text-align: center;
     width: auto;
+    text-align: center;
 }
 .edit-nav a {
-    width: auto;
     display: block;
+    width: auto;
     padding: 0.5em 0.5em;
     text-align: center;
 }
 .edit-nav small {
-    font-size: 0.8em;
     display: none;
+    font-size: 0.8em;
 }
 .edit-nav.icons-only small {
     display: none;
@@ -33,9 +33,9 @@
     margin: 0 auto;
 }
 .edit-nav.icons-only {
-    text-align: center;
-    max-width: 4.3em;
     min-width: 4.3em;
+    max-width: 4.3em;
+    text-align: center;
 }
 .edit-nav a:hover svg {
     fill: var(--font-color-light);
@@ -61,18 +61,18 @@
 }
 @media screen and (--medium-window-width) {
     .edit-nav {
-        max-width: 8em;
         min-width: 8em;
+        max-width: 8em;
     }
     .edit-nav a {
         display: flex;
         text-align: left;
     }
     .edit-nav small {
+        display: inline-block;
         height: 100%;
         margin: auto 0;
         vertical-align: center;
-        display: inline-block;
     }
     .edit-nav svg {
         margin-right: 1em;

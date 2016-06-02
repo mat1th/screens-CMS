@@ -8,23 +8,23 @@ html, body {
     position: relative;
 }
 .mask {
-    width: 100vw;
     height: 100vh;
     overflow: hidden;
+    width: 100vw;
 }
 .slide {
-    position: absolute;
-    list-style: none;
     height: 100vh;
+    list-style: none;
+    position: absolute;
     width: 100vw;
     z-index: 0;
 }
 .slide iframe, .slide img {
     display: block;
     height: 100vh;
-    z-index: 1;
-    width: 100vw;
     object-fit: contain;
+    width: 100vw;
+    z-index: 1;
 }
 
 /*css for differnt animaions*/
@@ -34,8 +34,8 @@ html, body {
     opacity: 0;
 }
 .top-push {
-    top: -100vh;
     opacity: 0;
+    top: -100vh;
 }
 .pop {
     transform: scale(0);

@@ -5,7 +5,6 @@ var express = require('express'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     insertData = require('../../../modules/insertData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
-    // isValidDate = require('../../../modules/isValidDate.js'),
     router = express.Router();
 
 router.get('/', function(req, res) {
@@ -14,11 +13,12 @@ router.get('/', function(req, res) {
             title: 'Your posters',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email
         },
         sql, sqlDisplays;
 
-    if (general.admin) {
+    if (general.admin || general.editor) {
 
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
@@ -55,18 +55,23 @@ router.get('/', function(req, res) {
 router.get('/add', function(req, res) {
     var cr = credentials(req.session),
         email = cr.email,
+        admin = cr.admin,
+        editor = cr.editor,
         createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = (SELECT id FROM users WHERE email = ?)',
         number = randNumber(1000000);
 
-    req.getConnection(function(err, connection) {
-        insertData(createSlideshow, [number, email], connection).then(function() {
+    if (admin || editor) {
+        req.getConnection(function(err, connection) {
+            insertData(createSlideshow, [number, email], connection).then(function() {
 
-            res.redirect('/admin/slideshows/add/' + number);
+                res.redirect('/admin/slideshows/add/' + number);
 
-        }).catch(function(err) {
-            throw err;
+            }).catch(function(err) {
+                throw err;
+            });
         });
-    });
+    }
+
 });
 
 router.get('/add/:slideshowId', function(req, res) {
@@ -76,6 +81,7 @@ router.get('/add/:slideshowId', function(req, res) {
             title: 'Your posters',
             login: cr.login,
             admin: cr.admin,
+            editor: cr.editor,
             email: cr.email,
             navStyle: 'icons-only'
         },
@@ -85,7 +91,7 @@ router.get('/add/:slideshowId', function(req, res) {
             displays: '/admin/posters/edit'
         };
 
-    if (general.admin) {
+    if (general.admin || general.editor) {
         var sql = 'SELECT * FROM posters_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN posters T3 ON T1.poster_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
         var sqlPosters = 'SELECT * FROM posters';
 
@@ -116,11 +122,11 @@ router.post('/add/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,
-        // admin = cr.admin,
+        editor = cr.editor,
         body = req.body,
         posters = JSON.parse('[' + body.posters + ']');
 
-    if (admin) {
+    if (admin || editor) {
         req.getConnection(function(err, connection) {
             var sqlQueryInsert = 'INSERT INTO posters_In_slideshow SET poster_id = ?, slideshow_id = ?, short = ?';
             var sqlQueryUpdate = 'UPDATE posters_In_slideshow SET short = ? WHERE poster_id = ? AND slideshow_id = ?';
@@ -157,12 +163,12 @@ router.post('/add/settings/:slideshowId', function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,
-        // admin = cr.admin,
+        editor = cr.editor,
         body = req.body,
         discription = body.discription,
         name = body.name;
 
-    if (admin) {
+    if (admin || editor) {
         req.getConnection(function(err, connection) {
             var sqlQueryInsert = 'UPDATE slideshows SET slideshow_discription = ?, slideshow_name = ? WHERE id = ?';
 

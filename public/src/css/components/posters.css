@@ -28,7 +28,6 @@
     padding: 0.5em;
 }
 .img-preview {
-    /*width: 10%;*/
     margin: 1em;
 }
 
@@ -39,10 +38,8 @@
         flex-shrink: 1;
     }
     .img-preview {
-        flex-shrink: 1;
         flex-basis: 50%;
-        /*width: 10%;*/
-        /*margin: 1em;*/
+        flex-shrink: 1;
     }
     .add-poster {
         display: flex;
