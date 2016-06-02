@@ -5,14 +5,19 @@ DP.routes = (function() {
     var pathname = function(path) {
         return window.location.pathname === path;
     };
+    var splitUrl = function(path) {
+        return window.location.pathname.split('/', 4).join('/') === path;
+    };
 
     var _checkRoutes = function() {
+
         if (pathname('/admin/posters/add')) {
             DP.poster.uploadPreview();
-        } else if (pathname('/admin/slideshows/add')) {
+        } else if (splitUrl('/admin/slideshows/add')) {
             DP.slideshows.init();
         } else {
-            DP.slideshows.init();
+
+            // DP.slideshows.init();
         }
     };
     var init = function() {
