@@ -1,5 +1,6 @@
 var express = require('express'),
     credentials = require('../../../modules/credentials.js'),
+    randNumber = require('../../../modules/randNumber.js'),
     router = express.Router();
 
 
@@ -21,7 +22,7 @@ router.get('/', function(req, res) {
 
     if (admin) {
         req.getConnection(function(err, connection) {
-            var sql = 'SELECT id, slideshowId, name FROM displays';
+            var sql = 'SELECT display_id, slideshowId, name FROM displays';
             // Get the user id using username
             connection.query(sql, function(err, match) {
                 if (err) throw err;
@@ -65,6 +66,7 @@ router.post('/add', function(req, res) {
             req.getConnection(function(err, connection) {
                 var sqlQuery = 'INSERT INTO displays SET ?',
                     sqlValues = {
+                        display_id: randNumber(1000),
                         name: name,
                         slideshowId: slideshowId,
                         dataCreated: now
@@ -88,7 +90,7 @@ router.post('/add', function(req, res) {
 
 function getDisplayNames(req, res, error, login, admin) {
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT id, name FROM slideshows';
+        var sql = 'SELECT id, slideshow_name FROM slideshows';
         // Get the user id using username
         connection.query(sql, function(err, match) {
             if (err) {

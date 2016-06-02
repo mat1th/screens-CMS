@@ -16,7 +16,7 @@
             </svg>
         </button>
         <ol id="posterlist">
-            {{#each data.usedposters}}
+            {{#each data.general}}
                 <li class="posteritem list" draggable="true">
                     <a href="#">
                         <small class="number">{{@index}}</small>
@@ -59,7 +59,7 @@
         </div>
 
         <section>
-            <form action="{{postUrl.settings}}" method="post" enctype="multipart/form-data">
+            <form action="{{postUrl.settings}}" method="post">
                 <h2>Slideshow settings</h2>
                 <div>
                     <label for="field_name">Name: </label>
@@ -74,7 +74,7 @@
             </form>
         </section>
         <section>
-            <form action="{{postUrl.displays}}" method="post" enctype="multipart/form-data">
+            <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
                 {{#each data.displays}}
                     <div>
@@ -88,7 +88,7 @@
         </section>
 
         <section class="slideshow-poster-settings scrollable">
-            <form action="{{postUrl.posters}}" method="post" enctype="multipart/form-data">
+            <form action="{{postUrl.posters}}" method="post">
                 <h2>Edit poster</h2>
                 <div>
                     <label for="field_animation">Animation: </label>
