@@ -1,8 +1,9 @@
 var fs = require('fs'),
     express = require('express'),
     moment = require('moment'),
+    getSpecificData = require('../../modules/getSpecificData.js'),
+    renderTemplate = require('../../modules/renderTemplate.js'),
     checklogin = require('../../modules/checklogin.js'),
-    isValidDate = require('../../modules/isValidDate.js'),
     router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -11,94 +12,26 @@ router.get('/', function(req, res, next) {
 
 router.get('/:displayId', function(req, res, next) {
     var displayId = req.params.displayId;
-    var login = checklogin(req.session);
     var posterUrls = [];
-    // if (login) {
-        req.getConnection(function(err, connection) {
-            var sqlGetFilname = 'SELECT filename FROM posters WHERE '
-            var sql = 'SELECT posters FROM slideshows WHERE id IN( SELECT slideshowId FROM displays WHERE id = ? )';
-            // Get the user id using username
-            connection.query(sql, [displayId], function(err, match) {
-                if (err) {
-                    throw err;
-                }
-                if (match !== '' && match.length > 0) {
-                    var posterIds = JSON.parse(match[0].posters);
-                    //create string for posters
-                      var sqlGetFilname = 'SELECT filename, animation, duration, vimeoId, type FROM posters WHERE '
-                    posterIds.forEach(function(currentValue, index) {
-                        if (index === posterIds.length - 1) {
-                            sqlGetFilname += 'id = ' + currentValue;
-                        } else {
-                            sqlGetFilname += 'id = ' + currentValue + ' OR ';
-                        }
-                    });
-                    connection.query(sqlGetFilname, function(err, match) {
-                        if (err) {
-                            throw err;
-                        }
-                        if (match !== '' && match.length > 0) {
-                            res.render('display/view', {
-                                title: 'Display ' + displayId,
-                                layout: 'layout2',
-                                logedin: login,
-                                data: match
-                            });
-                        } else {
-                            res.render('admin/slideshows/show', {
-                                title: 'Display ' + displayId,
-                                logedin: checklogin(req.session),
-                                error: 'There are no posters in your slideshow',
-                                data: match
-                            });
-                        }
-                    });
 
-                } else {
-                    res.render('admin/slideshows/show', {
-                        title: 'Display ' + displayId,
-                        logedin: checklogin(req.session),
-                        error: 'This display does not exsist ',
-                        data: match
-                    });
-                }
-            });
+    req.getConnection(function(err, connection) {
+        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
+
+
+        getSpecificData(sql, connection, [displayId]).then(function(rows) {
+            var data = {
+                general: rows
+            };
+            if (rows.length > 0) {
+                renderTemplate(res, 'display/view', data, {}, {}, false, 'layout2');
+            } else {
+                renderTemplate(res, 'display/view', {}, {}, {}, 'There are no posters in your slideshow', 'layout2');
+            }
+
+        }).catch(function(err) {
+            throw err;
         });
-    // } else {
-    //     res.redirect('/users/login');
-    // }
+    });
 });
-
-
-
-
-// router.get('/:displayID', function(req, res, next) {
-
-//         req.getConnection(function(err, connection) {
-//             var sql = 'SELECT id, discription, posters FROM slideshows';
-//             // Get the user id using username
-//             connection.query(sql, function(err, match) {
-//                 if (err) {
-//                     throw err;
-//                 }
-//
-//                 if (match !== '' && match.length > 0) {
-//                     res.render('admin/slideshows/show', {
-//                         title: 'Home',
-//                         logedin: checklogin(req.session),
-//                         data: match
-//                     });
-//                 }else{
-//                   res.render('admin/slideshows/show', {
-//                       title: 'Home',
-//                       logedin: checklogin(req.session),
-//                       error: 'You have no displays jet',
-//                       data: match
-//                   });
-//                 }
-//             });
-//         });
-
-// });
 
 module.exports = router;
