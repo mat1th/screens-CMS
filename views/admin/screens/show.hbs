@@ -7,13 +7,13 @@
     <section class="content-body">
         {{#if data.general}}
             {{#each data.general}}
-
                 <div class="screen">
                     <a href="/admin/screens/show/{{id}}">
                         <div class="image no-overflow">
                             <img src="/download/{{filename}}" alt="" />
                         </div>
-                        {{#if admin}}
+                        {{#if ../rights.admin}}
+
                             {{#checktype checked equals="0" }}
                                 <div class="check">
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 42.8 42.8" xml:space="preserve">
