@@ -5,8 +5,8 @@ var express = require('express'),
     insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     isValidDate = require('../../../modules/isValidDate.js'),
+    sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router();
-
 
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
@@ -83,6 +83,7 @@ router.get('/show/:posterId', function(req, res) {
         },
         sql;
 
+
     if (general.login) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
@@ -150,12 +151,17 @@ router.post('/add', function(req, res) {
             if (data.upload.imageFile && data.type !== null) {
                 req.getConnection(function(err, connection) {
                     if (general.admin || general.editor) {
-                        sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?";
+                        sqlQuery = 'INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
                     } else {
-                        sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?";
+                        sqlQuery = 'INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
                     }
-                    
-                    insertData(sqlQuery, [data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
+
+                    insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
+                          //send a mail if the use is not a admin
+                        if(!general.admin) {
+                          sendMessage('Matthias', general.email, data.upload.imageFile.name);
+                        }
+
                         res.redirect('/admin/posters');
                     }).catch(function(err) {
                         console.log(err);

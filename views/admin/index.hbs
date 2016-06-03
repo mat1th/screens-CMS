@@ -8,7 +8,7 @@
             <h2>Posters</h2>
         </section>
         <section class="card-body">
-            <p>You have <span class="bold">{{data.general.posters}}</span> poster(s). Form these posters are <span class="bold">{{data.general.uncheckedPosters}}</span> uncheked. For more information go to display page.</p>
+            <p>You have <span class="bold">{{data.general.posters}}</span> poster(s). {{#if admin}} Form these posters are <span class="bold">{{data.general.uncheckedPosters}}</span> uncheked. {{/if}} For more information go to display page.</p>
         </section>
         <a href="/admin/posters" class="btn btn-default">Go</a>
     </article>
