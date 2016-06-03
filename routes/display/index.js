@@ -1,22 +1,19 @@
-var fs = require('fs'),
-    express = require('express'),
-    moment = require('moment'),
+var express = require('express'),
     getSpecificData = require('../../modules/getSpecificData.js'),
     renderTemplate = require('../../modules/renderTemplate.js'),
-    checklogin = require('../../modules/checklogin.js'),
     router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.redirect('/admin/displays');
 });
 
-router.get('/:displayId', function(req, res, next) {
+router.get('/:displayId', function(req, res) {
     var displayId = req.params.displayId;
-    var posterUrls = [];
+    // var posterUrls = [];
 
     req.getConnection(function(err, connection) {
-        var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
-        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
+        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
+        // var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
 
         getSpecificData(sql, connection, [displayId]).then(function(rows) {
             var data = {
