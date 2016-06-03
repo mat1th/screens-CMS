@@ -5,12 +5,12 @@
     </section>
     <article class="card">
         <section class="card-header">
-            <h2>Posters</h2>
+            <h2>Screens</h2>
         </section>
         <section class="card-body">
-            <p>You have <span class="bold">{{data.general.posters}}</span> poster(s). {{#if admin}} Form these posters are <span class="bold">{{data.general.uncheckedPosters}}</span> uncheked. {{/if}} For more information go to display page.</p>
+            <p>You have <span class="bold">{{data.general.screens}}</span> screen(s). {{#if rights.admin}} Form these screens are <span class="bold">{{data.general.uncheckedScreens}}</span> uncheked. {{/if}} For more information go to display page.</p>
         </section>
-        <a href="/admin/posters" class="btn btn-default">Go</a>
+        <a href="/admin/screens" class="btn btn-default">Go</a>
     </article>
     {{#if rights.admin}}
         <article class="card">

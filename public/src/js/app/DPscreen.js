@@ -1,4 +1,4 @@
-DP.posters = (function() {
+DP.screens = (function() {
     //get the data from the specific vimeo id
     var _setVimeoForm = function() {
         var client = new DP.helper.getData(),
@@ -58,7 +58,7 @@ DP.posters = (function() {
         vimeoIdInput.classList.add('none');
 
         radioOptionField.addEventListener('change', function(e) {
-            if (e.target.value === 'poster') {
+            if (e.target.value === 'screen') {
                 fileInput.classList.remove('none');
                 vimeoIdInput.classList.add('none');
             } else {

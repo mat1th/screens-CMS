@@ -46,7 +46,7 @@ router.get('/', function(req, res) {
 //
 //     if (admin) {
 //         res.render('admin/users/add', {
-//             title: 'Add a poster',
+//             title: 'Add a screen',
 //             rights: {
 //                 admin: admin,
 //                 logedin: login

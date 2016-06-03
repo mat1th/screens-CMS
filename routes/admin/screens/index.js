@@ -11,7 +11,7 @@ var express = require('express'),
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
-            title: 'Your posters',
+            title: 'Your screens',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -20,17 +20,17 @@ router.get('/', function(req, res) {
         },
         postUrls = {
             settings: '/admin/slideshows/edit',
-            posters: '/admin/posters/edit',
-            displays: '/admin/posters/edit'
+            screens: '/admin/screens/edit',
+            displays: '/admin/screens/edit'
         },
         sql;
 
     if (general.login) {
         req.getConnection(function(err, connection) {
             if (general.admin) {
-                sql = 'SELECT filename, type, name, checked, id FROM posters';
+                sql = 'SELECT filename, type, name, checked, id FROM screens';
             } else {
-                sql = 'SELECT filename, type, name, checked, id FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT filename, type, name, checked, id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
             }
             // sql = 'CASE'
             getSpecificData(sql, connection, [general.email]).then(function(rows) {
@@ -38,7 +38,7 @@ router.get('/', function(req, res) {
                     general: rows
                 };
                 //renderTemplate
-                renderTemplate(res, 'admin/posters/show', data, general, postUrls, false);
+                renderTemplate(res, 'admin/screens/show', data, general, postUrls, false);
                 //
             }).catch(function(err) {
                 throw err;
@@ -52,30 +52,30 @@ router.get('/', function(req, res) {
 router.get('/add', function(req, res) {
     var cr = credentials(req.session),
         general = {
-            title: 'Add a poster',
+            title: 'Add a screen',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
             email: cr.email
         },
         postUrls = {
-            general: '/admin/posters/add'
+            general: '/admin/screens/add'
         };
 
     if (general.login) {
-        renderTemplate(res, 'admin/posters/add', {}, general, postUrls, false);
+        renderTemplate(res, 'admin/screens/add', {}, general, postUrls, false);
     } else {
         res.redirect('/users/login');
     }
 });
 
 
-// GET a poster and present the full poster page
-router.get('/show/:posterId', function(req, res) {
-    var posterId = req.params.posterId,
+// GET a screen and present the full screen page
+router.get('/show/:screenId', function(req, res) {
+    var screenId = req.params.screenId,
         cr = credentials(req.session),
         general = {
-            title: 'Add a poster',
+            title: 'Add a screen',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -88,11 +88,11 @@ router.get('/show/:posterId', function(req, res) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
             if (general.admin) {
-                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM posters WHERE id = ?';
+                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM screens WHERE id = ?';
             } else {
-                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM screens WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
-            getSpecificData(sql, connection, [posterId, general.email]).then(function(rows) {
+            getSpecificData(sql, connection, [screenId, general.email]).then(function(rows) {
                 console.log(rows[0].checked);
                 var data = {
                     general: {
@@ -110,7 +110,7 @@ router.get('/show/:posterId', function(req, res) {
                     }
                 };
                 //renderTemplate
-                renderTemplate(res, 'admin/posters/detail', data, general, {}, false);
+                renderTemplate(res, 'admin/screens/detail', data, general, {}, false);
                 //
             }).catch(function(err) {
                 console.log(err);
@@ -125,7 +125,7 @@ router.post('/add', function(req, res) {
     var cr = credentials(req.session),
         sqlQuery,
         general = {
-            title: 'Add a poster',
+            title: 'Add a screen',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -151,9 +151,9 @@ router.post('/add', function(req, res) {
             if (data.upload.imageFile && data.type !== null) {
                 req.getConnection(function(err, connection) {
                     if (general.admin || general.editor) {
-                        sqlQuery = 'INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
+                        sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
                     } else {
-                        sqlQuery = 'INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
+                        sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
                     }
 
                     insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
@@ -162,24 +162,24 @@ router.post('/add', function(req, res) {
                           sendMessage('Matthias', general.email, data.upload.imageFile.name);
                         }
 
-                        res.redirect('/admin/posters');
+                        res.redirect('/admin/screens');
                     }).catch(function(err) {
                         console.log(err);
                         throw err;
                     });
                 });
             } else {
-                renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have got no image uploaded');
+                renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have got no image uploaded');
             }
         } else {
-            renderTemplate(res, 'admin/posters/add', {}, general, {}, 'You have submit a wrong date');
+            renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have submit a wrong date');
         }
     } else {
         res.redirect('/users/login');
     }
 });
 
-router.post('/edit/:posterId', function(req, res) {
+router.post('/edit/:screenId', function(req, res) {
     var cr = credentials(req.session),
         general = {
             login: cr.login,
@@ -193,15 +193,15 @@ router.post('/edit/:posterId', function(req, res) {
             duration: body.duration,
             dateStart: body.dateStart,
             dateEnd: body.dateEnd,
-            posterId: req.params.posterId
+            screenId: req.params.screenId
         };
 
-    var sqlQuery = 'UPDATE posters SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
+    var sqlQuery = 'UPDATE screens SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
 
     if (general.login) {
         if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
             req.getConnection(function(err, connection) {
-                insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.posterId], connection).then(function() {
+                insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.screenId], connection).then(function() {
                     res.redirect('admin/slideshows/');
                 }).catch(function(err) {
                     res.send('error:' + err);

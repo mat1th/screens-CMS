@@ -8,17 +8,17 @@ require('moment/locale/cs');
 moment.locale('nl');
 
 
-//get data from poster
-router.get('/poster/:posterId', function(req, res) {
+//get data from screen
+router.get('/screen/:screenId', function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
         admin = cr.admin,
-        posterId = req.params.posterId;
+        screenId = req.params.screenId;
 
     if (login && admin) {
         req.getConnection(function(err, connection) {
-            var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM posters WHERE id = ?';
-            connection.query(sqlSlideshows, [posterId], function(err, match) {
+            var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM screens WHERE id = ?';
+            connection.query(sqlSlideshows, [screenId], function(err, match) {
                 if (err) throw err;
                 console.log(match);
                 var data = {

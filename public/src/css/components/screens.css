@@ -1,20 +1,20 @@
 /*overview*/
 
-.poster {
+.screen {
     display: inline-block;
     position: relative;
     max-width: 15em;
 }
-.poster img {
+.screen img {
     display: inline-block;
     margin: 0;
     padding: 0;
 }
-.poster .image {
+.screen .image {
     display: inline-block;
     height: 20em;
 }
-.poster .name {
+.screen .name {
     position: absolute;
     bottom: 0.3em;
     width: 100%;
@@ -22,20 +22,20 @@
     color: var(--font-color-light);
     z-index: 1;
 }
-.poster h2 {
+.screen h2 {
     padding: 0.5em;
 }
-.poster .check {
+.screen .check {
     position: absolute;
     top: 0;
     z-index: 2;
     right: 0;
 }
-.poster .check svg {
+.screen .check svg {
     width: 3em;
 }
 
-.poster .not-cheked .triangle {
+.screen .not-cheked .triangle {
     right: 0;
 }
 .img-preview {
@@ -51,7 +51,7 @@
     background: rgba(67, 69, 61, 0.80);
 }
 
-/*add a new poster*/
+/*add a new screen*/
 
 @media screen and (--medium-big-window-width) {
     form {
@@ -61,7 +61,7 @@
         flex-basis: 50%;
         flex-shrink: 1;
     }
-    .add-poster {
+    .add-screen {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

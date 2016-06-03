@@ -8,7 +8,7 @@ var express = require('express'),
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
-            title: 'Your posters',
+            title: 'Your screens',
               admin: cr.admin, editor: cr.editor,
             login: cr.login,
             email: cr.email
@@ -18,9 +18,9 @@ router.get('/', function(req, res) {
     if (general.login) {
         req.getConnection(function(err, connection) {
             if (general.admin) {
-                sql = "SELECT (SELECT COUNT(id) FROM posters) AS 'posters', (SELECT COUNT(id) FROM posters WHERE checked = 0) AS 'uncheckedPosters', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
+                sql = "SELECT (SELECT COUNT(id) FROM screens) AS 'screens', (SELECT COUNT(id) FROM screens WHERE checked = 0) AS 'uncheckedScreens', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
             } else {
-                sql = 'SELECT COUNT(id) AS posters FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ?)';
+                sql = 'SELECT COUNT(id) AS screens FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ?)';
             }
 
             getSpecificData(sql, connection, [general.email]).then(function(rows) {

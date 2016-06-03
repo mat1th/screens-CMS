@@ -14,14 +14,14 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
-                    <!-- <th scope="col">Posters</th> -->
+                    <!-- <th scope="col">Screens</th> -->
                     <th scope="col">Edit</th>
                 </tr>
                 {{#each data.general.slideshows}}
                     <tr>
                         <td data-th="Id">{{id}}</td>
                         <td data-th="Discription">{{slideshow_name}}</td>
-                        <!-- <td data-th="Posters">{{posters}}</td> -->
+                        <!-- <td data-th="Screens">{{screens}}</td> -->
                         <td data-th="Edit"><a href="/admin/slideshows/add/{{id}}">Edit</a></td>
                     </tr>
                 {{/each}}

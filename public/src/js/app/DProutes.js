@@ -11,8 +11,8 @@ DP.routes = (function() {
 
     var _checkRoutes = function() {
 
-        if (pathname('/admin/posters/add')) {
-            DP.posters.init();
+        if (pathname('/admin/screens/add')) {
+            DP.screens.init();
         } else if (splitUrl('/admin/slideshows/add')) {
             DP.slideshows.init();
         } else {

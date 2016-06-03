@@ -1,15 +1,15 @@
  {{> nav}}
 <section class="content scrollable">
     <section class="content-header">
-        <h1>Your posters</h1>
-        <a href="/admin/posters/add" class="btn btn-default">Add new poster</a>
+        <h1>Your screens</h1>
+        <a href="/admin/screens/add" class="btn btn-default">Add new screen</a>
     </section>
     <section class="content-body">
         {{#if data.general}}
             {{#each data.general}}
 
-                <div class="poster">
-                    <a href="/admin/posters/show/{{id}}">
+                <div class="screen">
+                    <a href="/admin/screens/show/{{id}}">
                         <div class="image no-overflow">
                             <img src="/download/{{filename}}" alt="" />
                         </div>
@@ -48,8 +48,8 @@
                 </div>
             {{/each}}
         {{else}}
-            <p>You have got no posters please add one.</p>
-            <a href="/admin/posters/add">New poster</a>
+            <p>You have got no screens please add one.</p>
+            <a href="/admin/screens/add">New screen</a>
         {{/if}}
 
     </section>

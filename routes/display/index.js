@@ -9,11 +9,11 @@ router.get('/', function(req, res) {
 
 router.get('/:displayId', function(req, res) {
     var displayId = req.params.displayId;
-    // var posterUrls = [];
+    // var screenUrls = [];
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id';
-        // var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN posters_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN posters T3 ON T3.id = T2.poster_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
+        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN screens_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN screens T3 ON T3.id = T2.screen_id';
+        // var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN screens_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN screens T3 ON T3.id = T2.screen_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
 
         getSpecificData(sql, connection, [displayId]).then(function(rows) {
             var data = {
@@ -22,7 +22,7 @@ router.get('/:displayId', function(req, res) {
             if (rows.length > 0) {
                 renderTemplate(res, 'display/view', data, {}, {}, false, 'layout2');
             } else {
-                renderTemplate(res, 'display/view', {}, {}, {}, 'There are no posters in your slideshow', 'layout2');
+                renderTemplate(res, 'display/view', {}, {}, {}, 'There are no screens in your slideshow', 'layout2');
             }
 
         }).catch(function(err) {

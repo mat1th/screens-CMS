@@ -22,7 +22,7 @@ const express = require('express'),
     //get files for admin
     dashboard = require('./routes/admin/index'),
     displaysAdmin = require('./routes/admin/displays/index'),
-    posters = require('./routes/admin/posters/index'),
+    screens = require('./routes/admin/screens/index'),
     slideshows = require('./routes/admin/slideshows/index'),
     display = require('./routes/display/index'),
     users = require('./routes/admin/users/index'),
@@ -104,7 +104,7 @@ app.use('/users', userAcounts);
 //get files for admin
 app.use('/admin', dashboard);
 app.use('/admin/displays', displaysAdmin);
-app.use('/admin/posters', posters);
+app.use('/admin/screens', screens);
 app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
