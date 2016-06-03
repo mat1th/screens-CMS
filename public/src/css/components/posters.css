@@ -25,6 +25,19 @@
 .poster h2 {
     padding: 0.5em;
 }
+.poster .check {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    right: 0;
+}
+.poster .check svg {
+    width: 3em;
+}
+
+.poster .not-cheked .triangle {
+    right: 0;
+}
 .img-preview {
     margin: 1em;
 }

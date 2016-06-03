@@ -13,23 +13,23 @@
         <a href="/admin/posters" class="btn btn-default">Go</a>
     </article>
     {{#if rights.admin}}
-    <article class="card">
-        <section class="card-header">
-            <h2>Slideshows</h2>
-        </section>
-        <section class="card-body">
-            <p>You have got <span class="bold">{{data.general.slideshows}}</span> slideshows. For more details go to the slideshow page. </p>
-        </section>
-        <a href="/admin/slideshows" class="btn btn-default">Go</a>
-    </article>
-    <article class="card">
-        <section class="card-header">
-            <h2>Displays</h2>
-        </section>
-        <section class="card-body">
-            <p>There are <span class="bold">{{data.general.displays}}</span> displays. For more information go to display page.</p>
-        </section>
-        <a href="/admin/displays" class="btn btn-default">Go</a>
-    </article>
+        <article class="card">
+            <section class="card-header">
+                <h2>Slideshows</h2>
+            </section>
+            <section class="card-body">
+                <p>You have got <span class="bold">{{data.general.slideshows}}</span> slideshows. For more details go to the slideshow page. </p>
+            </section>
+            <a href="/admin/slideshows" class="btn btn-default">Go</a>
+        </article>
+        <article class="card">
+            <section class="card-header">
+                <h2>Displays</h2>
+            </section>
+            <section class="card-body">
+                <p>There are <span class="bold">{{data.general.displays}}</span> displays. For more information go to display page.</p>
+            </section>
+            <a href="/admin/displays" class="btn btn-default">Go</a>
+        </article>
     {{/if}}
 </section>
