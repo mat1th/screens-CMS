@@ -93,7 +93,6 @@ var dbOptions = {
 };
 
 // Add connection middleware
-
 app.use(myConnection(mysql, dbOptions, 'single'));
 
 
@@ -131,15 +130,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-// const options = {
-//     key: fs.readFileSync('./keys/localhost-key.pem'),
-//     cert: fs.readFileSync('./keys/localhost-cert.pem')
-// };
-//
-// // Create an HTTPS service identical to the HTTP service.
-// https.createServer(options, app)
-//     .listen(4433, 'localhost');
 
 //start app
 app.listen(3010, function() {
