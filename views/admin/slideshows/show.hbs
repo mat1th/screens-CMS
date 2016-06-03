@@ -25,7 +25,6 @@
                         <td data-th="Edit"><a href="/admin/slideshows/add/{{id}}">Edit</a></td>
                     </tr>
                 {{/each}}
-
             </table>
         {{/if}}
     </section>
@@ -46,6 +45,7 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Slideshows</th>
                     <th scope="col">Edit</th>
                 </tr>
@@ -53,6 +53,7 @@
                     <tr>
                         <td data-th="Id">{{id}}</td>
                         <td data-th="Name"><a href="/display/{{display_id}}">{{name}}</a></td>
+                        <td data-th="location">{{location}}</td>
                         <td data-th="Slideshows">{{slideshowId}}</td>
                         <td data-th="Edit"><a href="#">Edit</a></td>
                     </tr>

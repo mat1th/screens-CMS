@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
 
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
-            sqlDisplays = 'SELECT display_id, name, slideshowId FROM displays';
+            sqlDisplays = 'SELECT * FROM displays';
             // Get the user id using username
             getData(sql, connection).then(function(slideshows) {
                 getData(sqlDisplays, connection).then(function(displays) {

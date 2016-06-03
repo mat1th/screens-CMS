@@ -32,7 +32,7 @@
             <div class="file-input">
                 <span class="filename" id="filename">Select your file</span>
                 <label for="field-file" class="btn btn-default ">Browse
-                    <input type="file" name="imageFile" for="hio" value="" id="field-file">
+                    <input type="file" name="imageFile" for="hio" value="" id="field-file" required>
                 </label>
             </div>
 
@@ -43,13 +43,13 @@
             </div>
 
             <div>
-                <label for="field-name">Name: </label>
-                <input type="text" id="field-name" name="name" value="">
+                <label for="field-name">Title: </label>
+                <input type="text" id="field-name" name="name" value="" placeholder="Won't show in the slideshow">
             </div>
 
             <div>
                 <label for="field-discription">Discription: </label>
-                <textarea name="discription" rows="2" cols="40" value="" id="field-discription"></textarea>
+                <textarea name="discription" rows="2" cols="40" value="" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
             </div>
 
             <div>
@@ -69,29 +69,17 @@
 
             <div>
                 <label for="field-duration">Duration: </label>
-                <input type="number" id="field-duration" name="duration" value="" placeholder="60 (is one min)">
-                <!-- <div class="select-icon">
-                    <select class="" name="duration" id="field-duration">
-                        <option value="10">10 sec</option>
-                        <option value="20">20 sec</option>
-                        <option value="30">30 sec</option>
-                        <option value="40">40 sec</option>
-                        <option value="50">50 sec</option>
-                        <option value="60">1 min</option>
-                        <option value="90">1,5 min</option>
-                        <option value="120">2 min</option>
-                    </select>
-                </div> -->
+                <input type="number" id="field-duration" name="duration" min="10" max="400" value="" placeholder="60 (s)" required>
             </div>
 
             <div>
                 <label for="field-date-start">Start date: </label>
-                <input type="date" id="field-date-start" name="dateStart" value="" placeholder="dd-mm-jj">
+                <input type="date" id="field-date-start" name="dateStart" value="" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
             </div>
 
             <div>
                 <label for="field-date-end">End date: </label>
-                <input type="date" id="field-date-end" name="dateEnd" value="" placeholder="dd-mm-jj">
+                <input type="date" id="field-date-end" name="dateEnd" value="" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
             </div>
 
             <button class="btn btn-default top-margin">Submit</button>

@@ -8,10 +8,15 @@
             <h2>Screens</h2>
         </section>
         <section class="card-body">
-            <p>You have <span class="bold">{{data.general.screens}}</span> screen(s). {{#if rights.admin}} Form these screens are <span class="bold">{{data.general.uncheckedScreens}}</span> uncheked. {{/if}} For more information go to display page.</p>
+            <p>You have <span class="bold">{{data.general.screens}}</span> screen(s).
+                {{#if rights.admin}}
+                    Form these screens are <span class="bold">{{data.general.uncheckedScreens}}</span> uncheked.
+                {{/if}}
+                For more information go to display page.</p>
         </section>
         <a href="/admin/screens" class="btn btn-default">Go</a>
     </article>
+
     {{#if rights.admin}}
         <article class="card">
             <section class="card-header">
@@ -22,6 +27,7 @@
             </section>
             <a href="/admin/slideshows" class="btn btn-default">Go</a>
         </article>
+
         <article class="card">
             <section class="card-header">
                 <h2>Displays</h2>
@@ -32,4 +38,5 @@
             <a href="/admin/displays" class="btn btn-default">Go</a>
         </article>
     {{/if}}
+
 </section>
