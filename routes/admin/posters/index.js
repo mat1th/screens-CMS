@@ -92,7 +92,7 @@ router.get('/show/:posterId', function(req, res) {
                 sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
             getSpecificData(sql, connection, [posterId, general.email]).then(function(rows) {
-              console.log(rows[0].checked);
+                console.log(rows[0].checked);
                 var data = {
                     general: {
                         id: rows[0].id,
@@ -122,6 +122,7 @@ router.get('/show/:posterId', function(req, res) {
 
 router.post('/add', function(req, res) {
     var cr = credentials(req.session),
+        sqlQuery,
         general = {
             title: 'Add a poster',
             login: cr.login,
@@ -148,8 +149,12 @@ router.post('/add', function(req, res) {
         if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
             if (data.upload.imageFile && data.type !== null) {
                 req.getConnection(function(err, connection) {
-                    var sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?";
-
+                    if (general.admin || general.editor) {
+                        sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?";
+                    } else {
+                        sqlQuery = "INSERT INTO posters SET `userId` =  (SELECT id FROM users WHERE email = 'hoi'), `name` = ?, `discription` = ?, `animation` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?";
+                    }
+                    
                     insertData(sqlQuery, [data.name, data.discription, data.animation, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
                         res.redirect('/admin/posters');
                     }).catch(function(err) {
