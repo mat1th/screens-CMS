@@ -10,7 +10,7 @@
         <!-- add button  -->
 
         <button class="add">
-            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
+            <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
@@ -21,8 +21,17 @@
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
+                          {{#checkTypeOfPoster type equals="vimeo" }}
+                              <div class="play-icon">
+                                  <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M8 5v14l11-7z" />
+                                      <path d="M0 0h24v24H0z" fill="none" />
+                                  </svg>
+                              </div>
+                          {{/checkTypeOfPoster}}
                             <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
                         </div>
+
                     </a>
                 </li>
             {{/each}}
@@ -34,10 +43,18 @@
             {{#each data.allPosters}}
                 <div>
                     <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
-                    <!-- data-settings="{'animation': '{{animation}}', 'duration': '{{duration}}', 'dateStart': '{{dateStart}}', 'dateEnd': '{{dateEnd}}'}" -->
                     <div class="image no-overflow">
                         <img src="/download/{{filename}}" alt="" />
+                        {{#checkTypeOfPoster type equals="vimeo" }}
+                            <div class="play-icon">
+                                <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5v14l11-7z" />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                </svg>
+                            </div>
+                        {{/checkTypeOfPoster}}
                     </div>
+
                     <label for="lab{{id}}"></label>
                 </div>
             {{/each}}
@@ -48,7 +65,11 @@
 
     <!-- a preview of the poster  -->
     <section class="slideshow-preview">
-        <img src="/download/{{data.general.0.filename}}" alt="no poster image" />
+        {{#if data.general.0.filename}}
+            <img src="/download/{{data.general.0.filename}}" alt="poster" />
+        {{else}}
+            <img src="/img/add-poster.jpg" alt="add poster image" />
+        {{/if}}
     </section>
 
     <section class="right-panel scrollable">
@@ -116,6 +137,7 @@
                 <button class="btn btn-default top-margin">Save</button>
             </form>
         </section>
+
     </section>
 
 </section>

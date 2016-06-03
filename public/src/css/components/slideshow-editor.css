@@ -14,6 +14,7 @@
 }
 .slideshow-content .image {
     display: inline-block;
+    position: relative;
     width: 6em;
     height: 8em;
     padding: 0.3em;
@@ -119,6 +120,7 @@
 }
 .right-panel {
     min-width: 18em;
+    position: relative;
     background: var(--background-color-semidark);
 }
 .right-panel section {
@@ -134,6 +136,7 @@
 
 .posteritem {
     display: block;
+    position: relative;
     background: var(--background-color-semidark);
     z-index: 2;
 }
@@ -150,5 +153,13 @@
 }
 .posterlist {
     position: relative;
-    padding: 60px;
+    padding: 3.753em;
+}
+.posteritem div.play-icon {
+    left: .3em;
+    right: .3em;
+    top: .3em
+}
+div.play-icon {
+    position: absolute;
 }
