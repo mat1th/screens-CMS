@@ -93,7 +93,7 @@ router.get('/add/:slideshowId', function(req, res) {
 
     if (general.admin || general.editor) {
         var sql = 'SELECT * FROM posters_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN posters T3 ON T1.poster_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
-        var sqlPosters = 'SELECT * FROM posters';
+        var sqlPosters = 'SELECT * FROM posters WHERE checked = 1';
 
         req.getConnection(function(err, connection) {
             getData(sqlPosters, connection).then(function(posters) {
