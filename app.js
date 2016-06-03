@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public/dist')));
 // app.use(express.static(path.join(__dirname, 'uploads')));
 
-hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
+hbs.registerHelper("checktype", function(conditional, options) {
     if (conditional == options.hash.equals) {
         return options.fn(this);
     } else {

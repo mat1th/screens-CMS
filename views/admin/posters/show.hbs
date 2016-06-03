@@ -7,20 +7,26 @@
     <section class="content-body">
         {{#if data.general}}
             {{#each data.general}}
+
                 <div class="poster">
                     <a href="/admin/posters/show/{{id}}">
                         <div class="image no-overflow">
                             <img src="/download/{{filename}}" alt="" />
                         </div>
+                        {{#checktype checked equals="0"}}
+                            <div class="not-cheked">
+                              
+                            </div>
+                        {{/checktype}}
 
-                        {{#checkTypeOfPoster type equals="vimeo" }}
+                        {{#checktype type equals="vimeo" }}
                             <div class="play-icon">
                                 <svg fill="#fff" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M8 5v14l11-7z" />
                                     <path d="M0 0h24v24H0z" fill="none" />
                                 </svg>
                             </div>
-                        {{/checkTypeOfPoster}}
+                        {{/checktype}}
 
                         <div class="name">
                             <h2>{{name}}</h2>
@@ -32,6 +38,7 @@
             <p>You have got no posters please add one.</p>
             <a href="/admin/posters/add">New poster</a>
         {{/if}}
+
     </section>
 </section>
 

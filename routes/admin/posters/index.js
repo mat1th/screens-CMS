@@ -28,9 +28,9 @@ router.get('/', function(req, res) {
     if (general.login) {
         req.getConnection(function(err, connection) {
             if (general.admin) {
-                sql = 'SELECT filename, type, name, id FROM posters';
+                sql = 'SELECT filename, type, name, checked, id FROM posters';
             } else {
-                sql = 'SELECT filename, type, name, id FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT filename, type, name, checked, id FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ? )';
             }
             // sql = 'CASE'
             getSpecificData(sql, connection, [general.email]).then(function(rows) {
@@ -87,11 +87,12 @@ router.get('/show/:posterId', function(req, res) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
             if (general.admin) {
-                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ?';
+                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM posters WHERE id = ?';
             } else {
-                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM posters WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
             getSpecificData(sql, connection, [posterId, general.email]).then(function(rows) {
+              console.log(rows[0].checked);
                 var data = {
                     general: {
                         id: rows[0].id,
@@ -101,6 +102,7 @@ router.get('/show/:posterId', function(req, res) {
                         animation: rows[0].animation,
                         filename: rows[0].filename,
                         type: rows[0].type,
+                        checked: rows[0].checked,
                         dateStart: moment(rows[0].dateStart).format('LL'),
                         dateEnd: moment(rows[0].dateEnd).format('LL'),
                         dataCreated: moment(rows[0].dataCreated).startOf('day').fromNow()

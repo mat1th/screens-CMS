@@ -21,14 +21,14 @@
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
-                          {{#checkTypeOfPoster type equals="vimeo" }}
+                          {{#checktype type equals="vimeo" }}
                               <div class="play-icon">
                                   <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
                                       <path d="M8 5v14l11-7z" />
                                       <path d="M0 0h24v24H0z" fill="none" />
                                   </svg>
                               </div>
-                          {{/checkTypeOfPoster}}
+                          {{/checktype}}
                             <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
                         </div>
 
@@ -45,14 +45,14 @@
                     <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
                     <div class="image no-overflow">
                         <img src="/download/{{filename}}" alt="" />
-                        {{#checkTypeOfPoster type equals="vimeo" }}
+                        {{#checktype type equals="vimeo" }}
                             <div class="play-icon">
                                 <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M8 5v14l11-7z" />
                                     <path d="M0 0h24v24H0z" fill="none" />
                                 </svg>
                             </div>
-                        {{/checkTypeOfPoster}}
+                        {{/checktype}}
                     </div>
 
                     <label for="lab{{id}}"></label>
