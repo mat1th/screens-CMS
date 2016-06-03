@@ -3,22 +3,25 @@ DP.screens = (function() {
     var _setVimeoForm = function() {
         var client = new DP.helper.getData(),
             fieldVimeoId = DP.helper.selectId('field-vimeo-id'),
+            vimeoIdError = DP.helper.selectId('vimeo-id-error'),
             fieldname = DP.helper.selectId('field-name'),
             fieldDiscription = DP.helper.selectId('field-discription'),
             fieldDuration = DP.helper.selectId('field-duration');
 
+console.log(vimeoIdError);
         fieldVimeoId.addEventListener('blur', function(e) {
             client.get('http://vimeo.com/api/v2/video/' + e.target.value + '.json', function(response) {
                 if (response !== 'error') {
                     fieldVimeoId.classList.remove('error');
                     var data = JSON.parse(response)[0];
-
+                      vimeoIdError.innerHTML = '';
                     fieldDiscription.value = data.description;
                     fieldname.value = data.title;
                     fieldDuration.value = data.duration;
                     console.log(data);
                 } else {
                     fieldVimeoId.classList.add('error');
+                    vimeoIdError.innerHTML = 'Fill only the id, not the whole url';
                     console.log('there was a error');
                 }
             });
