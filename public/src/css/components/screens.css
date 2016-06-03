@@ -3,7 +3,7 @@
 .screen {
     display: inline-block;
     position: relative;
-    max-width: 15em;
+    /*max-width: 15em;*/
 }
 .screen img {
     display: inline-block;
@@ -12,7 +12,7 @@
 }
 .screen .image {
     display: inline-block;
-    height: 20em;
+    /*height: 20em;*/
 }
 .screen .name {
     position: absolute;
@@ -51,7 +51,14 @@
 }
 
 /*add a new screen*/
-
+@media screen and (--medium-window-width) {
+  .screen .image {
+      height: 20em;
+  }
+  .screen {
+      max-width: 15em;
+  }
+}
 @media screen and (--medium-big-window-width) {
     form {
         flex-shrink: 1;

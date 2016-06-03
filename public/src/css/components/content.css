@@ -10,12 +10,18 @@
 }
 .content-header {
     display: flex;
+    flex-direction: column;
     flex-grow: 0;
     width: 100%;
     margin-bottom: 1em;
 }
 .content-header h1 {
     display: inline-block;
+    width: 100%;
+    flex-grow: 1;
+}
+.content-header button {
+    width: 100%;
     flex-grow: 1;
 }
 .content-body {
@@ -76,6 +82,9 @@
     margin: 0.5em 1em 1em 0;
 }
 @media (--narrow-window-width) {
+    .content-header {
+        flex-direction: row;
+    }
     .card {
         min-width: 15em;
         padding: 1em;
