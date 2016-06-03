@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
     if (general.login) {
         req.getConnection(function(err, connection) {
             if (general.admin) {
-                sql = "SELECT (SELECT COUNT(id) FROM posters) AS 'posters', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
+                sql = "SELECT (SELECT COUNT(id) FROM posters) AS 'posters', (SELECT COUNT(id) FROM posters WHERE checked = 0) AS 'uncheckedPosters', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
             } else {
                 sql = 'SELECT COUNT(id) AS posters FROM posters WHERE userId IN( SELECT id FROM users WHERE email = ?)';
             }

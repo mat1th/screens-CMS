@@ -18,6 +18,10 @@ video {
 a {
     text-decoration: none;
 }
+.bold {
+  font-size: 1em;
+  font-weight: bold;
+}
 .none, .disabled {
     display: none !important;
 }
