@@ -13,15 +13,16 @@ textarea {
 
 inpired by https://codyhouse.co/gem/css-contact-form/*/
 
-input[type="text"], input[type="email"], input[type="date"], input[type="password"], input[type="number"], textarea, select, legend {
+input[type="text"], input[type="email"], input[type="date"], input[type="password"], input[type="number"], input[type="color"], textarea, select, legend {
     appearance: none;
     display: block;
     width: 100%;
+    min-height: 1em;
 }
-input[type="text"].error, input[type="email"].error, input[type="date"].error, input[type="number"].error, input[type="password"].error, textarea.error, select.error, legend.error {
+input[type="text"].error, input[type="email"].error, input[type="date"].error, input[type="number"].error, input[type="password"].error, input[type="color"].error, textarea.error, select.error, legend.error {
     border-color: var( --warn-color) !important;
 }
-input[type="text"], input[type="email"], input[type="date"], input[type="password"], input[type="number"], textarea, select {
+input[type="text"], input[type="email"], input[type="date"], input[type="password"], input[type="number"], input[type="color"], textarea, select {
     box-sizing: border-box;
     display: block;
     width: 100%;
@@ -32,12 +33,14 @@ input[type="text"], input[type="email"], input[type="date"], input[type="passwor
     font-size: 1.1em;
     box-shadow: inset 0 0.0625em 0.0625em rgba(0, 0, 0, 0.08);
 }
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus,input[type="number"]:focus, textarea:focus, select:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus,input[type="number"]:focus, input[type="color"]:focus, textarea:focus, select:focus {
     border-color: var(--normal-color);
     outline: none;
     box-shadow: 0 0 0.3125em rgba(0, 156, 144, 0.2);
 }
-
+input[type="color"]{
+  min-height: 2em;
+}
 /*radio and checkbox*/
 
 input[type=radio], input[type=checkbox] {

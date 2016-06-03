@@ -32,9 +32,8 @@
     right: 0;
 }
 .screen .check svg {
-    width: 3em;
+    width: 2.9em;
 }
-
 .screen .not-cheked .triangle {
     right: 0;
 }
