@@ -124,6 +124,11 @@
 .right-panel section {
     padding: 1em;
 }
+.slideshow-button {
+    box-sizing: border-box;
+    border-radius: 0;
+    width: 100%;
+}
 
 /*shortable list */
 
