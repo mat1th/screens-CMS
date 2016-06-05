@@ -89,12 +89,11 @@ router.get('/show/:screenId', function(req, res) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
             if (general.admin) {
-                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM screens WHERE id = ?';
+                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM screens WHERE id = ?';
             } else {
-                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated FROM screens WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
+                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM screens WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
             }
             getSpecificData(sql, connection, [screenId, general.email]).then(function(rows) {
-                console.log(rows[0].checked);
                 var data = {
                     general: {
                         id: rows[0].id,
@@ -103,6 +102,7 @@ router.get('/show/:screenId', function(req, res) {
                         name: rows[0].name,
                         animation: rows[0].animation,
                         filename: rows[0].filename,
+                        vimeoId: rows[0].vimeoId,
                         type: rows[0].type,
                         checked: rows[0].checked,
                         dateStart: moment(rows[0].dateStart).format('LL'),

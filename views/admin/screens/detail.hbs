@@ -1,16 +1,24 @@
  {{> nav}}
 <section class="content scrollable">
     <section class="content-body">
-        <h1>{{data.general.diaId}} </h1>
+        <h1>{{data.general.name}} </h1>
     </section>
     <section class="content-body">
         <article class="">
+          {{#checktype data.general.type equals="poster"}}
+                  <img src="/download/{{data.general.filename}}" alt="{{type}}" />
+          {{/checktype}}
+          {{#checktype data.general.type equals="vimeo"}}
+                  <iframe id="player1" src="https://player.vimeo.com/video/{{data.general.vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          {{/checktype}}
+
+
             <h2>Discription</h2>
-            <img src="/download/{{data.general.filename}}" alt="" />
             <p>
                 {{data.general.discription}}
             </p>
         </article>
+
         <table>
             <tr>
                 <th>Duration</th>
