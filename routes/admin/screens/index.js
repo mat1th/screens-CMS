@@ -43,7 +43,6 @@ router.get('/', checkLogin, checkRights, function(req, res) {
             throw err;
         });
     });
-
 });
 
 router.get('/add', function(req, res) {
@@ -121,8 +120,7 @@ router.get('/show/:screenId', function(req, res) {
 });
 
 router.post('/decision', checkLogin, checkRights, function(req, res) {
-    var cr = credentials(req.session),
-        sqlQuery,
+    var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),
         posterId = body.posterId;
@@ -134,15 +132,40 @@ router.post('/decision', checkLogin, checkRights, function(req, res) {
             } else {
                 sqlQuery = 'delete FROM screens where id = ?';
                 //need to implement to delete the poster if it's not a vimeo video
+
+                var emailQuery = 'SELECT * FROM screens T1 LEFT JOIN users T2 ON T1.userId = T2.id WHERE T1.id = ?';
+                getSpecificData(emailQuery, connection, [posterId]).then(function(rows) {
+                  var data = rows[0];
+                    var message = {
+                        text: '',
+                        from: 'Digitale Posters mail <matthias.d@outlook.com>',
+                        to: 'someone <' + data.email + '>',
+                        subject: 'Your screen isn\'t accepted.',
+                        attachment: [{
+                            data: '<html> Hello ' + data.name + ', </br> </br>' + 'Your poster has been deleted trught the admin. Ask ' + req.email + ' why. </br>  </br> The Digital poster team' + '</html>',
+                            alternative: true
+                        }]
+                    };
+                    console.log(message);
+                    return message;
+
+                }).then(function(message) {
+                    //send the message to the user who's poster is deleted
+                    sendMessage(message);
+
+                }).catch(function(err) {
+                    console.log(err);
+                    throw err;
+                });
             }
 
             insertData(sqlQuery, [posterId], connection).then(function() {
-                res.redirect('/admin/screens/show/' + posterId);
-
+                res.redirect('/admin/screens/');
             }).catch(function(err) {
                 console.log(err);
                 throw err;
             });
+
         });
     } else {
         res.send('error');
@@ -188,7 +211,18 @@ router.post('/add', checkLogin, function(req, res) {
                 insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.color, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
                     //send a mail if the use is not a admin
                     if (!general.admin) {
-                        sendMessage('Matthias', general.email, data.upload.imageFile.name);
+                        var message = {
+                            text: '',
+                            from: 'Digitale Posters mail <matthias.d@outlook.com>',
+                            to: 'someone <matthias@dolstra.me',
+                            subject: 'A new screen needs to be checked',
+                            attachment: [{
+                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + general.email + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the screen.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.upload.imageFile.name + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
+                                alternative: true
+                            }]
+                        };
+
+                        sendMessage(message);
                     }
                     res.redirect('/admin/screens');
                 }).catch(function(err) {
