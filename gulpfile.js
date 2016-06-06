@@ -250,7 +250,7 @@ gulp.task('browser-sync', ['nodemon', 'watch'], function() {
 
 // Default task
 gulp.task('default', function() {
-    gulp.start('styles', 'scripts');
+    gulp.start('styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
 });
 
 
