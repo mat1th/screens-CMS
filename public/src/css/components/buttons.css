@@ -5,6 +5,7 @@
     height: 2.4em;
     margin: auto;
     min-width: 8em;
+        max-width: 30em;
     padding: .5em 1em;
     border: none;
     border-radius: var(--border-radius);

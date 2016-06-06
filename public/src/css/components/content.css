@@ -15,6 +15,9 @@
     width: 100%;
     margin-bottom: 1em;
 }
+.content-header.block {
+    display: block;
+}
 .content-header h1 {
     display: inline-block;
     width: 100%;
@@ -28,7 +31,9 @@
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+}
+.content-body section {
+    width: 100%;
 }
 
 /*table*/
@@ -102,5 +107,23 @@
     .content-body .responsvive th, .content-body td {
         display: table-cell;
         padding: .25em .5em;
+    }
+}
+@media (--medium-window-width) {
+    .content-body section {
+        width: auto;
+        display: inline-block;
+        margin-right: 1em;
+    }
+    .content-body  iframe{
+      width: 100%;
+    }
+    .content-body {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        /*align-items: flex-start;*/
+    }
+    .content-body img {
+        max-height: 80vh;
     }
 }

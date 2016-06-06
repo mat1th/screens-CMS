@@ -33,14 +33,15 @@
                         {{/if}}
 
                         <div class="name">
-                          {{#checktype type equals="vimeo" }}
-                              <div class="play-icon-bottom">
-                                  <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M8 5v14l11-7z" />
-                                      <path d="M0 0h24v24H0z" fill="none" />
-                                  </svg>
-                              </div>
-                          {{/checktype}}<h2>{{name}}</h2>
+                            {{#checktype type equals="vimeo" }}
+                                <div class="play-icon-bottom">
+                                    <svg fill="#fff" height="40" viewbox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 5v14l11-7z" />
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                    </svg>
+                                </div>
+                            {{/checktype}}
+                            <h2>{{name}}</h2>
                         </div>
                     </a>
                 </div>
@@ -49,7 +50,6 @@
             <p>You have got no screens please add one.</p>
             <a href="/admin/screens/add">New screen</a>
         {{/if}}
-
     </section>
 </section>
 

@@ -79,7 +79,7 @@ router.get('/show/:screenId', function(req, res) {
             email: cr.email
         },
         postUrls = {
-            general: '/admin/screens/decision/' + screenId
+            general: '/admin/screens/decision'
         },
         sql;
 
@@ -120,18 +120,12 @@ router.get('/show/:screenId', function(req, res) {
     }
 });
 
-router.post('/decision/:posterId', checkLogin, checkRights, function(req, res) {
+router.post('/decision', checkLogin, checkRights, function(req, res) {
     var cr = credentials(req.session),
-        posterId = req.params.posterId,
         sqlQuery,
-        general = {
-            title: 'Add a screen',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
-        },
-        decision = JSON.parse(req.body.decision);
+        body = req.body,
+        decision = JSON.parse(body.decision),
+        posterId = body.posterId;
 
     if (typeof(decision) === 'boolean') {
         req.getConnection(function(err, connection) {
@@ -139,6 +133,7 @@ router.post('/decision/:posterId', checkLogin, checkRights, function(req, res) {
                 sqlQuery = 'UPDATE screens SET `checked` = 1 WHERE id = ?';
             } else {
                 sqlQuery = 'delete FROM screens where id = ?';
+                //need to implement to delete the poster if it's not a vimeo video
             }
 
             insertData(sqlQuery, [posterId], connection).then(function() {
