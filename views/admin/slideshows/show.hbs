@@ -1,8 +1,8 @@
  {{> nav}}
 <section class="content scrollable">
     <section class="content-header">
-        <h1>Slidehows</h1>
-        <a href="/admin/slideshows/add" class="btn btn-default left-rigt-margin">New slideshow</a>
+        <h1>Slideshows</h1>
+        <a href="/admin/slideshows/add" class="btn btn-default left-rigt-margin btn-width">New slideshow</a>
     </section>
     <section class="content-body">
         {{#if error}}
@@ -10,22 +10,21 @@
                 {{error}}
             </div>
         {{else}}
-            <table>
+            <table class="responsvive">
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
-                    <!-- <th scope="col">Posters</th> -->
+                    <!-- <th scope="col">Screens</th> -->
                     <th scope="col">Edit</th>
                 </tr>
                 {{#each data.general.slideshows}}
                     <tr>
                         <td data-th="Id">{{id}}</td>
                         <td data-th="Discription">{{slideshow_name}}</td>
-                        <!-- <td data-th="Posters">{{posters}}</td> -->
+                        <!-- <td data-th="Screens">{{screens}}</td> -->
                         <td data-th="Edit"><a href="/admin/slideshows/add/{{id}}">Edit</a></td>
                     </tr>
                 {{/each}}
-
             </table>
         {{/if}}
     </section>
@@ -42,10 +41,11 @@
                 {{error}}
             </div>
         {{else}}
-            <table>
+            <table class="responsvive">
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Slideshows</th>
                     <th scope="col">Edit</th>
                 </tr>
@@ -53,6 +53,7 @@
                     <tr>
                         <td data-th="Id">{{id}}</td>
                         <td data-th="Name"><a href="/display/{{display_id}}">{{name}}</a></td>
+                        <td data-th="location">{{location}}</td>
                         <td data-th="Slideshows">{{slideshowId}}</td>
                         <td data-th="Edit"><a href="#">Edit</a></td>
                     </tr>

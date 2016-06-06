@@ -1,29 +1,46 @@
 /*overview*/
 
-.poster {
+.screen {
     display: inline-block;
     position: relative;
-    max-width: 15em;
+    margin: 0.2em;
+    /*max-width: 15em;*/
 }
-.poster img {
+.screen img {
     display: inline-block;
     margin: 0;
     padding: 0;
 }
-.poster .image {
+.screen .image {
     display: inline-block;
-    height: 20em;
+    /*height: 20em;*/
 }
-.poster .name {
+.screen .name {
     position: absolute;
     bottom: 0.3em;
     width: 100%;
-      background: rgba(67, 69, 61, 0.80);
+    background: rgba(67, 69, 61, 0.80);
     color: var(--font-color-light);
     z-index: 1;
+    display: flex;
 }
-.poster h2 {
+.play-icon-bottom {
+  margin: auto 0;
+}
+.screen h2 {
     padding: 0.5em;
+}
+.screen .check {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    right: 0;
+}
+.screen .check svg {
+    width: 2.9em;
+}
+.screen .not-cheked .triangle {
+    right: 0;
 }
 .img-preview {
     margin: 1em;
@@ -38,9 +55,16 @@
     background: rgba(67, 69, 61, 0.80);
 }
 
+/*add a new screen*/
 
-/*add a new poster*/
-
+@media screen and (--medium-window-width) {
+    .screen .image {
+        height: 20em;
+    }
+    .screen {
+        max-width: 15em;
+    }
+}
 @media screen and (--medium-big-window-width) {
     form {
         flex-shrink: 1;
@@ -49,7 +73,7 @@
         flex-basis: 50%;
         flex-shrink: 1;
     }
-    .add-poster {
+    .add-screen {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

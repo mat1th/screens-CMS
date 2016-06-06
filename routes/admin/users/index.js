@@ -1,9 +1,10 @@
 var express = require('express'),
+    checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Displays',
@@ -46,7 +47,7 @@ router.get('/', function(req, res) {
 //
 //     if (admin) {
 //         res.render('admin/users/add', {
-//             title: 'Add a poster',
+//             title: 'Add a screen',
 //             rights: {
 //                 admin: admin,
 //                 logedin: login

@@ -22,7 +22,7 @@ const express = require('express'),
     //get files for admin
     dashboard = require('./routes/admin/index'),
     displaysAdmin = require('./routes/admin/displays/index'),
-    posters = require('./routes/admin/posters/index'),
+    screens = require('./routes/admin/screens/index'),
     slideshows = require('./routes/admin/slideshows/index'),
     display = require('./routes/display/index'),
     users = require('./routes/admin/users/index'),
@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public/dist')));
 // app.use(express.static(path.join(__dirname, 'uploads')));
 
-hbs.registerHelper("checkTypeOfPoster", function(conditional, options) {
+hbs.registerHelper("checktype", function(conditional, options) {
     if (conditional == options.hash.equals) {
         return options.fn(this);
     } else {
@@ -93,7 +93,6 @@ var dbOptions = {
 };
 
 // Add connection middleware
-
 app.use(myConnection(mysql, dbOptions, 'single'));
 
 
@@ -105,7 +104,7 @@ app.use('/users', userAcounts);
 //get files for admin
 app.use('/admin', dashboard);
 app.use('/admin/displays', displaysAdmin);
-app.use('/admin/posters', posters);
+app.use('/admin/screens', screens);
 app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
@@ -131,15 +130,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-// const options = {
-//     key: fs.readFileSync('./keys/localhost-key.pem'),
-//     cert: fs.readFileSync('./keys/localhost-cert.pem')
-// };
-//
-// // Create an HTTPS service identical to the HTTP service.
-// https.createServer(options, app)
-//     .listen(4433, 'localhost');
 
 //start app
 app.listen(3010, function() {

@@ -4,6 +4,8 @@
     flex-grow: 0;
     height: 2.4em;
     margin: auto;
+    min-width: 8em;
+        max-width: 30em;
     padding: .5em 1em;
     border: none;
     border-radius: var(--border-radius);
@@ -14,6 +16,15 @@
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
+}
+.btn-transparant {
+    max-width: 20em;
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid #fff;
+    color: #fff;
+}
+.btn-transparant:hover {
+    background: rgba(255, 255, 255, 0.40);
 }
 .btn-normal {
     background-color: var(--background-color-semidark);
@@ -30,6 +41,16 @@
 .btn-default:hover {
     background-color: var(--normal-color-hover);
 }
+.btn-accept {
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
+}
+.btn-accept:hover {
+    background-color: var(--eddit-color-hover);
+}
+.btn-width {
+    min-width: 10em;
+}
 button.fullwith {
     box-sizing: border-box;
     width: 100%;
@@ -38,9 +59,6 @@ button.fullwith {
 button.top-margin, a.top-margin {
     box-sizing: border-box;
     margin: 1em 0;
-}
-button.left-rigt-margin, a.left-rigt-margin {
-    margin: auto 0.5em;
 }
 .toggle-buttons {
     box-sizing: border-box;
@@ -77,4 +95,9 @@ button.left-rigt-margin, a.left-rigt-margin {
 .toggle-buttons button:last-child {
     border-left: 0;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+@media (--narrow-window-width) {
+    button.left-rigt-margin, a.left-rigt-margin {
+        margin: auto 0.5em;
+    }
 }

@@ -1,4 +1,5 @@
 var express = require('express'),
+    checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     getData = require('../../../modules/getData.js'),
@@ -7,10 +8,10 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
-            title: 'Your posters',
+            title: 'Your screens',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -22,7 +23,7 @@ router.get('/', function(req, res) {
 
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
-            sqlDisplays = 'SELECT display_id, name, slideshowId FROM displays';
+            sqlDisplays = 'SELECT * FROM displays';
             // Get the user id using username
             getData(sql, connection).then(function(slideshows) {
                 getData(sqlDisplays, connection).then(function(displays) {
@@ -52,7 +53,7 @@ router.get('/', function(req, res) {
 });
 
 //create unique id and redirect
-router.get('/add', function(req, res) {
+router.get('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         email = cr.email,
         admin = cr.admin,
@@ -74,11 +75,11 @@ router.get('/add', function(req, res) {
 
 });
 
-router.get('/add/:slideshowId', function(req, res) {
+router.get('/add/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         general = {
-            title: 'Your posters',
+            title: 'Your screens',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -87,21 +88,21 @@ router.get('/add/:slideshowId', function(req, res) {
         },
         postUrls = {
             settings: '/admin/slideshows/add/settings/' + slideshowId,
-            posters: '/admin/posters/edit',
-            displays: '/admin/posters/edit'
+            screens: '/admin/screens/edit',
+            displays: '/admin/screens/edit'
         };
 
     if (general.admin || general.editor) {
-        var sql = 'SELECT * FROM posters_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN posters T3 ON T1.poster_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
-        var sqlPosters = 'SELECT * FROM posters';
+        var sql = 'SELECT * FROM screens_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN screens T3 ON T1.screen_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
+        var sqlScreens = 'SELECT * FROM screens WHERE checked = 1';
 
         req.getConnection(function(err, connection) {
-            getData(sqlPosters, connection).then(function(posters) {
+            getData(sqlScreens, connection).then(function(screens) {
                 getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
                     // if (rows.length > 0) {
                     var data = {
                         general: rows,
-                        posters: posters
+                        screens: screens
                     };
                     renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
                     // }
@@ -118,30 +119,30 @@ router.get('/add/:slideshowId', function(req, res) {
     }
 });
 
-router.post('/add/:slideshowId', function(req, res) {
+router.post('/add/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,
         editor = cr.editor,
         body = req.body,
-        posters = JSON.parse('[' + body.posters + ']');
+        screens = JSON.parse('[' + body.screens + ']');
 
     if (admin || editor) {
         req.getConnection(function(err, connection) {
-            var sqlQueryInsert = 'INSERT INTO posters_In_slideshow SET poster_id = ?, slideshow_id = ?, short = ?';
-            var sqlQueryUpdate = 'UPDATE posters_In_slideshow SET short = ? WHERE poster_id = ? AND slideshow_id = ?';
-            var sqlQueryGet = 'SELECT * FROM posters_In_slideshow WHERE poster_id = ? AND slideshow_id = ?';
+            var sqlQueryInsert = 'INSERT INTO screens_In_slideshow SET screen_id = ?, slideshow_id = ?, short = ?';
+            var sqlQueryUpdate = 'UPDATE screens_In_slideshow SET short = ? WHERE screen_id = ? AND slideshow_id = ?';
+            var sqlQueryGet = 'SELECT * FROM screens_In_slideshow WHERE screen_id = ? AND slideshow_id = ?';
 
-            posters.forEach(function(poster, index) {
-                getSpecificData(sqlQueryGet, connection, [poster, slideshowId]).then(function(rows) {
+            screens.forEach(function(screen, index) {
+                getSpecificData(sqlQueryGet, connection, [screen, slideshowId]).then(function(rows) {
                     if (rows.length === 0) {
-                        insertData(sqlQueryInsert, [poster, slideshowId, index], connection).then(function() {
+                        insertData(sqlQueryInsert, [screen, slideshowId, index], connection).then(function() {
 
                         }).catch(function(err) {
                             throw err;
                         });
                     } else {
-                        insertData(sqlQueryUpdate, [index, poster, slideshowId], connection).then(function() {
+                        insertData(sqlQueryUpdate, [index, screen, slideshowId], connection).then(function() {
 
                         }).catch(function(err) {
                             throw err;
@@ -159,7 +160,7 @@ router.post('/add/:slideshowId', function(req, res) {
     }
 });
 
-router.post('/add/settings/:slideshowId', function(req, res) {
+router.post('/add/settings/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,

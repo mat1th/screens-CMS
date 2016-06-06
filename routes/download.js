@@ -1,6 +1,5 @@
 var fs = require('fs'),
     express = require('express'),
-    checklogin = require('../modules/checklogin.js'),
     router = express.Router();
 
 router.get('/:photoName', function(req, res) {

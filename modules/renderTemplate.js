@@ -3,7 +3,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         title: general.title,
         data: {
             general: data.general || null,
-            allPosters: data.posters
+            allScreens: data.screens
         },
         rights: {
             admin: general.admin,
@@ -14,7 +14,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         postUrl: {
             general: postUrls.general || null,
             settings: postUrls.settings || null,
-            posters: postUrls.posters || null,
+            screens: postUrls.screens || null,
             displays: postUrls.displays || null
         },
         error: error,

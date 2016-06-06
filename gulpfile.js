@@ -72,7 +72,7 @@ gulp.task('styles-app', function(cb) {
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
             './public/src/css/components/content.css',
-            './public/src/css/components/posters.css',
+            './public/src/css/components/screens.css',
             './public/src/css/components/edit.css',
             './public/src/css/components/slideshow-editor.css',
             './public/src/css/components/home.css',
@@ -123,7 +123,7 @@ gulp.task('scripts-app', function(cb) {
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
             './public/src/js/app/DPfiledrag.js',
-            './public/src/js/app/DPposter.js',
+            './public/src/js/app/DPscreen.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPslideshows.js',
             './public/src/js/app/DPinit.js'
@@ -250,7 +250,7 @@ gulp.task('browser-sync', ['nodemon', 'watch'], function() {
 
 // Default task
 gulp.task('default', function() {
-    gulp.start('styles', 'scripts');
+    gulp.start('styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
 });
 
 

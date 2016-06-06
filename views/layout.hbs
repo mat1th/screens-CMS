@@ -12,6 +12,36 @@
     <meta name="author" content="Matthias Dolstra">
     <meta name="application-name" content="" />
     <meta name="robots" content="index, follow">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- theme color -->
+    <meta name="msapplication-navbutton-color" content="#fc0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#fc0">
+    <meta name="theme-color" content="#fc0" />
+
+    <!-- favicons -->
+    <link rel="mask-icon" href="/favicon.svg" color="#fc0">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="localhost:7000/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" href="/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#fc0">
+    <meta name="msapplication-TileImage" content="/favicon-144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+
     <noscript>
         <link rel="stylesheet" href="/css/style.css">
     </noscript>
@@ -37,40 +67,7 @@
         {{{body}}}
     </main>
     <script>
-        ! function(e) {
-            "use strict";
-            var t = function(t, n, o) {
-                function i(e) {
-                    return s.body ? e() : void setTimeout(function() {
-                        i(e)
-                    })
-                }
-
-                function r() {
-                    a.addEventListener && a.removeEventListener("load", r), a.media = o || "all"
-                }
-                var d, s = e.document,
-                    a = s.createElement("link");
-                if (n) d = n;
-                else {
-                    var l = (s.body || s.getElementsByTagName("head")[0]).childNodes;
-                    d = l[l.length - 1]
-                }
-                var f = s.styleSheets;
-                a.rel = "stylesheet", a.href = t, a.media = "only x", i(function() {
-                    d.parentNode.insertBefore(a, n ? d : d.nextSibling)
-                });
-                var u = function(e) {
-                    for (var t = a.href, n = f.length; n--;)
-                        if (f[n].href === t) return e();
-                    setTimeout(function() {
-                        u(e)
-                    })
-                };
-                return a.addEventListener && a.addEventListener("load", r), a.onloadcssdefined = u, u(r), a
-            };
-            "undefined" != typeof exports ? exports.loadCSS = t : e.loadCSS = t
-        }("undefined" != typeof global ? global : this), loadCSS("/css/style.css");
+      !function(e){"use strict";var t=function(t,n,o){function i(e){return s.body?e():void setTimeout(function(){i(e)})}function r(){a.addEventListener&&a.removeEventListener("load",r),a.media=o||"all"}var d,s=e.document,a=s.createElement("link");if(n)d=n;else{var l=(s.body||s.getElementsByTagName("head")[0]).childNodes;d=l[l.length-1]}var f=s.styleSheets;a.rel="stylesheet",a.href=t,a.media="only x",i(function(){d.parentNode.insertBefore(a,n?d:d.nextSibling)});var u=function(e){for(var t=a.href,n=f.length;n--;)if(f[n].href===t)return e();setTimeout(function(){u(e)})};return a.addEventListener&&a.addEventListener("load",r),a.onloadcssdefined=u,u(r),a};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),loadCSS("/css/style.css");
     </script>
 
     <script src="/js/app.js" language="javascript"></script>
