@@ -5,7 +5,7 @@ var express = require('express'),
     router = express.Router();
 
 //set up moment localization
-require('moment/locale/cs');
+require('moment/locale/nl');
 moment.locale('nl');
 
 

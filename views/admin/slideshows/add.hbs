@@ -93,7 +93,7 @@
                     <label for="field-discription">Discription: </label>
                     <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
                 </div>
-                <button class="btn btn-default top-margin">Save</button>
+                <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
         <section class="slideshow-screen-settings scrollable tabcontent" aria-hidden="true">
@@ -121,20 +121,21 @@
                     <label for="field_date_end">End date: </label>
                     <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="DD-MM-JJJJ">
                 </div>
-                <button class="btn btn-default top-margin">Save</button>
+                <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
         <section aria-hidden="true" class="tabcontent">
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
                 {{#each data.allDisplays}}
+
                     <div class="checkboxes">
-                        <input type="checkbox" id="field_name_{{name}}" name="name">
+                        <input type="checkbox" id="field_name_{{name}}" name="name" {{#checkboxstatus id}}{{/checkboxstatus}}>
                         <label for="field_name_{{name}}">{{name}}</label>
                     </div>
                 {{/each}}
 
-                <button class="btn btn-default top-margin">Save</button>
+                <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
 

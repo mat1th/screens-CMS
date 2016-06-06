@@ -1,5 +1,4 @@
 var express = require('express'),
-    moment = require('moment'),
     checkLogin = require('../../middleware/checklogin.js'),
     checkRights = require('../../middleware/checkRights.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
@@ -93,20 +92,7 @@ router.get('/show/:screenId', function(req, res) {
             }
             getSpecificData(sql, connection, [screenId, general.email]).then(function(rows) {
                 var data = {
-                    general: {
-                        id: rows[0].id,
-                        discription: rows[0].discription,
-                        duration: rows[0].duration,
-                        name: rows[0].name,
-                        animation: rows[0].animation,
-                        filename: rows[0].filename,
-                        vimeoId: rows[0].vimeoId,
-                        type: rows[0].type,
-                        checked: rows[0].checked,
-                        dateStart: moment(rows[0].dateStart).format('LL'),
-                        dateEnd: moment(rows[0].dateEnd).format('LL'),
-                        dataCreated: moment(rows[0].dataCreated).startOf('day').fromNow()
-                    }
+                    general: rows[0]
                 };
                 //renderTemplate
                 renderTemplate(res, 'admin/screens/detail', data, general, postUrls, false);

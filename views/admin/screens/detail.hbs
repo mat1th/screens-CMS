@@ -2,7 +2,7 @@
 <section class="content scrollable">
     <section class="content-header block">
         <h1>{{data.general.name}} </h1>
-        <small>{{data.general.dataCreated}}</small>
+        <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
     </section>
     <section class="content-body detail">
         <section>
@@ -48,11 +48,15 @@
                 </tr>
                 <tr>
                     <th>Begin date</th>
-                    <td>{{data.general.dateStart}}</td>
+                    <td>
+                        {{#dateformat data.general.dateStart}}{{/dateformat}}
+                    </td>
                 </tr>
                 <tr>
                     <th>End date</th>
-                    <td>{{data.general.dateEnd}}</td>
+                    <td>
+                        {{#dateformat data.general.dateEnd}}{{/dateformat}}
+                    </td>
                 </tr>
             </table>
 

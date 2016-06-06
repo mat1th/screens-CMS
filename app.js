@@ -7,6 +7,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     https = require('https'),
     fs = require('fs'),
+    moment = require('moment'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
@@ -50,7 +51,20 @@ hbs.registerHelper("checktype", function(conditional, options) {
         return options.inverse(this);
     }
 });
+hbs.registerHelper("checkboxstatus", function(conditional) {
+    if (conditional === undefined || conditional === null) {
+        return '';
+    } else {
+        return 'checked';
+    }
+});
+hbs.registerHelper("datefronow", function(conditional, options) {
+    return moment(conditional).startOf('day').fromNow();
+});
 
+hbs.registerHelper("dateformat", function(conditional, options) {
+    return moment(conditional).format('LL');
+});
 
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
