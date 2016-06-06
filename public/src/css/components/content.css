@@ -37,11 +37,11 @@
     width: 100%;
     text-align: left;
 }
-.content-body table {
+.content-body .responsvive table {
     width: 100%;
     border-collapse: collapse;
 }
-.content-body th, td {
+.content-body .responsvive th, td {
     text-align: left;
 }
 .content-body tr:nth-child(even) {
@@ -52,7 +52,7 @@
     background-color: var(--eddit-color);
     color: var(--font-color-light);
 }
-.content-body .responsvive td {
+.content-body td {
     display: block;
     border-bottom: 0.0625rem solid var(--background-color-light);
 }

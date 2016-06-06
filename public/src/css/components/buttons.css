@@ -31,11 +31,11 @@
 .btn-default:hover {
     background-color: var(--normal-color-hover);
 }
-.btn-edit {
+.btn-accept {
     background-color: var(--eddit-color);
     color: var(--font-color-light);
 }
-.btn-edit:hover {
+.btn-accept:hover {
     background-color: var(--eddit-color-hover);
 }
 .btn-width {

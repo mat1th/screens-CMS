@@ -3,7 +3,19 @@
     <section class="content-header">
         <h1>{{data.general.name}} </h1>
         <small>{{data.general.dataCreated}}</small>
-        <button type="button" name="button" class="btn btn-edit">Edit</button>
+        {{#if rights.admin}}
+            {{#checktype data.general.checked equals="0" }}
+                <form class="" action="{{postUrl.general}}" method="post">
+                    <div class="select-icon">
+                        <select class="checked" name="">
+                            <option value="1">Accept</option>
+                            <option value="0">Do not Accept</option>
+                        </select>
+                    </div>
+                    <button type="button" name="button" class="btn btn-accept">Save</button>
+                </form>
+            {{/checktype}}
+        {{/if}}
     </section>
     <section class="content-body">
         <article class="">
