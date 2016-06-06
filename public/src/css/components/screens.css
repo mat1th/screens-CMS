@@ -3,6 +3,7 @@
 .screen {
     display: inline-block;
     position: relative;
+    margin: 0.2em;
     /*max-width: 15em;*/
 }
 .screen img {
@@ -51,13 +52,14 @@
 }
 
 /*add a new screen*/
+
 @media screen and (--medium-window-width) {
-  .screen .image {
-      height: 20em;
-  }
-  .screen {
-      max-width: 15em;
-  }
+    .screen .image {
+        height: 20em;
+    }
+    .screen {
+        max-width: 15em;
+    }
 }
 @media screen and (--medium-big-window-width) {
     form {

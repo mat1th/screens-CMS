@@ -4,7 +4,7 @@
     flex-grow: 1;
     flex-wrap: wrap;
     align-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-start;
     padding: 1em;
 }
@@ -26,6 +26,9 @@
 }
 .content-body {
     flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 /*table*/
@@ -44,16 +47,16 @@
 .content-body tr:nth-child(even) {
     background-color: var(--background-color-semidark);
 }
-.content-body th {
+.content-body .responsvive th {
     display: none;
     background-color: var(--eddit-color);
     color: var(--font-color-light);
 }
-.content-body td {
+.content-body .responsvive td {
     display: block;
     border-bottom: 0.0625rem solid var(--background-color-light);
 }
-.content-body td:before {
+.content-body .responsvive td:before {
     display: inline-block;
     width: 6.5em;
     padding: 0.5em;
@@ -89,14 +92,14 @@
         min-width: 15em;
         padding: 1em;
     }
-    .content-body th, .content-body td {
+    .content-body .responsvive th, .content-body td {
         padding: 1.5em;
         border-bottom: none;
     }
-    .content-body td:before {
+    .content-body .responsvive td:before {
         display: none;
     }
-    .content-body th, .content-body td {
+    .content-body .responsvive th, .content-body td {
         display: table-cell;
         padding: .25em .5em;
     }

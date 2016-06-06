@@ -136,7 +136,7 @@ form li {
     left: -999em;
 }
 .file-input {
-    display: flex;
+        display: flex;
     margin: 1em 0;
 }
 .file-input label[for="field-file"] {

@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-size: cover;
-    display: flex;
+        display: flex;
     height: 100vh;
 }
 .form {

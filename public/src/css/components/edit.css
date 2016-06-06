@@ -65,7 +65,7 @@
         max-width: 8em;
     }
     .edit-nav a {
-        display: flex;
+            display: flex;
         text-align: left;
     }
     .edit-nav small {

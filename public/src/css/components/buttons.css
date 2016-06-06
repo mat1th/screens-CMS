@@ -31,6 +31,13 @@
 .btn-default:hover {
     background-color: var(--normal-color-hover);
 }
+.btn-edit {
+    background-color: var(--eddit-color);
+    color: var(--font-color-light);
+}
+.btn-edit:hover {
+    background-color: var(--eddit-color-hover);
+}
 .btn-width {
     min-width: 10em;
 }
@@ -79,7 +86,6 @@ button.top-margin, a.top-margin {
     border-left: 0;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
-
 @media (--narrow-window-width) {
     button.left-rigt-margin, a.left-rigt-margin {
         margin: auto 0.5em;

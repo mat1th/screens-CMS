@@ -1,17 +1,19 @@
  {{> nav}}
 <section class="content scrollable">
-    <section class="content-body">
+    <section class="content-header">
         <h1>{{data.general.name}} </h1>
+        <small>{{data.general.dataCreated}}</small>
+        <button type="button" name="button" class="btn btn-edit">Edit</button>
     </section>
     <section class="content-body">
         <article class="">
-          {{#checktype data.general.type equals="poster"}}
-                  <img src="/download/{{data.general.filename}}" alt="{{type}}" />
-          {{/checktype}}
-          {{#checktype data.general.type equals="vimeo"}}
-                  <iframe id="player1" src="https://player.vimeo.com/video/{{data.general.vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          {{/checktype}}
+            {{#checktype data.general.type equals="poster" }}
+                <img src="/download/{{data.general.filename}}" alt="{{type}}" />
+            {{/checktype}}
 
+            {{#checktype data.general.type equals="vimeo" }}
+                <iframe id="player1" src="https://player.vimeo.com/video/{{data.general.vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {{/checktype}}
 
             <h2>Discription</h2>
             <p>
@@ -22,7 +24,7 @@
         <table>
             <tr>
                 <th>Duration</th>
-                <td>{{data.general.duration}}</td>
+                <td>{{data.general.duration}} s</td>
             </tr>
             <tr>
                 <th>Animation</th>
@@ -33,16 +35,12 @@
                 <td>{{data.general.type}}</td>
             </tr>
             <tr>
-                <th>date_begin</th>
+                <th>Begin date</th>
                 <td>{{data.general.dateStart}}</td>
             </tr>
             <tr>
-                <th>date_end</th>
+                <th>End date</th>
                 <td>{{data.general.dateEnd}}</td>
-            </tr>
-            <tr>
-                <th>dataCreated</th>
-                <td>{{data.general.dataCreated}}</td>
             </tr>
         </table>
         <p>
