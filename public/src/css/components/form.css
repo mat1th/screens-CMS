@@ -45,6 +45,9 @@ input[type="color"] {
 
 /*radio and checkbox*/
 
+.checkboxes {
+    position: relative;
+}
 input[type=radio], input[type=checkbox] {
     /* hide original check and radio buttons */
     position: absolute;
@@ -79,6 +82,10 @@ input[type="radio"] + label::before, input[type="radio"] + label::after {
 input[type="checkbox"] + label::before, input[type="checkbox"] + label::after {
     border-radius: .25em;
 }
+input[type="checkbox"] + label::after {
+    background-size: 90%;
+    background-image: url("/img/icons/check.svg");
+}
 input[type="radio"] + label::after, input[type="checkbox"] + label::after {
     background-color: var(--normal-color);
     background-position: center center;
@@ -97,7 +104,7 @@ input[type="radio"]:checked + label::after, input[type="checkbox"]:checked + lab
 
 .select-icon {
     position: relative;
-        max-width: 30em;
+    max-width: 30em;
 }
 .select-icon::after {
     display: block;

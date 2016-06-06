@@ -21,14 +21,14 @@
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
-                          {{#checktype type equals="vimeo" }}
-                              <div class="play-icon">
-                                  <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M8 5v14l11-7z" />
-                                      <path d="M0 0h24v24H0z" fill="none" />
-                                  </svg>
-                              </div>
-                          {{/checktype}}
+                            {{#checktype type equals="vimeo" }}
+                                <div class="play-icon">
+                                    <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 5v14l11-7z" />
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                    </svg>
+                                </div>
+                            {{/checktype}}
                             <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
                         </div>
 
@@ -91,7 +91,7 @@
 
                 <div>
                     <label for="field-discription">Discription: </label>
-                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow" ></textarea>
+                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
                 </div>
                 <button class="btn btn-default top-margin">Save</button>
             </form>
@@ -127,10 +127,10 @@
         <section aria-hidden="true" class="tabcontent">
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
-                {{#each data.general}}
-                    <div>
-                        <input type="checkbox" id="field_name{{id}}" name="name" value="">
-                        <label for="field_name{{id}}">{{name}}</label>
+                {{#each data.allDisplays}}
+                    <div class="checkboxes">
+                        <input type="checkbox" id="field_name_{{name}}" name="name">
+                        <label for="field_name_{{name}}">{{name}}</label>
                     </div>
                 {{/each}}
 

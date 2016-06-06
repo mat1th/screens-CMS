@@ -95,17 +95,30 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
     if (general.admin || general.editor) {
         var sql = 'SELECT * FROM screens_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN screens T3 ON T1.screen_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
         var sqlScreens = 'SELECT * FROM screens WHERE checked = 1';
+        var sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id'
 
+
+        //could be written nicer
         req.getConnection(function(err, connection) {
             getData(sqlScreens, connection).then(function(screens) {
                 getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
-                    // if (rows.length > 0) {
                     var data = {
                         general: rows,
                         screens: screens
                     };
-                    renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
-                    // }
+                    return data;
+                }).then(function(data) {
+                    getSpecificData(sqlDisplays, connection, [slideshowId]).then(function(rows) {
+                        data.displays = rows;
+                        // return the data
+                        console.log(rows);
+                        return data;
+                    }).then(function(data) {
+                          //render template
+                        renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
+                    }).catch(function(err) {
+                        throw err;
+                    });
                 }).catch(function(err) {
                     throw err;
                 });
