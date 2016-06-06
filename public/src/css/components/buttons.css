@@ -16,6 +16,15 @@
     cursor: pointer;
     z-index: 1;
 }
+.btn-transparant {
+    max-width: 20em;
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid #fff;
+    color: #fff;
+}
+.btn-transparant:hover {
+    background: rgba(255, 255, 255, 0.40);
+}
 .btn-normal {
     background-color: var(--background-color-semidark);
     color: var(--font-color-dark);

@@ -66,7 +66,7 @@ span.error {
 }
 @media (--narrow-window-width) {
     main {
-            display: flex;
+        display: flex;
         flex-direction: row;
         align-content: stretch;
         margin: 0 auto 0 auto;
