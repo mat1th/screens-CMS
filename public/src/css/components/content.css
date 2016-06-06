@@ -119,7 +119,7 @@
       width: 100%;
     }
     .content-body {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         flex-direction: row;
         /*align-items: flex-start;*/
     }
