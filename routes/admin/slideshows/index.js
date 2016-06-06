@@ -1,4 +1,5 @@
 var express = require('express'),
+    checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     getData = require('../../../modules/getData.js'),
@@ -7,7 +8,7 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your screens',
@@ -52,7 +53,7 @@ router.get('/', function(req, res) {
 });
 
 //create unique id and redirect
-router.get('/add', function(req, res) {
+router.get('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         email = cr.email,
         admin = cr.admin,
@@ -74,7 +75,7 @@ router.get('/add', function(req, res) {
 
 });
 
-router.get('/add/:slideshowId', function(req, res) {
+router.get('/add/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         general = {
@@ -118,7 +119,7 @@ router.get('/add/:slideshowId', function(req, res) {
     }
 });
 
-router.post('/add/:slideshowId', function(req, res) {
+router.post('/add/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,
@@ -159,7 +160,7 @@ router.post('/add/:slideshowId', function(req, res) {
     }
 });
 
-router.post('/add/settings/:slideshowId', function(req, res) {
+router.post('/add/settings/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         admin = cr.admin,

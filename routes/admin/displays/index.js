@@ -1,14 +1,15 @@
 var express = require('express'),
+    checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     router = express.Router();
 
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, function(req, res) {
     res.redirect('/admin/slideshows');
 });
 
-router.get('/add', function(req, res) {
+router.get('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
         editor = cr.editor,
@@ -21,7 +22,7 @@ router.get('/add', function(req, res) {
     }
 });
 
-router.post('/add', function(req, res) {
+router.post('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
         admin = cr.admin,

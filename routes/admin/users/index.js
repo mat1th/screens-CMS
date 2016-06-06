@@ -1,9 +1,10 @@
 var express = require('express'),
+    checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Displays',

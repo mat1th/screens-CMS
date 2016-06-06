@@ -211,7 +211,7 @@ router.post('/add', checkLogin, function(req, res) {
 });
 
 
-router.post('/edit/:screenId', function(req, res) {
+router.post('/edit/:screenId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             login: cr.login,
@@ -230,20 +230,18 @@ router.post('/edit/:screenId', function(req, res) {
 
     var sqlQuery = 'UPDATE screens SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
 
-    if (general.login) {
-        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
-            req.getConnection(function(err, connection) {
-                insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.screenId], connection).then(function() {
-                    res.redirect('admin/slideshows/');
-                }).catch(function(err) {
-                    res.send('error:' + err);
-                    console.log(err);
-                    throw err;
-                });
+
+    if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+        req.getConnection(function(err, connection) {
+            insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.screenId], connection).then(function() {
+                res.redirect('admin/slideshows/');
+            }).catch(function(err) {
+                res.send('error:' + err);
+                console.log(err);
+                throw err;
             });
-        } else {
-            res.send('your dates are wrong!');
-        }
+        });
+
     }
 });
 
