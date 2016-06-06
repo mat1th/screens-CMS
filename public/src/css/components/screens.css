@@ -22,6 +22,10 @@
     background: rgba(67, 69, 61, 0.80);
     color: var(--font-color-light);
     z-index: 1;
+    display: flex;
+}
+.play-icon-bottom {
+  margin: auto 0;
 }
 .screen h2 {
     padding: 0.5em;

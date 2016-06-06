@@ -32,17 +32,15 @@
                             {{/checktype}}
                         {{/if}}
 
-                        {{#checktype type equals="vimeo" }}
-                            <div class="play-icon">
-                                <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 5v14l11-7z" />
-                                    <path d="M0 0h24v24H0z" fill="none" />
-                                </svg>
-                            </div>
-                        {{/checktype}}
-
                         <div class="name">
-                            <h2>{{name}}</h2>
+                          {{#checktype type equals="vimeo" }}
+                              <div class="play-icon-bottom">
+                                  <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M8 5v14l11-7z" />
+                                      <path d="M0 0h24v24H0z" fill="none" />
+                                  </svg>
+                              </div>
+                          {{/checktype}}<h2>{{name}}</h2>
                         </div>
                     </a>
                 </div>

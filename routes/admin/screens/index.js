@@ -1,5 +1,7 @@
 var express = require('express'),
     moment = require('moment'),
+    checkLogin = require('../../middleware/checklogin.js'),
+    checkRights = require('../../middleware/checkRights.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     insertData = require('../../../modules/insertData.js'),
@@ -8,15 +10,13 @@ var express = require('express'),
     sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', checkLogin, checkRights, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your screens',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
-                // navStyle: 'icons-only'
+            editor: cr.editor
         },
         postUrls = {
             settings: '/admin/slideshows/edit',
@@ -25,29 +25,25 @@ router.get('/', function(req, res) {
         },
         sql;
 
-    if (general.login) {
-        req.getConnection(function(err, connection) {
-            if (general.admin) {
-                sql = 'SELECT filename, type, name, checked, id FROM screens';
-            } else {
-                sql = 'SELECT filename, type, name, checked, id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
-            }
-            // sql = 'CASE'
-            getSpecificData(sql, connection, [general.email]).then(function(rows) {
-                var data = {
-                    general: rows
-                };
-                console.log(rows);
-                //renderTemplate
-                renderTemplate(res, 'admin/screens/show', data, general, postUrls, false);
-                //
-            }).catch(function(err) {
-                throw err;
-            });
+    req.getConnection(function(err, connection) {
+        if (req.admin) {
+            sql = 'SELECT filename, type, name, checked, id FROM screens';
+        } else {
+            sql = 'SELECT filename, type, name, checked, id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+        }
+        // sql = 'CASE'
+        getSpecificData(sql, connection, [req.email]).then(function(rows) {
+            var data = {
+                general: rows
+            };
+            //renderTemplate
+            renderTemplate(res, 'admin/screens/show', data, general, postUrls, false);
+            //
+        }).catch(function(err) {
+            throw err;
         });
-    } else {
-        res.redirect('/users/login');
-    }
+    });
+
 });
 
 router.get('/add', function(req, res) {
@@ -82,6 +78,9 @@ router.get('/show/:screenId', function(req, res) {
             editor: cr.editor,
             email: cr.email
         },
+        postUrls = {
+            general: '/admin/screens/decision/' + screenId
+        },
         sql;
 
 
@@ -111,7 +110,7 @@ router.get('/show/:screenId', function(req, res) {
                     }
                 };
                 //renderTemplate
-                renderTemplate(res, 'admin/screens/detail', data, general, {}, false);
+                renderTemplate(res, 'admin/screens/detail', data, general, postUrls, false);
                 //
             }).catch(function(err) {
                 console.log(err);
@@ -119,10 +118,44 @@ router.get('/show/:screenId', function(req, res) {
             });
         });
     }
+});
+
+router.post('/decision/:posterId', checkLogin, checkRights, function(req, res) {
+    var cr = credentials(req.session),
+        posterId = req.params.posterId,
+        sqlQuery,
+        general = {
+            title: 'Add a screen',
+            login: cr.login,
+            admin: cr.admin,
+            editor: cr.editor,
+            email: cr.email
+        },
+        decision = JSON.parse(req.body.decision);
+
+    if (typeof(decision) === 'boolean') {
+        req.getConnection(function(err, connection) {
+            if (decision === true) {
+                sqlQuery = 'UPDATE screens SET `checked` = 1 WHERE id = ?';
+            } else {
+                sqlQuery = 'delete FROM screens where id = ?';
+            }
+
+            insertData(sqlQuery, [posterId], connection).then(function() {
+                res.redirect('/admin/screens/show/' + posterId);
+
+            }).catch(function(err) {
+                console.log(err);
+                throw err;
+            });
+        });
+    } else {
+        res.send('error');
+    }
 
 });
 
-router.post('/add', function(req, res) {
+router.post('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         sqlQuery,
         general = {
@@ -147,39 +180,36 @@ router.post('/add', function(req, res) {
             upload: req.files
         };
 
-    if (general.login) {
-        //check if data is valid
-        if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
-            if (data.upload.imageFile && data.type !== null) {
-                req.getConnection(function(err, connection) {
-                    if (general.admin || general.editor) {
-                        sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
-                    } else {
-                        sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
+    //check if data is valid
+    if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
+        if (data.upload.imageFile && data.type !== null) {
+            req.getConnection(function(err, connection) {
+                if (general.admin || general.editor) {
+                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
+                } else {
+                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
+                }
+
+                insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.color, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
+                    //send a mail if the use is not a admin
+                    if (!general.admin) {
+                        sendMessage('Matthias', general.email, data.upload.imageFile.name);
                     }
-
-                    insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.color, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
-                          //send a mail if the use is not a admin
-                        if(!general.admin) {
-                          sendMessage('Matthias', general.email, data.upload.imageFile.name);
-                        }
-
-                        res.redirect('/admin/screens');
-                    }).catch(function(err) {
-                        console.log(err);
-                        throw err;
-                    });
+                    res.redirect('/admin/screens');
+                }).catch(function(err) {
+                    console.log(err);
+                    throw err;
                 });
-            } else {
-                renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have got no image uploaded');
-            }
+            });
         } else {
-            renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have submit a wrong date');
+            renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have got no image uploaded');
         }
     } else {
-        res.redirect('/users/login');
+        renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have submit a wrong date');
     }
+
 });
+
 
 router.post('/edit/:screenId', function(req, res) {
     var cr = credentials(req.session),
