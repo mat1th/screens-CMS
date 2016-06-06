@@ -1,6 +1,6 @@
 var express = require('express'),
     moment = require('moment'),
-    checkLogin = require('../../middleware/checklogin.js'),
+    checkLogin = require('../middleware/checklogin.js'),
     credentials = require('../../modules/credentials.js'),
     router = express.Router();
 

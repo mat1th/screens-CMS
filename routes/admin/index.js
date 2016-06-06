@@ -1,5 +1,5 @@
 var express = require('express'),
-    checkLogin = require('../../middleware/checklogin.js'),
+    checkLogin = require('../middleware/checklogin.js'),
     getSpecificData = require('../../modules/getSpecificData.js'),
     renderTemplate = require('../../modules/renderTemplate.js'),
     credentials = require('../../modules/credentials.js'),
