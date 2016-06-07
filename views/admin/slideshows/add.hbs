@@ -73,7 +73,7 @@
     </section>
 
     <section class="right-panel scrollable">
-        <a href="#" class="btn btn-default slideshow-button">Run slideshow</a>
+        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.1.slideshow_name}}'</a>
         <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
         <section class="toggle-buttons" role="tablist">
             <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
@@ -129,16 +129,16 @@
                 <h2>Conect to displays</h2>
                 {{#each data.allDisplays}}
                     <div class="checkboxes">
-                        <input type="checkbox" id="field_name_{{name}}" name="name" {{#issame id ../data.specificId}} checked {{/issame}}>
+                        <input type="checkbox" id="field_name_{{name}}" name="displays[]" value="{{display_id}}" {{#issame id ../data.specificId}} checked {{/issame}}>
                         <label for="field_name_{{name}}">{{name}}</label>
                         {{#isother id ../data.specificId}}
                             <div class="tooltip">This display is already assignd to an another. If you assign it it will show this slideshow.</div>
                         {{/isother}}
-
                     </div>
                 {{/each}}
 
-                <button class="btn btn-default top-margin" type="submit">Save</button>
+
+                <button class="btn btn-default top-margin" name="slideshowId" value="{{data.specificId}}" type="submit">Save</button>
             </form>
         </section>
 

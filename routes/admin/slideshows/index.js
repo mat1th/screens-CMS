@@ -23,7 +23,7 @@ router.get('/', checkLogin, function(req, res) {
 
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
-            sqlDisplays = 'SELECT * FROM displays';
+            sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
             // Get the user id using username
             getData(sql, connection).then(function(slideshows) {
                 getData(sqlDisplays, connection).then(function(displays) {
@@ -116,6 +116,7 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
                         return data;
                     }).then(function(data) {
                         //render template
+
                         renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
                     }).catch(function(err) {
                         throw err;
@@ -200,6 +201,32 @@ router.post('/add/settings/:slideshowId', checkLogin, function(req, res) {
     } else {
         res.redirect('/admin');
     }
+});
+
+router.get('/preview/:slideshowId', function(req, res) {
+    var slideshowId = req.params.slideshowId,
+        general = {
+            title: 'Slideshow ' + slideshowId
+        };
+
+    req.getConnection(function(err, connection) {
+        var sql = 'SELECT * FROM slideshows T1 LEFT JOIN screens_In_slideshow T2 ON T1.id = T2.slideshow_id LEFT JOIN screens T3 ON T2.screen_id = T3.id WHERE T1.id = ?';
+        // var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN screens_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN screens T3 ON T3.id = T2.screen_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
+
+        getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
+            var data = {
+                general: rows
+            };
+            if (rows.length > 0) {
+                renderTemplate(res, 'display/view', data, general, {}, false, 'layout2');
+            } else {
+                renderTemplate(res, 'display/view', {}, general, {}, 'There are no screens in your slideshow', 'layout2');
+            }
+
+        }).catch(function(err) {
+            throw err;
+        });
+    });
 });
 
 module.exports = router;
