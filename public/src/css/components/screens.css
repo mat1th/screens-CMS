@@ -23,7 +23,7 @@
     z-index: 1;
 }
 .play-icon-bottom {
-  margin: auto 0;
+    margin: auto 0;
 }
 .screen h2 {
     padding: 0.5em;
@@ -40,8 +40,20 @@
 .screen .not-cheked .triangle {
     right: 0;
 }
-.img-preview {
+.preview {
     margin: 1em;
+}
+.preview-size {
+    width: 32.4vh;
+    height: 57.6vh;
+    background: #000;
+    overflow: hidden;
+    text-align: center;
+}
+.preview-size img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
 }
 .play-icon {
     display: flex;
