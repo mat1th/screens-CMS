@@ -117,10 +117,10 @@ DP.slideshows = (function() {
             _preview = DP.helper.select('.slideshow-preview img'),
             formElements = {
                 form: DP.helper.select('.slideshow-screen-settings form'),
-                animaion: DP.helper.select('#field_animation'),
-                duration: DP.helper.select('#field_duration'),
-                startDate: DP.helper.select('#field_date_start'),
-                endDate: DP.helper.select('#field_date_end')
+                animaion: DP.helper.select('#field-animation'),
+                duration: DP.helper.select('#field-duration'),
+                startDate: DP.helper.select('#field-date-start'),
+                endDate: DP.helper.select('#field-date-end')
             };
 
         _screenlist.addEventListener('click', function functionName(ev) {
@@ -129,6 +129,7 @@ DP.slideshows = (function() {
 
                 _client.get('/api/screen/' + screenID, function(response) {
                     var data = JSON.parse(response);
+                    console.log(formElements);
 
                     formElements.form.action = '/admin/screens/edit/' + data.id;
                     formElements.animaion.value = data.animation;
