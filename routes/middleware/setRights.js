@@ -1,4 +1,4 @@
-var checkRights = function(req, res, next) {
+var setRights = function(req, res, next) {
     var role = req.session.role;
     req.admin = false;
     req.editor = false;
@@ -12,7 +12,7 @@ var checkRights = function(req, res, next) {
     next();
 };
 
-module.exports = checkRights;
+module.exports = setRights;
 
 
 // admin: (session.role === 'admin') ? true : false,

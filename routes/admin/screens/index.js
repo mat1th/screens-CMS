@@ -1,6 +1,6 @@
 var express = require('express'),
     checkLogin = require('../../middleware/checklogin.js'),
-    checkRights = require('../../middleware/checkRights.js'),
+    setRights = require('../../middleware/setRights.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     insertData = require('../../../modules/insertData.js'),
@@ -9,7 +9,7 @@ var express = require('express'),
     sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router();
 
-router.get('/', checkLogin, checkRights, function(req, res) {
+router.get('/', checkLogin, setRights, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your screens',
@@ -105,7 +105,7 @@ router.get('/show/:screenId', function(req, res) {
     }
 });
 
-router.post('/decision', checkLogin, checkRights, function(req, res) {
+router.post('/decision', checkLogin, setRights, function(req, res) {
     var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),

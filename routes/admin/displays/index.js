@@ -1,5 +1,6 @@
 var express = require('express'),
     checkLogin = require('../../middleware/checklogin.js'),
+    checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     router = express.Router();
@@ -9,20 +10,16 @@ router.get('/', checkLogin, function(req, res) {
     res.redirect('/admin/slideshows');
 });
 
-router.get('/add', checkLogin, function(req, res) {
+router.get('/add', checkLogin, checkRightsAdmin, function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
         editor = cr.editor,
         admin = cr.admin;
 
-    if (admin) {
-        getDisplayNames(req, res, false, login, admin, editor);
-    } else {
-        res.redirect('/admin');
-    }
+    getDisplayNames(req, res, false, login, admin, editor);
 });
 
-router.post('/add', checkLogin, function(req, res) {
+router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
         admin = cr.admin,
@@ -32,31 +29,28 @@ router.post('/add', checkLogin, function(req, res) {
         slideshowId = body.slideshowId,
         now = new Date();
 
-    if (admin) {
-        if (name !== undefined && name.length !== 0 && slideshowId !== null) {
-            req.getConnection(function(err, connection) {
-                var sqlQuery = 'INSERT INTO displays SET ?',
-                    sqlValues = {
-                        display_id: randNumber(1000),
-                        name: name,
-                        slideshowId: slideshowId,
-                        dataCreated: now
-                    };
+    if (name !== undefined && name.length !== 0 && slideshowId !== null) {
+        req.getConnection(function(err, connection) {
+            var sqlQuery = 'INSERT INTO displays SET ?',
+                sqlValues = {
+                    display_id: randNumber(1000),
+                    name: name,
+                    slideshowId: slideshowId,
+                    dataCreated: now
+                };
 
-                // Insert the new photo data
-                connection.query(sqlQuery, sqlValues, function(err) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.redirect('/admin/displays');
-                });
+            // Insert the new photo data
+            connection.query(sqlQuery, sqlValues, function(err) {
+                if (err) {
+                    throw err;
+                }
+                res.redirect('/admin/displays');
             });
-        } else {
-            getDisplayNames(req, res, 'You haven\'t filled in a name', login, admin, editor);
-        }
+        });
     } else {
-        res.redirect('/admin');
+        getDisplayNames(req, res, 'You haven\'t filled in a name', login, admin, editor);
     }
+
 });
 
 function getDisplayNames(req, res, error, login, admin, editor) {
