@@ -33,6 +33,8 @@ router.get('/', checkLogin, function(req, res) {
                             displays: displays
                         }
                     };
+                    return data;
+                }).then(function(data) {
                     //renderTemplate
                     if (slideshows.length > 0) {
                         renderTemplate(res, 'admin/slideshows/show', data, general, {}, false);
@@ -42,7 +44,6 @@ router.get('/', checkLogin, function(req, res) {
                 }).catch(function(err) {
                     throw err;
                 });
-                //
             }).catch(function(err) {
                 throw err;
             });
@@ -89,13 +90,13 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
         postUrls = {
             settings: '/admin/slideshows/add/settings/' + slideshowId,
             screens: '/admin/screens/edit',
-            displays: '/admin/screens/edit'
+            displays: '/admin/displays/edit'
         };
 
     if (general.admin || general.editor) {
         var sql = 'SELECT * FROM screens_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN screens T3 ON T1.screen_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
         var sqlScreens = 'SELECT * FROM screens WHERE checked = 1';
-        var sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id'
+        var sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
 
 
         //could be written nicer
@@ -110,11 +111,12 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
                 }).then(function(data) {
                     getSpecificData(sqlDisplays, connection, [slideshowId]).then(function(rows) {
                         data.displays = rows;
+                        data.specificId = slideshowId;
                         // return the data
-                        console.log(rows);
+                        // console.log(rows);
                         return data;
                     }).then(function(data) {
-                          //render template
+                        //render template
                         renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
                     }).catch(function(err) {
                         throw err;

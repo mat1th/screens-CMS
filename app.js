@@ -51,11 +51,19 @@ hbs.registerHelper("checktype", function(conditional, options) {
         return options.inverse(this);
     }
 });
-hbs.registerHelper("checkboxstatus", function(conditional) {
-    if (conditional === undefined || conditional === null) {
-        return '';
+hbs.registerHelper("issame", function(conditional1, conditional2, options) {
+    if (conditional1 == conditional2) {
+        return options.fn(this);
     } else {
-        return 'checked';
+        return options.inverse(this);
+    }
+
+});
+hbs.registerHelper("isother", function(conditional1, conditional2, options) {
+    if (conditional1 != conditional2 && conditional1 != null || conditional1 != conditional2 && conditional1 != undefined) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
     }
 });
 hbs.registerHelper("datefronow", function(conditional, options) {

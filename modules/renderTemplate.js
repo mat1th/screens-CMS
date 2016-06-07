@@ -4,7 +4,8 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         data: {
             general: data.general || null,
             allDisplays: data.displays || null,
-            allScreens: data.screens
+            allScreens: data.screens,
+            specificId: data.specificId
         },
         rights: {
             admin: general.admin,

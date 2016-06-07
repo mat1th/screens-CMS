@@ -1,6 +1,7 @@
 var express = require('express'),
     checkLogin = require('../../middleware/checklogin.js'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
+    insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     router = express.Router();
@@ -50,7 +51,23 @@ router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
     } else {
         getDisplayNames(req, res, 'You haven\'t filled in a name', login, admin, editor);
     }
+});
 
+
+router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) {
+    var body = req.body,
+        sql = 'UPDATE displays SET `checked` = 1 WHERE id = ?';
+
+console.log(body);
+    req.getConnection(function(err, connection) {
+        insertData(sql, [], connection).then(function() {
+
+            res.send('done');
+
+        }).catch(function(err) {
+            throw err;
+        });
+    });
 });
 
 function getDisplayNames(req, res, error, login, admin, editor) {

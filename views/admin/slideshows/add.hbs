@@ -128,10 +128,13 @@
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
                 {{#each data.allDisplays}}
-
                     <div class="checkboxes">
-                        <input type="checkbox" id="field_name_{{name}}" name="name" {{#checkboxstatus id}} {{/checkboxstatus}}>
+                        <input type="checkbox" id="field_name_{{name}}" name="name" {{#issame id ../data.specificId}} checked {{/issame}}>
                         <label for="field_name_{{name}}">{{name}}</label>
+                        {{#isother id ../data.specificId}}
+                            <div class="tooltip">This display is already assignd to an another.</div>
+                        {{/isother}}
+
                     </div>
                 {{/each}}
 
