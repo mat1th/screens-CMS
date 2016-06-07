@@ -8,13 +8,12 @@ DP.screens = (function() {
             fieldDiscription = DP.helper.selectId('field-discription'),
             fieldDuration = DP.helper.selectId('field-duration');
 
-console.log(vimeoIdError);
         fieldVimeoId.addEventListener('blur', function(e) {
             client.get('http://vimeo.com/api/v2/video/' + e.target.value + '.json', function(response) {
                 if (response !== 'error') {
                     fieldVimeoId.classList.remove('error');
                     var data = JSON.parse(response)[0];
-                      vimeoIdError.innerHTML = '';
+                    vimeoIdError.innerHTML = '';
                     fieldDiscription.value = data.description;
                     fieldname.value = data.title;
                     fieldDuration.value = data.duration;
@@ -28,27 +27,19 @@ console.log(vimeoIdError);
         });
     };
 
-
-
     //if a file select ad the selected image to the html
     var uploadPreview = function() {
         var fieldFile = DP.helper.selectId('field-file'),
             filename = DP.helper.selectId('filename'),
             inputPreview = DP.helper.selectId('input-preview');
 
-        function readURL(input) {
-            var files = input.target.files;
-            filename.innerHTML = files[0].name;
-            if (files && files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    inputPreview.src = event.target.result;
-                };
-                reader.readAsDataURL(files[0]);
             }
+        function readURL(event) {
+            console.log(event.target.files);
+            inputPreview.src = URL.createObjectURL(event.target.files[0]);
+            filename.innerHTML = event.target.files[0].name;
         }
-        fieldFile.addEventListener('click', function(e) {
+        fieldFile.addEventListener('change', function(e) {
             readURL(e);
         });
     };
