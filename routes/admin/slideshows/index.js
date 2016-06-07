@@ -113,7 +113,6 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
                         data.displays = rows;
                         data.specificId = slideshowId;
                         // return the data
-                        // console.log(rows);
                         return data;
                     }).then(function(data) {
                         //render template

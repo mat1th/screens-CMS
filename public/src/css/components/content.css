@@ -20,16 +20,16 @@
 }
 .content-header h1 {
     display: inline-block;
-    width: 100%;
     flex-grow: 1;
+    width: 100%;
 }
 .content-header button {
-    width: 100%;
     flex-grow: 1;
+    width: 100%;
 }
 .content-body {
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
     flex-wrap: wrap;
 }
 .content-body section {
@@ -111,17 +111,16 @@
 }
 @media (--medium-window-width) {
     .content-body section {
-        width: auto;
         display: inline-block;
+        width: auto;
         margin-right: 1em;
     }
     .content-body  iframe{
       width: 100%;
     }
     .content-body {
-        flex-wrap: wrap;
         flex-direction: row;
-        /*align-items: flex-start;*/
+        flex-wrap: wrap;
     }
     .content-body img {
         max-height: 80vh;

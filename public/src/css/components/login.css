@@ -1,18 +1,18 @@
 .users-form {
+    display: flex;
+    height: 100vh;
     background: red;
     background: url(/img/background.jpg);
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-size: cover;
-        display: flex;
-    height: 100vh;
 }
 .form {
-    background: var(--background-color-light);
+    width: 15em;
     margin: 4em auto auto auto;
     padding: 2em;
-    width: 15em;
+    background: var(--background-color-light);
 }
 .form .message {
     color: var(--background-color-semidark);

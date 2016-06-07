@@ -119,8 +119,8 @@
     background: var(--background-color-semidark);
 }
 .right-panel {
-    min-width: 18em;
     position: relative;
+    min-width: 18em;
     background: var(--background-color-semidark);
 }
 .right-panel section {
@@ -128,8 +128,8 @@
 }
 .slideshow-button {
     box-sizing: border-box;
-    border-radius: 0;
     width: 100%;
+    border-radius: 0;
 }
 
 /*shortable list */
@@ -156,9 +156,9 @@
     padding: 3.753em;
 }
 .screenitem div.play-icon {
-    left: .3em;
+    top: .3em;
     right: .3em;
-    top: .3em
+    left: .3em
 }
 div.play-icon {
     position: absolute;
@@ -170,28 +170,29 @@ div.play-icon {
     display: block;
 }
 .checkboxes .tooltip {
-    position: relative;
     display: inline-block;
+    position: relative;
 }
 .checkboxes .tooltip {
     display: none;
-    width: 8em;
-    background-color: var(--eddit-color);
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-    border-radius: var(--border-radius);
+    font-size: 0.7em;
     position: absolute;
-    z-index: 1;
     bottom: 100%;
     left: 3em;
+    width: 10em;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--eddit-color);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
 }
 .checkboxes .tooltip::after {
-    content: "";
     position: absolute;
     top: 100%;
     left: 40%;
     border-width: 0.5em;
     border-style: solid;
     border-color: var(--eddit-color) transparent transparent transparent;
+    content: "";
 }
