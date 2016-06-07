@@ -33,7 +33,6 @@ DP.screens = (function() {
             filename = DP.helper.selectId('filename'),
             inputPreview = DP.helper.selectId('input-preview');
 
-            }
         function readURL(event) {
             console.log(event.target.files);
             inputPreview.src = URL.createObjectURL(event.target.files[0]);
@@ -52,7 +51,8 @@ DP.screens = (function() {
         vimeoIdInput.classList.add('none');
 
         radioOptionField.addEventListener('change', function(e) {
-            if (e.target.value === 'screen') {
+          console.log(e.target.value );
+            if (e.target.value === 'poster') {
                 fileInput.classList.remove('none');
                 vimeoIdInput.classList.add('none');
             } else {
