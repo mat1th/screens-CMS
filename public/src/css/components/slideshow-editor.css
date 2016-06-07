@@ -184,7 +184,7 @@ div.play-icon {
     position: absolute;
     z-index: 1;
     bottom: 100%;
-    left: 2em;
+    left: 3em;
 }
 .checkboxes .tooltip::after {
     content: "";
