@@ -10,7 +10,12 @@
                 <div class="screen">
                     <a href="/admin/screens/show/{{id}}">
                         <div class="image no-overflow">
-                            <img src="/download/{{filename}}" alt="" />
+                            {{#checktype type equals="vimeo" }}
+                                <img src="{{vimeoImage}}" alt="" />
+                            {{/checktype}}
+                            {{#checktype type equals="poster" }}
+                                <img src="/download/{{filename}}" alt="" />
+                            {{/checktype}}
                         </div>
                         {{#if ../rights.admin}}
 
