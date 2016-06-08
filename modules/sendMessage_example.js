@@ -16,5 +16,4 @@ var sendMessage = function(message) {
     });
 };
 
-
 module.exports = sendMessage;

@@ -181,7 +181,6 @@ DP.slideshows = (function() {
         _edditPoster();
     };
 
-
     return {
         init: init
     };
