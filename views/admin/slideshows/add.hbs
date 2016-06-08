@@ -129,8 +129,8 @@
                 <h2>Conect to displays</h2>
                 {{#each data.allDisplays}}
                     <div class="checkboxes">
-                        <input type="checkbox" id="field_name_{{name}}" name="displays[]" value="{{display_id}}" {{#issame id ../data.specificId}} checked {{/issame}}>
-                        <label for="field_name_{{name}}">{{name}}</label>
+                        <input type="checkbox" id="field_name_{{display_id}}" name="displays[]" value="{{display_id}}" {{#issame id ../data.specificId}} checked {{/issame}}>
+                        <label for="field_name_{{display_id}}">{{name}}</label>
 
                         {{#isother slideshowId ../data.specificId}}
                             <div class="tooltip">This display is already assignd to an another. If you assign it it will show this slideshow.</div>

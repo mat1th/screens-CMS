@@ -1,6 +1,7 @@
 var express = require('express'),
     checkLogin = require('../../middleware/checklogin.js'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
+    getData = require('../../../modules/getData.js'),
     insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
@@ -53,20 +54,88 @@ router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
     }
 });
 
-
 router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) {
     var body = req.body,
-        sql = 'UPDATE displays SET `checked` = 1 WHERE id = ?';
+        slideshowId = body.slideshowId,
+        displaysChecked = body['displays[]'] || '',
+        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id',
+        sqlUpdate = 'UPDATE displays SET `slideshowId` = ? WHERE display_id = ?';
 
-console.log(body);
     req.getConnection(function(err, connection) {
-        insertData(sql, [], connection).then(function() {
 
-            res.send('done');
+        getData(sqlDisplays, connection).then(function(rows) {
+            var displaysUnchecked = [];
+            rows.forEach(function(all) {
+                if (typeof(displaysChecked) === 'string') {
+                    if (checkSame(JSON.parse(displaysChecked), all.display_id)) {
+                        insert(sqlUpdate, slideshowId, all.display_id);
+                    } else {
+                        var displayObject = {
+                            id: all.display_id,
+                            slideshow: all.slideshowId
+                        };
+                        displaysUnchecked.push(displayObject);
+                    }
+                } else if (typeof(displaysChecked) === 'object') {
+                    displaysChecked.forEach(function(displayid) {
+                        var id = JSON.parse(displayid);
 
+                        if (checkSame(id, all.display_id)) {
+                            insert(sqlUpdate, slideshowId, all.display_id);
+                        } else {
+                            var displayObject = {
+                                id: all.display_id,
+                                slideshow: all.slideshowId
+                            };
+                            contains(displayObject, displaysUnchecked);
+                        }
+                    });
+                }
+            });
+            return displaysUnchecked;
+
+        }).then(function(displaysUnchecked) {
+            displaysUnchecked.forEach(function(display) {
+                if (checkSame(display.slideshow, JSON.parse(slideshowId))) {
+                    insert(sqlUpdate, '0', display.id);
+                }
+            });
+
+        }).then(function() {
+            res.redirect('/admin/slideshows/add'+ slideshowId);
         }).catch(function(err) {
             throw err;
         });
+
+        // function contains(obj, objects) {
+        //     var i, l = objects.length;
+        //     console.log(l);
+        //     for (i = 0; i < l; i++) {
+        //         console.log('----');
+        //         console.log(objects[i]);
+        //         console.log(obj);
+        //         console.log('----');
+        //         if (objects[i] == obj) return true;
+        //     }
+        //     return false;
+        // }
+
+        function insert(sqlUpdate, slideshowId, displayid) {
+            insertData(sqlUpdate, [slideshowId, displayid], connection).then(function() {
+                console.log('done inser');
+            }).catch(function(err) {
+                console.log(err);
+                throw err;
+            });
+        }
+
+        function checkSame(var1, var2) {
+            if (var1 === var2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     });
 });
 
