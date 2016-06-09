@@ -38,13 +38,23 @@ slideshow.start = (function() {
                     type = slides[i].getAttribute('data-type'),
                     id = slides[i].getAttribute('data-id'),
                     color = slides[i].getAttribute('data-color'),
-                    duration = JSON.parse(slides[i].getAttribute('data-duration'));
+                    duration = JSON.parse(slides[i].getAttribute('data-duration')),
+                    prevEment;
 
-                // slides[i].classList.add('none');
-                animate(element, animation, duration, type, color, id);
+                if (i !== 0) {
+                    var a = i - 1;
+                    prevEment = slides[a];
+                }
+
+                animate(element, prevEment, animation, duration, type, color, id);
             }
         },
-        animate = function(element, animation, duration, type, color, id) {
+        animate = function(element, prevEment, animation, duration, type, color, id) {
+          if (prevEment !== undefined) {
+              slider.to(prevEment, 2, {
+                  opacity: 0
+              },'animation' + id);
+          }
             if (animation === 'left-push') {
                 slider.set(element, {
                         onComplete: slideshow.vimeo.play,
@@ -54,12 +64,11 @@ slideshow.start = (function() {
                     })
                     .to(body, animationTime, {
                         backgroundColor: color
-                    }, 'animation' + id)
-                    , 'animation' + id + '-=1'.to(element, animationTime, {
+                    }, 'animation' + id).to(element, animationTime, {
                         x: windowWidth,
                         opacity: 1,
                         ease: Power4.easeIn
-                    })
+                    }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
                         // x: windowWidth * 2,
                         // opacity: 0,
