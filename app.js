@@ -1,7 +1,9 @@
 //load packages
 const express = require('express'),
-    path = require('path'),
     app = express(),
+    http = require('http').Server(app),
+    io = require('socket.io')(http),
+    path = require('path'),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
     bodyParser = require('body-parser'),
@@ -12,6 +14,7 @@ const express = require('express'),
     mysql = require('mysql'),
     hbs = require('hbs'),
     Promise = require('bluebird'),
+
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -31,8 +34,8 @@ const express = require('express'),
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
-hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 //define body parser
 app.use(bodyParser.urlencoded({
@@ -154,6 +157,13 @@ app.use(function(err, req, res, next) {
 
 
 //start app
-app.listen(3010, function() {
-    console.log('listening on port 3010!');
+io.on('connection', function(socket) {
+    console.log('a user connected');
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+    });
+});
+
+http.listen(3010, function() {
+    console.log('listening on localhost:3010');
 });
