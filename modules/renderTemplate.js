@@ -3,7 +3,9 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         title: general.title,
         data: {
             general: data.general || null,
-            allScreens: data.screens
+            allDisplays: data.displays || null,
+            allScreens: data.screens,
+            specificId: data.specificId
         },
         rights: {
             admin: general.admin,

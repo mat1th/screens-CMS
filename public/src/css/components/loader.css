@@ -1,0 +1,41 @@
+.loader {
+    display: block;
+    position: absolute;
+    height: 0.3em;
+    width: 100%;
+    top: 2.6em;
+    z-index: 10;
+    position: sticky;
+    overflow: hidden;
+}
+.loader:before {
+    display: block;
+    position: absolute;
+    content: "";
+    left: -30em;
+    width: 30em;
+    height: 0.3em;
+    background-color: var(--normal-color);
+    animation: loading 2s linear infinite;
+}
+@keyframes loading {
+    from {
+        left: -30em;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    95% {
+        left: 120%;
+    }
+    to {
+        left: 100%;
+    }
+}

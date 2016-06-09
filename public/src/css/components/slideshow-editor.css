@@ -1,5 +1,5 @@
 .slideshow-add {
-        display: flex;
+    display: flex;
     justify-content: space-between;
     width: 100%;
     height: 100%;
@@ -109,7 +109,7 @@
 /*preview*/
 
 .slideshow-preview {
-        display: flex;
+    display: flex;
     width: 100%;
 }
 .slideshow-preview img {
@@ -119,8 +119,8 @@
     background: var(--background-color-semidark);
 }
 .right-panel {
-    min-width: 18em;
     position: relative;
+    min-width: 18em;
     background: var(--background-color-semidark);
 }
 .right-panel section {
@@ -128,8 +128,8 @@
 }
 .slideshow-button {
     box-sizing: border-box;
-    border-radius: 0;
     width: 100%;
+    border-radius: 0;
 }
 
 /*shortable list */
@@ -156,10 +156,43 @@
     padding: 3.753em;
 }
 .screenitem div.play-icon {
-    left: .3em;
+    top: .3em;
     right: .3em;
-    top: .3em
+    left: .3em
 }
 div.play-icon {
     position: absolute;
+}
+
+/*tooltip*/
+
+.checkboxes:hover .tooltip {
+    display: block;
+}
+.checkboxes .tooltip {
+    display: inline-block;
+    position: relative;
+}
+.checkboxes .tooltip {
+    display: none;
+    font-size: 0.7em;
+    position: absolute;
+    bottom: 100%;
+    left: 3em;
+    width: 10em;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--eddit-color);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+.checkboxes .tooltip::after {
+    position: absolute;
+    top: 100%;
+    left: 40%;
+    border-width: 0.5em;
+    border-style: solid;
+    border-color: var(--eddit-color) transparent transparent transparent;
+    content: "";
 }

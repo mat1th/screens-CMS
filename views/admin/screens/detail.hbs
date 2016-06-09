@@ -1,8 +1,8 @@
- {{> nav}}
+ {{> nav}} 
 <section class="content scrollable">
     <section class="content-header block">
         <h1>{{data.general.name}} </h1>
-        <small>{{data.general.dataCreated}}</small>
+        <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
     </section>
     <section class="content-body detail">
         <section>
@@ -13,7 +13,6 @@
             {{#checktype data.general.type equals="vimeo" }}
                 <iframe id="player1" src="https://player.vimeo.com/video/{{data.general.vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             {{/checktype}}
-
         </section>
         <section>
             <h2>Discription</h2>
@@ -48,11 +47,15 @@
                 </tr>
                 <tr>
                     <th>Begin date</th>
-                    <td>{{data.general.dateStart}}</td>
+                    <td>
+                        {{#dateformat data.general.dateStart}}{{/dateformat}}
+                    </td>
                 </tr>
                 <tr>
                     <th>End date</th>
-                    <td>{{data.general.dateEnd}}</td>
+                    <td>
+                        {{#dateformat data.general.dateEnd}}{{/dateformat}}
+                    </td>
                 </tr>
             </table>
 

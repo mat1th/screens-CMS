@@ -5,16 +5,13 @@ var express = require('express'),
     router = express.Router();
 
 //set up moment localization
-require('moment/locale/cs');
+require('moment/locale/nl');
 moment.locale('nl');
 
 
 //get data from screen
 router.get('/screen/:screenId', checkLogin, function(req, res) {
-    var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin,
-        screenId = req.params.screenId;
+    var screenId = req.params.screenId;
 
     req.getConnection(function(err, connection) {
         var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM screens WHERE id = ?';

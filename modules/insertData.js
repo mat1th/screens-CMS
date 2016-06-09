@@ -3,7 +3,7 @@ var getData = function(sqlQuery, sqlValues, connection) {
         try {
             connection.query(sqlQuery, sqlValues, function(err, row) {
                 if (err) return reject(err);
-                console.log(row);
+                // console.log(row);
                 resolve();
 
             });

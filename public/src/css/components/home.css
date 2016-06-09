@@ -10,8 +10,8 @@
     background-size: cover;
 }
 .banner h1 {
-    margin: auto auto;
     display: block;
     width: 100%;
+    margin: auto auto;
     color: #fff;
 }

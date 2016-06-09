@@ -2,10 +2,10 @@
     box-sizing: border-box;
     display: inline-block;
     flex-grow: 0;
-    height: 2.4em;
-    margin: auto;
     min-width: 8em;
         max-width: 30em;
+    height: 2.4em;
+    margin: auto;
     padding: .5em 1em;
     border: none;
     border-radius: var(--border-radius);
@@ -19,8 +19,8 @@
 }
 .btn-transparant {
     max-width: 20em;
-    background: rgba(255, 255, 255, 0.13);
     border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.13);
     color: #fff;
 }
 .btn-transparant:hover {

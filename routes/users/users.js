@@ -79,7 +79,7 @@ router.post('/register', function(req, res) {
             req.getConnection(function(err, connection) {
                 var sqlQuery = 'INSERT INTO users SET name = ?, email = ?, password = ?';
 
-                insertData(sqlQuery, [username, password, email], connection).then(function() {
+                insertData(sqlQuery, [username, email, password], connection).then(function() {
                     res.redirect('/users/login');
 
                 }).catch(function(err) {

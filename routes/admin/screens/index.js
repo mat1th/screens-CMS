@@ -1,7 +1,6 @@
 var express = require('express'),
-    moment = require('moment'),
     checkLogin = require('../../middleware/checklogin.js'),
-    checkRights = require('../../middleware/checkRights.js'),
+    setRights = require('../../middleware/setRights.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     insertData = require('../../../modules/insertData.js'),
@@ -10,7 +9,7 @@ var express = require('express'),
     sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router();
 
-router.get('/', checkLogin, checkRights, function(req, res) {
+router.get('/', checkLogin, setRights, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your screens',
@@ -27,9 +26,9 @@ router.get('/', checkLogin, checkRights, function(req, res) {
 
     req.getConnection(function(err, connection) {
         if (req.admin) {
-            sql = 'SELECT filename, type, name, checked, id FROM screens';
+            sql = 'SELECT filename, type, name, checked, vimeoImage, id FROM screens';
         } else {
-            sql = 'SELECT filename, type, name, checked, id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+            sql = 'SELECT filename, type, name, checked, vimeoImage,  id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
         }
         // sql = 'CASE'
         getSpecificData(sql, connection, [req.email]).then(function(rows) {
@@ -93,20 +92,7 @@ router.get('/show/:screenId', function(req, res) {
             }
             getSpecificData(sql, connection, [screenId, general.email]).then(function(rows) {
                 var data = {
-                    general: {
-                        id: rows[0].id,
-                        discription: rows[0].discription,
-                        duration: rows[0].duration,
-                        name: rows[0].name,
-                        animation: rows[0].animation,
-                        filename: rows[0].filename,
-                        vimeoId: rows[0].vimeoId,
-                        type: rows[0].type,
-                        checked: rows[0].checked,
-                        dateStart: moment(rows[0].dateStart).format('LL'),
-                        dateEnd: moment(rows[0].dateEnd).format('LL'),
-                        dataCreated: moment(rows[0].dataCreated).startOf('day').fromNow()
-                    }
+                    general: rows[0]
                 };
                 //renderTemplate
                 renderTemplate(res, 'admin/screens/detail', data, general, postUrls, false);
@@ -119,7 +105,7 @@ router.get('/show/:screenId', function(req, res) {
     }
 });
 
-router.post('/decision', checkLogin, checkRights, function(req, res) {
+router.post('/decision', checkLogin, setRights, function(req, res) {
     var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),
@@ -135,7 +121,7 @@ router.post('/decision', checkLogin, checkRights, function(req, res) {
 
                 var emailQuery = 'SELECT * FROM screens T1 LEFT JOIN users T2 ON T1.userId = T2.id WHERE T1.id = ?';
                 getSpecificData(emailQuery, connection, [posterId]).then(function(rows) {
-                  var data = rows[0];
+                    var data = rows[0];
                     var message = {
                         text: '',
                         from: 'Digitale Posters mail <matthias.d@outlook.com>',
@@ -185,30 +171,37 @@ router.post('/add', checkLogin, function(req, res) {
         },
         body = req.body,
         data = {
-            name: body.name,
-            animation: body.animation,
-            color: body.color,
-            discription: body.discription,
-            vimeoId: body.vimeoId,
-            duration: body.duration,
-            type: body.type,
-            dateStart: body.dateStart,
-            dateEnd: body.dateEnd,
-            dataCreated: new Date(),
-            upload: req.files
+            general: {
+                name: body.name,
+                animation: body.animation,
+                color: body.color,
+                discription: body.discription,
+                vimeoId: body.vimeoId,
+                duration: body.duration,
+                type: body.type,
+                dateStart: body.dateStart,
+                dateEnd: body.dateEnd,
+                dataCreated: new Date(),
+                vimeoImage: '' || body.vimeoImage,
+                upload: req.files,
+                fileName: ''
+            }
         };
 
     //check if data is valid
-    if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
-        if (data.upload.imageFile && data.type !== null) {
+    if (isValidDate(data.general.dateStart) && isValidDate(data.general.dateEnd)) {
+        if (data.general.type !== null) {
             req.getConnection(function(err, connection) {
                 if (general.admin || general.editor) {
-                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1, `vimeoId` = ?';
+                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?;';
                 } else {
-                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?';
+                    sqlQuery = 'INSERT INTO screens SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?, `vimeoImage` = ?;';
+                }
+                if (data.general.upload.imageFile) {
+                    data.general.fileName = data.general.upload.imageFile.name;
                 }
 
-                insertData(sqlQuery, [general.email, data.name, data.discription, data.animation, data.color, data.upload.imageFile.name, data.duration, data.type, data.dateStart, data.dateEnd, data.dataCreated, data.vimeoId], connection).then(function() {
+                insertData(sqlQuery, [general.email, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.dataCreated, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
                     //send a mail if the use is not a admin
                     if (!general.admin) {
                         var message = {
@@ -231,10 +224,10 @@ router.post('/add', checkLogin, function(req, res) {
                 });
             });
         } else {
-            renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have got no image uploaded');
+            renderTemplate(res, 'admin/screens/add', data, general, {}, 'You have got no image uploaded');
         }
     } else {
-        renderTemplate(res, 'admin/screens/add', {}, general, {}, 'You have submit a wrong date');
+        renderTemplate(res, 'admin/screens/add', data, general, {}, 'You have submit a wrong date');
     }
 
 });

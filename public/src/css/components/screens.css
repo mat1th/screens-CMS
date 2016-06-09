@@ -4,7 +4,6 @@
     display: inline-block;
     position: relative;
     margin: 0.2em;
-    /*max-width: 15em;*/
 }
 .screen img {
     display: inline-block;
@@ -13,19 +12,18 @@
 }
 .screen .image {
     display: inline-block;
-    /*height: 20em;*/
 }
 .screen .name {
+    display: flex;
     position: absolute;
     bottom: 0.3em;
     width: 100%;
     background: rgba(67, 69, 61, 0.80);
     color: var(--font-color-light);
     z-index: 1;
-    display: flex;
 }
 .play-icon-bottom {
-  margin: auto 0;
+    margin: auto 0;
 }
 .screen h2 {
     padding: 0.5em;
@@ -33,8 +31,8 @@
 .screen .check {
     position: absolute;
     top: 0;
-    z-index: 2;
     right: 0;
+    z-index: 2;
 }
 .screen .check svg {
     width: 2.9em;
@@ -42,16 +40,28 @@
 .screen .not-cheked .triangle {
     right: 0;
 }
-.img-preview {
+.preview {
     margin: 1em;
 }
+.preview-size {
+    width: 32.4vh;
+    height: 57.6vh;
+    background: #000;
+    overflow: hidden;
+    text-align: center;
+}
+.preview-size img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
 .play-icon {
-    position: absolute;
-    margin-right: auto;
     display: flex;
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
+    margin-right: auto;
     background: rgba(67, 69, 61, 0.80);
 }
 

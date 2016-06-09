@@ -21,14 +21,14 @@
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
-                          {{#checktype type equals="vimeo" }}
-                              <div class="play-icon">
-                                  <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M8 5v14l11-7z" />
-                                      <path d="M0 0h24v24H0z" fill="none" />
-                                  </svg>
-                              </div>
-                          {{/checktype}}
+                            {{#checktype type equals="vimeo" }}
+                                <div class="play-icon">
+                                    <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 5v14l11-7z" />
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                    </svg>
+                                </div>
+                            {{/checktype}}
                             <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
                         </div>
 
@@ -73,7 +73,7 @@
     </section>
 
     <section class="right-panel scrollable">
-        <a href="#" class="btn btn-default slideshow-button">Run slideshow</a>
+        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.1.slideshow_name}}'</a>
         <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
         <section class="toggle-buttons" role="tablist">
             <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
@@ -91,18 +91,18 @@
 
                 <div>
                     <label for="field-discription">Discription: </label>
-                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow" ></textarea>
+                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
                 </div>
-                <button class="btn btn-default top-margin">Save</button>
+                <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
         <section class="slideshow-screen-settings scrollable tabcontent" aria-hidden="true">
             <form action="{{postUrl.screens}}" method="post">
                 <h2>Edit screen</h2>
                 <div>
-                    <label for="field_animation">Animation: </label>
+                    <label for="field-animation">Animation: </label>
                     <div class="select-icon">
-                        <select name="animation" id="field_animation">
+                        <select name="animation" id="field-animation">
                             <option value="pop">pop</option>
                             <option value="top-push">push from top</option>
                             <option value="left-push">push from left</option>
@@ -114,27 +114,32 @@
                     <input type="number" id="field-duration" name="duration" value="" placeholder="60 (s)">
                 </div>
                 <div>
-                    <label for="field_date_start">Start date: </label>
-                    <input type="date" id="field_date_start" name="dateStart" value="" placeholder="DD-MM-JJJJ">
+                    <label for="field-date-start">Start date: </label>
+                    <input type="date" id="field-date-start" name="dateStart" value="" placeholder="DD-MM-JJJJ">
                 </div>
                 <div>
-                    <label for="field_date_end">End date: </label>
-                    <input type="date" id="field_date_end" name="dateEnd" value="" placeholder="DD-MM-JJJJ">
+                    <label for="field-date-end">End date: </label>
+                    <input type="date" id="field-date-end" name="dateEnd" value="" placeholder="DD-MM-JJJJ">
                 </div>
-                <button class="btn btn-default top-margin">Save</button>
+                <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
         <section aria-hidden="true" class="tabcontent">
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
-                {{#each data.general}}
-                    <div>
-                        <input type="checkbox" id="field_name{{id}}" name="name" value="">
-                        <label for="field_name{{id}}">{{name}}</label>
+                {{#each data.allDisplays}}
+                    <div class="checkboxes">
+                        <input type="checkbox" id="field_name_{{display_id}}" name="displays[]" value="{{display_id}}" {{#issame id ../data.specificId}} checked {{/issame}}>
+                        <label for="field_name_{{display_id}}">{{name}}</label>
+
+                        {{#isother slideshowId ../data.specificId}}
+                            <div class="tooltip">This display is already assignd to an another. If you assign it it will show this slideshow.</div>
+                        {{/isother}}
                     </div>
                 {{/each}}
 
-                <button class="btn btn-default top-margin">Save</button>
+
+                <button class="btn btn-default top-margin" name="slideshowId" value="{{data.specificId}}" type="submit">Save</button>
             </form>
         </section>
 
