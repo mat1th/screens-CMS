@@ -17,6 +17,7 @@ slideshow.helper = (function() {
 
 slideshow.start = (function() {
     var slides = slideshow.helper.selectAll('.slideshow .slide');
+    var body = slideshow.helper.select('body');
     var i = 0;
     var animationTime = 3;
     var windowWidth = window.innerWidth,
@@ -24,9 +25,6 @@ slideshow.start = (function() {
     var slider = new TimelineMax({
         paused: false,
         repeat: -1,
-        // onStart: slideshow.vimeo.play,
-        // onStartParams: ['video'],
-        // delay: 10,
         ease: Sine.easeOut
     });
 
@@ -38,13 +36,15 @@ slideshow.start = (function() {
                 var element = slides[i],
                     animation = slides[i].getAttribute('data-animation'),
                     type = slides[i].getAttribute('data-type'),
+                    id = slides[i].getAttribute('data-id'),
+                    color = slides[i].getAttribute('data-color'),
                     duration = JSON.parse(slides[i].getAttribute('data-duration'));
 
                 // slides[i].classList.add('none');
-                animate(element, animation, duration, type);
+                animate(element, animation, duration, type, color, id);
             }
         },
-        animate = function(element, animation, duration, type) {
+        animate = function(element, animation, duration, type, color, id) {
             if (animation === 'left-push') {
                 slider.set(element, {
                     onComplete: slideshow.vimeo.play,
