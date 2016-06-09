@@ -23,13 +23,16 @@ html, body {
     display: block;
     width: 100vw;
     height: 100vh;
-    object-fit: contain;
     z-index: 1;
+}
+.slide img {
+    object-fit: contain;
 }
 
 /*css for differnt animaions*/
 
-.left-push {
+
+/*.left-push {
     left: -100vw;
     opacity: 0;
 }
@@ -42,4 +45,4 @@ html, body {
 }
 .fadein{
   opacity: 0;
-}
+}*/
