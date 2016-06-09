@@ -21,7 +21,7 @@ router.post('/login', function(req, res) {
     var body = req.body,
         email = body.email,
         password = body.password,
-        hour = 3600000,
+        hour = 7200000,
         general = {
             title: 'Login',
             navPosition: 'transparant'
