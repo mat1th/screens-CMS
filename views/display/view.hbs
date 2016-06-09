@@ -9,12 +9,12 @@
             <ul>
                 {{#each data.general}}
                     {{#checktype type equals="poster"}}
-                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
+                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}" data-color="{{color}}" data-id="{{id}}">
                             <img src="/download/{{filename}}" alt="{{type}}" />
                         </li>
                     {{/checktype}}
                     {{#checktype type equals="vimeo"}}
-                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}">
+                        <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}" data-color="{{color}}" data-id="{{id}}">
                             <iframe id="player1" src="https://player.vimeo.com/video/{{vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </li>
                     {{/checktype}}

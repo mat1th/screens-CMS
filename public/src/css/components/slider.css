@@ -40,3 +40,6 @@ html, body {
 .pop {
     transform: scale(0);
 }
+.fadein{
+  opacity: 0;
+}
