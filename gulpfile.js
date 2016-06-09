@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    notify = require('gulp-notify'),
+    // notify = require('gulp-notify'),
     cssnano = require('gulp-cssnano'),
     postcss = require('gulp-postcss'),
     critical = require('critical'),
@@ -183,9 +183,6 @@ gulp.task('styles-app', function() {
         .pipe(cssnano())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'))
-        .pipe(notify({
-            message: 'styles task complete'
-        }));
 });
 
 gulp.task('styles-slider', function() {
@@ -211,9 +208,6 @@ gulp.task('styles-slider', function() {
         .pipe(cssnano())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'))
-        .pipe(notify({
-            message: 'styles task complete'
-        }));
 });
 
 // Scripts app
@@ -237,9 +231,6 @@ gulp.task('scripts-app', function() {
         .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
-        .pipe(notify({
-            message: 'Scripts-app task complete'
-        }));
 });
 // Scripts slideshow
 gulp.task('scripts-slideshow', function(cb) {
@@ -252,9 +243,6 @@ gulp.task('scripts-slideshow', function(cb) {
         // .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'))
-        .pipe(notify({
-            message: 'Scripts-slideshow task complete'
-        }));
 });
 
 gulp.task('critical', function(cb) {
