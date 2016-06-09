@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
     babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
-    watch = require('gulp-watch'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cssnano = require('gulp-cssnano'),
@@ -9,14 +8,13 @@ var gulp = require('gulp'),
     critical = require('critical'),
     autoprefixer = require('autoprefixer'),
     browserSync = require('browser-sync').create(),
+    responsive = require('gulp-responsive-images'),
     svgmin = require('gulp-svgmin'),
     nodemon = require('gulp-nodemon'),
     cssnext = require('cssnext'),
-    mqpacker = require('css-mqpacker'),
     csswring = require('csswring'),
     sourcemaps = require('gulp-sourcemaps'),
     called = false,
-    // responsive = require('gulp-responsive'),
     imgConfig = [{
         width: 1500,
         rename: {
@@ -42,16 +40,129 @@ var gulp = require('gulp'),
         rename: {
             suffix: '-480'
         }
+    }],
+    faviconConfig = [{
+        width: 310,
+        rename: {
+            suffix: '-310'
+        }
+    }, {
+        width: 192,
+        rename: {
+            suffix: '-192'
+        }
+    }, {
+        width: 180,
+        rename: {
+            suffix: '-180'
+        }
+    }, {
+        width: 160,
+        rename: {
+            suffix: '-160'
+        }
+    }, {
+        width: 152,
+        rename: {
+            suffix: '-152'
+        }
+    }, {
+        width: 150,
+        rename: {
+            suffix: '-150'
+        }
+    }, {
+        width: 144,
+        rename: {
+            suffix: '-144'
+        }
+    }, {
+        width: 120,
+        rename: {
+            suffix: '-120'
+        }
+    }, {
+        width: 114,
+        rename: {
+            suffix: '-114'
+        }
+    }, {
+        width: 96,
+        rename: {
+            suffix: '-96'
+        }
+    }, {
+        width: 76,
+        rename: {
+            suffix: '-76'
+        }
+    }, {
+        width: 72,
+        rename: {
+            suffix: '-72'
+        }
+    }, {
+        width: 70,
+        rename: {
+            suffix: '-70'
+        }
+    }, {
+        width: 64,
+        rename: {
+            suffix: '-64'
+        }
+    }, {
+        width: 60,
+        rename: {
+            suffix: '-60'
+        }
+    }, {
+        width: 57,
+        rename: {
+            suffix: '-57'
+        }
+    }, {
+        width: 32,
+        rename: {
+            suffix: '-32'
+        }
+    }, {
+        width: 16,
+        rename: {
+            suffix: '-16'
+        }
     }];
+
+gulp.task('build', function() {
+    gulp.start('icons', 'copy', 'favicons', 'styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
+});
 
 gulp.task('icons', function() {
     return gulp.src('public/src/img/**/*.svg')
         .pipe(svgmin())
-        .pipe(gulp.dest('public/dist/img'));
+        .pipe(gulp.dest('public/dist/img/'));
+});
+
+gulp.task('copy', function() {
+    return gulp.src(['./public/src/manifest.json', './public/src/browserconfig.xml'])
+        .pipe(gulp.dest('./public/dist'));
+});
+
+gulp.task('favicons', function() {
+    return gulp.src(['./public/src/favicon.jpg'])
+        .pipe(responsive({
+            '*': faviconConfig
+        }, {
+            quality: 95,
+            progressive: true,
+            compressionLevel: 6,
+            withMetadata: false
+        }))
+        .pipe(gulp.dest('./public/dist/'));
 });
 
 // Styles
-gulp.task('styles-app', function(cb) {
+gulp.task('styles-app', function() {
     var processors = [
         autoprefixer({
             browsers: ['> 10%', 'IE 11']
@@ -68,6 +179,7 @@ gulp.task('styles-app', function(cb) {
             './public/src/css/typography.css',
             './public/src/css/components/buttons.css',
             './public/src/css/components/animations.css',
+            './public/src/css/components/loader.css',
             './public/src/css/components/form.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
@@ -88,7 +200,8 @@ gulp.task('styles-app', function(cb) {
             message: 'styles task complete'
         }));
 });
-gulp.task('styles-slider', function(cb) {
+
+gulp.task('styles-slider', function() {
     var processors = [
         autoprefixer({
             browsers: ['> 10%', 'IE 11']
@@ -117,7 +230,7 @@ gulp.task('styles-slider', function(cb) {
 });
 
 // Scripts app
-gulp.task('scripts-app', function(cb) {
+gulp.task('scripts-app', function() {
     // './node_modules/gsap/src/minified/TweenMax.min.js'
     return gulp.src([
             './public/src/js/app/DPstart.js',
@@ -179,72 +292,10 @@ gulp.task('critical', function(cb) {
     });
 });
 
-
-gulp.task('images', function() {
-    gulp.start('homeimg', 'projectimg', 'layoutimg', 'toggleimg');
-});
-
-gulp.task('homeimg', function() {
-    return gulp.src('public/src/img/home/*.jpg')
-        .pipe(responsive({
-            '*': imgConfig
-        }, {
-            quality: 95,
-            progressive: true,
-            compressionLevel: 6,
-            withMetadata: false
-        }))
-        .pipe(gulp.dest('public/dist/img/home/'));
-});
-gulp.task('projectimg', function() {
-    return gulp.src('public/src/img/projects/*.{jpg,png}')
-        .pipe(responsive({
-            '*': imgConfig
-        }, {
-            quality: 95,
-            progressive: true,
-            compressionLevel: 6,
-            withMetadata: false
-        }))
-        .pipe(gulp.dest('public/dist/img/projects/'));
-});
-
-gulp.task('layoutimg', function() {
-    return gulp.src('public/src/img/layout/*.jpg')
-        .pipe(responsive({
-            '*': imgConfig
-        }, {
-            quality: 95,
-            progressive: true,
-            compressionLevel: 6,
-            withMetadata: false
-        }))
-        .pipe(gulp.dest('public/dist/img/layout/'));
-});
-
-
-gulp.task('toggleimg', function() {
-    return gulp.src('public/src/img/togglebuttons/*.{jpg,png}')
-        .pipe(responsive({
-            '*': [{
-                width: 1500,
-                rename: {
-                    extname: '.jpg'
-                }
-            }]
-        }, {
-            quality: 95,
-            progressive: true,
-            compressionLevel: 6,
-            withMetadata: false
-        }))
-        .pipe(gulp.dest('public/dist/img/togglebuttons/'));
-});
-
 gulp.task('browser-sync', ['nodemon', 'watch'], function() {
     browserSync.init({
-        proxy: "http://localhost:3010",
-        files: ["**/*.*"],
+        proxy: 'http://localhost:3010',
+        files: ['**/*.*'],
         port: 7000
     });
 });
@@ -253,7 +304,6 @@ gulp.task('browser-sync', ['nodemon', 'watch'], function() {
 gulp.task('default', function() {
     gulp.start('styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
 });
-
 
 gulp.task('nodemon', function(cb) {
     nodemon({
