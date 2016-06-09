@@ -15,32 +15,6 @@ var gulp = require('gulp'),
     csswring = require('csswring'),
     sourcemaps = require('gulp-sourcemaps'),
     called = false,
-    imgConfig = [{
-        width: 1500,
-        rename: {
-            suffix: '-1500'
-        }
-    }, {
-        width: 1280,
-        rename: {
-            suffix: '-1280'
-        }
-    }, {
-        width: 960,
-        rename: {
-            suffix: '-960'
-        }
-    }, {
-        width: 640,
-        rename: {
-            suffix: '-640'
-        }
-    }, {
-        width: 480,
-        rename: {
-            suffix: '-480'
-        }
-    }],
     faviconConfig = [{
         width: 310,
         rename: {
@@ -164,12 +138,12 @@ gulp.task('favicons', function() {
 gulp.task('images', function() {
     return gulp.src(['./public/src/img/*.jpg', './public/src/img/*.png'])
         .pipe(responsive({
-            '*': imgConfig
-        }, {
-            quality: 95,
-            progressive: true,
-            compressionLevel: 6,
-            withMetadata: false
+            '*': {
+                quality: 85,
+                progressive: true,
+                compressionLevel: 6,
+                withMetadata: false
+            }
         }))
         .pipe(gulp.dest('./public/dist/img'));
 });
