@@ -134,7 +134,7 @@ var gulp = require('gulp'),
     }];
 
 gulp.task('build', function() {
-    gulp.start('icons', 'copy', 'favicons', 'styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
+    gulp.start('icons', 'images', 'copy', 'favicons', 'styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
 });
 
 gulp.task('icons', function() {
@@ -145,8 +145,9 @@ gulp.task('icons', function() {
 
 gulp.task('copy', function() {
     return gulp.src(['./public/src/manifest.json', './public/src/browserconfig.xml'])
-        .pipe(gulp.dest('./public/dist'));
+        .pipe(gulp.dest('public/dist'));
 });
+
 
 gulp.task('favicons', function() {
     return gulp.src(['./public/src/favicon.jpg'])
@@ -159,6 +160,18 @@ gulp.task('favicons', function() {
             withMetadata: false
         }))
         .pipe(gulp.dest('./public/dist/'));
+});
+gulp.task('images', function() {
+    return gulp.src(['./public/src/img/*.jpg', './public/src/img/*.png'])
+        .pipe(responsive({
+            '*': imgConfig
+        }, {
+            quality: 95,
+            progressive: true,
+            compressionLevel: 6,
+            withMetadata: false
+        }))
+        .pipe(gulp.dest('./public/dist/img'));
 });
 
 // Styles
