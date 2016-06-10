@@ -62,7 +62,7 @@ button.top-margin, a.top-margin {
 }
 .toggle-buttons {
     box-sizing: border-box;
-    display: flex;
+    display: var(--display);
     position: sticky;
     top: 0;
     width: 100%;

@@ -1,5 +1,5 @@
 .users-form {
-    display: flex;
+    display: var(--display);
     height: 100vh;
     background: red;
     background: url(/img/background.jpg);

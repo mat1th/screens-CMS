@@ -1,5 +1,5 @@
 .content {
-    display: flex;
+    display: var(--display);
     flex-direction: row;
     flex-grow: 1;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@
     padding: 1em;
 }
 .content-header {
-    display: flex;
+    display: var(--display);
     flex-direction: column;
     flex-grow: 0;
     width: 100%;
@@ -28,7 +28,7 @@
     width: 100%;
 }
 .content-body {
-    display: flex;
+    display: var(--display);
     flex-grow: 1;
     flex-wrap: wrap;
 }
