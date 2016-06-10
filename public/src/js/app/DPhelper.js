@@ -20,7 +20,6 @@ DP.helper = (function() {
                         } else if (anHttpRequest.status == 404) {
                             aCallback('error');
                         }
-
                     };
                     anHttpRequest.open('GET', aUrl, true);
                     anHttpRequest.send(null);
