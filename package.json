@@ -1,13 +1,32 @@
 {
   "name": "meesterproef",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Application for the masterproof",
   "main": "app.js",
+  "author": "Matthias Dolstra",
+  "license": "MIT",
+  "homepage": "https://posters.dolstra.me",
+  "contributors": [
+    {
+      "name": "Matthias Dolstra",
+      "email": "mail@dolstra.me"
+    }
+  ],
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mat1th/meesterproef"
+  },
+  "bugs": {
+    "url": "https://github.com/mat1th/meesterproef/issues"
+  },
+  "keywords": [
+    "Slideshow",
+    "CMS",
+    "Displays"
+  ],
   "dependencies": {
     "bluebird": "^3.4.0",
     "body-parser": "^1.10.1",

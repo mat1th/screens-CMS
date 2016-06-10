@@ -25,6 +25,7 @@
     "jasmine": true
   },
   "globals": {
+    "config": true,
     "TimelineMax": true,
     "Promise": true,
     "Sine": true,

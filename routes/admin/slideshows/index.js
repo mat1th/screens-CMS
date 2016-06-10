@@ -6,9 +6,12 @@ var express = require('express'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     insertData = require('../../../modules/insertData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
+    sendRefresh = require('../../../modules/sendRefresh.js'),
     router = express.Router();
 
+
 router.get('/', checkLogin, function(req, res) {
+
     var cr = credentials(req.session),
         general = {
             title: 'Your screens',
@@ -20,7 +23,6 @@ router.get('/', checkLogin, function(req, res) {
         sql, sqlDisplays;
 
     if (general.admin || general.editor) {
-
         req.getConnection(function(err, connection) {
             sql = 'SELECT id, slideshow_name FROM slideshows';
             sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
@@ -33,6 +35,7 @@ router.get('/', checkLogin, function(req, res) {
                             displays: displays
                         }
                     };
+
                     return data;
                 }).then(function(data) {
                     //renderTemplate
@@ -92,7 +95,6 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
             screens: '/admin/screens/edit',
             displays: '/admin/displays/edit'
         };
-
     if (general.admin || general.editor) {
         var sql = 'SELECT * FROM screens_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN screens T3 ON T1.screen_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
         var sqlScreens = 'SELECT * FROM screens WHERE checked = 1';
@@ -125,7 +127,6 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
                     throw err;
                 });
             }).catch(function(err) {
-
                 throw err;
             });
         });
@@ -147,6 +148,7 @@ router.post('/add/:slideshowId', checkLogin, function(req, res) {
             var sqlQueryInsert = 'INSERT INTO screens_In_slideshow SET screen_id = ?, slideshow_id = ?, short = ?';
             var sqlQueryUpdate = 'UPDATE screens_In_slideshow SET short = ? WHERE screen_id = ? AND slideshow_id = ?';
             var sqlQueryGet = 'SELECT * FROM screens_In_slideshow WHERE screen_id = ? AND slideshow_id = ?';
+            var getDisplays = 'SELECT display_id FROM displays WHERE slideshowId = ?';
 
             screens.forEach(function(screen, index) {
                 getSpecificData(sqlQueryGet, connection, [screen, slideshowId]).then(function(rows) {
@@ -168,7 +170,20 @@ router.post('/add/:slideshowId', checkLogin, function(req, res) {
                     throw err;
                 });
             });
-            res.send('succes');
+
+            getSpecificData(getDisplays, connection, [slideshowId]).then(function(rows) {
+                rows.forEach(function (display) {
+                  var id = JSON.stringify(display.display_id);
+                  sendRefresh(id, true);
+                })
+                //
+            }).then(function() {
+                res.send('succes');
+            }).catch(function(err) {
+                throw err;
+            });
+
+
         });
     } else {
         res.redirect('/admin');

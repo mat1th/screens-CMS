@@ -1,12 +1,14 @@
 .loader {
     display: block;
-    position: absolute;
     height: 0.3em;
     width: 100%;
     top: 2.6em;
     z-index: 10;
-    position: sticky;
     overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 .loader:before {
     display: block;

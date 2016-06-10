@@ -1,13 +1,11 @@
 //load packages
-const express = require('express'),
-    path = require('path'),
+var express = require('express'),
+    bodyParser = require('body-parser'),
     app = express(),
+    path = require('path'),
+    http = require('http').Server(app),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
-    bodyParser = require('body-parser'),
-    https = require('https'),
-    fs = require('fs'),
-    moment = require('moment'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
@@ -29,10 +27,20 @@ const express = require('express'),
     users = require('./routes/admin/users/index'),
     api = require('./routes/api/index');
 
+//import config
+require('./config/config.js')({
+    key: 'pinpoint',
+    port: 3010,
+    base: '/'
+});
+// inport libs
+require('./lib/hsbHelper.js');
+require('./lib/socketConnection.js')(http);
+
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
-hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 //define body parser
 app.use(bodyParser.urlencoded({
@@ -44,36 +52,6 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public/dist')));
 // app.use(express.static(path.join(__dirname, 'uploads')));
 
-hbs.registerHelper("checktype", function(conditional, options) {
-    if (conditional == options.hash.equals) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-});
-hbs.registerHelper("issame", function(conditional1, conditional2, options) {
-    if (conditional1 == conditional2) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-
-});
-hbs.registerHelper("isother", function(conditional1, conditional2, options) {
-    if (conditional1 != conditional2 && conditional1 != null || conditional1 != conditional2 && conditional1 != undefined) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-});
-hbs.registerHelper("datefronow", function(conditional, options) {
-    return moment(conditional).startOf('day').fromNow();
-});
-
-hbs.registerHelper("dateformat", function(conditional, options) {
-    return moment(conditional).format('LL');
-});
-
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
     if (req.url.substr(-1) == '/' && req.url.length > 1) {
@@ -82,10 +60,9 @@ app.use(function(req, res, next) {
         next();
     }
 });
-
 // Add session support
 app.use(session({
-    secret: 'soSecureMuchEncryption',
+    secret: config.session.secret,
     genid: function(req) {
         return generateUUID() // use UUIDs for session IDs
     },
@@ -107,16 +84,15 @@ app.use(multer({
 
 //connection database
 var dbOptions = {
-    host: '192.168.99.100',
-    user: 'root',
-    password: 'NietVerteld$jou!!',
-    database: 'POSTERS',
-    port: 32768
+    host: config.dbOptions.host,
+    user: config.dbOptions.user,
+    password: config.dbOptions.password,
+    database: config.dbOptions.database,
+    port: config.dbOptions.port
 };
 
 // Add connection middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
-
 
 //use routes
 app.use('/', index);
@@ -133,7 +109,6 @@ app.use('/admin/users', users);
 app.use('/display', display);
 app.use('/api', api);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -144,7 +119,7 @@ app.use(function(req, res, next) {
 // error handlers
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -152,8 +127,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-//start app
-app.listen(3010, function() {
-    console.log('listening on port 3010!');
+http.listen(config.app.port, function() {
+    console.log('listening on *:' + config.app.port);
 });

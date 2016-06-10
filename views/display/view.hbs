@@ -15,7 +15,7 @@
                     {{/checktype}}
                     {{#checktype type equals="vimeo"}}
                         <li class="slide {{animation}}" data-animation="{{animation}}" data-duration="{{duration}}" data-type="{{type}}" data-color="{{color}}" data-id="{{id}}">
-                            <iframe id="player1" src="https://player.vimeo.com/video/{{vimeoId}}?api=1&?portrait=0&?title=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <iframe id="player{{id}}" src="https://player.vimeo.com/video/{{vimeoId}}?api=1&title=0&byline=0&portrait=0&loop=1" frameborder="0"></iframe>
                         </li>
                     {{/checktype}}
                 {{/each}}
