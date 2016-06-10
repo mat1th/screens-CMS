@@ -1,0 +1,70 @@
+/*home page*/
+
+.no-flexbox .banner h1 {
+    padding: 3em 0 1em 0;
+}
+.no-flexbox .edit-nav {
+    display: block;
+    max-width: 100%;
+}
+.no-flexbox .content {
+    display: inline-block;
+}
+.no-flexbox .content .card {
+    max-width: 20em;
+    display: inline-block;
+}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+.no-flexbox {}
+@media screen and (--narrow-window-width) {
+    .no-flexbox .edit-nav {
+        display: block;
+        max-width: 6em;
+        float: left;
+        height: 100%;
+    }
+    .no-flexbox .content {
+        width: 70%;
+        float: left;
+    }
+}
+@media screen and (--medium-window-width) {
+    .no-flexbox .edit-nav {
+        max-width: 8em;
+    }
+    .no-flexbox .edit-nav a {
+        height: 2.5em;
+    }
+    .no-flexbox .edit-nav svg {
+        display: block;
+        margin: 0 auto;
+    }
+    .no-flexbox .edit-nav small {
+        display: block;
+        text-align: center;
+    }
+}
+@media screen and (--medium-big-window-width) {
+    .no-flexbox .edit-nav {
+        max-width: 8em;
+    }
+    .no-flexbox .edit-nav small {
+        float: right;
+        padding: 0.2em;
+        text-align: left;
+        width: 60%;
+    }
+    .no-flexbox .edit-nav a {
+        height: 1.5em;
+    }
+    .no-flexbox .edit-nav svg {
+        display: inline-block;
+        margin: 0;
+    }
+}

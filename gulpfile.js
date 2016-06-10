@@ -175,7 +175,8 @@ gulp.task('styles-app', function() {
             './public/src/css/components/edit.css',
             './public/src/css/components/slideshow-editor.css',
             './public/src/css/components/home.css',
-            './public/src/css/components/footer.css'
+            './public/src/css/components/footer.css',
+            './public/src/css/components/fallbackflexbox.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
