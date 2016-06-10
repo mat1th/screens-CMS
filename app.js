@@ -27,15 +27,15 @@ var express = require('express'),
     users = require('./routes/admin/users/index'),
     api = require('./routes/api/index');
 
-//import libs
-require('./lib/hsbHelper.js');
+//import config
 require('./config/config.js')({
     key: 'pinpoint',
     port: 3010,
     base: '/'
 });
-
-global.io = require('socket.io')(http);
+// inport libs
+require('./lib/hsbHelper.js');
+require('./lib/socketConnection.js')(http);
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -126,11 +126,6 @@ app.use(function(err, req, res) {
         error: {}
     });
 });
-
-global.io.on('connection', function(socket) {
-    console.log('cometed');
-});
-
 
 http.listen(config.app.port, function() {
     console.log('listening on *:' + config.app.port);

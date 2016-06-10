@@ -16,7 +16,6 @@ DP.routes = (function() {
         } else if (splitUrl('/admin/slideshows/add')) {
             DP.slideshows.init();
         } else {
-
             // DP.slideshows.init();
         }
     };

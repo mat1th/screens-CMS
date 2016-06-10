@@ -6,11 +6,15 @@ slideshow.helper = (function() {
         },
         selectAll = function(selector) {
             return document.querySelectorAll(selector);
+        },
+        getId = function() {
+            return window.location.pathname.split('/', 4)[2];
         };
 
     return {
         select: select,
-        selectAll: selectAll
+        selectAll: selectAll,
+        getId: getId
     };
 })();
 
@@ -30,6 +34,7 @@ slideshow.start = (function() {
 
     var init = function() {
             start();
+            slideshow.refresh.init();
         },
         start = function functionName() {
             for (i = 0; i < slides.length; i++) {
@@ -157,7 +162,6 @@ slideshow.vimeo = (function() {
             var player = $f(document.querySelector('#player' + id));
             if (type === 'vimeo') {
                 console.log('play', type);
-                console.log(player);
                 player.api('play');
             }
         },
@@ -166,16 +170,38 @@ slideshow.vimeo = (function() {
             if (type === 'vimeo') {
                 console.log('stop', type);
                 player.api('unload');
-                // player.api('play');
                 player.api('pause');
-                // player.api('play');
-                //
             }
         };
     return {
         play: play,
         pauze: pauze
     };
+})();
+slideshow.refresh = (function() {
+    var init = function() {
+        var socket = io();
+        watch(socket);
+    }
+    var watch = function(socket) {
+        var slideshowId = slideshow.helper.getId();
+        socket.on('display reload', function(data) {
+            var id = data.id,
+                refresh = data.refresh;
+                console.log(typeof(slideshowId));
+                console.log(typeof(id));
+            if (refresh === true && id === slideshowId) {
+                console.log('reloading');
+                location.reload();
+            }
+
+        });
+
+    }
+    return {
+        init: init
+    }
+
 })();
 
 slideshow.start.init();
