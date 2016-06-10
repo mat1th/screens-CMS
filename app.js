@@ -9,12 +9,10 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     https = require('https'),
     fs = require('fs'),
-    moment = require('moment'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
     Promise = require('bluebird'),
-
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -32,6 +30,9 @@ const express = require('express'),
     users = require('./routes/admin/users/index'),
     api = require('./routes/api/index');
 
+//import libs
+require('./lib/hsbHelper.js');
+
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -46,36 +47,6 @@ app.use(bodyParser.json());
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
 // app.use(express.static(path.join(__dirname, 'uploads')));
-
-hbs.registerHelper("checktype", function(conditional, options) {
-    if (conditional == options.hash.equals) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-});
-hbs.registerHelper("issame", function(conditional1, conditional2, options) {
-    if (conditional1 == conditional2) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-
-});
-hbs.registerHelper("isother", function(conditional1, conditional2, options) {
-    if (conditional1 != conditional2 && conditional1 != null || conditional1 != conditional2 && conditional1 != undefined) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
-});
-hbs.registerHelper("datefronow", function(conditional, options) {
-    return moment(conditional).startOf('day').fromNow();
-});
-
-hbs.registerHelper("dateformat", function(conditional, options) {
-    return moment(conditional).format('LL');
-});
 
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
