@@ -1,0 +1,27 @@
+{
+    "all": {
+        "session": {
+            "secret": "secret"
+        }
+    },
+    "development": {
+        "env": "development",
+        "dbOptions": {
+            "host": "host",
+            "user": "user",
+            "password": "ww",
+            "database": "database",
+            "port": 10000
+        }
+    },
+    "production": {
+        "env": "production",
+        "dbOptions": {
+            "host": "localhost",
+            "user": "user",
+            "password": "ww",
+            "database": "databse",
+            "port": 234
+        }
+    }
+}

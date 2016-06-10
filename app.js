@@ -1,14 +1,11 @@
 //load packages
-const express = require('express'),
+var express = require('express'),
+    bodyParser = require('body-parser'),
     app = express(),
-    http = require('http').Server(app),
-    io = require('socket.io')(http),
     path = require('path'),
+    http = require('http').Server(app),
     session = require('express-session'),
     FileStore = require('session-file-store')(session),
-    bodyParser = require('body-parser'),
-    https = require('https'),
-    fs = require('fs'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
@@ -32,6 +29,13 @@ const express = require('express'),
 
 //import libs
 require('./lib/hsbHelper.js');
+require('./config/config.js')({
+    key: 'pinpoint',
+    port: 3010,
+    base: '/'
+});
+
+global.io = require('socket.io')(http);
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
@@ -56,10 +60,9 @@ app.use(function(req, res, next) {
         next();
     }
 });
-
 // Add session support
 app.use(session({
-    secret: 'soSecureMuchEncryption',
+    secret: config.session.secret,
     genid: function(req) {
         return generateUUID() // use UUIDs for session IDs
     },
@@ -81,16 +84,15 @@ app.use(multer({
 
 //connection database
 var dbOptions = {
-    host: '192.168.99.100',
-    user: 'root',
-    password: 'NietVerteld$jou!!',
-    database: 'POSTERS',
-    port: 32768
+    host: config.dbOptions.host,
+    user: config.dbOptions.user,
+    password: config.dbOptions.password,
+    database: config.dbOptions.database,
+    port: config.dbOptions.port
 };
 
 // Add connection middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
-
 
 //use routes
 app.use('/', index);
@@ -107,7 +109,6 @@ app.use('/admin/users', users);
 app.use('/display', display);
 app.use('/api', api);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -118,7 +119,7 @@ app.use(function(req, res, next) {
 // error handlers
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -126,15 +127,11 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-//start app
-io.on('connection', function(socket) {
-    console.log('a user connected');
-    socket.on('disconnect', function() {
-        console.log('user disconnected');
-    });
+global.io.on('connection', function(socket) {
+    console.log('cometed');
 });
 
-http.listen(3010, function() {
-    console.log('listening on localhost:3010');
+
+http.listen(config.app.port, function() {
+    console.log('listening on *:' + config.app.port);
 });
