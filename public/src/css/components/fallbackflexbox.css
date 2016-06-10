@@ -3,10 +3,16 @@
 .no-flexbox .banner h1 {
     padding: 3em 0 1em 0;
 }
+
+/*nav*/
+
 .no-flexbox .edit-nav {
     display: block;
     max-width: 100%;
 }
+
+/*content on all pages*/
+
 .no-flexbox .content {
     display: inline-block;
 }
@@ -14,7 +20,16 @@
     max-width: 20em;
     display: inline-block;
 }
-.no-flexbox {}
+
+/*bar on the slideshow page*/
+
+.no-flexbox .slideshow-content {
+    max-width: 9em;
+}
+.no-flexbox .slideshow-preview {
+    display: inline-block;
+    float: right;
+}
 .no-flexbox {}
 .no-flexbox {}
 .no-flexbox {}
