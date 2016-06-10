@@ -34,7 +34,7 @@
 }
 .edit-nav.icons-only {
     min-width: 4.3em;
-    max-width: 4.3em;
+    /*max-width: 4.3em;*/
     text-align: center;
 }
 .edit-nav a:hover svg {
@@ -45,6 +45,9 @@
     color: var(--font-color-light);
 }
 @media screen and (--narrow-window-width) {
+    .edit-nav.icons-only {
+        max-width: 4.3em;
+    }
     .edit-nav li {
         display: inline-block;
         width: 100%;
@@ -65,7 +68,7 @@
         max-width: 8em;
     }
     .edit-nav a {
-            display: flex;
+        display: var(--display);
         text-align: left;
     }
     .edit-nav small {

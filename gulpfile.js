@@ -175,7 +175,8 @@ gulp.task('styles-app', function() {
             './public/src/css/components/edit.css',
             './public/src/css/components/slideshow-editor.css',
             './public/src/css/components/home.css',
-            './public/src/css/components/footer.css'
+            './public/src/css/components/footer.css',
+            './public/src/css/components/fallbackflexbox.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
@@ -216,7 +217,7 @@ gulp.task('scripts-app', function() {
     return gulp.src([
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
-            // './public/src/js/app/DPfiledrag.js',
+            './public/src/js/app/modernizr.js',
             './public/src/js/app/DPscreen.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPslideshows.js',

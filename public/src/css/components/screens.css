@@ -14,7 +14,7 @@
     display: inline-block;
 }
 .screen .name {
-    display: flex;
+    display: var(--display);
     position: absolute;
     bottom: 0.3em;
     width: 100%;
@@ -56,7 +56,7 @@
     object-fit: contain;
 }
 .play-icon {
-    display: flex;
+    display: var(--display);
     position: absolute;
     top: 0;
     right: 0;
@@ -84,7 +84,7 @@
         flex-shrink: 1;
     }
     .add-screen {
-        display: flex;
+        display: var(--display);
         flex-direction: row;
         flex-wrap: wrap;
     }

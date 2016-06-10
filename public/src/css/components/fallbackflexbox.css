@@ -1,0 +1,99 @@
+/*home page*/
+
+.no-flexbox .banner h1 {
+    padding: 3em 0 1em 0;
+}
+
+/*nav*/
+
+.no-flexbox .edit-nav {
+    display: block;
+    max-width: 100%;
+}
+
+/*content on all pages*/
+
+.no-flexbox .content {
+    display: inline-block;
+}
+.no-flexbox .content .card {
+    max-width: 20em;
+    display: inline-block;
+}
+
+/*bar on the slideshow page*/
+
+.no-flexbox .slideshow-content {
+    max-width: 9em;
+    float: left;
+}
+.no-flexbox .slideshow-preview {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    float: left;
+}
+.no-flexbox .slideshow-preview img {
+    margin: 1em auto;
+    display: block;
+}
+.no-flexbox .right-panel {
+    display: inline-block;
+    float: right;
+}
+.no-flexbox .toggle-buttons{
+  width: 100%;
+}
+.no-flexbox .toggle-buttons button:first-child{
+  float: left;
+}
+.no-flexbox .toggle-buttons button:last-child{
+  float: right;
+}
+@media screen and (--narrow-window-width) {
+    .no-flexbox .edit-nav {
+        display: block;
+        max-width: 6em;
+        float: left;
+        height: 100%;
+    }
+    .no-flexbox .content {
+        width: 70%;
+        float: left;
+    }
+}
+@media screen and (--medium-window-width) {
+    .no-flexbox .edit-nav {
+        max-width: 8em;
+    }
+    .no-flexbox .edit-nav a {
+        height: 2.5em;
+    }
+    .no-flexbox .edit-nav svg {
+        display: block;
+        margin: 0 auto;
+    }
+    .no-flexbox .edit-nav small {
+        display: block;
+        text-align: center;
+    }
+}
+@media screen and (--medium-big-window-width) {
+    .no-flexbox .edit-nav {
+        max-width: 8em;
+    }
+    .no-flexbox .edit-nav small {
+        float: right;
+        padding: 0.2em;
+        text-align: left;
+        width: 60%;
+    }
+    .no-flexbox .edit-nav a {
+        height: 1.5em;
+    }
+    .no-flexbox .edit-nav svg {
+        display: inline-block;
+        margin: 0;
+    }
+}
