@@ -1,30 +1,24 @@
 .slideshow-add {
-    display: var(--display);
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     height: 100%;
 }
 .slideshow-content {
     display: inline-block;
-    width: 13em;
-    min-width: 7em;
-    height: 100%;
+    display: flex;
+    width: 100%;
+    height: 6em;
     background: var(--background-color-semidark);
-    text-align: center;
-}
-.slideshow-content .image {
-    display: inline-block;
-    position: relative;
-    width: 6em;
-    height: 8em;
-    padding: 0.3em;
+    font-size: 1em;
 }
 .slideshow-content .add {
     box-sizing: border-box;
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: 5em;
+    height: 100%;
     margin: 0;
-    padding: 1em;
+    padding: 0 0.1em 0 0;
     border: none;
     cursor: pointer;
 }
@@ -34,18 +28,84 @@
 .slideshow-content .add:active {
     background: var(--normal-color);
 }
+.slideshow-content ol {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.slideshow-content .screenitem {
+    display: inline-block;
+    width: 4em;
+    height: 6em;
+    padding: 0.1em;
+    cursor: pointer;
+}
+.slideshow-content .screenitem small {
+    display: none;
+}
+.slideshow-content .screenitem div {
+    position: absolute;
+}
+@media screen and (--medium-window-width) {
+    .slideshow-add {
+        display: flex;
+        flex-direction: row;
+    }
+    .slideshow-content {
+        overflow-y: scroll;
+        display: inline-block;
+        width: 13em;
+        min-width: 7em;
+        height: 100%;
+        text-align: center;
+    }
+    .slideshow-content .image {
+        display: inline-block;
+        position: relative;
+        width: 5em;
+        height: 7em;
+        padding: 0.3em;
+    }
+    .slideshow-content .add {
+        width: 100%;
+        height: 4em;
+        margin: 0;
+        padding: 1em;
+    }
+    .slideshow-content ol {
+        overflow-x: hidden;
+        white-space: normal;
+    }
+    .slideshow-content .screenitem {
+        display: block;
+        width: 100%;
+        height: 8em;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+    .slideshow-content .screenitem small {
+        display: inline-block;
+    }
+    .slideshow-content .screenitem div {
+        position: relative;
+    }
+    .slideshow-content div.play-icon {
+        position: absolute;
+        top: 0;
+        z-index: 10;
+    }
+}
 
 /*picker*/
 
 .slideshow-picker {
+    box-sizing: border-box;
     display: block;
     position: absolute;
-    top: 6.9em;
-    left: 0.9em;
-    width: 14em;
-    max-width: 14em;
-    height: 12em;
-    max-height: 12em;
+    top: 10em;
+    width: 100%;
+    height: 60%;
     border: 0.5em solid #fff;
     border-radius: var(--border-radius);
     background: var(--background-color-light);
@@ -59,11 +119,23 @@
     right: 0;
     left: 0;
     width: 0;
-    margin: 0 auto 0 auto;
     border-width: 0 1em 1em;
     border-style: solid;
     border-color: var(--background-color-light) transparent;
     content: "";
+}
+@media screen and (--medium-window-width) {
+    .slideshow-picker {
+        top: 6.9em;
+        left: 0.9em;
+        width: 14em;
+        max-width: 14em;
+        height: 12em;
+        max-height: 12em;
+    }
+    .slideshow-picker:after {
+        margin: 0 auto 0 auto;
+    }
 }
 .slideshow-picker .scrollable {
     width: 100%;
@@ -111,25 +183,52 @@
 .slideshow-preview {
     display: var(--display);
     width: 100%;
+    margin: 1em 0;
 }
 .slideshow-preview img {
-    width: 50%;
+    width: 60%;
     max-width: 30em;
     margin: auto auto;
     background: var(--background-color-semidark);
-}
-.right-panel {
-    position: relative;
-    min-width: 18em;
-    background: var(--background-color-semidark);
-}
-.right-panel section {
-    padding: 1em;
 }
 .slideshow-button {
     box-sizing: border-box;
     width: 100%;
     border-radius: 0;
+}
+@media screen and (--medium-window-width) {
+    .slideshow-preview {
+        margin: 1em 0;
+    }
+    .slideshow-preview img {
+        width: 50%;
+        max-width: 30em;
+        margin: auto auto;
+        background: var(--background-color-semidark);
+    }
+}
+
+/*pannel*/
+
+.right-panel {
+    bottom: -100vh;
+    width: 100%;
+    min-width: 18em;
+    height: calc(100% - 3.45em);
+    background: var(--background-color-semidark);
+    z-index: 11;
+}
+.right-panel section {
+    padding: 1em;
+}
+@media screen and (--medium-window-width) {
+    .right-panel {
+        bottom: 0;
+        height: 100%;
+        position: relative;
+        max-width: 18em;
+        background: var(--background-color-semidark);
+    }
 }
 
 /*shortable list */
@@ -175,7 +274,6 @@ div.play-icon {
 }
 .checkboxes .tooltip {
     display: none;
-    font-size: 0.7em;
     position: absolute;
     bottom: 100%;
     left: 3em;
@@ -184,6 +282,7 @@ div.play-icon {
     border-radius: var(--border-radius);
     background-color: var(--eddit-color);
     color: #fff;
+    font-size: 0.7em;
     text-align: center;
     z-index: 1;
 }
