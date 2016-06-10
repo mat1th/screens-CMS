@@ -6,7 +6,7 @@
 }
 .slideshow-content {
     display: inline-block;
-    display: flex;
+    display: var(--display);
     width: 100%;
     height: 6em;
     background: var(--background-color-semidark);
@@ -48,7 +48,7 @@
 }
 @media screen and (--medium-window-width) {
     .slideshow-add {
-        display: flex;
+        display: var(--display);
         flex-direction: row;
     }
     .slideshow-content {
