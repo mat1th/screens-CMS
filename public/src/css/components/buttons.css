@@ -6,6 +6,8 @@
     max-width: 30em;
     height: 2.4em;
     margin: auto;
+    line-height: 1.45;
+    font-weight: 400;
     padding: .5em 1em;
     border: none;
     border-radius: var(--border-radius);
@@ -16,6 +18,29 @@
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
+}
+.btn-small {
+    padding: 0.2em 0.1em;
+    height: auto;
+}
+.btn-filter {
+    padding: 0.3em;
+    min-width: inherit;
+    background: none;
+    color: var( --font-color-gray);
+    font-size: 0.8em;
+    height: auto;
+}
+.btn-filter:hover {
+    color: var( --normal-color);
+}
+.btn-filter.expired {
+    color: var(--font-color-light);
+    background: rgba(0, 156, 144, 0.52);
+}
+.btn-filter.expired:hover {
+    color: var(--font-color-light);
+    background: rgba(0, 156, 144, 0.82);
 }
 .btn-transparant {
     max-width: 20em;
@@ -48,6 +73,17 @@
 .btn-accept:hover {
     background-color: var(--eddit-color-hover);
 }
+.btn-warn {
+    background-color: var(--warn-color);
+    color: var(--font-color-light);
+}
+.btn-warn:hover {
+    background-color: var(--warn-color-hover);
+}
+.btn-warn[disabled] {
+    background-color: var(--background-color-semidark);
+    color: var(--font-color-dark);
+}
 .btn-width {
     min-width: 10em;
 }
@@ -60,6 +96,27 @@ button.top-margin, a.top-margin {
     box-sizing: border-box;
     margin: 1em 0;
 }
+
+/*action buttons*/
+
+.btn-action {
+    box-sizing: border-box;
+    display: inline-block;
+    border: none;
+    text-align: center;
+    background: none;
+    color: var(--background-color-semidark);
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 1;
+    margin: auto;
+}
+.btn-action svg {
+    fill: var(--font-color-gray);
+}
+
+/*toggle buttons*/
+
 .toggle-buttons {
     box-sizing: border-box;
     display: var(--display);

@@ -24,7 +24,7 @@ router.get('/', checkLogin, function(req, res) {
 
     if (general.admin || general.editor) {
         req.getConnection(function(err, connection) {
-            sql = 'SELECT id, slideshow_name FROM slideshows';
+            sql = 'SELECT filename, type, name, checked, vimeoImage, dataCreated, id FROM screens ORDER BY `dataCreated` ASC'
             sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
             // Get the user id using username
             getData(sql, connection).then(function(slideshows) {
@@ -172,11 +172,11 @@ router.post('/add/:slideshowId', checkLogin, function(req, res) {
             });
 
             getSpecificData(getDisplays, connection, [slideshowId]).then(function(rows) {
-                rows.forEach(function (display) {
-                  var id = JSON.stringify(display.display_id);
-                  sendRefresh(id, true);
-                })
-                //
+                rows.forEach(function(display) {
+                        var id = JSON.stringify(display.display_id);
+                        sendRefresh(id, true);
+                    })
+                    //
             }).then(function() {
                 res.send('succes');
             }).catch(function(err) {

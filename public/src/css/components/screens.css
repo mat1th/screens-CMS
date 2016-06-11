@@ -3,33 +3,35 @@
 .screen {
     display: inline-block;
     position: relative;
-    margin: 0.2em;
+    padding: 0.5em;
+    margin: 0em;
+    border-radius: var( --border-radius);
+}
+.screen:hover {
+    background: var( --background-color-semidark);
 }
 .screen img {
     display: inline-block;
     margin: 0;
     padding: 0;
 }
-.screen .image {
-    display: inline-block;
-}
 .screen .name {
-    display: var(--display);
-    position: absolute;
-    bottom: 0.3em;
+    padding: 0.5em 0 0 0;
+    display: inline-block;
     width: 100%;
-    background: rgba(67, 69, 61, 0.80);
-    color: var(--font-color-light);
-    z-index: 1;
+    color: var(--font-color-darkgray);
 }
-.play-icon-bottom {
-    margin: auto 0;
+.screen .name h2 {
+    font-size: 0.9em;
+    font-weight: 600;
+    padding: 0;
 }
 .screen h2 {
     padding: 0.5em;
 }
 .screen .check {
     position: absolute;
+    margin: 0.5em;
     top: 0;
     right: 0;
     z-index: 2;
@@ -39,6 +41,14 @@
 }
 .screen .not-cheked .triangle {
     right: 0;
+}
+.screen .play-icon-bottom {
+    position: absolute;
+    margin: 7em auto;
+    left: 0;
+    right: 0;
+    width: 5em;
+    top: 1em;
 }
 .preview {
     margin: 1em;
@@ -63,6 +73,13 @@
     left: 0;
     margin-right: auto;
     background: rgba(67, 69, 61, 0.80);
+}
+small.vimeo-tag {
+    color: var(--font-color-light);
+    padding: 0.1em 0.3em;
+    font-weight: 600;
+    background: var(--normal-color);
+    border-radius: var( --border-radius);
 }
 
 /*add a new screen*/

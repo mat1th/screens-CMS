@@ -5,9 +5,9 @@ var merge = function(target, source) {
     // console.log(source);
     for (var k in source) {
         if (typeof target[k] === 'object' && typeof source[k] === 'object') {
-            merge(target[k], source[k])
+            merge(target[k], source[k]);
         } else {
-            target[k] = source[k]
+            target[k] = source[k];
         }
     }
 };
