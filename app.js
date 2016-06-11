@@ -15,7 +15,6 @@ var express = require('express'),
     generateUUID = require('./modules/generateUUID.js'),
     //get files for routes for not loged in
     index = require('./routes/index'),
-    download = require('./routes/download'),
     // get files for login
     userAcounts = require('./routes/users/users'),
     //get files for admin
@@ -50,7 +49,7 @@ app.use(bodyParser.json());
 
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));
-// app.use(express.static(path.join(__dirname, 'uploads')));
+app.use('/download', express.static(path.join(__dirname, 'uploads')));
 
 //dont serve on / and '' the same content but redirect for search engine
 app.use(function(req, res, next) {
@@ -96,7 +95,6 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 
 //use routes
 app.use('/', index);
-app.use('/download', download);
 // get files for login
 app.use('/users', userAcounts);
 //get files for admin
