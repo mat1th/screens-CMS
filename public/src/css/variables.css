@@ -6,6 +6,7 @@
 :root {
     --primary-color: #FFCC00;
     --warn-color: #EB5D56;
+    --warn-color-hover: #ed3931;
     --eddit-color: #004899;
     --eddit-color-hover: #043974;
     --normal-color: #009B8F;
@@ -13,6 +14,7 @@
     --font-color-dark: #000000;
     --font-color-light: #fff;
     --font-color-gray: #777474;
+    --font-color-darkgray: #525252;
     --background-color-dark: #000000;
     --background-color-light: #fff;
     --background-color-normal: #efecea;
