@@ -52,6 +52,13 @@
 .toolbar .icons a {
     margin: 0 0.5em;
 }
+.toolbar h3{
+  display: inline-block;
+  font-size: .8em;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
 
 /*table*/
 
