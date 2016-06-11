@@ -18,7 +18,7 @@ router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
 
     if (general.admin) {
         req.getConnection(function(err, connection) {
-            sql = 'SELECT email, name, role FROM users';
+            sql = 'SELECT email, name, role,id FROM users';
             // Get the user id using username
             connection.query(sql, function(err, match) {
                 if (err) {

@@ -1,0 +1,99 @@
+/*table*/
+
+.content-body table {
+    background: #fff;
+    width: 100%;
+    /*box-shadow: 0 0.1em 0.3em 0 rgba(0, 0, 0, 0.16), 0 0.1em 0.6em 0 rgba(0, 0, 0, 0.12);*/
+    text-align: left;
+    border-spacing: 0;
+}
+.content-body table tr td, table tr th {
+    display: block;
+    padding: 0 0 0 3em;
+    height: 3em;
+    font-size: 0.9em;
+    color: var( --font-color-dark);
+    border-bottom: solid 0.1em #DDDDDD;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.content-body table tr td a {
+    color: inherit;
+}
+.content-body table tr {
+    font-size: 0.9em;
+}
+.content-body table th {
+    display: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var( --normal-color);
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 0;
+    height: 3em;
+    outline: none;
+}
+.content-body .responsvive td {
+    padding: 0;
+}
+.content-body td a {
+    display: block;
+    width: 100%;
+}
+.content-body .responsvive td:before {
+    text-align: left;
+    display: inline-block;
+    color: var( --font-color-dark);
+    text-align: left;
+    width: 7em;
+    border-right: 0.1em solid #DDDDDD;
+    height: 3em;
+    content: attr(data-th) ": ";
+}
+.content-body .responsvive table tr {
+    /*margin: 1em 0;*/
+    padding: 1em 0;
+    display: block;
+}
+.content-body .responsvive table tr td:last-child {
+    border: none;
+}
+td.checkboxes label {
+    position: absolute;
+    margin: 0 auto;
+}
+td.checkboxes {
+    width: 4em;
+    max-width: 4em;
+}
+td.edit{
+  width: 8em;
+}
+.content-body table td a.btn{
+  width: 3em;
+  color: var(--font-color-light);
+  margin: 0;
+}
+@media (--medium-window-width) {
+    .content-body table tr td {
+        display: table-cell;
+    }
+    .content-body table th {
+        display: table-cell;
+    }
+    .content-body .responsvive td:before {
+        display: none;
+    }
+    .content-body table tr {
+        padding: 0;
+        display: table-row;
+    }
+    .content-body table th:first-child, .content-body table td:first-child {
+        padding: 0 0 0 1.8em;
+    }
+    .content-body table th:last-child, .content-body table td:last-child {
+        padding: 0 0.9em 0 0;
+    }
+}

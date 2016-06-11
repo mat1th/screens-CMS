@@ -1,33 +1,53 @@
-  {{> nav}}
+ {{> nav}}
 <section class="content scrollable">
-  <section class="content-header">
-      <h1>Users</h1>
-      <!-- <a href="/admin/users/add" class="btn btn-default">Add a new user</a> -->
-  </section>
-  <section class="content-body">
-    {{#if error}}
-        <div class="error">
-            {{error}}
-        </div>
-    {{else}}
-        <table class="responsvive">
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col">Edit</th>
-            </tr>
-            {{#each data.general}}
+    <section class="content-header">
+        <h1>Users</h1>
+        <section class="toolbar">
+            <div class="icons">
+                <a href="/admin/slideshows/add" title="add" class="btn-action ">
+                    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                </a>
+                <button type="button" name="button" title="delete" class="btn-action ">
+                    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </section>
+    <section class="content-body">
+        {{#if error}}
+            <div class="error">
+                {{error}}
+            </div>
+        {{else}}
+            <table class="responsvive">
                 <tr>
-                    <td data-th="Name">{{name}}</td>
-                    <td data-th="Email">{{email}}</td>
-                    <td data-th="Role">{{role}}</td>
-                    <td data-th="Edit"><a href="#">Edit</a></td>
+                    <th scope="col">Select</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Edit</th>
                 </tr>
-            {{/each}}
+                {{#each data.general}}
+                    <tr>
+                        <td class="checkboxes">
+                            <input type="checkbox" id="field_name_{{id}}" name="displays[]" value="{{id}}">
+                            <label for="field_name_{{id}}"></label>
+                        </td>
+                        <td data-th="Name">{{name}}</td>
+                        <td data-th="Email">{{email}}</td>
+                        <td data-th="Role">{{role}}</td>
+                        <td data-th="Edit" class="edit"><a href="#" class="btn btn-accept">Edit</a></td>
+                    </tr>
+                {{/each}}
 
-        </table>
-    {{/if}}
+            </table>
+        {{/if}}
 
-</section>
+    </section>
 </section>
