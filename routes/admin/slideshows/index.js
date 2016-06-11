@@ -24,7 +24,7 @@ router.get('/', checkLogin, function(req, res) {
 
     if (general.admin || general.editor) {
         req.getConnection(function(err, connection) {
-            sql = 'SELECT filename, type, name, checked, vimeoImage, dataCreated, id FROM screens ORDER BY `dataCreated` ASC'
+            sql = 'SELECT * FROM slideshows ';
             sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
             // Get the user id using username
             getData(sql, connection).then(function(slideshows) {
@@ -35,7 +35,6 @@ router.get('/', checkLogin, function(req, res) {
                             displays: displays
                         }
                     };
-
                     return data;
                 }).then(function(data) {
                     //renderTemplate

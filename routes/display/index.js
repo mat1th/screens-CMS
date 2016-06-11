@@ -18,12 +18,13 @@ router.get('/:displayId', function(req, res) {
 
         getSpecificData(sql, connection, [displayId]).then(function(rows) {
             var data = {
-                general: rows
+                general: rows,
+                specificId: displayId
             };
-            if (rows.length > 0) {
+            if (rows.length > 0 && rows[0].slideshow_id !== null) {
                 renderTemplate(res, 'display/view', data, general, {}, false, 'layout2');
             } else {
-                renderTemplate(res, 'display/view', {}, general, {}, 'There are no screens in your slideshow', 'layout2');
+                renderTemplate(res, 'display/view', data, general, {}, 'There are no screens in your slideshow this is display' + displayId, 'layout2');
             }
         }).catch(function(err) {
             throw err;
