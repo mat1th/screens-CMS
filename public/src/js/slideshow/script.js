@@ -22,6 +22,7 @@ slideshow.helper = (function() {
 slideshow.start = (function() {
     var slides = slideshow.helper.selectAll('.slideshow .slide');
     var body = slideshow.helper.select('body');
+    var loader = slideshow.helper.select('.loader')
     var i = 0;
     var animationTime = 3;
     var windowWidth = window.innerWidth,
@@ -34,6 +35,7 @@ slideshow.start = (function() {
 
     var init = function() {
             start();
+            hideLoader();
             slideshow.refresh.init();
         },
         start = function functionName() {
@@ -53,6 +55,13 @@ slideshow.start = (function() {
 
                 animate(element, prevEment, animation, duration, type, color, id);
             }
+        },
+        hideLoader = function functionName() {
+            window.onload = function functionName() {
+                  setTimeout(function () {
+                    loader.classList.add('none');
+                  }, 600);
+            };
         },
         animate = function(element, prevEment, animation, duration, type, color, id) {
             if (prevEment !== undefined) {
@@ -188,15 +197,14 @@ slideshow.refresh = (function() {
         socket.on('display reload', function(data) {
             var id = data.id,
                 refresh = data.refresh;
-                console.log(typeof(slideshowId));
-                console.log(typeof(id));
+            console.log(typeof(slideshowId));
+            console.log(typeof(id));
             if (refresh === true && id === slideshowId) {
                 console.log('reloading');
                 location.reload();
             }
 
         });
-
     }
     return {
         init: init

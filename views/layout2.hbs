@@ -15,10 +15,17 @@
     <noscript>
         <link rel="stylesheet" href="/css/slider.css">
     </noscript>
+    <style media="screen">
+        body{margin: 0;}.loader{display:flex;width:100vw;height:100vh;position:absolute;background:#FC0;z-index:400}.wrapper{display:block;margin:auto}.cssload-loader{width:49px;height:49px;border-radius:50%;margin:3em;display:inline-block;position:relative;vertical-align:middle}.cssload-loader,.cssload-loader:after,.cssload-loader:before{animation:1.15s infinite ease-in-out;-o-animation:1.15s infinite ease-in-out;-ms-animation:1.15s infinite ease-in-out;-webkit-animation:1.15s infinite ease-in-out;-moz-animation:1.15s infinite ease-in-out}.cssload-loader:after,.cssload-loader:before{width:100%;height:100%;border-radius:50%;position:absolute;top:0;left:0;content:""}.cssload-loader:before{border:1px solid #333;top:-1px;left:-1px;opacity:0;animation-name:cssload-pulse;-o-animation-name:cssload-pulse;-ms-animation-name:cssload-pulse;-webkit-animation-name:cssload-pulse;-moz-animation-name:cssload-pulse}.cssload-loader:after{background-color:#333;animation-name:cssload-pulse-2;-o-animation-name:cssload-pulse-2;-ms-animation-name:cssload-pulse-2;-webkit-animation-name:cssload-pulse-2;-moz-animation-name:cssload-pulse-2}@keyframes cssload-pulse{0%{transform:scale(1);opacity:1}100%,50%{transform:scale(1.3);opacity:0}}@-o-keyframes cssload-pulse{0%{-o-transform:scale(1);opacity:1}100%,50%{-o-transform:scale(1.3);opacity:0}}@-ms-keyframes cssload-pulse{0%{-ms-transform:scale(1);opacity:1}100%,50%{-ms-transform:scale(1.3);opacity:0}}@-webkit-keyframes cssload-pulse{0%{-webkit-transform:scale(1);opacity:1}100%,50%{-webkit-transform:scale(1.3);opacity:0}}@-moz-keyframes cssload-pulse{0%{-moz-transform:scale(1);opacity:1}100%,50%{-moz-transform:scale(1.3);opacity:0}}@keyframes cssload-pulse-2{0%,100%{transform:scale(1)}50%{transform:scale(.7)}}@-o-keyframes cssload-pulse-2{0%,100%{-o-transform:scale(1)}50%{-o-transform:scale(.7)}}@-ms-keyframes cssload-pulse-2{0%,100%{-ms-transform:scale(1)}50%{-ms-transform:scale(.7)}}@-webkit-keyframes cssload-pulse-2{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(.7)}}@-moz-keyframes cssload-pulse-2{0%,100%{-moz-transform:scale(1)}50%{-moz-transform:scale(.7)}}
+    </style>
     <title>Digitale poosters | {{title}}</title>
 </head>
-
 <body>
+    <div class="loader">
+        <div class="wrapper">
+            <div class="cssload-loader"></div>
+        </div>
+    </div>
     {{{body}}}
     <script>
         ! function(e) {
