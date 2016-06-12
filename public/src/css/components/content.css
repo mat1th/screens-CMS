@@ -22,12 +22,18 @@
     flex-grow: 1;
     width: 100%;
 }
-.content-header svg {
+.content-header button svg {
     fill: var( --font-color-gray);
 }
-.content-header svg:hover {
+
+.content-header button:hover svg,
+.content-header a:hover svg {
     fill: var( --normal-color);
 }
+.content-header button[disabled] svg {
+  fill: var( --background-color-semidark);
+}
+
 .content-header a, .content-header button, .content-header div {
     display: inline-block;
 }
@@ -52,15 +58,13 @@
 .toolbar .icons a {
     margin: 0 0.5em;
 }
-.toolbar h3{
-  display: inline-block;
-  font-size: .8em;
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
+.toolbar h3 {
+    display: inline-block;
+    font-size: .8em;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
 }
-
-
 
 /*card*/
 
