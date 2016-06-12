@@ -60,7 +60,7 @@ slideshow.start = (function() {
             window.onload = function functionName() {
                   setTimeout(function () {
                     loader.classList.add('none');
-                  }, 600);
+                  }, 1000);
             };
         },
         animate = function(element, prevEment, animation, duration, type, color, id) {
