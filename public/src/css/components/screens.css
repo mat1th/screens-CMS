@@ -10,13 +10,21 @@
 .screen:hover {
     background: var( --background-color-semidark);
 }
+.screen:hover img {
+    filter: grayscale(30%)
+}
 .screen img {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    z-index: 1;
+    object-fit: contain;
     display: inline-block;
     margin: 0;
     padding: 0;
 }
-.screen .image{
-      background: #fc0;
+.screen .image {
+    background: #fc0;
 }
 .screen .name {
     padding: 0.5em 0 0 0;
@@ -52,6 +60,10 @@
     right: 0;
     width: 5em;
     top: 1em;
+}
+.screen:hover .play-icon-bottom {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
 }
 .preview {
     margin: 1em;
