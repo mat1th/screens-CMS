@@ -15,6 +15,9 @@
     margin: 0;
     padding: 0;
 }
+.screen .image{
+      background: #fc0;
+}
 .screen .name {
     padding: 0.5em 0 0 0;
     display: inline-block;
