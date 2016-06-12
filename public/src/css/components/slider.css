@@ -5,7 +5,7 @@ html, body {
     position: relative;
     overflow: visible;
     background: url('/img/cmd_brand.png') no-repeat center center fixed;
-    background-size: contain;
+    background-size: 10%;
 }
 .mask {
     width: 100vw;
