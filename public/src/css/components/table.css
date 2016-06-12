@@ -6,6 +6,7 @@
     /*box-shadow: 0 0.1em 0.3em 0 rgba(0, 0, 0, 0.16), 0 0.1em 0.6em 0 rgba(0, 0, 0, 0.12);*/
     text-align: left;
     border-spacing: 0;
+    margin: 0 0 1em 0;
 }
 .content-body table tr td, table tr th {
     display: block;
@@ -68,14 +69,15 @@ td.checkboxes {
     width: 4em;
     max-width: 4em;
 }
-td.edit{
-  width: 8em;
+td.edit {
+    width: 8em;
 }
-.content-body table td a.btn{
-  width: 3em;
-  color: var(--font-color-light);
-  margin: 0;
+.content-body table td a.btn {
+    width: 3em;
+    color: var(--font-color-light);
+    margin: 0;
 }
+
 @media (--medium-window-width) {
     .content-body table tr td {
         display: table-cell;
