@@ -22,19 +22,27 @@
     flex-grow: 1;
     width: 100%;
 }
-.content-header svg {
+.content-header button svg {
     fill: var( --font-color-gray);
 }
-.content-header svg:hover {
+.content-header button:hover svg, .content-header a:hover svg {
     fill: var( --normal-color);
+}
+.content-header button[disabled] svg {
+    fill: var( --background-color-semidark);
+    cursor: not-allowed;
 }
 .content-header a, .content-header button, .content-header div {
     display: inline-block;
 }
+
+/*content-body*/
+
 .content-body {
     display: var(--display);
     flex-grow: 1;
     flex-wrap: wrap;
+    margin: 0 0 1em 0;
 }
 .content-body section {
     width: 100%;
@@ -52,15 +60,13 @@
 .toolbar .icons a {
     margin: 0 0.5em;
 }
-.toolbar h3{
-  display: inline-block;
-  font-size: .8em;
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
+.toolbar h3 {
+    display: inline-block;
+    font-size: .8em;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
 }
-
-
 
 /*card*/
 

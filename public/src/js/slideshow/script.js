@@ -22,6 +22,7 @@ slideshow.helper = (function() {
 slideshow.start = (function() {
     var slides = slideshow.helper.selectAll('.slideshow .slide');
     var body = slideshow.helper.select('body');
+    var loader = slideshow.helper.select('.loader')
     var i = 0;
     var animationTime = 3;
     var windowWidth = window.innerWidth,
@@ -34,6 +35,7 @@ slideshow.start = (function() {
 
     var init = function() {
             start();
+            hideLoader();
             slideshow.refresh.init();
         },
         start = function functionName() {
@@ -53,6 +55,13 @@ slideshow.start = (function() {
 
                 animate(element, prevEment, animation, duration, type, color, id);
             }
+        },
+        hideLoader = function functionName() {
+            window.onload = function functionName() {
+                setTimeout(function() {
+                    loader.classList.add('none');
+                }, 1000);
+            };
         },
         animate = function(element, prevEment, animation, duration, type, color, id) {
             if (prevEment !== undefined) {
@@ -75,9 +84,6 @@ slideshow.start = (function() {
                         ease: Power4.easeIn
                     }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
-                        // x: windowWidth * 2,
-                        // opacity: 0,
-                        // ease: Power4.easeIn,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -97,9 +103,6 @@ slideshow.start = (function() {
                         ease: Power4.easeIn
                     })
                     .to(element, animationTime, {
-                        // x: windowHeight * 2,
-                        // opacity: 0,
-                        // ease: Power4.easeIn,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -120,9 +123,6 @@ slideshow.start = (function() {
                         rotation: 0
                     }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
-                        // opacity: 0,
-                        // scale: 0,
-                        // rotation: -180,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -136,19 +136,11 @@ slideshow.start = (function() {
                         onComplete: slideshow.vimeo.play,
                         onCompleteParams: [type, id]
                     }, 'animation' + id + '-=1')
-                    // .to(element, animationTime, {
-                    //     opacity: 1,
-                    //     onComplete: slideshow.vimeo.play,
-                    //     onCompleteParams: [type, id]
-                    // }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
                     }, '-=' + animationTime);
-                // .to(element, 1, {
-                //     opacity: 0
-                // }, '+=10');
             }
         };
     return {
@@ -182,25 +174,23 @@ slideshow.refresh = (function() {
     var init = function() {
         var socket = io();
         watch(socket);
-    }
+    };
     var watch = function(socket) {
         var slideshowId = slideshow.helper.getId();
         socket.on('display reload', function(data) {
             var id = data.id,
                 refresh = data.refresh;
-                console.log(typeof(slideshowId));
-                console.log(typeof(id));
+            console.log(typeof(slideshowId));
+            console.log(typeof(id));
             if (refresh === true && id === slideshowId) {
                 console.log('reloading');
                 location.reload();
             }
-
         });
-
-    }
+    };
     return {
         init: init
-    }
+    };
 
 })();
 

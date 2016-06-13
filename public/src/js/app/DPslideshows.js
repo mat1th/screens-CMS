@@ -16,13 +16,13 @@ DP.slideshows = (function() {
     };
     var CreateLi = function(id, filename) {
         return '<li class="screenitem list" draggable="true">' +
-            '  <a href="#">' +
-            ' <small class="number">' + id + '</small>' +
-            '  <div class="image no-overflow" data-id="' + id + '">' +
-            '      <img src="/download/' + filename + '" alt="" draggable="false" />' +
-            '  </div>' +
-            '  </a>' +
-            '  </li>';
+            '<a href="#">' +
+            '<small class="number">' + id + '</small>' +
+            '<div class="image no-overflow" data-id="' + id + '">' +
+            '<img src="/download/' + filename + '" alt="" draggable="false" data-id="' + id + '">' +
+            '</div>' +
+            '</a>' +
+            '</li>';
     };
 
     var _addNewPoster = function() {
@@ -150,7 +150,6 @@ DP.slideshows = (function() {
             if (target.nodeName === 'BUTTON') {
                 toggleAll(target, []);
             }
-            console.log(target.nodeName);
 
         });
     };

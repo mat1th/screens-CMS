@@ -1,9 +1,31 @@
  {{> nav}}
 <section class="content scrollable">
     <section class="content-header">
-        <h1>Add a User</h1>
+        <h1>Edit User</h1>
     </section>
-    <section class="">
+    <section class="content-body">
+        <form class="" action="/admin/users/edit" method="post">
+            <div class="">
+                <label for="field_name">Name:</label>
+                <input type="text" name="name" id="field_name" value="{{data.general.name}}">
+            </div>
+            <div class="">
+                <label for="field_name">Role:</label>
+                <div class="select-icon">
+                    <select name="role" value="{{data.general.role}}">
+                        <option value="editor" {{#issame data.general.role 'editor'}} selected {{/issame}}>editor</option>
+                        <option value="publisher" {{#issame data.general.role 'publisher'}} selected {{/issame}}>publisher</option>
+                        <option value="admin" {{#issame data.general.role 'admin'}} selected {{/issame}}>admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="">
+                <label for="field_email">Email:</label>
+                <input type="email" name="email" id="field_email" value="{{data.general.email}}">
+            </div>
 
+            <button type="sumbit" name="id" value="{{data.general.id}}" class="btn btn-default">Save</button>
+            <a href="/admin/displays" class="btn">Cancel</a>
+        </form>
     </section>
 </section>

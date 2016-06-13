@@ -11,7 +11,7 @@ DP.screens = (function() {
             vimeoImage = DP.helper.selectId('vimeo-image'),
             fieldDuration = DP.helper.selectId('field-duration');
 
-            vimeoImage.classList.add('none');
+        vimeoImage.classList.add('none');
 
         fieldVimeoId.addEventListener('blur', function(e) {
             client.get('http://vimeo.com/api/v2/video/' + e.target.value + '.json', function(response) {
@@ -38,7 +38,13 @@ DP.screens = (function() {
     //if a file select ad the selected image to the html
     var uploadPreview = function() {
         var fieldFile = DP.helper.selectId('field-file'),
+            fieldColor = DP.helper.selectId('field-color'),
+            previewSize = DP.helper.select('.preview-size'),
             filename = DP.helper.selectId('filename');
+
+        fieldColor.addEventListener('input', function(e) {
+            previewSize.setAttribute('style', 'background:' + e.target.value);
+        });
 
         function readURL(event) {
             _inputPreview.src = URL.createObjectURL(event.target.files[0]);

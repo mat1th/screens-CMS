@@ -20,7 +20,8 @@
     z-index: 1;
 }
 .btn-small {
-    padding: 0.2em 0.1em;
+    padding: 0.15em 0.1em;
+    max-width: 1em;
     height: auto;
 }
 .btn-filter {
@@ -44,7 +45,7 @@
 }
 .btn-transparant {
     max-width: 20em;
-    border: 1px solid #fff;
+    border: 0.06rem solid #fff;
     background: rgba(255, 255, 255, 0.13);
     color: #fff;
 }

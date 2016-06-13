@@ -81,7 +81,6 @@ router.get('/show/:screenId', function(req, res) {
         },
         sql;
 
-
     if (general.login) {
         req.getConnection(function(err, connection, next) {
             if (err) return next(err);
