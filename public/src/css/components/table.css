@@ -43,7 +43,7 @@
     padding: 1em;
 }
 .content-body td a {
-display: inline-block
+    display: inline-block
 }
 .content-body .responsvive td:before {
     text-align: left;
@@ -52,6 +52,9 @@ display: inline-block
     width: 5em;
     font-weight: 600;
     content: attr(data-th) ": ";
+}
+.content-body .responsvive td.edit:before {
+    display: none;
 }
 .content-body .responsvive table td:last-child {
     border: none;
