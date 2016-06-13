@@ -1,4 +1,5 @@
 var express = require('express'),
+    saltHash = require('../../modules/saltHash.js'),
     getSpecificData = require('../../modules/getSpecificData.js'),
     insertData = require('../../modules/insertData.js'),
     renderTemplate = require('../../modules/renderTemplate.js'),
@@ -14,6 +15,7 @@ router.get('/login', function(req, res) {
         postUrls = {
             general: '/users/login'
         };
+
     renderTemplate(res, 'users/login', {}, general, postUrls, false);
 });
 
@@ -31,16 +33,22 @@ router.post('/login', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT email, password, role FROM users WHERE email = ? AND password = ?';
+        var sql = 'SELECT salt, hash FROM users WHERE email = ?';
         getSpecificData(sql, connection, [email, password]).then(function(rows) {
             if (rows.length > 0) {
-                req.session.cookie.expires = new Date(Date.now() + hour);
-                req.session.email = email;
-                req.session.role = rows[0].role;
-                res.redirect('/admin');
+                var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
+                if (credentials) {
+                    req.session.cookie.expires = new Date(Date.now() + hour);
+                    req.session.email = email;
+                    req.session.role = rows[0].role;
+                    res.redirect('/admin');
+                } else {
+                    renderTemplate(res, 'users/login', {}, general, postUrls, 'Username or password is false.');
+                }
             } else {
-                renderTemplate(res, 'users/login', {}, general, postUrls, 'Gebruikersnaam en/of wachtwoord onjuist.');
+                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filed in a unknown email.');
             }
+
         }).catch(function(err) {
             throw err;
         });
@@ -77,14 +85,14 @@ router.post('/register', function(req, res) {
         if (password === passwordcheck) {
             paswordStrength(password);
             req.getConnection(function(err, connection) {
-                var sqlQuery = 'INSERT INTO users SET name = ?, email = ?, password = ?';
+                var sqlQuery = 'INSERT INTO users SET name = ?, email = ?, hash = ?, salt = ?';
+                var credentials = saltHash.get(password);
 
-                insertData(sqlQuery, [username, email, password], connection).then(function() {
+                insertData(sqlQuery, [username, email, credentials.hash, credentials.salt], connection).then(function() {
                     res.redirect('/users/login');
 
                 }).catch(function(err) {
                     renderTemplate(res, 'users/register', {}, general, postUrls, 'There is a problem with saving your credentials');
-
                     throw err;
                 });
             });
