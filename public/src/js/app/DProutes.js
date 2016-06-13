@@ -13,8 +13,12 @@ DP.routes = (function() {
 
         if (pathname('/admin/screens/add')) {
             DP.screens.init();
+        } else if (pathname('/users/login') || pathname('/users/register')) {
+            DP.users.init();
         } else if (splitUrl('/admin/slideshows/add')) {
             DP.slideshows.init();
+        } else if (splitUrl('/admin/users/edit')) {
+            DP.users.email();
         } else {
             // DP.slideshows.init();
         }

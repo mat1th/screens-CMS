@@ -129,7 +129,6 @@ DP.slideshows = (function() {
 
                 _client.get('/api/screen/' + screenID, function(response) {
                     var data = JSON.parse(response);
-                    console.log(formElements);
 
                     formElements.form.action = '/admin/screens/edit/' + data.id;
                     formElements.animaion.value = data.animation;

@@ -219,11 +219,13 @@ gulp.task('scripts-app', function() {
             './public/src/js/app/DPstart.js',
             './public/src/js/app/DPhelper.js',
             './public/src/js/app/modernizr.js',
+            './public/src/js/app/DPusers.js',
             './public/src/js/app/DPscreen.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPslideshows.js',
             './public/src/js/app/DPserviceworker.js',
             './public/src/js/app/DPsupport.js',
+            './public/src/js/app/DPvalidate.js',
             './public/src/js/app/DPinit.js'
         ])
         .pipe(sourcemaps.init())
