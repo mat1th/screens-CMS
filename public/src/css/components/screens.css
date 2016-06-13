@@ -3,8 +3,8 @@
 .screen {
     display: inline-block;
     position: relative;
-    padding: 0.5em;
     margin: 0em;
+    padding: 0.5em;
     border-radius: var( --border-radius);
 }
 .screen:hover {
@@ -15,36 +15,36 @@
 }
 .screen img {
     display: block;
+    display: inline-block;
     width: 100%;
     min-height: 100%;
-    z-index: 1;
-    object-fit: contain;
-    display: inline-block;
     margin: 0;
     padding: 0;
+    object-fit: contain;
+    z-index: 1;
 }
 .screen .image {
     background: #fc0;
 }
 .screen .name {
-    padding: 0.5em 0 0 0;
     display: inline-block;
     width: 100%;
+    padding: 0.5em 0 0 0;
     color: var(--font-color-darkgray);
 }
 .screen .name h2 {
+    padding: 0;
     font-size: 0.9em;
     font-weight: 600;
-    padding: 0;
 }
 .screen h2 {
     padding: 0.5em;
 }
 .screen .check {
     position: absolute;
-    margin: 0.5em;
     top: 0;
     right: 0;
+    margin: 0.5em;
     z-index: 2;
 }
 .screen .check svg {
@@ -55,15 +55,16 @@
 }
 .screen .play-icon-bottom {
     position: absolute;
-    margin: 7em auto;
-    left: 0;
-    right: 0;
-    width: 5em;
     top: 1em;
+    right: 0;
+    left: 0;
+    width: 5em;
+    margin: 7em auto;
+    z-index: 1;
 }
 .screen:hover .play-icon-bottom {
-  -webkit-animation-name: pulse;
-  animation-name: pulse;
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
 }
 .preview {
     margin: 1em;
@@ -71,8 +72,8 @@
 .preview-size {
     width: 32.4vh;
     height: 57.6vh;
-    background: #000;
     overflow: hidden;
+    background: #000;
     text-align: center;
 }
 .preview-size img {
@@ -90,11 +91,11 @@
     background: rgba(67, 69, 61, 0.80);
 }
 small.vimeo-tag {
-    color: var(--font-color-light);
     padding: 0.1em 0.3em;
-    font-weight: 600;
-    background: var(--normal-color);
     border-radius: var( --border-radius);
+    background: var(--normal-color);
+    color: var(--font-color-light);
+    font-weight: 600;
 }
 
 /*add a new screen*/

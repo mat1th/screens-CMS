@@ -114,6 +114,7 @@ tr select[disabled] {
     }
     .content-body table th:last-child, .content-body table td:last-child {
         padding: 0 0.9em 0 0;
+        width: 8em;
     }
     td.checkboxes {
         display: block;
