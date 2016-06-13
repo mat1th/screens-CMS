@@ -224,6 +224,7 @@ gulp.task('scripts-app', function() {
             './public/src/js/app/DPslideshows.js',
             './public/src/js/app/DPserviceworker.js',
             './public/src/js/app/DPsupport.js',
+            './public/src/js/app/DPvalidate.js',
             './public/src/js/app/DPinit.js'
         ])
         .pipe(sourcemaps.init())
