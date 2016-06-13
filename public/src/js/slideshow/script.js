@@ -58,9 +58,9 @@ slideshow.start = (function() {
         },
         hideLoader = function functionName() {
             window.onload = function functionName() {
-                  setTimeout(function () {
+                setTimeout(function() {
                     loader.classList.add('none');
-                  }, 1000);
+                }, 1000);
             };
         },
         animate = function(element, prevEment, animation, duration, type, color, id) {
@@ -84,9 +84,6 @@ slideshow.start = (function() {
                         ease: Power4.easeIn
                     }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
-                        // x: windowWidth * 2,
-                        // opacity: 0,
-                        // ease: Power4.easeIn,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -106,9 +103,6 @@ slideshow.start = (function() {
                         ease: Power4.easeIn
                     })
                     .to(element, animationTime, {
-                        // x: windowHeight * 2,
-                        // opacity: 0,
-                        // ease: Power4.easeIn,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -129,9 +123,6 @@ slideshow.start = (function() {
                         rotation: 0
                     }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
-                        // opacity: 0,
-                        // scale: 0,
-                        // rotation: -180,
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
@@ -145,19 +136,11 @@ slideshow.start = (function() {
                         onComplete: slideshow.vimeo.play,
                         onCompleteParams: [type, id]
                     }, 'animation' + id + '-=1')
-                    // .to(element, animationTime, {
-                    //     opacity: 1,
-                    //     onComplete: slideshow.vimeo.play,
-                    //     onCompleteParams: [type, id]
-                    // }, 'animation' + id + '-=1')
                     .to(element, animationTime, {
                         delay: duration,
                         onComplete: slideshow.vimeo.pauze,
                         onCompleteParams: [type, id]
                     }, '-=' + animationTime);
-                // .to(element, 1, {
-                //     opacity: 0
-                // }, '+=10');
             }
         };
     return {
@@ -191,7 +174,7 @@ slideshow.refresh = (function() {
     var init = function() {
         var socket = io();
         watch(socket);
-    }
+    };
     var watch = function(socket) {
         var slideshowId = slideshow.helper.getId();
         socket.on('display reload', function(data) {
@@ -203,12 +186,11 @@ slideshow.refresh = (function() {
                 console.log('reloading');
                 location.reload();
             }
-
         });
-    }
+    };
     return {
         init: init
-    }
+    };
 
 })();
 

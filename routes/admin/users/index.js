@@ -12,7 +12,6 @@ router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
-            email: cr.email
         },
         sql;
 
@@ -41,26 +40,6 @@ router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
 
 });
 
-// router.get('/edit', function(req, res, next) {
-//     var cr = credentials(req.session),
-//         login = cr.login,
-//         admin = cr.admin;
-//
-//     if (admin) {
-//         res.render('admin/users/add', {
-//             title: 'Add a screen',
-//             rights: {
-//                 admin: admin,
-//                 logedin: login
-//             },
-//             postUrl: '/admin/slideshows/add',
-//             error: false
-//         });
-//     } else {
-//         res.redirect('/admin');
-//     }
-//
-// });
 
 
 
