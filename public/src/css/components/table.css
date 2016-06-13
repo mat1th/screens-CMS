@@ -1,14 +1,12 @@
 /*table*/
 
 .content-body table {
-    background: #fff;
     width: 100%;
-    /*box-shadow: 0 0.1em 0.3em 0 rgba(0, 0, 0, 0.16), 0 0.1em 0.6em 0 rgba(0, 0, 0, 0.12);*/
     text-align: left;
     border-spacing: 0;
     margin: 0 0 1em 0;
 }
-.content-body table tr td, table tr th {
+.content-body table td, table th {
     display: block;
     padding: 0 0 0 3em;
     height: 3em;
@@ -19,67 +17,80 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.content-body table tr td a {
+.content-body table a {
     color: inherit;
-}
-.content-body table tr {
-    font-size: 0.9em;
 }
 .content-body table th {
     display: none;
     font-size: 0.9em;
     font-weight: 500;
     color: var( --normal-color);
-    cursor: pointer;
     white-space: nowrap;
     padding: 0;
     height: 3em;
     outline: none;
 }
+.content-body table tr {
+    font-size: 0.9em;
+}
+.content-body .responsvive tr {
+    margin: 1em 0;
+    background: #fff;
+    display: block;
+}
 .content-body .responsvive td {
-    padding: 0;
+    height: 1em;
+    padding: 1em;
 }
 .content-body td a {
-    display: block;
-    width: 100%;
+display: inline-block
 }
 .content-body .responsvive td:before {
     text-align: left;
-    display: inline-block;
     color: var( --font-color-dark);
     text-align: left;
-    width: 7em;
-    border-right: 0.1em solid #DDDDDD;
-    height: 3em;
+    width: 5em;
+    font-weight: 600;
     content: attr(data-th) ": ";
 }
-.content-body .responsvive table tr {
-    /*margin: 1em 0;*/
-    padding: 1em 0;
-    display: block;
-}
-.content-body .responsvive table tr td:last-child {
+.content-body .responsvive table td:last-child {
     border: none;
 }
-td.checkboxes label {
+.content-body .responsvive td.checkboxes label {
     position: absolute;
     margin: 0 auto;
 }
-td.checkboxes {
+.content-body .responsvive td.checkboxes {
+    display: none;
     width: 4em;
     max-width: 4em;
 }
-td.edit {
-    width: 8em;
+td.edit a {
+    display: inline-block;
+    padding: 0;
 }
-.content-body table td a.btn {
+.content-body table a.btn {
     width: 3em;
     color: var(--font-color-light);
     margin: 0;
 }
-
+tr input[disabled] {
+    border: none;
+    color: var(--font-color-dark);
+}
+tr select[disabled] {
+    border: none;
+    color: var(--font-color-dark);
+    cursor: default;
+}
 @media (--medium-window-width) {
-    .content-body table tr td {
+    .content-body .responsvive {
+        background: #fff;
+    }
+    .content-body .responsvive td.checkboxes {
+        display: table-cell;
+    }
+    .content-body table td {
         display: table-cell;
     }
     .content-body table th {
@@ -92,10 +103,18 @@ td.edit {
         padding: 0;
         display: table-row;
     }
+    .content-body .responsvive tr {
+        display: table-row;
+    }
     .content-body table th:first-child, .content-body table td:first-child {
         padding: 0 0 0 1.8em;
     }
     .content-body table th:last-child, .content-body table td:last-child {
         padding: 0 0.9em 0 0;
+    }
+    td.checkboxes {
+        display: block;
+        width: 4em;
+        max-width: 4em;
     }
 }
