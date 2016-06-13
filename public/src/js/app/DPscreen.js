@@ -63,7 +63,6 @@ DP.screens = (function() {
         vimeoIdInput.classList.add('none');
 
         radioOptionField.addEventListener('change', function(e) {
-            console.log(e.target.value);
             if (e.target.value === 'poster') {
                 fileInput.classList.remove('none');
                 vimeoIdInput.classList.add('none');
@@ -74,11 +73,26 @@ DP.screens = (function() {
         });
         _setVimeoForm();
     };
+    var colorValidate = function() {
+        var fieldColor = DP.helper.selectId('field-color'),
+            colorErr = DP.helper.selectId('color-error');
+
+        fieldColor.addEventListener('blur', function(e) {
+            if (!DP.validate.color(e.target.value)) {
+                fieldColor.classList.add('error');
+                colorErr.innerHTML = 'Please add a #fn0 color code';
+            } else {
+                fieldColor.classList.remove('error');
+                colorErr.innerHTML = '';
+            }
+        });
+    };
 
     var init = function() {
-        // _setVimeoForm('125229524');
+        DP.validate.form();
         watchOptions();
         uploadPreview();
+        colorValidate();
     };
     return {
         init: init
