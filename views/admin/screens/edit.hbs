@@ -1,8 +1,8 @@
-  {{> nav}}
+ {{> nav}}
 <section class="content scrollable">
-  <section class="content-header">
-    <h1>Add a screen</h1>
-  </section>
+    <section class="content-header">
+        <h1>Add a screen</h1>
+    </section>
 
     {{#if error}}
         <div class="error">
@@ -26,16 +26,18 @@
             </select>
         </div>
         <div class="">
-          <label for="field-duration">Duration: </label>
-          <input type="number" id="field-duration" name="duration" value="" placeholder="60 (is one min)">
+            <label for="field-duration">Duration: </label>
+            <input type="number" id="field-duration" name="duration" value="" placeholder="60 (is one min)">
         </div>
         <div class="">
-            <label for="field_date_start">Start date: </label>
-            <input type="date" id="field_date_start" name="date_start" value="">
+            <label for="field-date-start">Start date: </label>
+            <input type="date" id="field-date-start" name="date_start" value="">
+            <small class="error" id="date-start-error"></small>
         </div>
         <div class="">
-            <label for="field_date_end">End date: </label>
-            <input type="date" id="field_date_end" name="date_end" value="">
+            <label for="field-date-end">End date: </label>
+            <input type="date" id="field-date-end" name="date_end" value="">
+            <small class="error" id="date-end-error"></small>
         </div>
         <button>Upload!</button>
     </form>

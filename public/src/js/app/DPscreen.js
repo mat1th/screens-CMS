@@ -18,7 +18,7 @@ DP.screens = (function() {
                 if (response !== 'error') {
                     fieldVimeoId.classList.remove('error');
                     var data = JSON.parse(response)[0];
-                    console.log(data);
+
                     vimeoIdError.innerHTML = '';
                     fieldDiscription.value = data.description;
                     fieldname.value = data.title;
@@ -54,6 +54,7 @@ DP.screens = (function() {
             readURL(e);
         });
     };
+
     var watchOptions = function() {
         var radioOptionField = DP.helper.selectId('radio-option-field'),
             fileInput = DP.helper.select('.file-input'),
@@ -75,17 +76,20 @@ DP.screens = (function() {
     };
     var colorValidate = function() {
         var fieldColor = DP.helper.selectId('field-color'),
-            colorErr = DP.helper.selectId('color-error');
+            colorErr = DP.helper.selectId('color-error'),
+            error = 'Please add a #fn0 color code'
 
-        fieldColor.addEventListener('blur', function(e) {
-            if (!DP.validate.color(e.target.value)) {
-                fieldColor.classList.add('error');
-                colorErr.innerHTML = 'Please add a #fn0 color code';
-            } else {
-                fieldColor.classList.remove('error');
-                colorErr.innerHTML = '';
-            }
-        });
+        DP.validate.setErrorColor(fieldColor, colorErr, error);
+    };
+    var dataValidate = function() {
+        var startDateField = DP.helper.selectId('field-date-start'),
+            dateStartErr = DP.helper.selectId('date-start-error'),
+            endDateField = DP.helper.selectId('field-date-end'),
+            stareDatetErr = DP.helper.selectId('date-end-error'),
+            error = 'Please fill in a valid date';
+
+        DP.validate.setErrorDate(startDateField, dateStartErr, error);
+        DP.validate.setErrorDate(endDateField, stareDatetErr, error);
     };
 
     var init = function() {
@@ -93,6 +97,7 @@ DP.screens = (function() {
         watchOptions();
         uploadPreview();
         colorValidate();
+        dataValidate();
     };
     return {
         init: init

@@ -77,15 +77,16 @@
                 <label for="field-duration">Duration: </label>
                 <input type="number" id="field-duration" name="duration" min="10" max="400" value="{{data.general.duration}}" placeholder="60 (s)" required>
             </div>
-
             <div>
                 <label for="field-date-start">Start date: </label>
                 <input type="date" id="field-date-start" name="dateStart" value="{{data.general.dateStart}}" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
+                <small class="error" id="date-start-error"></small>
             </div>
 
             <div>
                 <label for="field-date-end">End date: </label>
                 <input type="date" id="field-date-end" name="dateEnd" value="{{data.general.dateEnd}}" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
+                <small class="error" id="date-end-error"></small>
             </div>
 
             <button class="btn btn-default top-margin">Submit</button>
