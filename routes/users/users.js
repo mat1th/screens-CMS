@@ -33,7 +33,7 @@ router.post('/login', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT salt, hash FROM users WHERE email = ?';
+        var sql = 'SELECT salt, hash, role FROM users WHERE email = ?';
         getSpecificData(sql, connection, [email, password]).then(function(rows) {
             if (rows.length > 0) {
                 var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
