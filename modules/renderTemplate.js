@@ -4,8 +4,9 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         data: {
             general: data.general || null,
             allDisplays: data.displays || null,
-            allScreens: data.screens,
-            specificId: data.specificId
+            allContents: data.content,
+            specificId: data.specificId,
+            url: null || data.url
         },
         rights: {
             admin: general.admin,
@@ -16,7 +17,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
         postUrl: {
             general: postUrls.general || null,
             settings: postUrls.settings || null,
-            screens: postUrls.screens || null,
+            content: postUrls.content || null,
             displays: postUrls.displays || null
         },
         error: error,

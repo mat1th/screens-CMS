@@ -225,8 +225,7 @@ router.get('/preview/:slideshowId', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT * FROM slideshows T1 LEFT JOIN screens_In_slideshow T2 ON T1.id = T2.slideshow_id LEFT JOIN screens T3 ON T2.screen_id = T3.id WHERE T1.id = ? ORDER BY T2.short ASC';
-        // var sqlOud = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN screens_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN screens T3 ON T3.id = T2.screen_id WHERE dateStart < CURDATE() AND dateEnd > CURDATE()';
+        var sql = 'SELECT * FROM slideshows T1 LEFT JOIN content_In_slideshow T2 ON T1.id = T2.slideshow_id LEFT JOIN content T3 ON T2.content_id = T3.id WHERE T1.id = ? AND dateStart < CURDATE() AND dateEnd > CURDATE() ORDER BY T2.short ASC ';
 
         getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
             var data = {
