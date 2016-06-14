@@ -1,4 +1,4 @@
-.content {
+.main-content {
     display: var(--display);
     flex-direction: row;
     flex-grow: 1;

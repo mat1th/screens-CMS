@@ -28,7 +28,7 @@
         {{#if data.general}}
             <ul>
                 {{#each data.general}}
-                    <li class="content zoom-in animate">
+                    <li class="main-content zoom-in animate">
                         <a href="/admin/content/show/{{id}}">
                             <figure class="image no-overflow" style="background-color: {{color}}">
                                 {{#checktype type equals="vimeo" }}
@@ -76,7 +76,7 @@
                 {{/each}}
             </ul>
         {{else}}
-            <p>You have got no content please add one.</p>
+            <p>You have got no main-content please add one.</p>
             <a href="/admin/content/add">New content</a>
         {{/if}}
     </section>

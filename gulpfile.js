@@ -171,7 +171,7 @@ gulp.task('styles-app', function() {
             './public/src/css/components/form.css',
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
-            './public/src/css/components/content.css',
+            './public/src/css/components/maincontent.css',
             './public/src/css/components/screens.css',
             './public/src/css/components/edit.css',
             './public/src/css/components/table.css',

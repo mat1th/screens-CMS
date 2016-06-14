@@ -13,10 +13,10 @@
 
 /*content on all pages*/
 
-.no-flexbox .content {
+.no-flexbox .main-content {
     display: inline-block;
 }
-.no-flexbox .content .card {
+.no-flexbox .main-content .card {
     max-width: 20em;
     display: inline-block;
 }
@@ -58,7 +58,7 @@
         float: left;
         height: 100%;
     }
-    .no-flexbox .content {
+    .no-flexbox .main-content {
         width: 70%;
         float: left;
     }
