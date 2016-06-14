@@ -225,6 +225,7 @@ router.get('/preview/:slideshowId', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
+        //only show slides that are checked and that are between the start and end date
         var sql = 'SELECT * FROM slideshows T1 LEFT JOIN content_In_slideshow T2 ON T1.id = T2.slideshow_id LEFT JOIN content T3 ON T2.content_id = T3.id WHERE T1.id = ? AND dateStart < CURDATE() AND dateEnd > CURDATE() ORDER BY T2.short ASC ';
 
         getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
@@ -272,7 +273,7 @@ router.get('/content/:slideshowId', function(req, res) {
                 fs.exists(noPosterPath, function(exists) {
 
                     if (exists) {
-                              console.log('hoi');
+                        console.log('hoi');
                         res.sendFile('no-screen.jpg', {
                             root: notfoundPath
                         });

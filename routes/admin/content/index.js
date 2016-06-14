@@ -11,6 +11,7 @@ var express = require('express'),
 
 router.get('/', checkLogin, setRights, function(req, res) {
     var cr = credentials(req.session),
+        expired = req.query.expired,
         general = {
             title: 'Your content',
             login: cr.login,
@@ -22,19 +23,33 @@ router.get('/', checkLogin, setRights, function(req, res) {
             content: '/admin/content/edit',
             displays: '/admin/content/edit'
         },
+        data = {
+            general: null,
+            url: null
+        },
         sql;
 
     req.getConnection(function(err, connection) {
-        if (req.admin) {
-            sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content';
+        if (!expired) {
+            data.url = '/admin/content?expired=true'
+            if (req.admin) {
+                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE dateEnd > CURDATE()';
+            } else {
+                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd > CURDATE()';
+            }
         } else {
-            sql = 'SELECT filename, type, name, checked, vimeoImage,color,  id FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+            data.url = '/admin/content'
+            if (req.admin) {
+                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE dateEnd < CURDATE()';
+            } else {
+                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd < CURDATE()';
+            }
         }
-        // sql = 'CASE'
+
+
         getSpecificData(sql, connection, [req.email]).then(function(rows) {
-            var data = {
-                general: rows
-            };
+            data.general = rows;
+
             //renderTemplate
             renderTemplate(res, 'admin/content/show', data, general, postUrls, false);
             //
