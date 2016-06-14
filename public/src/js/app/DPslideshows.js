@@ -7,15 +7,15 @@ DP.slideshows = (function() {
         _addImages = DP.helper.select('.slideshow-picker button');
 
     var _getIds = function() {
-        var _screenlistItemImage = DP.helper.selectAll('.screenitem .image');
+        var _contentlistItemImage = DP.helper.selectAll('.contentitem .image');
         var dataIds = [];
-        for (var i = 0; i < _screenlistItemImage.length; i++) {
-            dataIds.push(_screenlistItemImage[i].getAttribute('data-id'));
+        for (var i = 0; i < _contentlistItemImage.length; i++) {
+            dataIds.push(_contentlistItemImage[i].getAttribute('data-id'));
         }
         return dataIds;
     };
     var CreateLi = function(id, filename) {
-        return '<li class="screenitem list" draggable="true">' +
+        return '<li class="contentitem list" draggable="true">' +
             '<a href="#">' +
             '<small class="number">' + id + '</small>' +
             '<div class="image no-overflow" data-id="' + id + '">' +
@@ -26,7 +26,7 @@ DP.slideshows = (function() {
     };
 
     var _addNewPoster = function() {
-        var _screenlist = DP.helper.select('#screenlist');
+        var _contentlist = DP.helper.select('#contentlist');
 
         _plusButton.addEventListener('click', function() {
             _toggleAddNewPoster();
@@ -39,11 +39,11 @@ DP.slideshows = (function() {
                     var id = _selectImage[i].getAttribute('data-id'),
                         filename = _selectImage[i].getAttribute('data-image');
 
-                    _screenlist.innerHTML += CreateLi(id, filename);
+                    _contentlist.innerHTML += CreateLi(id, filename);
                 }
             }
             //post data to the server
-            DP.helper.postData(DP.routes.currentPath(), 'screens=' + _getIds());
+            DP.helper.postData(DP.routes.currentPath(), 'content=' + _getIds());
         });
     };
 
@@ -54,12 +54,12 @@ DP.slideshows = (function() {
 
     var _sortable = function() {
         // inspiration form http://codepen.io/agate1/pen/vOoRvj
-        var _screenlist = DP.helper.select('#screenlist'),
+        var _contentlist = DP.helper.select('#contentlist'),
             item, ul;
 
-        var screenitems = DP.helper.selectAll('.screenitem');
+        var contentitems = DP.helper.selectAll('.contentitem');
 
-        _screenlist.addEventListener('dragenter', function(ev) {
+        _contentlist.addEventListener('dragenter', function(ev) {
             ev.preventDefault();
             if (listNumber(ev.target) > listNumber(item)) {
                 ul.insertBefore(ev.target, item);
@@ -69,21 +69,21 @@ DP.slideshows = (function() {
             return true;
         });
 
-        _screenlist.addEventListener('dragend', function() {
-            DP.helper.postData(DP.routes.currentPath(), 'screens=' + _getIds());
+        _contentlist.addEventListener('dragend', function() {
+            DP.helper.postData(DP.routes.currentPath(), 'content=' + _getIds());
             item.classList.remove('placeholder');
             return false;
         });
-        _screenlist.addEventListener('drop', function functionName(ev) {
+        _contentlist.addEventListener('drop', function functionName(ev) {
             ev.stopPropagation();
             return false;
         });
-        _screenlist.addEventListener('dragover', function functionName() {
+        _contentlist.addEventListener('dragover', function functionName() {
             return false;
         });
 
-        for (var p = 0; p < screenitems.length; p++) {
-            screenitems[p].addEventListener('dragstart', function(ev) {
+        for (var p = 0; p < contentitems.length; p++) {
+            contentitems[p].addEventListener('dragstart', function(ev) {
                 item = ev.target;
                 ul = ev.target.parentNode;
                 ev.dataTransfer.effectAllowed = 'move';
@@ -113,24 +113,24 @@ DP.slideshows = (function() {
     };
     var _edditPoster = function() {
         var _client = new DP.helper.getData(),
-            _screenlist = DP.helper.select('#screenlist'),
+            _contentlist = DP.helper.select('#contentlist'),
             _preview = DP.helper.select('.slideshow-preview img'),
             formElements = {
-                form: DP.helper.select('.slideshow-screen-settings form'),
+                form: DP.helper.select('.slideshow-content-settings form'),
                 animaion: DP.helper.select('#field-animation'),
                 duration: DP.helper.select('#field-duration'),
                 startDate: DP.helper.select('#field-date-start'),
                 endDate: DP.helper.select('#field-date-end')
             };
 
-        _screenlist.addEventListener('click', function functionName(ev) {
+        _contentlist.addEventListener('click', function functionName(ev) {
             if (ev.target.tagName === 'IMG') {
-                var screenID = ev.target.getAttribute('data-id');
+                var contentID = ev.target.getAttribute('data-id');
 
-                _client.get('/api/screen/' + screenID, function(response) {
+                _client.get('/api/content/' + contentID, function(response) {
                     var data = JSON.parse(response);
 
-                    formElements.form.action = '/admin/screens/edit/' + data.id;
+                    formElements.form.action = '/admin/content/edit/' + data.id;
                     formElements.animaion.value = data.animation;
                     formElements.duration.value = data.duration;
                     formElements.startDate.value = data.dateStart;

@@ -1,4 +1,4 @@
-DP.screens = (function() {
+DP.content = (function() {
     var _inputPreview = DP.helper.selectId('input-preview'),
         _preview = DP.helper.selectId('preview'),
         _setVimeoForm = function() { //get the data from the specific vimeo id

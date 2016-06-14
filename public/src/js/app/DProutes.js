@@ -11,8 +11,8 @@ DP.routes = (function() {
 
     var _checkRoutes = function() {
         if (window.location) {
-            if (pathname('/admin/screens/add')) {
-                DP.screens.init();
+            if (pathname('/admin/content/add')) {
+                DP.content.init();
             } else if (pathname('/users/login') || pathname('/users/register')) {
                 DP.users.init();
             } else if (splitUrl('/admin/slideshows/add')) {
@@ -21,7 +21,7 @@ DP.routes = (function() {
                 DP.users.email();
             }
         } else {
-            DP.screens.init();
+            DP.content.init();
             DP.users.init();
             DP.slideshows.init();
             DP.users.email();

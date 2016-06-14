@@ -2,7 +2,7 @@ const currentCacheName = 'DP-app-v1';
 const casheContent = [
     '/',
     '/admin/',
-    '/admin/screens',
+    '/admin/content',
     '/admin/slideshows',
     '/css/style.css',
     '/img/background.jpg',

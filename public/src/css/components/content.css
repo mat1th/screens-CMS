@@ -1,19 +1,19 @@
 /*overview*/
 
-.screen {
+.content {
     display: inline-block;
     position: relative;
     margin: 0em;
     padding: 0.5em;
     border-radius: var( --border-radius);
 }
-.screen:hover {
+.content:hover {
     background: var( --background-color-semidark);
 }
-.screen:hover img {
+.content:hover img {
     filter: grayscale(30%)
 }
-.screen img {
+.content img {
     display: block;
     display: inline-block;
     width: 100%;
@@ -23,38 +23,38 @@
     object-fit: contain;
     z-index: 1;
 }
-.screen .image {
+.content .image {
     background: #fc0;
 }
-.screen .name {
+.content .name {
     margin: auto;
     display: inline-block;
     width: 100%;
     padding: 0.5em 0 0 0;
     color: var(--font-color-darkgray);
 }
-.screen .name h2 {
+.content .name h2 {
     padding: 0;
     font-size: 0.9em;
     font-weight: 600;
 }
-.screen h2 {
+.content h2 {
     padding: 0.5em;
 }
-.screen .check {
+.content .check {
     position: absolute;
     top: 0;
     right: 0;
     margin: 0.5em;
     z-index: 2;
 }
-.screen .check svg {
+.content .check svg {
     width: 2.9em;
 }
-.screen .not-cheked .triangle {
+.content .not-cheked .triangle {
     right: 0;
 }
-.screen .play-icon-bottom {
+.content .play-icon-bottom {
     position: absolute;
     top: 1em;
     right: 0;
@@ -63,7 +63,7 @@
     margin: 7em auto;
     z-index: 1;
 }
-.screen:hover .play-icon-bottom {
+.content:hover .play-icon-bottom {
     -webkit-animation-name: pulse;
     animation-name: pulse;
 }
@@ -99,13 +99,13 @@ small.vimeo-tag {
     font-weight: 600;
 }
 
-/*add a new screen*/
+/*add a new content*/
 
 @media screen and (--medium-window-width) {
-    .screen .image {
+    .content .image {
         height: 20em;
     }
-    .screen {
+    .content {
         max-width: 15em;
     }
 }
@@ -117,7 +117,7 @@ small.vimeo-tag {
         flex-basis: 50%;
         flex-shrink: 1;
     }
-    .add-screen {
+    .add-content {
         display: var(--display);
         flex-direction: row;
         flex-wrap: wrap;

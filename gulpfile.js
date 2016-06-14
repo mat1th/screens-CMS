@@ -172,7 +172,7 @@ gulp.task('styles-app', function() {
             './public/src/css/components/nav.css',
             './public/src/css/components/login.css',
             './public/src/css/components/maincontent.css',
-            './public/src/css/components/screens.css',
+            './public/src/css/components/content.css',
             './public/src/css/components/edit.css',
             './public/src/css/components/table.css',
             './public/src/css/components/slideshow-editor.css',
@@ -185,7 +185,7 @@ gulp.task('styles-app', function() {
         .pipe(postcss(processors))
         .pipe(cssnano())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/dist/css/'))
+        .pipe(gulp.dest('./public/dist/css/'));
 });
 
 gulp.task('styles-slider', function() {
@@ -210,7 +210,7 @@ gulp.task('styles-slider', function() {
         .pipe(postcss(processors))
         .pipe(cssnano())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/dist/css/'))
+        .pipe(gulp.dest('./public/dist/css/'));
 });
 
 // Scripts app
@@ -221,7 +221,7 @@ gulp.task('scripts-app', function() {
             './public/src/js/app/DPhelper.js',
             './public/src/js/app/modernizr.js',
             './public/src/js/app/DPusers.js',
-            './public/src/js/app/DPscreen.js',
+            './public/src/js/app/DPcontent.js',
             './public/src/js/app/DProutes.js',
             './public/src/js/app/DPslideshows.js',
             './public/src/js/app/DPserviceworker.js',
@@ -236,10 +236,10 @@ gulp.task('scripts-app', function() {
         }))
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/dist/js/'))
+        .pipe(gulp.dest('./public/dist/js/'));
 });
 // Scripts slideshow
-gulp.task('scripts-slideshow', function(cb) {
+gulp.task('scripts-slideshow', function() {
     return gulp.src(['./node_modules/gsap/src/minified/TweenMax.min.js', './public/src/js/slideshow/*.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('slideshow.js'))
@@ -248,10 +248,10 @@ gulp.task('scripts-slideshow', function(cb) {
         }))
         // .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/dist/js/'))
+        .pipe(gulp.dest('./public/dist/js/'));
 });
 
-gulp.task('critical', function(cb) {
+gulp.task('critical', function() {
     return critical.generate({
         base: './',
         src: 'index.html',

@@ -15,7 +15,7 @@ router.get('/', checkLogin, function(req, res) {
 
     var cr = credentials(req.session),
         general = {
-            title: 'Your screens',
+            title: 'Your content',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -83,7 +83,7 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         general = {
-            title: 'Your screens',
+            title: 'Your content',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
@@ -92,22 +92,22 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
         },
         postUrls = {
             settings: '/admin/slideshows/add/settings/' + slideshowId,
-            screens: '/admin/screens/edit',
+            content: '/admin/content/edit',
             displays: '/admin/displays/edit'
         };
     if (general.admin || general.editor) {
-        var sql = 'SELECT * FROM screens_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN screens T3 ON T1.screen_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
-        var sqlScreens = 'SELECT * FROM screens WHERE checked = 1';
+        var sql = 'SELECT * FROM content_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN content T3 ON T1.content_id = T3.id WHERE T1.slideshow_id = ? ORDER BY T1.short ASC';
+        var sqlContent = 'SELECT * FROM content WHERE checked = 1';
         var sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
 
 
         //could be written nicer
         req.getConnection(function(err, connection) {
-            getData(sqlScreens, connection).then(function(screens) {
+            getData(sqlContent, connection).then(function(content) {
                 getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
                     var data = {
                         general: rows,
-                        screens: screens
+                        content: content
                     };
                     return data;
                 }).then(function(data) {
@@ -141,25 +141,25 @@ router.post('/add/:slideshowId', checkLogin, function(req, res) {
         admin = cr.admin,
         editor = cr.editor,
         body = req.body,
-        screens = JSON.parse('[' + body.screens + ']');
+        content = JSON.parse('[' + body.content + ']');
 
     if (admin || editor) {
         req.getConnection(function(err, connection) {
-            var sqlQueryInsert = 'INSERT INTO screens_In_slideshow SET screen_id = ?, slideshow_id = ?, short = ?';
-            var sqlQueryUpdate = 'UPDATE screens_In_slideshow SET short = ? WHERE screen_id = ? AND slideshow_id = ?';
-            var sqlQueryGet = 'SELECT * FROM screens_In_slideshow WHERE screen_id = ? AND slideshow_id = ?';
+            var sqlQueryInsert = 'INSERT INTO content_In_slideshow SET content_id = ?, slideshow_id = ?, short = ?';
+            var sqlQueryUpdate = 'UPDATE content_In_slideshow SET short = ? WHERE content_id = ? AND slideshow_id = ?';
+            var sqlQueryGet = 'SELECT * FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?';
             var getDisplays = 'SELECT display_id FROM displays WHERE slideshowId = ?';
 
-            screens.forEach(function(screen, index) {
-                getSpecificData(sqlQueryGet, connection, [screen, slideshowId]).then(function(rows) {
+            content.forEach(function(content, index) {
+                getSpecificData(sqlQueryGet, connection, [content, slideshowId]).then(function(rows) {
                     if (rows.length === 0) {
-                        insertData(sqlQueryInsert, [screen, slideshowId, index], connection).then(function() {
+                        insertData(sqlQueryInsert, [content, slideshowId, index], connection).then(function() {
 
                         }).catch(function(err) {
                             throw err;
                         });
                     } else {
-                        insertData(sqlQueryUpdate, [index, screen, slideshowId], connection).then(function() {
+                        insertData(sqlQueryUpdate, [index, content, slideshowId], connection).then(function() {
 
                         }).catch(function(err) {
                             throw err;
@@ -234,7 +234,7 @@ router.get('/preview/:slideshowId', function(req, res) {
             if (rows.length > 0) {
                 renderTemplate(res, 'display/view', data, general, {}, false, 'layout2');
             } else {
-                renderTemplate(res, 'display/view', {}, general, {}, 'There are no screens in your slideshow', 'layout2');
+                renderTemplate(res, 'display/view', {}, general, {}, 'There are no content in your slideshow', 'layout2');
             }
 
         }).catch(function(err) {
@@ -243,14 +243,14 @@ router.get('/preview/:slideshowId', function(req, res) {
     });
 });
 
-router.get('/screen/:slideshowId', function(req, res) {
+router.get('/content/:slideshowId', function(req, res) {
     var slideshowId = req.params.slideshowId;
     var filesPath = __dirname + '/../../../uploads/';
     var notfoundPath = __dirname + '/../../../public/dist/img/';
     var noPosterPath = notfoundPath + 'no-screen.jpg';
 
     req.getConnection(function(err, connection) {
-        var sql = "SELECT * FROM slideshows T1 LEFT JOIN screens_In_slideshow T2  ON T1.id = T2.slideshow_id LEFT JOIN screens T3 ON T2.screen_id = T3.id WHERE type = 'poster' AND slideshow_id = ? ORDER BY T2.short ASC LIMIT 1";
+        var sql = "SELECT * FROM slideshows T1 LEFT JOIN content_In_slideshow T2  ON T1.id = T2.slideshow_id LEFT JOIN content T3 ON T2.content_id = T3.id WHERE type = 'poster' AND slideshow_id = ? ORDER BY T2.short ASC LIMIT 1";
 
 
         getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
@@ -268,8 +268,11 @@ router.get('/screen/:slideshowId', function(req, res) {
                     }
                 });
             } else {
+
                 fs.exists(noPosterPath, function(exists) {
+
                     if (exists) {
+                              console.log('hoi');
                         res.sendFile('no-screen.jpg', {
                             root: notfoundPath
                         });

@@ -1,5 +1,5 @@
  {{> nav}}
-<section class="content-block scrollable">
+<section class="main-content scrollable">
     <section class="content-header">
         <h1>Your content</h1>
         <section class="toolbar">
@@ -28,7 +28,7 @@
         {{#if data.general}}
             <ul>
                 {{#each data.general}}
-                    <li class="main-content zoom-in animate">
+                    <li class="content zoom-in animate">
                         <a href="/admin/content/show/{{id}}">
                             <figure class="image no-overflow" style="background-color: {{color}}">
                                 {{#checktype type equals="vimeo" }}
