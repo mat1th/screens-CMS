@@ -106,15 +106,14 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL DEFAULT 'publisher',
+  `hash` varchar(255) NOT NULL DEFAULT '',
+  `salt` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
