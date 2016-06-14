@@ -17,6 +17,7 @@ var saltHash = (function() {
         };
     };
 
+
     var saltHashPassword = function(userPassword) {
         var salt = genRandomString(16);
         var passwordData = sha512(userPassword, salt);

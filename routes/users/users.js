@@ -46,7 +46,7 @@ router.post('/login', function(req, res) {
                     renderTemplate(res, 'users/login', {}, general, postUrls, 'Username or password is false.');
                 }
             } else {
-                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filed in a unknown email.');
+                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filled in a unknown email.');
             }
 
         }).catch(function(err) {
