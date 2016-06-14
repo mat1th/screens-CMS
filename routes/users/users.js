@@ -33,7 +33,7 @@ router.post('/login', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT salt, hash FROM users WHERE email = ?';
+        var sql = 'SELECT salt, hash, role FROM users WHERE email = ?';
         getSpecificData(sql, connection, [email, password]).then(function(rows) {
             if (rows.length > 0) {
                 var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
@@ -46,7 +46,7 @@ router.post('/login', function(req, res) {
                     renderTemplate(res, 'users/login', {}, general, postUrls, 'Username or password is false.');
                 }
             } else {
-                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filed in a unknown email.');
+                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filled in a unknown email.');
             }
 
         }).catch(function(err) {
