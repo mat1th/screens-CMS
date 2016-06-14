@@ -1,4 +1,5 @@
 var express = require('express'),
+    fs = require('fs'),
     checkLogin = require('../../middleware/checklogin.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
@@ -238,6 +239,46 @@ router.get('/preview/:slideshowId', function(req, res) {
             }
 
         }).catch(function(err) {
+            throw err;
+        });
+    });
+});
+
+router.get('/screen/:slideshowId', function(req, res) {
+    var slideshowId = req.params.slideshowId;
+    var filesPath = __dirname + '/../../../uploads/';
+    var notfoundPath = __dirname + '/../../../public/dist/img/';
+    var noPosterPath = notfoundPath + 'no-screen.jpg';
+
+    req.getConnection(function(err, connection) {
+        var sql = "SELECT * FROM slideshows T1 LEFT JOIN screens_In_slideshow T2  ON T1.id = T2.slideshow_id LEFT JOIN screens T3 ON T2.screen_id = T3.id WHERE type = 'poster' AND slideshow_id = ? ORDER BY T2.short ASC LIMIT 1";
+
+
+        getSpecificData(sql, connection, [slideshowId]).then(function(rows) {
+            if (rows.length > 0) {
+                var filename = rows[0].filename;
+                var filePath = filesPath + filename;
+
+                fs.exists(filePath, function(exists) {
+                    if (exists) {
+                        res.sendFile(filename, {
+                            root: filesPath
+                        });
+                    } else {
+                        res.send('No such file: ' + filename);
+                    }
+                });
+            } else {
+                fs.exists(noPosterPath, function(exists) {
+                    if (exists) {
+                        res.sendFile('no-screen.jpg', {
+                            root: notfoundPath
+                        });
+                    }
+                });
+            }
+        }).catch(function(err) {
+            console.log(err);
             throw err;
         });
     });
