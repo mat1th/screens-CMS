@@ -26,9 +26,9 @@ router.get('/', checkLogin, setRights, function(req, res) {
 
     req.getConnection(function(err, connection) {
         if (req.admin) {
-            sql = 'SELECT filename, type, name, checked, vimeoImage, id FROM screens';
+            sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM screens';
         } else {
-            sql = 'SELECT filename, type, name, checked, vimeoImage,  id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
+            sql = 'SELECT filename, type, name, checked, vimeoImage,color,  id FROM screens WHERE userId IN( SELECT id FROM users WHERE email = ? )';
         }
         // sql = 'CASE'
         getSpecificData(sql, connection, [req.email]).then(function(rows) {

@@ -30,14 +30,20 @@
                 {{#each data.general}}
                     <li class="screen zoom-in animate">
                         <a href="/admin/screens/show/{{id}}">
-                            <div class="image no-overflow">
+                            <figure class="image no-overflow" style="background-color: {{color}}">
                                 {{#checktype type equals="vimeo" }}
                                     <img src="{{vimeoImage}}" alt="" />
                                 {{/checktype}}
                                 {{#checktype type equals="poster" }}
                                     <img src="/download/{{filename}}" alt="" />
                                 {{/checktype}}
+                            </figure>
+                            <div class="name">
+                                <h2>{{name}}
+                                  {{#checktype type equals="vimeo" }}<small class="vimeo-tag">Vimeo</small>{{/checktype}}</h2>
+                                <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
                             </div>
+
                             {{#if ../rights.admin}}
                                 {{#checktype checked equals="0" }}
                                     <div class="check">
@@ -64,13 +70,6 @@
                                     </svg>
                                 </div>
                             {{/checktype}}
-
-                            <div class="name">
-                                <h2>{{name}}
-                                  {{#checktype type equals="vimeo" }}<small class="vimeo-tag">Vimeo</small>{{/checktype}}</h2>
-                                <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
-                            </div>
-
                         </a>
                     </li>
 
