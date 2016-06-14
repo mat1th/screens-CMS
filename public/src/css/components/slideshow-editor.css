@@ -22,6 +22,7 @@
     border: none;
     cursor: pointer;
 }
+
 .slideshow-content .add:hover {
     background: var(--font-color-gray);
 }

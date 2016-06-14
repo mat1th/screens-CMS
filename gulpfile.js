@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     // notify = require('gulp-notify'),
+    mqpacker = require('css-mqpacker'),
     cssnano = require('gulp-cssnano'),
     postcss = require('gulp-postcss'),
     critical = require('critical'),
@@ -154,7 +155,7 @@ gulp.task('styles-app', function() {
         autoprefixer({
             browsers: ['> 10%', 'IE 11']
         }),
-        //        mqpacker,
+        mqpacker,
         csswring,
         cssnext()
     ];
@@ -192,7 +193,7 @@ gulp.task('styles-slider', function() {
         autoprefixer({
             browsers: ['> 10%', 'IE 11']
         }),
-        //        mqpacker,
+        mqpacker,
         csswring,
         cssnext()
     ];

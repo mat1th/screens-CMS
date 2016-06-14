@@ -110,7 +110,16 @@ button.top-margin, a.top-margin {
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
+    position: relative;
     margin: auto;
+}
+.btn-action:before {
+    content: '';
+    position: absolute;
+    top: -0.5em;
+    right: -0.5em;
+    bottom: -0.5em;
+    left: -0.5em;
 }
 .btn-action svg {
     fill: var(--font-color-gray);
