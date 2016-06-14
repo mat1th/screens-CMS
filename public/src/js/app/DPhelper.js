@@ -1,13 +1,20 @@
 DP.helper = (function() {
-
     var select = function(selector) {
-            return document.querySelector(selector);
+            if (document.querySelector) {
+                return document.querySelector(selector);
+            } else {
+                return false;
+            }
         },
         selectId = function(selector) {
             return document.getElementById(selector);
         },
         selectAll = function(selector) {
-            return document.querySelectorAll(selector);
+            if (document.querySelector) {
+                return document.querySelectorAll(selector);
+            } else {
+                return false;
+            }
         },
         GetData = function() { //Source https://stackoverflow.com/questions/247483/http-get-request-in-javascript
             if (window.XMLHttpRequest) {
@@ -26,34 +33,41 @@ DP.helper = (function() {
                     loader(false);
                 };
             } else {
+                console.log('XMLHttpRequest is not supported');
                 return false;
             }
         },
         postData = function(url, params) {
-            var http = new XMLHttpRequest();
-            loader(true);
-            http.open('POST', url, true);
+            if (window.XMLHttpRequest) {
+                var http = new XMLHttpRequest();
+                loader(true);
+                http.open('POST', url, true);
 
-            //Send the proper header information along with the request
-            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-            http.onreadystatechange = function() { //Call a function when the state changes.
+                http.onreadystatechange = function() { //Call a function when the state changes.
 
-                if (http.readyState == 4 && http.status == 200) {
-                    console.log(http.responseText);
-                }
-            };
-            http.send(params);
-            loader(false);
+                    if (http.readyState == 4 && http.status == 200) {
+                        console.log(http.responseText);
+                    }
+                };
+                http.send(params);
+                loader(false);
+            } else {
+                console.log('XMLHttpRequest is not supported');
+                return false;
+            }
         },
         loader = function(status) {
             var loader = selectId('loader');
+            var time = 5000;
             if (status === true) {
                 loader.classList.remove('none');
             } else if (status === false) {
                 setTimeout(function() {
                     loader.classList.add('none');
-                }, 5000);
+                }, time);
             }
         };
     return {
