@@ -25,7 +25,6 @@ DP.content = (function() {
                         fieldDuration.value = data.duration;
                         fieldVimeoImage.value = data.thumbnail_large;
                         _inputPreview.src = data.thumbnail_large;
-
                     } else {
                         fieldVimeoId.classList.add('error');
                         vimeoIdError.innerHTML = 'Fill only the id, not the url';
