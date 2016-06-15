@@ -61,6 +61,17 @@ DP.content = (function() {
             filename.innerHTML = event.target.files[0].name;
         }
     };
+    var animateSelect = function() {
+        var select = DP.helper.selectId('field-animation');
+        var animations = ['fadein', 'left-push', 'top-push'];
+
+        select.addEventListener('change', function(e) {
+            for (var i = 0; i < animations.length; i++) {
+                _inputPreview.classList.remove(animations[i]);
+            }
+            _inputPreview.classList.add(e.target.value);
+        });
+    };
 
     var watchOptions = function() {
         var radioOptionField = DP.helper.selectId('radio-option-field'),
@@ -105,6 +116,7 @@ DP.content = (function() {
         uploadPreview();
         colorValidate();
         dataValidate();
+        animateSelect();
     };
     return {
         init: init
