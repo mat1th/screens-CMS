@@ -77,7 +77,7 @@
     </section>
 
     <section class="right-panel scrollable">
-        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.1.slideshow_name}}'</a>
+        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.0.slideshow_name}}'</a>
         <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
         <section class="toggle-buttons" role="tablist">
             <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
@@ -90,12 +90,11 @@
                 <h2>Slideshow settings</h2>
                 <div>
                     <label for="field-name">Title: </label>
-                    <input type="text" id="field-name" name="name" value="{{data.general.1.slideshow_name}}" placeholder="Won't show in the slideshow">
+                    <input type="text" id="field-name" name="name" value="{{data.general.0.slideshow_name}}" placeholder="Won't show in the slideshow">
                 </div>
-
                 <div>
                     <label for="field-discription">Discription: </label>
-                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
+                    <textarea name="discription" rows="2" cols="40" id="field-discription" placeholder="Won't show in the slideshow">{{data.general.0.slideshow_discription}} </textarea>
                 </div>
                 <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
