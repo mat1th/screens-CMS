@@ -1,13 +1,17 @@
 var moment = require('moment');
 
 var isValidDate = function(date) {
-    if (moment('12-12-2012', 'MM-DD-YYYY').isValid()) {
+    if (moment(date, 'MM-DD-YYYY').isValid()) {
         return true;
-    } else if (moment('2012-12-12', 'YYYY-MM-DD').isValid()) {
+    } else if (moment(date, 'YYYY-MM-DD').isValid()) {
         return true;
-    } else if (moment('12-12-2012', 'DD-MM-YYYY').isValid()) {
+    } else if (moment(date, 'DD-MM-YYYY').isValid()) {
         return true;
-    } else if (moment('12-12-2012', 'DD-MM-YYYY').isValid()) {
+    } else if (moment(date, 'DD-MM-YYYY').isValid()) {
+        return true;
+    } else if (moment(date, 'DD-MM-YYYY').isValid()) {
+        return true;
+    } else if (moment(date, 'DD-MM-YY').isValid()) {
         return true;
     } else {
         return false;
