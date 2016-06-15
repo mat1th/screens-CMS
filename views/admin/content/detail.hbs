@@ -1,4 +1,4 @@
- {{> nav}} 
+ {{> nav}}
 <section class="main-content scrollable">
     <section class="content-header block">
         <h1>{{data.general.name}} </h1>
@@ -17,7 +17,7 @@
         <section>
             <h2>Discription</h2>
             <p>
-                {{data.general.discription}}
+                {{{data.general.discription}}}
             </p>
             {{#if rights.admin}}
                 {{#checktype data.general.checked equals="0" }}
