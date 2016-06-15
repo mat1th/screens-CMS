@@ -273,7 +273,6 @@ router.get('/content/:slideshowId', function(req, res) {
                 fs.exists(noPosterPath, function(exists) {
 
                     if (exists) {
-                        console.log('hoi');
                         res.sendFile('no-screen.jpg', {
                             root: notfoundPath
                         });

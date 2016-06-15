@@ -1,11 +1,14 @@
 var express = require('express'),
+    moment = require('moment'),
     checkLogin = require('../../middleware/checklogin.js'),
     setRights = require('../../middleware/setRights.js'),
+    randNumber = require('../../../modules/randNumber.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     isValidDate = require('../../../modules/isValidDate.js'),
+    confertDate = require('../../../modules/confertDate.js'),
     sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router();
 
@@ -49,17 +52,16 @@ router.get('/', checkLogin, setRights, function(req, res) {
 
         getSpecificData(sql, connection, [req.email]).then(function(rows) {
             data.general = rows;
-
             //renderTemplate
             renderTemplate(res, 'admin/content/show', data, general, postUrls, false);
-            //
+
         }).catch(function(err) {
             throw err;
         });
     });
 });
 
-router.get('/add', function(req, res) {
+router.get('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Add content',
@@ -71,17 +73,12 @@ router.get('/add', function(req, res) {
         postUrls = {
             general: '/admin/content/add'
         };
-
-    if (general.login) {
-        renderTemplate(res, 'admin/content/add', {}, general, postUrls, false);
-    } else {
-        res.redirect('/users/login');
-    }
+    renderTemplate(res, 'admin/content/add', {}, general, postUrls, false);
 });
 
 
 // GET a content and present the full content page
-router.get('/show/:contentId', function(req, res) {
+router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
     var contentId = req.params.contentId,
         cr = credentials(req.session),
         general = {
@@ -96,27 +93,25 @@ router.get('/show/:contentId', function(req, res) {
         },
         sql;
 
-    if (general.login) {
-        req.getConnection(function(err, connection, next) {
-            if (err) return next(err);
-            if (general.admin) {
-                sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ?';
-            } else {
-                sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
-            }
-            getSpecificData(sql, connection, [contentId, general.email]).then(function(rows) {
-                var data = {
-                    general: rows[0]
-                };
-                //renderTemplate
-                renderTemplate(res, 'admin/content/detail', data, general, postUrls, false);
-                //
-            }).catch(function(err) {
-                console.log(err);
-                throw err;
-            });
+    req.getConnection(function(err, connection, next) {
+        if (err) return next(err);
+        if (req.admin) {
+            sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ?';
+        } else {
+            sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
+        }
+        getSpecificData(sql, connection, [contentId, general.email]).then(function(rows) {
+            var data = {
+                general: rows[0]
+            };
+            //renderTemplate
+            renderTemplate(res, 'admin/content/detail', data, general, postUrls, false);
+            //
+        }).catch(function(err) {
+            console.log(err);
+            throw err;
         });
-    }
+    });
 });
 
 router.post('/decision', checkLogin, setRights, function(req, res) {
@@ -173,6 +168,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) {
 
 });
 
+
 router.post('/add', checkLogin, function(req, res) {
     var cr = credentials(req.session),
         sqlQuery,
@@ -186,6 +182,7 @@ router.post('/add', checkLogin, function(req, res) {
         body = req.body,
         data = {
             general: {
+                id: randNumber(1000000),
                 name: body.name,
                 animation: body.animation,
                 color: body.color,
@@ -193,9 +190,8 @@ router.post('/add', checkLogin, function(req, res) {
                 vimeoId: body.vimeoId,
                 duration: body.duration,
                 type: body.type,
-                dateStart: body.dateStart,
-                dateEnd: body.dateEnd,
-                dataCreated: new Date(),
+                dateStart: confertDate(body.dateStart),
+                dateEnd: confertDate(body.dateEnd),
                 vimeoImage: '' || body.vimeoImage,
                 upload: req.files,
                 fileName: ''
@@ -207,15 +203,15 @@ router.post('/add', checkLogin, function(req, res) {
         if (data.general.type !== null) {
             req.getConnection(function(err, connection) {
                 if (general.admin || general.editor) {
-                    sqlQuery = 'INSERT INTO content SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?;';
+                    sqlQuery = 'INSERT INTO content SET `userId` = (SELECT id FROM users WHERE email = ?), `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?;';
                 } else {
-                    sqlQuery = 'INSERT INTO content SET `userId` =  (SELECT id FROM users WHERE email = ?), `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = ?, `vimeoId` = ?, `vimeoImage` = ?;';
+                    sqlQuery = 'INSERT INTO content SET `userId` = (SELECT id FROM users WHERE email = ?), `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `vimeoId` = ?, `vimeoImage` = ?;';
                 }
                 if (data.general.upload.imageFile) {
                     data.general.fileName = data.general.upload.imageFile.name;
                 }
 
-                insertData(sqlQuery, [general.email, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.dataCreated, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
+                insertData(sqlQuery, [general.email, general.id, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
                     //send a mail if the use is not a admin
                     if (!general.admin) {
                         var message = {
@@ -233,7 +229,7 @@ router.post('/add', checkLogin, function(req, res) {
                     }
                     res.redirect('/admin/content');
                 }).catch(function(err) {
-                    console.log(err);
+                    renderTemplate(res, 'admin/content/add', data, general, {}, 'there was a error');
                     throw err;
                 });
             });
@@ -243,9 +239,7 @@ router.post('/add', checkLogin, function(req, res) {
     } else {
         renderTemplate(res, 'admin/content/add', data, general, {}, 'You have submit a wrong date');
     }
-
 });
-
 
 router.post('/edit/:contentId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
