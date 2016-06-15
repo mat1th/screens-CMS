@@ -41,7 +41,8 @@
                             <div class="name">
                                 <h2>{{name}}
                                   {{#checktype type equals="vimeo" }}<small class="vimeo-tag">Vimeo</small>{{/checktype}}</h2>
-                                <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
+                                  <small>{{#beginEnd dateStart dateEnd}}{{/beginEnd}}</small>
+
                             </div>
 
                             {{#if ../rights.admin}}

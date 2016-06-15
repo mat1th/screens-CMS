@@ -31,18 +31,18 @@ router.get('/', checkLogin, setRights, function(req, res) {
 
     req.getConnection(function(err, connection) {
         if (!expired) {
-            data.url = '/admin/content?expired=true'
+            data.url = '/admin/content?expired=true';
             if (req.admin) {
-                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE dateEnd > CURDATE()';
+                sql = 'SELECT * FROM content WHERE dateEnd > CURDATE()';
             } else {
-                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd > CURDATE()';
+                sql = 'SELECT * FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd > CURDATE()';
             }
         } else {
-            data.url = '/admin/content'
+            data.url = '/admin/content';
             if (req.admin) {
-                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE dateEnd < CURDATE()';
+                sql = 'SELECT * FROM content WHERE dateEnd < CURDATE()';
             } else {
-                sql = 'SELECT filename, type, name, checked, vimeoImage,color, id FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd < CURDATE()';
+                sql = 'SELECT * FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd < CURDATE()';
             }
         }
 
