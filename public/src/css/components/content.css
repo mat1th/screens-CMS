@@ -99,6 +99,32 @@ small.vimeo-tag {
     font-weight: 600;
 }
 
+/*info tooltip*/
+
+.info-tooltip {
+    display: inline-block;
+    position: relative;
+}
+.info-tooltip a{
+  color: var(--primary-color);
+}
+.info-tooltip:hover small {
+    display: block;
+}
+.info-tooltip small {
+    display: none;
+    position: absolute;
+    width: 15em;
+    max-width: 90vw;
+    bottom: 1.5em;
+    font-weight: 400;
+    padding: 0.5em;
+    font-size: 0.8em;
+    border-radius: var( --border-radius);
+    color: var(--font-color-light);
+    background: rgba(0, 0, 0, 0.88);
+}
+
 /*add a new content*/
 
 @media screen and (--medium-window-width) {
