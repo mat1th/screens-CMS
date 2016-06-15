@@ -69,6 +69,16 @@ DP.helper = (function() {
                     loader.classList.add('none');
                 }, time);
             }
+        },
+        showErr = function(show, errorMessage) {
+            var errorPopup = selectId('error-popup');
+            if (show) {
+                errorPopup.innerHTML = errorMessage;
+                errorPopup.classList.remove('none');
+            } else {
+                errorPopup.classList.add('none');
+            }
+
         };
     return {
         select: select,
@@ -76,6 +86,7 @@ DP.helper = (function() {
         selectAll: selectAll,
         getData: GetData,
         postData: postData,
-        loader: loader
+        loader: loader,
+        showErr: showErr
     };
 })();
