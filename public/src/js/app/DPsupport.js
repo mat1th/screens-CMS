@@ -3,18 +3,15 @@ DP.support = (function() {
         onlineStatus();
     };
     var onlineStatus = function() {
-        addEvent(window, 'online', function() {
+        window.addEventListener('online', function() {
             showErr(false);
         });
-
-        addEvent(window, 'offline', function() {
+        window.addEventListener('offline', function() {
             showErr(true);
         });
-
         window.ononline = function() {
             showErr(false);
         };
-
         window.onoffline = function() {
             showErr(true);
         };
@@ -24,7 +21,7 @@ DP.support = (function() {
 
         function showErr(show) {
             if (show) {
-                DP.helper.showErr(true, 'The app is offline, please go online.')
+                DP.helper.showErr(true, 'The app is offline, please go online.');
             } else {
                 DP.helper.showErr(false);
             }
