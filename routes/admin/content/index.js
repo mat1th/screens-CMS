@@ -1,5 +1,4 @@
 var express = require('express'),
-    moment = require('moment'),
     checkLogin = require('../../middleware/checklogin.js'),
     setRights = require('../../middleware/setRights.js'),
     randNumber = require('../../../modules/randNumber.js'),
@@ -48,7 +47,6 @@ router.get('/', checkLogin, setRights, function(req, res) {
                 sql = 'SELECT * FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd < CURDATE()';
             }
         }
-
 
         getSpecificData(sql, connection, [req.email]).then(function(rows) {
             data.general = rows;
@@ -160,18 +158,17 @@ router.post('/decision', checkLogin, setRights, function(req, res) {
                 console.log(err);
                 throw err;
             });
-
         });
     } else {
         res.send('error');
     }
-
 });
 
 
 router.post('/add', checkLogin, function(req, res) {
+
     var cr = credentials(req.session),
-        sqlQuery,
+        body = req.body,
         general = {
             title: 'Add content',
             login: cr.login,
@@ -179,7 +176,6 @@ router.post('/add', checkLogin, function(req, res) {
             editor: cr.editor,
             email: cr.email
         },
-        body = req.body,
         data = {
             general: {
                 id: randNumber(1000000),
@@ -196,22 +192,24 @@ router.post('/add', checkLogin, function(req, res) {
                 upload: req.files,
                 fileName: ''
             }
-        };
+        },
+        sqlQuery,
+        sqlQuerySlideshow = 'INSERT INTO content_In_slideshow SET content_id = ?, slideshow_id = 613042, short = 100000000';
 
     //check if data is valid
     if (isValidDate(data.general.dateStart) && isValidDate(data.general.dateEnd)) {
         if (data.general.type !== null) {
             req.getConnection(function(err, connection) {
                 if (general.admin || general.editor) {
-                    sqlQuery = 'INSERT INTO content SET `userId` = (SELECT id FROM users WHERE email = ?), `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?;';
+                    sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?';
                 } else {
-                    sqlQuery = 'INSERT INTO content SET `userId` = (SELECT id FROM users WHERE email = ?), `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `vimeoId` = ?, `vimeoImage` = ?;';
+                    sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `vimeoId` = ?, `vimeoImage` = ?';
                 }
                 if (data.general.upload.imageFile) {
                     data.general.fileName = data.general.upload.imageFile.name;
                 }
 
-                insertData(sqlQuery, [general.email, general.id, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
+                insertData(sqlQuery, [req.session.user_id, data.general.id, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
                     //send a mail if the use is not a admin
                     if (!general.admin) {
                         var message = {
@@ -224,11 +222,17 @@ router.post('/add', checkLogin, function(req, res) {
                                 alternative: true
                             }]
                         };
-
                         sendMessage(message);
                     }
-                    res.redirect('/admin/content');
+                    insertData(sqlQuerySlideshow, [data.general.id], connection).then(function() {
+                        res.redirect('/admin/content');
+                    }).catch(function(err) {
+                        console.log(err);
+                        renderTemplate(res, 'admin/content/add', data, general, {}, 'there was a error');
+                        throw err;
+                    });
                 }).catch(function(err) {
+                    console.log(err);
                     renderTemplate(res, 'admin/content/add', data, general, {}, 'there was a error');
                     throw err;
                 });

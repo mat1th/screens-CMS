@@ -118,7 +118,7 @@ router.get('/add/:slideshowId', checkLogin, function(req, res) {
                         return data;
                     }).then(function(data) {
                         //render template
-
+                        console.log(data.general[0].slideshow_discription);
                         renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
                     }).catch(function(err) {
                         throw err;
@@ -175,7 +175,7 @@ router.post('/add/:slideshowId', checkLogin, function(req, res) {
                 rows.forEach(function(display) {
                         var id = JSON.stringify(display.display_id);
                         sendRefresh(id, true);
-                    })
+                    });
                     //
             }).then(function() {
                 res.send('succes');
