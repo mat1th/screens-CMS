@@ -153,7 +153,8 @@ gulp.task('images', function() {
 gulp.task('styles-app', function() {
     var processors = [
         autoprefixer({
-            browsers: ['> 10%', 'IE 11']
+            browsers: ['> 0.3%', 'last 2 versions', 'IE > 6', 'iOS > 5', 'safari > 5'],
+            flexbox: true
         }),
         mqpacker,
         csswring,

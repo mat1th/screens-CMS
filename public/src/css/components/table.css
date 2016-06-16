@@ -33,19 +33,19 @@
 .content-body table tr {
     font-size: 0.9em;
 }
-.content-body .responsvive tr {
+.content-body .responsive tr {
     margin: 1em 0;
     background: #fff;
     display: block;
 }
-.content-body .responsvive td {
+.content-body .responsive td {
     height: 1em;
     padding: 1em;
 }
 .content-body td a {
     display: inline-block
 }
-.content-body .responsvive td:before {
+.content-body .responsive td:before {
     text-align: left;
     color: var( --font-color-dark);
     text-align: left;
@@ -53,17 +53,17 @@
     font-weight: 600;
     content: attr(data-th) ": ";
 }
-.content-body .responsvive td.edit:before {
+.content-body .responsive td.edit:before {
     display: none;
 }
-.content-body .responsvive table td:last-child {
+.content-body .responsive table td:last-child {
     border: none;
 }
-.content-body .responsvive td.checkboxes label {
+.content-body .responsive td.checkboxes label {
     position: absolute;
     margin: 0 auto;
 }
-.content-body .responsvive td.checkboxes {
+.content-body .responsive td.checkboxes {
     display: none;
     width: 4em;
     max-width: 4em;
@@ -74,6 +74,7 @@ td.edit a {
 }
 .content-body table a.btn {
     width: 3em;
+    min-width: 4em;
     color: var(--font-color-light);
     margin: 0;
 }
@@ -87,10 +88,10 @@ tr select[disabled] {
     cursor: default;
 }
 @media (--medium-window-width) {
-    .content-body .responsvive {
+    .content-body .responsive {
         background: #fff;
     }
-    .content-body .responsvive td.checkboxes {
+    .content-body .responsive td.checkboxes {
         display: table-cell;
     }
     .content-body table td {
@@ -99,14 +100,14 @@ tr select[disabled] {
     .content-body table th {
         display: table-cell;
     }
-    .content-body .responsvive td:before {
+    .content-body .responsive td:before {
         display: none;
     }
     .content-body table tr {
         padding: 0;
         display: table-row;
     }
-    .content-body .responsvive tr {
+    .content-body .responsive tr {
         display: table-row;
     }
     .content-body table th:first-child, .content-body table td:first-child {
