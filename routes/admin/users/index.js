@@ -74,14 +74,7 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, nex
 
 
 router.post('/edit', checkLogin, function(req, res) {
-    var cr = credentials(req.session),
-        sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
-        general = {
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
-        },
+    var sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
         body = req.body,
         data = {
             role: body.role,
@@ -98,9 +91,7 @@ router.post('/edit', checkLogin, function(req, res) {
             throw err;
         });
     });
-
     console.log(data);
-
 });
 
 

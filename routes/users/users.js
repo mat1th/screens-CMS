@@ -6,7 +6,6 @@ var express = require('express'),
     paswordStrength = require('../../modules/paswordStrength.js'),
     router = express.Router();
 
-
 router.get('/login', function(req, res) {
     var general = {
             title: 'Login',
@@ -33,14 +32,14 @@ router.post('/login', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT salt, hash, role,id FROM users WHERE email = ?';
+        var sql = 'SELECT salt, hash, role, id FROM users WHERE email = ?';
         getSpecificData(sql, connection, [email, password]).then(function(rows) {
             if (rows.length > 0) {
                 var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
                 if (credentials) {
                     req.session.cookie.expires = new Date(Date.now() + hour);
-                    req.session.email = email;
                     req.session.user_id = rows[0].id;
+                    req.session.user_name = rows[0].name;
                     req.session.role = rows[0].role;
                     res.redirect('/admin');
                 } else {
@@ -49,7 +48,6 @@ router.post('/login', function(req, res) {
             } else {
                 renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filled in a unknown email.');
             }
-
         }).catch(function(err) {
             throw err;
         });

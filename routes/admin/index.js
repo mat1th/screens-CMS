@@ -11,8 +11,7 @@ router.get('/', checkLogin, function(req, res) {
             title: 'Your content',
             admin: cr.admin,
             editor: cr.editor,
-            login: cr.login,
-            email: cr.email
+            login: cr.login
         },
         sql;
 
@@ -21,10 +20,10 @@ router.get('/', checkLogin, function(req, res) {
         if (general.admin) {
             sql = "SELECT (SELECT COUNT(id) FROM content) AS 'content', (SELECT COUNT(id) FROM content WHERE checked = 0) AS 'uncheckedContent', (SELECT COUNT(id) FROM slideshows) AS 'slideshows', (SELECT COUNT(display_id) FROM displays) AS 'displays'";
         } else {
-            sql = 'SELECT COUNT(id) AS content FROM content WHERE userId IN( SELECT id FROM users WHERE email = ?)';
+            sql = 'SELECT COUNT(id) AS content FROM content WHERE userId = ?';
         }
 
-        getSpecificData(sql, connection, [general.email]).then(function(rows) {
+        getSpecificData(sql, connection, [req.session.user_id]).then(function(rows) {
             var data = {
                 general: rows[0]
             };
