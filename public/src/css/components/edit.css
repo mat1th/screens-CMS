@@ -26,13 +26,14 @@
     display: none;
     font-size: 0.8em;
 }
-.icons-only small {
+.edit-nav.icons-only .user-name small,
+.edit-nav.icons-only small {
     display: none;
 }
-.icons-only svg {
+.edit-nav.icons-only svg {
     margin: 0 auto;
 }
-.icons-only {
+.edit-nav.icons-only {
     min-width: 4.3em;
     text-align: center;
 }
