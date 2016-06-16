@@ -23,10 +23,7 @@ header ul {
     list-style-type: none;
 }
 header ul > li {
-    float: left;
-}
-header ul > li.right {
-    float: right;
+    display: inline-block;
 }
 header ul > .name > a {
     display: none;
@@ -47,10 +44,4 @@ header ul > li > a:hover {
     -webkit-transition: color .2s ease-out;
     color: var(--primary-color);
     transition: color .2s ease-out;
-}
-header > nav.nav-black {
-    top: 0px;
-    border-bottom-width: 0.5px;
-    border-bottom-style: solid;
-    border-bottom-color: RGBA(0, 0, 0, 0.22);
 }

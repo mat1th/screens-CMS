@@ -17,19 +17,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.content-body table th {
+    display: none;
+    font-weight: 500;
+    color: var( --normal-color);
+    padding: 0;
+    outline: none;
+}
 .content-body table a {
     color: inherit;
 }
-.content-body table th {
-    display: none;
-    font-size: 0.9em;
-    font-weight: 500;
-    color: var( --normal-color);
-    white-space: nowrap;
-    padding: 0;
-    height: 3em;
-    outline: none;
-}
+
 .content-body table tr {
     font-size: 0.9em;
 }
@@ -53,11 +51,12 @@
     font-weight: 600;
     content: attr(data-th) ": ";
 }
-.content-body .responsive td.edit:before {
-    display: none;
-}
 .content-body .responsive table td:last-child {
     border: none;
+}
+/*dont show the eddit table*/
+.content-body .responsive td.edit:before {
+    display: none;
 }
 .content-body .responsive td.checkboxes label {
     position: absolute;
@@ -77,15 +76,6 @@ td.edit a {
     min-width: 4em;
     color: var(--font-color-light);
     margin: 0;
-}
-tr input[disabled] {
-    border: none;
-    color: var(--font-color-dark);
-}
-tr select[disabled] {
-    border: none;
-    color: var(--font-color-dark);
-    cursor: default;
 }
 @media (--medium-window-width) {
     .content-body .responsive {

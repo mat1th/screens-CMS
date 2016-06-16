@@ -14,26 +14,46 @@
     padding: 0 0 0.5em 0;
     border-bottom: 0.1em solid var(--background-color-semidark);
 }
-.content-header.block {
-    display: block;
-}
 .content-header h1 {
     display: block;
     flex-grow: 1;
     width: 100%;
 }
-.content-header button svg {
+.content-header svg {
     fill: var( --font-color-gray);
 }
 .content-header button:hover svg, .content-header a:hover svg {
     fill: var( --normal-color);
 }
+.content-header button[disabled] {
+    cursor: not-allowed;
+}
 .content-header button[disabled] svg {
     fill: var( --background-color-semidark);
-    cursor: not-allowed;
 }
 .content-header a, .content-header button, .content-header div {
     display: inline-block;
+}
+/*toolbar*/
+.toolbar {
+    display: var(--display);
+    flex-grow: 1;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1em 0 0.5em 0;
+}
+.toolbar .icons {
+    height: 1.5em;
+}
+.toolbar .icons a {
+    margin: 0 0.5em;
+}
+.toolbar h3 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: .8em;
+    font-weight: 400;
 }
 
 /*content-body*/
@@ -46,26 +66,6 @@
 }
 .content-body section {
     width: 100%;
-}
-.toolbar {
-    margin: 1em 0 0.5em 0;
-    display: var(--display);
-    justify-content: space-between;
-    flex-grow: 1;
-    width: 100%;
-}
-.toolbar .icons {
-    height: 1.5em;
-}
-.toolbar .icons a {
-    margin: 0 0.5em;
-}
-.toolbar h3 {
-    display: inline-block;
-    font-size: .8em;
-    margin: 0;
-    padding: 0;
-    font-weight: 400;
 }
 
 /*card*/
@@ -85,6 +85,8 @@
     max-width: 20em;
     margin: 0.5em 1em 1em 0;
 }
+
+/*make responsive*/
 @media (--narrow-window-width) {
     .content-header {
         flex-direction: row;

@@ -1,7 +1,3 @@
-.edit-nav ol {
-    list-style-position: inside;
-    list-style-type: decimal;
-}
 .edit-nav {
     box-sizing: border-box;
     position: sticky;
@@ -27,6 +23,16 @@
     display: none;
     font-size: 0.8em;
 }
+.edit-nav a:hover svg {
+    fill: var(--font-color-light);
+}
+.edit-nav a:hover {
+    background: var( --background-color-dark);
+    color: var(--font-color-light);
+}
+
+/*icons only*/
+
 .edit-nav.icons-only .user-name small, .edit-nav.icons-only small {
     display: none;
 }
@@ -37,13 +43,9 @@
     min-width: 4.3em;
     text-align: center;
 }
-.edit-nav a:hover svg {
-    fill: var(--font-color-light);
-}
-.edit-nav a:hover {
-    background: var( --background-color-dark);
-    color: var(--font-color-light);
-}
+
+/*user info*/
+
 .edit-nav .user-info {
     display: none;
     width: 100%;
@@ -51,6 +53,29 @@
     text-align: left;
 }
 @media screen and (--narrow-window-width) {
+    .edit-nav li {
+        display: inline-block;
+        width: 100%;
+    }
+    .edit-nav a {
+        display: block;
+        position: relative;
+        height: 1em;
+        padding: 1em 1em;
+        color: var(--font-color-dark);
+        text-align: center;
+    }
+    /*icons only*/
+    .edit-nav.icons-only .user-info img {
+        min-width: 100%;
+    }
+    .edit-nav.icons-only {
+        max-width: 4.3em;
+    }
+    .user-info .user-name, .icons-only .user-name {
+        display: none;
+    }
+    /*user info*/
     .edit-nav .user-info {
         box-sizing: border-box;
         display: block;
@@ -72,39 +97,11 @@
         height: 3em;
         border-radius: 50%;
     }
-    .edit-nav.icons-only .user-info img {
-        min-width: 100%;
-    }
-    .edit-nav.icons-only {
-        max-width: 4.3em;
-    }
-    .user-info .user-name, .icons-only .user-name {
-        display: none;
-    }
-    .edit-nav li {
-        display: inline-block;
-        width: 100%;
-    }
-    .edit-nav a {
-        display: block;
-        position: relative;
-        height: 1em;
-        padding: 1em 1em;
-        color: var(--font-color-dark);
-        text-align: center;
-    }
 }
 @media screen and (--medium-window-width) {
-    .edit-nav .user-info .user-name {
-        display: inline-block;
-    }
     .edit-nav {
         min-width: 10em;
         max-width: 10em;
-    }
-    section.edit-nav a {
-        display: var(--display);
-        text-align: left;
     }
     .edit-nav small {
         display: inline-block;
@@ -114,5 +111,12 @@
     }
     .edit-nav svg {
         margin-right: 1em;
+    }
+    .edit-nav .user-info .user-name {
+        display: inline-block;
+    }
+    section.edit-nav a {
+        display: var(--display);
+        text-align: left;
     }
 }

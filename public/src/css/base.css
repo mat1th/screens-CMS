@@ -6,6 +6,7 @@ body, html {
 }
 main {
     width: 100%;
+    height: 100%;
     height: calc(100% - 60px);
 }
 img {
@@ -22,21 +23,26 @@ a {
     font-size: 1em;
     font-weight: bold;
 }
-.none, .disabled {
-    display: none !important;
-}
+
+/*scolls */
 .no-overflow {
     overflow: hidden;
 }
 .scrollable {
     overflow-y: auto;
 }
+/*postions*/
 .center {
     text-align: center;
 }
 .right {
     float: right;
 }
+.none, .disabled {
+    visibility: hidden;
+    display: none !important;
+}
+/*warnings */
 .error {
     color: var( --warn-color);
 }

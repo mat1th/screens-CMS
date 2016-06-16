@@ -1,3 +1,4 @@
+/*a class to animate stuff*/
 .animate {
     transition: all 0.3s ease;
     animation-duration: 1s;

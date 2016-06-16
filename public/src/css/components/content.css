@@ -10,9 +10,6 @@
 .content:hover {
     background: var( --background-color-semidark);
 }
-.content:hover img {
-    filter: grayscale(30%)
-}
 .content img {
     display: block;
     display: inline-block;
@@ -22,6 +19,9 @@
     padding: 0;
     object-fit: contain;
     z-index: 1;
+}
+.content:hover img {
+    filter: brightness(90%);
 }
 .content .image {
     background: #fc0;
@@ -38,11 +38,8 @@
     overflow: hidden;
     font-size: 0.9em;
     font-weight: 600;
-text-overflow: ellipsis;
-white-space: nowrap;
-}
-.content h2 {
-    padding: 0.5em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .content .check {
     position: absolute;
@@ -57,6 +54,7 @@ white-space: nowrap;
 .content .not-cheked .triangle {
     right: 0;
 }
+/*play icon on the vimeo movies*/
 .content .play-icon-bottom {
     position: absolute;
     top: 1em;
@@ -85,15 +83,7 @@ white-space: nowrap;
     height: 100%;
     object-fit: contain;
 }
-.play-icon {
-    display: var(--display);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    background: rgba(67, 69, 61, 0.80);
-}
+/*tag icon*/
 small.vimeo-tag {
     padding: 0.1em 0.3em;
     border-radius: var( --border-radius);
@@ -102,14 +92,14 @@ small.vimeo-tag {
     font-weight: 600;
 }
 
-/*info tooltip*/
+/*info tooltip on the content add page*/
 
 .info-tooltip {
     display: inline-block;
     position: relative;
 }
-.info-tooltip a{
-  color: var(--primary-color);
+.info-tooltip a {
+    color: var(--primary-color);
 }
 .info-tooltip:hover small {
     display: block;
@@ -128,7 +118,7 @@ small.vimeo-tag {
     font-weight: 400;
 }
 
-/*add a new content*/
+/*responsive*/
 
 @media screen and (--medium-window-width) {
     .content .image {
