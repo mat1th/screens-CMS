@@ -247,35 +247,38 @@ router.post('/add', checkLogin, function(req, res) {
 
 router.post('/edit/:contentId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
-        general = {
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
-        },
+        updateSqlQuery = 'UPDATE content SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
+        removeSqlQuery = 'DELETE FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?',
         body = req.body,
+        remove = body.remove,
         data = {
             animation: body.animation,
             duration: body.duration,
-            dateStart: body.dateStart,
-            dateEnd: body.dateEnd,
+            dateStart: confertDate(body.dateStart),
+            dateEnd: confertDate(body.dateEnd),
+            color: body.color,
             contentId: req.params.contentId
         };
-
-    var sqlQuery = 'UPDATE content SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?';
-
-
     if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
         req.getConnection(function(err, connection) {
-            insertData(sqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.contentId], connection).then(function() {
-                res.redirect('admin/slideshows/');
-            }).catch(function(err) {
-                res.send('error:' + err);
-                console.log(err);
-                throw err;
-            });
+            if (remove) {
+                insertData(removeSqlQuery, [data.contentId, '613042'], connection).then(function() {
+                    res.redirect('/admin/slideshows/add/613042');
+                }).catch(function(err) {
+                    res.send('error:' + err);
+                    console.log(err);
+                    throw err;
+                });
+            } else {
+                insertData(updateSqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.contentId], connection).then(function() {
+                    res.redirect('/admin/slideshows/add/613042');
+                }).catch(function(err) {
+                    res.send('error:' + err);
+                    console.log(err);
+                    throw err;
+                });
+            }
         });
-
     }
 });
 

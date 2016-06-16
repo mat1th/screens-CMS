@@ -169,7 +169,7 @@ DP.slideshows = (function() {
         var animations = ['fadein', 'left-push', 'top-push'];
 
         select.addEventListener('change', function(e) {
-          console.log(e.target.value);
+            console.log(e.target.value);
             for (var i = 0; i < animations.length; i++) {
                 _preview.classList.remove(animations[i]);
                 console.log(_preview.classList);

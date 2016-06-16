@@ -23,7 +23,7 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
         sql, sqlDisplays;
 
     req.getConnection(function(err, connection) {
-        sql = 'SELECT * FROM slideshows ';
+        sql = 'SELECT * FROM slideshows';
         sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
         // Get the user id using username
         getData(sql, connection).then(function(slideshows) {
@@ -84,7 +84,7 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
             displays: '/admin/displays/edit'
         },
         sql = 'SELECT * FROM content_In_slideshow T1 LEFT JOIN slideshows T2 ON T1.slideshow_id = T2.id LEFT JOIN content T3 ON T1.content_id = T3.id WHERE T1.slideshow_id = 613042 AND dateStart < CURDATE() AND dateEnd > CURDATE() ORDER BY T1.short ASC',
-        sqlContent = 'SELECT * FROM content WHERE checked = 1',
+        sqlContent = 'SELECT * FROM content WHERE checked = 1 AND dateStart < CURDATE() AND dateEnd > CURDATE()',
         sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
 
     //could be written nicer
