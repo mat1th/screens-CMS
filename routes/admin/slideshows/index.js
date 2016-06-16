@@ -17,8 +17,7 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
             title: 'Your content',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
+            editor: cr.editor
         },
         sql, sqlDisplays;
 
@@ -53,13 +52,12 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
 
 //create unique id and redirect
 router.get('/add', checkLogin, checkRightsEditor, function(req, res) {
-    var cr = credentials(req.session),
-        email = cr.email,
-        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = (SELECT id FROM users WHERE email = ?)',
+    var userID = req.session.user_id,
+        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = ?',
         number = randNumber(1000000);
 
     req.getConnection(function(err, connection) {
-        insertData(createSlideshow, [number, email], connection).then(function() {
+        insertData(createSlideshow, [number, userID], connection).then(function() {
             res.redirect('/admin/slideshows/add/' + number);
         }).catch(function(err) {
             throw err;
@@ -75,7 +73,6 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
-            email: cr.email,
             navStyle: 'icons-only'
         },
         postUrls = {
