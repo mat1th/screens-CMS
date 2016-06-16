@@ -15,7 +15,7 @@ router.get('/login', function(req, res) {
             general: '/users/login'
         };
 
-    renderTemplate(res, 'users/login', {}, general, postUrls, false);
+    renderTemplate(res, req, 'users/login', {}, general, postUrls, false);
 });
 
 router.post('/login', function(req, res) {
@@ -32,7 +32,7 @@ router.post('/login', function(req, res) {
         };
 
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT salt, hash, role, id FROM users WHERE email = ?';
+        var sql = 'SELECT salt, hash, role, name, id FROM users WHERE email = ?';
         getSpecificData(sql, connection, [email, password]).then(function(rows) {
             if (rows.length > 0) {
                 var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
@@ -43,10 +43,10 @@ router.post('/login', function(req, res) {
                     req.session.role = rows[0].role;
                     res.redirect('/admin');
                 } else {
-                    renderTemplate(res, 'users/login', {}, general, postUrls, 'Username or password is false.');
+                    renderTemplate(res, req, 'users/login', {}, general, postUrls, 'Username or password is false.');
                 }
             } else {
-                renderTemplate(res, 'users/login', {}, general, postUrls, 'You have filled in a unknown email.');
+                renderTemplate(res, req, 'users/login', {}, general, postUrls, 'You have filled in a unknown email.');
             }
         }).catch(function(err) {
             throw err;
@@ -63,7 +63,7 @@ router.get('/register', function(req, res) {
         postUrls = {
             general: '/users/register'
         };
-    renderTemplate(res, 'users/register', {}, general, postUrls, false);
+    renderTemplate(res, req, 'users/register', {}, general, postUrls, false);
 });
 
 // Insert the submitted registration data
@@ -91,15 +91,15 @@ router.post('/register', function(req, res) {
                     res.redirect('/users/login');
 
                 }).catch(function(err) {
-                    renderTemplate(res, 'users/register', {}, general, postUrls, 'There is a problem with saving your credentials');
+                    renderTemplate(res, req, 'users/register', {}, general, postUrls, 'There is a problem with saving your credentials');
                     throw err;
                 });
             });
         } else {
-            renderTemplate(res, 'users/register', {}, general, postUrls, 'The passwords are not the same.');
+            renderTemplate(res, req, 'users/register', {}, general, postUrls, 'The passwords are not the same.');
         }
     } else {
-        renderTemplate(res, 'users/register', {}, general, postUrls, 'Username or pasword are empty.');
+        renderTemplate(res, req, 'users/register', {}, general, postUrls, 'Username or pasword are empty.');
 
     }
 });

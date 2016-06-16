@@ -1,8 +1,8 @@
-var renderTemplate = function(res, template, data, general, postUrls, error, layout) {
+var renderTemplate = function(res, req, template, data, general, postUrls, error, layout) {
     res.render(template, {
         title: general.title,
         piwik: config.piwik.code,
-        username: 'matthias',
+        username: req.session.user_name,
         data: {
             general: data.general || null,
             allDisplays: data.displays || null,

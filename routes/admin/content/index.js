@@ -50,7 +50,7 @@ router.get('/', checkLogin, setRights, function(req, res) {
         getSpecificData(sql, connection, [req.session.user_id]).then(function(rows) {
             data.general = rows;
             //renderTemplate
-            renderTemplate(res, 'admin/content/show', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/content/show', data, general, postUrls, false);
 
         }).catch(function(err) {
             throw err;
@@ -69,7 +69,7 @@ router.get('/add', checkLogin, function(req, res) {
         postUrls = {
             general: '/admin/content/add'
         };
-    renderTemplate(res, 'admin/content/add', {}, general, postUrls, false);
+    renderTemplate(res, req, 'admin/content/add', {}, general, postUrls, false);
 });
 
 
@@ -100,7 +100,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
                 general: rows[0]
             };
             //renderTemplate
-            renderTemplate(res, 'admin/content/detail', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
             //
         }).catch(function(err) {
             console.log(err);
@@ -223,20 +223,20 @@ router.post('/add', checkLogin, function(req, res) {
                         res.redirect('/admin/content');
                     }).catch(function(err) {
                         console.log(err);
-                        renderTemplate(res, 'admin/content/add', data, general, {}, 'There was a error');
+                        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error');
                         throw err;
                     });
                 }).catch(function(err) {
                     console.log(err);
-                    renderTemplate(res, 'admin/content/add', data, general, {}, 'There was a error');
+                    renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error');
                     throw err;
                 });
             });
         } else {
-            renderTemplate(res, 'admin/content/add', data, general, {}, 'You have got no image uploaded');
+            renderTemplate(res, req, 'admin/content/add', data, general, {}, 'You have got no image uploaded');
         }
     } else {
-        renderTemplate(res, 'admin/content/add', data, general, {}, 'You have submit a wrong date');
+        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'You have submit a wrong date');
     }
 });
 

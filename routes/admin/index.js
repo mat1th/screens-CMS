@@ -29,7 +29,7 @@ router.get('/', checkLogin, function(req, res) {
             };
 
             //renderTemplate
-            renderTemplate(res, 'admin/index', data, general, {}, false);
+            renderTemplate(res, req, 'admin/index', data, general, {}, false);
             //
         }).catch(function(err) {
             throw err;

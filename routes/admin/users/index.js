@@ -26,11 +26,11 @@ router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
                     throw err;
                 }
                 if (match !== '' && match.length > 0) {
-                    renderTemplate(res, 'admin/users/show', {
+                    renderTemplate(res, req, 'admin/users/show', {
                         general: match
                     }, general, {}, false);
                 } else {
-                    renderTemplate(res, 'admin/users/show', {
+                    renderTemplate(res, req, 'admin/users/show', {
                         general: match
                     }, general, {}, 'There are no users');
                 }
@@ -64,7 +64,7 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, nex
             };
 
             //renderTemplate
-            renderTemplate(res, 'admin/users/edit', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/users/edit', data, general, postUrls, false);
             //
         }).catch(function(err) {
             throw err;

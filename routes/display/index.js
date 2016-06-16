@@ -24,10 +24,10 @@ router.get('/:displayId', function(req, res) {
             };
             if (rows.length > 0 && rows[0].slideshow_id !== null) {
                 //render the template
-                renderTemplate(res, 'display/view', data, general, {}, false, 'layout2');
+                renderTemplate(res, req, 'display/view', data, general, {}, false, 'layout2');
             } else {
                 //render the template
-                renderTemplate(res, 'display/view', data, general, {}, 'There are no content in your slideshow this is display' + displayId, 'layout2');
+                renderTemplate(res, req, 'display/view', data, general, {}, 'There are no content in your slideshow this is display' + displayId, 'layout2');
             }
         }).catch(function(err) {
                     console.log(err);
