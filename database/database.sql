@@ -29,12 +29,12 @@ LOCK TABLES `displays` WRITE;
 UNLOCK TABLES;
 
 
-# Dump of table screens
+# Dump of table content
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `screens`;
+DROP TABLE IF EXISTS `content`;
 
-CREATE TABLE `screens` (
+CREATE TABLE `content` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL DEFAULT '0',
   `type` varchar(100) NOT NULL DEFAULT 'poster',
@@ -53,28 +53,28 @@ CREATE TABLE `screens` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `screens` WRITE;
-/*!40000 ALTER TABLE `screens` DISABLE KEYS */;
+LOCK TABLES `content` WRITE;
+/*!40000 ALTER TABLE `content` DISABLE KEYS */;
 
-/*!40000 ALTER TABLE `screens` ENABLE KEYS */;
+/*!40000 ALTER TABLE `content` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table screens_In_slideshow
+# Dump of table content_In_slideshow
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `screens_In_slideshow`;
+DROP TABLE IF EXISTS `content_In_slideshow`;
 
-CREATE TABLE `screens_In_slideshow` (
+CREATE TABLE `content_In_slideshow` (
   `screen_id` int(11) NOT NULL,
   `slideshow_id` int(11) NOT NULL,
   `short` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `screens_In_slideshow` WRITE;
-/*!40000 ALTER TABLE `screens_In_slideshow` DISABLE KEYS */;
+LOCK TABLES `content_In_slideshow` WRITE;
+/*!40000 ALTER TABLE `content_In_slideshow` DISABLE KEYS */;
 
-/*!40000 ALTER TABLE `screens_In_slideshow` ENABLE KEYS */;
+/*!40000 ALTER TABLE `content_In_slideshow` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

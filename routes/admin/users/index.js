@@ -46,7 +46,7 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, nex
     var userId = req.params.userId,
         cr = credentials(req.session),
         general = {
-            title: 'Your screens',
+            title: 'Your content',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor

@@ -5,19 +5,19 @@
     </div>
 </noscript>
 <section class="slideshow-add">
-    <!-- the screens you can choose from -->
+    <!-- the content you can choose from -->
     <section class="slideshow-content">
         <!-- add button  -->
-
         <button class="add">
             <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 <path d="M0 0h24v24H0z" fill="none" />
             </svg>
         </button>
-        <ol id="screenlist">
+        <ol id="contentlist">
+
             {{#each data.general}}
-                <li class="screenitem list" draggable="true">
+                <li class="contentitem list" draggable="true">
                     <a href="#">
                         <small class="number">{{@index}}</small>
                         <div class="image no-overflow" data-id="{{id}}">
@@ -42,7 +42,7 @@
 
     <section class="slideshow-picker none">
         <div class="select scrollable">
-            {{#each data.allScreens}}
+            {{#each data.allContent}}
                 <div>
                     <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
                     <div class="image no-overflow">
@@ -68,45 +68,30 @@
         <button type="button" name="add" class="btn btn-default add-image">Add images</button>
     </section>
 
-    <!-- a preview of the screen  -->
-    <section class="slideshow-preview fade-in animate">
+    <!-- a preview of the content  -->
+    <section class="slideshow-preview fadein animate">
         {{#if data.general.0.filename}}
-            <img src="/download/{{data.general.0.filename}}" alt="screen" />
+            <img src="/download/{{data.general.0.filename}}" alt="content" class="animate" />
         {{else}}
             <img src="/img/add-screen.jpg" alt="add screen image" />
         {{/if}}
     </section>
 
     <section class="right-panel scrollable">
-        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.1.slideshow_name}}'</a>
+        <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.0.slideshow_name}}'</a>
         <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
         <section class="toggle-buttons" role="tablist">
+            <button id="content" type="button" name="button" aria-selected="false">Screen</button>
             <button id="settings" type="button" name="button" aria-selected="true">Settings</button>
-            <button id="screens" type="button" name="button" aria-selected="false">Screen</button>
-            <button id="displays" type="button" name="button" aria-selected="false">Displays</button>
-        </section>
 
-        <section aria-hidden="false" class="tabcontent">
-            <form action="{{postUrl.settings}}" method="post">
-                <h2>Slideshow settings</h2>
-                <div>
-                    <label for="field-name">Title: </label>
-                    <input type="text" id="field-name" name="name" value="{{data.general.1.slideshow_name}}" placeholder="Won't show in the slideshow">
-                </div>
-
-                <div>
-                    <label for="field-discription">Discription: </label>
-                    <textarea name="discription" rows="2" cols="40" value="{{data.general.1.slideshow_discription}}" id="field-discription" placeholder="Won't show in the slideshow"></textarea>
-                </div>
-                <button class="btn btn-default top-margin" type="submit">Save</button>
-            </form>
+            <!-- <button id="displays" type="button" name="button" aria-selected="false">Displays</button> -->
         </section>
-        <section class="slideshow-screen-settings scrollable tabcontent" aria-hidden="true">
-            <form action="{{postUrl.screens}}" method="post">
-                <h2>Edit screen</h2>
+        <section class="slideshow-content-settings scrollable tabcontent animate" aria-hidden="true">
+            <form action="{{postUrl.content}}/{{data.general.0.id}}" method="post">
+                <h2>Edit poster or vimeo</h2>
                 <div>
                     <label for="field-animation">Animation: </label>
-                    <div class="select-icon">
+                    <div class="select-icon" value="{{data.general.0.animation}}">
                         <select name="animation" id="field-animation">
                             <option value="fadein">fade in</option>
                             <!-- <option value="pop">pop</option> -->
@@ -117,20 +102,36 @@
                 </div>
                 <div>
                     <label for="field-duration">Duration: </label>
-                    <input type="number" id="field-duration" name="duration" value="" placeholder="60 (s)">
+                    <input type="number" id="field-duration" name="duration" value="{{data.general.0.duration}}" placeholder="60 (s)">
                 </div>
                 <div>
                     <label for="field-date-start">Start date: </label>
-                    <input type="date" id="field-date-start" name="dateStart" value="" placeholder="DD-MM-JJJJ">
+                    <input type="date" id="field-date-start" name="dateStart" value="{{#dateformatnl data.general.0.dateStart}}{{/dateformatnl}}" placeholder="DD-MM-JJJJ">
                 </div>
                 <div>
                     <label for="field-date-end">End date: </label>
-                    <input type="date" id="field-date-end" name="dateEnd" value="" placeholder="DD-MM-JJJJ">
+                    <input type="date" id="field-date-end" name="dateEnd" value="{{#dateformatnl data.general.0.dateEnd}}{{/dateformatnl}}" placeholder="DD-MM-JJJJ">
+                </div>
+                <button class="btn btn-default top-margin" type="submit" title="Save the form">Save</button>
+                <button class="btn btn-warn" name="remove" value="true" type="submit" title="Remove from this slideshow">Remove from slides.</button>
+            </form>
+        </section>
+        <section aria-hidden="false" class="tabcontent animate">
+            <form action="{{postUrl.settings}}" method="post">
+                <h2>Slideshow settings</h2>
+                <div>
+                    <label for="field-name">Title: </label>
+                    <input type="text" id="field-name" name="name" value="{{data.general.0.slideshow_name}}" placeholder="Won't show in the slideshow">
+                </div>
+                <div>
+                    <label for="field-discription">Discription: </label>
+                    <textarea name="discription" rows="2" cols="40" id="field-discription" placeholder="Won't show in the slideshow">{{data.general.0.slideshow_discription}} </textarea>
                 </div>
                 <button class="btn btn-default top-margin" type="submit">Save</button>
             </form>
         </section>
-        <section aria-hidden="true" class="tabcontent">
+
+        <!-- <section aria-hidden="true" class="tabcontent">
             <form action="{{postUrl.displays}}" method="post">
                 <h2>Conect to displays</h2>
                 {{#each data.allDisplays}}
@@ -147,7 +148,7 @@
 
                 <button class="btn btn-default top-margin" name="slideshowId" value="{{data.specificId}}" type="submit">Save</button>
             </form>
-        </section>
+        </section> -->
 
     </section>
 

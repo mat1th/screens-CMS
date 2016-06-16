@@ -1,26 +1,20 @@
  {{> nav}}
-<section class="content scrollable">
+<section class="main-content scrollable">
     <section class="content-header">
-        <h1>Your screens</h1>
+        <h1>Your content</h1>
         <section class="toolbar">
             <div class="icons">
-                <a href="/admin/screens/add" title="add" class="btn-action ">
-                    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                        <path d="M0 0h24v24H0z" fill="none" />
-                    </svg>
+                <a href="/admin/content/add" title="add" class="btn-action ">
+                  {{> svg/addicon}}
                 </a>
                 <button type="button" name="button" title="delete" class="btn-action" disabled>
-                    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                        <path d="M0 0h24v24H0z" fill="none" />
-                    </svg>
+                  {{> svg/trashicon}}
                 </button>
             </div>
             <form class="" action="index.html" method="post">
                 <button type="button" name="name" class="btn btn-filter">Name</button>
                 <button type="button" name="name" class="btn btn-filter">Date</button>
-                <button type="button" name="button" class="btn btn-filter expired">Show expired</button>
+                <a href="{{data.url}}" class="btn btn-filter expired">Show expired</a>
             </form>
         </section>
     </section>
@@ -28,8 +22,8 @@
         {{#if data.general}}
             <ul>
                 {{#each data.general}}
-                    <li class="screen zoom-in animate">
-                        <a href="/admin/screens/show/{{id}}">
+                    <li class="content zoom-in animate">
+                        <a href="/admin/content/show/{{id}}">
                             <figure class="image no-overflow" style="background-color: {{color}}">
                                 {{#checktype type equals="vimeo" }}
                                     <img src="{{vimeoImage}}" alt="" />
@@ -41,7 +35,7 @@
                             <div class="name">
                                 <h2>{{name}}
                                   {{#checktype type equals="vimeo" }}<small class="vimeo-tag">Vimeo</small>{{/checktype}}</h2>
-                                <small>{{#datefronow data.general.dataCreated}}{{/datefronow}}</small>
+                                  <small>{{#beginEnd dateStart dateEnd}}{{/beginEnd}}</small>
                             </div>
 
                             {{#if ../rights.admin}}
@@ -76,8 +70,8 @@
                 {{/each}}
             </ul>
         {{else}}
-            <p>You have got no screens please add one.</p>
-            <a href="/admin/screens/add">New screen</a>
+            <p>You have got no main-content please add one.</p>
+            <a href="/admin/content/add">New content</a>
         {{/if}}
     </section>
 </section>

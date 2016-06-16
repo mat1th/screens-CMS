@@ -1,20 +1,21 @@
 {{> nav}}
-<section class="content scrollable">
+<section class="main-content scrollable">
     <section class="content-header">
         <h1>Dashboard</h1>
     </section>
     <article class="card">
         <section class="card-header">
-            <h2>Screens</h2>
+            <h2>Content</h2>
         </section>
         <section class="card-body">
-            <p>You have <span class="bold">{{data.general.screens}}</span> screen(s).
+            <p>You have <span class="bold">{{data.general.content}}</span> poster(s) or vimeo video(s).
                 {{#if rights.admin}}
-                    Form these screens are <span class="bold">{{data.general.uncheckedScreens}}</span> uncheked.
+                    Form these poster(s) or vimeo video(s) are <span class="bold">{{data.general.uncheckedContent}}</span> uncheked.
                 {{/if}}
                 For more information go to display page.</p>
         </section>
-        <a href="/admin/screens" class="btn btn-default">Go</a>
+        <a href="/admin/content" class="btn btn-default">Go</a>
+        <a href="/admin/content/add" class="btn btn-default">Ad new content</a>
     </article>
 
     {{#if rights.admin}}

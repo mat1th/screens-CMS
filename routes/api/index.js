@@ -9,13 +9,13 @@ require('moment/locale/nl');
 moment.locale('nl');
 
 
-//get data from screen
-router.get('/screen/:screenId', checkLogin, function(req, res) {
-    var screenId = req.params.screenId;
+//get data from content
+router.get('/content/:contentId', checkLogin, function(req, res) {
+    var contentId = req.params.contentId;
 
     req.getConnection(function(err, connection) {
-        var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM screens WHERE id = ?';
-        connection.query(sqlSlideshows, [screenId], function(err, match) {
+        var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM content WHERE id = ?';
+        connection.query(sqlSlideshows, [contentId], function(err, match) {
             if (err) throw err;
             var data = {
                 filename: match[0].filename,
