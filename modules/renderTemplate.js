@@ -1,10 +1,11 @@
 var renderTemplate = function(res, template, data, general, postUrls, error, layout) {
     res.render(template, {
         title: general.title,
+        piwik: config.piwik.code,
         data: {
             general: data.general || null,
             allDisplays: data.displays || null,
-            allContents: data.content,
+            allContent: data.content,
             specificId: data.specificId,
             url: null || data.url
         },

@@ -139,7 +139,7 @@ button.top-margin, a.top-margin {
 .toggle-buttons button {
     box-sizing: border-box;
     display: inline-block;
-    width: 33.3333333%;
+    width: 50%;
     margin: 0;
     padding: 0.8em 1em;
     border: 0.15em solid var(--normal-color);
