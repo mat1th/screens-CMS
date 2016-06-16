@@ -4,7 +4,7 @@ DP.content = (function() {
 
         /**
          * _setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
-        */
+         */
 
         _setVimeoForm = function() { //get the data from the specific vimeo id
             var client = new DP.helper.getData(),
@@ -19,17 +19,18 @@ DP.content = (function() {
             vimeoImage.classList.add('none');
 
             fieldVimeoId.addEventListener('blur', function(e) { // get the date from the vimeo api to auto fill in the form
-                client.get('http://vimeo.com/api/v2/video/' + e.target.value + '.json', function(response) {
+                console.log(e.target.value);
+                client.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + e.target.value, function(response) {
                     if (response !== 'error') {
                         fieldVimeoId.classList.remove('error');
-                        var data = JSON.parse(response)[0];
-
+                        var data = JSON.parse(response);
+                        console.log(data);
                         vimeoIdError.innerHTML = '';
                         fieldDiscription.value = data.description;
                         fieldname.value = data.title;
                         fieldDuration.value = data.duration;
-                        fieldVimeoImage.value = data.thumbnail_large;
-                        _inputPreview.src = data.thumbnail_large;
+                        fieldVimeoImage.value = data.thumbnail_url;
+                        _inputPreview.src = data.thumbnail_url;
                     } else {
                         fieldVimeoId.classList.add('error');
                         vimeoIdError.innerHTML = 'Fill only the id, not the url';
