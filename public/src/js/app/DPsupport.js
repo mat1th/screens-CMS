@@ -4,20 +4,21 @@ DP.support = (function() {
     };
     var onlineStatus = function() {
         window.addEventListener('online', function() {
+          console.log('1');
             showErr(false);
         });
         window.addEventListener('offline', function() {
+                    console.log('2');
             showErr(true);
         });
         window.ononline = function() {
+                    console.log('3');
             showErr(false);
         };
         window.onoffline = function() {
+                    console.log('4');
             showErr(true);
         };
-
-        document.body.onOnline = showErr(false);
-        document.body.onOffline = showErr(true);
 
         function showErr(show) {
             if (show) {

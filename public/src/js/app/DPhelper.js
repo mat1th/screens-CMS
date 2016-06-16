@@ -105,11 +105,14 @@ DP.helper = (function() {
          */
         showErr = function(show, errorMessage) {
             var errorPopup = selectId('error-popup');
+            var errorPopupContent = selectId('error-popup-content');
             if (show) {
-                errorPopup.innerHTML = errorMessage;
+                errorPopupContent.innerHTML = errorMessage;
                 errorPopup.classList.remove('none');
+                errorPopup.classList.add('top-push');
             } else {
                 errorPopup.classList.add('none');
+                errorPopup.classList.remove('top-push');
             }
 
         };
