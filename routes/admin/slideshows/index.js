@@ -17,8 +17,7 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
             title: 'Your content',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
+            editor: cr.editor
         },
         sql, sqlDisplays;
 
@@ -37,9 +36,9 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
             }).then(function(data) {
                 //renderTemplate
                 if (slideshows.length > 0) {
-                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, false);
+                    renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, false);
                 } else {
-                    renderTemplate(res, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
+                    renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
                 }
             }).catch(function(err) {
                 throw err;
@@ -53,13 +52,12 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
 
 //create unique id and redirect
 router.get('/add', checkLogin, checkRightsEditor, function(req, res) {
-    var cr = credentials(req.session),
-        email = cr.email,
-        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = (SELECT id FROM users WHERE email = ?)',
+    var userID = req.session.user_id,
+        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = ?',
         number = randNumber(1000000);
 
     req.getConnection(function(err, connection) {
-        insertData(createSlideshow, [number, email], connection).then(function() {
+        insertData(createSlideshow, [number, userID], connection).then(function() {
             res.redirect('/admin/slideshows/add/' + number);
         }).catch(function(err) {
             throw err;
@@ -75,7 +73,6 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor,
-            email: cr.email,
             navStyle: 'icons-only'
         },
         postUrls = {
@@ -104,7 +101,7 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
                     return data;
                 }).then(function(data) {
                     //render template
-                    renderTemplate(res, 'admin/slideshows/add', data, general, postUrls, false);
+                    renderTemplate(res, req, 'admin/slideshows/add', data, general, postUrls, false);
                 }).catch(function(err) {
                     renderError(err);
                     throw err;
@@ -120,7 +117,7 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
 
         function renderError(err) {
             console.log(err);
-            renderTemplate(res, 'admin/slideshows/add', {}, general, postUrls, 'There was a error, please refrech the browser');
+            renderTemplate(res, req, 'admin/slideshows/add', {}, general, postUrls, 'There was a error, please refrech the browser');
         }
     });
 });
@@ -203,12 +200,12 @@ router.get('/preview/:slideshowId', checkLogin, checkRightsEditor, function(req,
                 general: rows
             };
             if (rows.length > 0) {
-                renderTemplate(res, 'display/view', data, general, {}, false, 'layout2');
+                renderTemplate(res, req, 'display/view', data, general, {}, false, 'layout2');
             } else {
-                renderTemplate(res, 'display/view', {}, general, {}, 'There is no content in your slideshow', 'layout2');
+                renderTemplate(res, req, 'display/view', {}, general, {}, 'There is no content in your slideshow', 'layout2');
             }
         }).catch(function(err) {
-            renderTemplate(res, 'display/view', {}, general, {}, 'There was a error', 'layout2');
+            renderTemplate(res, req, 'display/view', {}, general, {}, 'There was a error', 'layout2');
             throw err;
         });
     });

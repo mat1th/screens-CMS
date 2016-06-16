@@ -30,28 +30,27 @@ router.get('/', checkLogin, setRights, function(req, res) {
             url: null
         },
         sql;
-
     req.getConnection(function(err, connection) {
         if (!expired) {
             data.url = '/admin/content?expired=true';
             if (req.admin) {
                 sql = 'SELECT * FROM content WHERE dateEnd > CURDATE()';
             } else {
-                sql = 'SELECT * FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd > CURDATE()';
+                sql = 'SELECT * FROM content WHERE userId = ?  AND dateEnd > CURDATE()';
             }
         } else {
             data.url = '/admin/content';
             if (req.admin) {
                 sql = 'SELECT * FROM content WHERE dateEnd < CURDATE()';
             } else {
-                sql = 'SELECT * FROM content WHERE userId IN( SELECT id FROM users WHERE email = ? ) AND dateEnd < CURDATE()';
+                sql = 'SELECT * FROM content WHERE userId = ?  AND dateEnd < CURDATE()';
             }
         }
 
-        getSpecificData(sql, connection, [req.email]).then(function(rows) {
+        getSpecificData(sql, connection, [req.session.user_id]).then(function(rows) {
             data.general = rows;
             //renderTemplate
-            renderTemplate(res, 'admin/content/show', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/content/show', data, general, postUrls, false);
 
         }).catch(function(err) {
             throw err;
@@ -65,13 +64,12 @@ router.get('/add', checkLogin, function(req, res) {
             title: 'Add content',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
+            editor: cr.editor
         },
         postUrls = {
             general: '/admin/content/add'
         };
-    renderTemplate(res, 'admin/content/add', {}, general, postUrls, false);
+    renderTemplate(res, req, 'admin/content/add', {}, general, postUrls, false);
 });
 
 
@@ -83,8 +81,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
             title: 'Add content',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
+            editor: cr.editor
         },
         postUrls = {
             general: '/admin/content/decision'
@@ -96,14 +93,14 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
         if (req.admin) {
             sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ?';
         } else {
-            sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ? AND userId IN( SELECT id FROM users WHERE email = ? )';
+            sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ? AND userId = ? ';
         }
-        getSpecificData(sql, connection, [contentId, general.email]).then(function(rows) {
+        getSpecificData(sql, connection, [contentId, req.session.user_id]).then(function(rows) {
             var data = {
                 general: rows[0]
             };
             //renderTemplate
-            renderTemplate(res, 'admin/content/detail', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
             //
         }).catch(function(err) {
             console.log(err);
@@ -135,11 +132,10 @@ router.post('/decision', checkLogin, setRights, function(req, res) {
                         to: 'someone <' + data.email + '>',
                         subject: 'Your content isn\'t accepted.',
                         attachment: [{
-                            data: '<html> Hello ' + data.name + ', </br> </br>' + 'Your poster has been deleted trught the admin. Ask ' + req.email + ' why. </br>  </br> The Digital poster team' + '</html>',
+                            data: '<html> Hello ' + data.name + ', </br> </br>' + 'Your poster has been deleted trught the admin. Ask ' + req.session.name + ' why. </br>  </br> The Digital poster team' + '</html>',
                             alternative: true
                         }]
                     };
-                    console.log(message);
                     return message;
 
                 }).then(function(message) {
@@ -173,8 +169,7 @@ router.post('/add', checkLogin, function(req, res) {
             title: 'Add content',
             login: cr.login,
             admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
+            editor: cr.editor
         },
         data = {
             general: {
@@ -218,7 +213,7 @@ router.post('/add', checkLogin, function(req, res) {
                             to: 'someone <matthias@dolstra.me',
                             subject: 'A new content needs to be checked',
                             attachment: [{
-                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + general.email + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.upload.imageFile.name + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
+                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + req.session.name + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.upload.imageFile.name + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
                                 alternative: true
                             }]
                         };
@@ -228,20 +223,20 @@ router.post('/add', checkLogin, function(req, res) {
                         res.redirect('/admin/content');
                     }).catch(function(err) {
                         console.log(err);
-                        renderTemplate(res, 'admin/content/add', data, general, {}, 'there was a error');
+                        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error');
                         throw err;
                     });
                 }).catch(function(err) {
                     console.log(err);
-                    renderTemplate(res, 'admin/content/add', data, general, {}, 'there was a error');
+                    renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error');
                     throw err;
                 });
             });
         } else {
-            renderTemplate(res, 'admin/content/add', data, general, {}, 'You have got no image uploaded');
+            renderTemplate(res, req, 'admin/content/add', data, general, {}, 'You have got no image uploaded');
         }
     } else {
-        renderTemplate(res, 'admin/content/add', data, general, {}, 'You have submit a wrong date');
+        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'You have submit a wrong date');
     }
 });
 

@@ -1,10 +1,10 @@
 var checkLogin = function(req, res, next) {
-    var email = req.session.email;
+    var userId = req.session.user_id;
 
-    if (email === null || email === undefined) {
+    if (userId === null || userId === undefined) {
         res.redirect('/users/login');
     } else {
-        req.email = email;
+        req.userId = userId;
         next();
     }
 };
