@@ -3,6 +3,7 @@
     list-style-type: decimal;
 }
 .edit-nav {
+    box-sizing: border-box;
     position: sticky;
     top: 0;
     width: auto;
@@ -10,7 +11,6 @@
     background: var(--primary-color);
     text-align: center;
     z-index: 3;
-    box-sizing: border-box;
 }
 .edit-nav li {
     display: inline-block;
@@ -47,15 +47,15 @@
 .edit-nav .user-info {
     display: none;
     width: 100%;
-    text-align: left;
     padding: 0.6em 0.6em 1em 0.6em;
+    text-align: left;
 }
 @media screen and (--narrow-window-width) {
     .edit-nav .user-info {
-        width: 100%;
-        display: block;
         box-sizing: border-box;
+        display: block;
         display: flex;
+        width: 100%;
         border-bottom: 0.1em solid var(--font-color-dark);
     }
     .edit-nav .user-name {
@@ -67,10 +67,13 @@
         font-weight: 400;
     }
     .edit-nav .user-info img {
-        border-radius: 50%;
         display: inline-block;
         width: 3em;
         height: 3em;
+        border-radius: 50%;
+    }
+    .edit-nav.icons-only .user-info img {
+        min-width: 100%;
     }
     .edit-nav.icons-only {
         max-width: 4.3em;
@@ -83,12 +86,12 @@
         width: 100%;
     }
     .edit-nav a {
-        height: 1em;
         display: block;
+        position: relative;
+        height: 1em;
         padding: 1em 1em;
         color: var(--font-color-dark);
         text-align: center;
-        position: relative;
     }
 }
 @media screen and (--medium-window-width) {
@@ -100,8 +103,8 @@
         max-width: 10em;
     }
     section.edit-nav a {
-        text-align: left;
         display: var(--display);
+        text-align: left;
     }
     .edit-nav small {
         display: inline-block;

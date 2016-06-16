@@ -17,8 +17,8 @@
     display: inline-block;
 }
 .no-flexbox .main-content .card {
-    max-width: 20em;
     display: inline-block;
+    max-width: 20em;
 }
 
 /*bar on the slideshow page*/
@@ -35,8 +35,8 @@
     float: left;
 }
 .no-flexbox .slideshow-preview img {
-    margin: 1em auto;
     display: block;
+    margin: 1em auto;
 }
 .no-flexbox .right-panel {
     display: inline-block;
@@ -55,8 +55,8 @@
     .no-flexbox .edit-nav {
         display: block;
         max-width: 6em;
-        float: left;
         height: 100%;
+        float: left;
     }
     .no-flexbox .main-content {
         width: 70%;
@@ -84,10 +84,10 @@
         max-width: 8em;
     }
     .no-flexbox .edit-nav small {
-        float: right;
-        padding: 0.2em;
-        text-align: left;
         width: 60%;
+        padding: 0.2em;
+        float: right;
+        text-align: left;
     }
     .no-flexbox .edit-nav a {
         height: 1.5em;
