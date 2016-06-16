@@ -4,6 +4,7 @@ DP.slideshows = (function() {
         _selector = DP.helper.select('.slideshow-picker'),
         _numbers = DP.helper.selectAll('.number'),
         _selectImage = DP.helper.selectAll('.select-image'),
+        _preview = DP.helper.select('.slideshow-preview img'),
         _addImages = DP.helper.select('.slideshow-picker button');
 
     var _getIds = function() {
@@ -112,9 +113,8 @@ DP.slideshows = (function() {
         }
     };
     var _edditPoster = function() {
-        var _client = new DP.helper.GetData(),
+        var _client = new DP.helper.getData(),
             _contentlist = DP.helper.select('#contentlist'),
-            _preview = DP.helper.select('.slideshow-preview img'),
             formElements = {
                 form: DP.helper.select('.slideshow-content-settings form'),
                 animaion: DP.helper.select('#field-animation'),
@@ -137,7 +137,6 @@ DP.slideshows = (function() {
                 });
                 _preview.src = ev.target.src;
             }
-
         });
     };
     var _toggleButtons = function() {
@@ -148,7 +147,6 @@ DP.slideshows = (function() {
             if (target.nodeName === 'BUTTON') {
                 toggleAll(target, []);
             }
-
         });
     };
     var toggleAll = function(target, show) {
@@ -166,6 +164,19 @@ DP.slideshows = (function() {
             }
         }
     };
+    var animateSelect = function() {
+        var select = DP.helper.selectId('field-animation');
+        var animations = ['fadein', 'left-push', 'top-push'];
+
+        select.addEventListener('change', function(e) {
+          console.log(e.target.value);
+            for (var i = 0; i < animations.length; i++) {
+                _preview.classList.remove(animations[i]);
+                console.log(_preview.classList);
+            }
+            _preview.classList.add(e.target.value);
+        });
+    };
 
     var init = function() {
         window.onload = function functionName() {
@@ -176,6 +187,7 @@ DP.slideshows = (function() {
         _addNewPoster();
         _sortable();
         _edditPoster();
+        animateSelect();
     };
 
     return {
