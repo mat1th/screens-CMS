@@ -2,6 +2,7 @@ var renderTemplate = function(res, template, data, general, postUrls, error, lay
     res.render(template, {
         title: general.title,
         piwik: config.piwik.code,
+        username: 'matthias',
         data: {
             general: data.general || null,
             allDisplays: data.displays || null,
