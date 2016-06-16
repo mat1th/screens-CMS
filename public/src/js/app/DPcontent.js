@@ -1,6 +1,11 @@
 DP.content = (function() {
     var _inputPreview = DP.helper.selectId('input-preview'),
         _preview = DP.helper.selectId('preview'),
+
+        /**
+         * _setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
+        */
+
         _setVimeoForm = function() { //get the data from the specific vimeo id
             var client = new DP.helper.getData(),
                 fieldVimeoId = DP.helper.selectId('field-vimeo-id'),

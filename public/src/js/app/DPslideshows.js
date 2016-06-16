@@ -112,7 +112,7 @@ DP.slideshows = (function() {
         }
     };
     var _edditPoster = function() {
-        var _client = new DP.helper.getData(),
+        var _client = new DP.helper.GetData(),
             _contentlist = DP.helper.select('#contentlist'),
             _preview = DP.helper.select('.slideshow-preview img'),
             formElements = {
