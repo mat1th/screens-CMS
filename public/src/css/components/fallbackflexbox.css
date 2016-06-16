@@ -42,14 +42,14 @@
     display: inline-block;
     float: right;
 }
-.no-flexbox .toggle-buttons{
-  width: 100%;
+.no-flexbox .toggle-buttons {
+    width: 100%;
 }
-.no-flexbox .toggle-buttons button:first-child{
-  float: left;
+.no-flexbox .toggle-buttons button:first-child {
+    float: left;
 }
-.no-flexbox .toggle-buttons button:last-child{
-  float: right;
+.no-flexbox .toggle-buttons button:last-child {
+    float: right;
 }
 @media screen and (--narrow-window-width) {
     .no-flexbox .edit-nav {
