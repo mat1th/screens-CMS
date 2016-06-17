@@ -1,17 +1,22 @@
 .banner {
     background: url(../../img/background.jpg);
-    background-position: 100%;
+    background-position: 100% 0;
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-size: cover;
-    display: var(--display);
-    flex-direction: column;
-    flex-grow: 1;
     height: 30em;
 }
 .banner h1 {
-    color: #fff;
+    color: var( --font-color-dark);
+    color: var(  --normal-color);
     display: block;
+    font-size: 3em;
     margin: auto auto;
     width: 100%;
+}
+.banner .banner-content {
+    padding: 4em 1em 1em 1em;
+}
+.step{
+
 }
