@@ -214,8 +214,8 @@ gulp.task('styles-app', function() {
             './public/src/css/layout/login.css',
             './public/src/css/layout/maincontent.css',
             './public/src/css/layout/content.css',
-            './public/src/css/layout/edit.css',
-            './public/src/css/layout/slideshow-editor.css',
+            './public/src/css/module/editnav.css',
+            './public/src/css/layout/slideshoweditor.css',
             './public/src/css/layout/home.css',
             './public/src/css/layout/footer.css',
             './public/src/css/layout/fallbackflexbox.css'
