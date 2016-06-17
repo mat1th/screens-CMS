@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
     res.render('home', {
         title: 'Home',
-        navPosition: 'transparant',
+        pagelayout: 'transparant',
         rights: {
             logedin: login
         }

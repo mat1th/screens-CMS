@@ -79,6 +79,9 @@ span.error {
         align-content: stretch;
         margin: 0 auto 0 auto;
     }
+    .transparant main {
+      display: block;
+    }
 }
 ::selection {
     background: var(--primary-color);

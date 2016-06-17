@@ -23,7 +23,7 @@ var renderTemplate = function(res, req, template, data, general, postUrls, error
             displays: postUrls.displays || null
         },
         error: error,
-        navPosition: general.navPosition,
+        pagelayout: general.pagelayout,
         layout: layout || 'layout'
     });
 };

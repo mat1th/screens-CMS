@@ -9,7 +9,7 @@ var express = require('express'),
 router.get('/login', function(req, res) {
     var general = {
             title: 'Login',
-            navPosition: 'transparant'
+            pagelayout: 'transparant'
         },
         postUrls = {
             general: '/users/login'
@@ -25,7 +25,7 @@ router.post('/login', function(req, res) {
         hour = 10200000,
         general = {
             title: 'Login',
-            navPosition: 'transparant'
+            pagelayout: 'transparant'
         },
         postUrls = {
             general: '/users/login'
@@ -58,7 +58,7 @@ router.post('/login', function(req, res) {
 router.get('/register', function(req, res) {
     var general = {
             title: 'Login',
-            navPosition: 'transparant'
+            pagelayout: 'transparant'
         },
         postUrls = {
             general: '/users/register'
@@ -74,7 +74,7 @@ router.post('/register', function(req, res) {
         passwordcheck = req.body.passwordcheck,
         general = {
             title: 'Login',
-            navPosition: 'transparant'
+            pagelayout: 'transparant'
         },
         postUrls = {
             general: '/users/register'
