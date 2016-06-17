@@ -241,7 +241,10 @@ gulp.task('scripts-app', function() {
 });
 // Scripts slideshow
 gulp.task('scripts-slideshow', function() {
-    return gulp.src(['./node_modules/gsap/src/minified/TweenMax.min.js', './public/src/js/slideshow/*.js'])
+    return gulp.src([
+            './node_modules/gsap/src/minified/TweenMax.min.js',
+            './public/src/js/slideshow/*.js'
+        ])
         .pipe(sourcemaps.init())
         .pipe(concat('slideshow.js'))
         .pipe(babel({
