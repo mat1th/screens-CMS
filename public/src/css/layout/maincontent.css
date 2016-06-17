@@ -74,7 +74,6 @@
 
 .card {
     min-width: 10em;
-    min-height: 10em;
     margin: 0.5em;
     padding: 0.5em;
     background: var(--background-color-light);
@@ -100,6 +99,9 @@
     }
 }
 @media (--medium-window-width) {
+    .card {
+        min-height: 12em;
+    }
     .content-body section {
         display: inline-block;
         width: auto;
