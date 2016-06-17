@@ -1,12 +1,12 @@
 /*table*/
 
-.content-body table {
+table {
     width: 100%;
     text-align: left;
     border-spacing: 0;
     margin: 0 0 1em 0;
 }
-.content-body table td, table th {
+table td, table th {
     display: block;
     padding: 0 0 0 3em;
     height: 3em;
@@ -17,33 +17,32 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.content-body table th {
+table th {
     display: none;
     font-weight: 500;
     color: var( --normal-color);
     padding: 0;
     outline: none;
 }
-.content-body table a {
+table a {
     color: inherit;
 }
-
-.content-body table tr {
+table tr {
     font-size: 0.9em;
 }
-.content-body .responsive tr {
+.responsive tr {
     margin: 1em 0;
     background: #fff;
     display: block;
 }
-.content-body .responsive td {
+.responsive td {
     height: 1em;
     padding: 1em;
 }
-.content-body td a {
+td a {
     display: inline-block
 }
-.content-body .responsive td:before {
+.responsive td:before {
     text-align: left;
     color: var( --font-color-dark);
     text-align: left;
@@ -51,18 +50,20 @@
     font-weight: 600;
     content: attr(data-th) ": ";
 }
-.content-body .responsive table td:last-child {
+.responsive table td:last-child {
     border: none;
 }
+
 /*dont show the eddit table*/
-.content-body .responsive td.edit:before {
+
+.responsive td.edit:before {
     display: none;
 }
-.content-body .responsive td.checkboxes label {
+.responsive td.checkboxes label {
     position: absolute;
     margin: 0 auto;
 }
-.content-body .responsive td.checkboxes {
+.responsive td.checkboxes {
     display: none;
     width: 4em;
     max-width: 4em;
@@ -71,39 +72,39 @@ td.edit a {
     display: inline-block;
     padding: 0;
 }
-.content-body table a.btn {
+table a.btn {
     width: 3em;
     min-width: 4em;
     color: var(--font-color-light);
     margin: 0;
 }
 @media (--medium-window-width) {
-    .content-body .responsive {
+    .responsive {
         background: #fff;
     }
-    .content-body .responsive td.checkboxes {
+    .responsive td.checkboxes {
         display: table-cell;
     }
-    .content-body table td {
+    table td {
         display: table-cell;
     }
-    .content-body table th {
+    table th {
         display: table-cell;
     }
-    .content-body .responsive td:before {
+    .responsive td:before {
         display: none;
     }
-    .content-body table tr {
+    table tr {
         padding: 0;
         display: table-row;
     }
-    .content-body .responsive tr {
+    .responsive tr {
         display: table-row;
     }
-    .content-body table th:first-child, .content-body table td:first-child {
+    table th:first-child, table td:first-child {
         padding: 0 0 0 1.8em;
     }
-    .content-body table th:last-child, .content-body table td:last-child {
+    table th:last-child, table td:last-child {
         padding: 0 0.9em 0 0;
         width: 8em;
     }

@@ -209,16 +209,16 @@ gulp.task('styles-app', function() {
             './public/src/css/components/animations.css',
             './public/src/css/components/loader.css',
             './public/src/css/components/form.css',
-            './public/src/css/components/nav.css',
-            './public/src/css/components/login.css',
-            './public/src/css/components/maincontent.css',
-            './public/src/css/components/content.css',
-            './public/src/css/components/edit.css',
             './public/src/css/components/table.css',
-            './public/src/css/components/slideshow-editor.css',
-            './public/src/css/components/home.css',
-            './public/src/css/components/footer.css',
-            './public/src/css/components/fallbackflexbox.css'
+            './public/src/css/layout/nav.css',
+            './public/src/css/layout/login.css',
+            './public/src/css/layout/maincontent.css',
+            './public/src/css/layout/content.css',
+            './public/src/css/module/editnav.css',
+            './public/src/css/layout/slideshoweditor.css',
+            './public/src/css/layout/home.css',
+            './public/src/css/layout/footer.css',
+            './public/src/css/layout/fallbackflexbox.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
