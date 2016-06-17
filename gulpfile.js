@@ -106,10 +106,36 @@ var gulp = require('gulp'),
         rename: {
             suffix: '-16'
         }
+    }],
+    imgConfig = [{
+        width: 1500,
+        rename: {
+            suffix: '-1500'
+        }
+    }, {
+        width: 1280,
+        rename: {
+            suffix: '-1280'
+        }
+    }, {
+        width: 960,
+        rename: {
+            suffix: '-960'
+        }
+    }, {
+        width: 640,
+        rename: {
+            suffix: '-640'
+        }
+    }, {
+        width: 480,
+        rename: {
+            suffix: '-480'
+        }
     }];
 
 gulp.task('build', function() {
-    gulp.start('icons', 'images', 'copy', 'favicons', 'styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
+    gulp.start('icons', 'images', 'images-responsive', 'copy', 'favicons', 'styles-app', 'styles-slider', 'scripts-app', 'scripts-slideshow');
 });
 
 gulp.task('icons', function() {
@@ -147,6 +173,19 @@ gulp.task('images', function() {
             }
         }))
         .pipe(gulp.dest('./public/dist/img'));
+});
+gulp.task('images-responsive', function() {
+    return gulp.src(['./public/src/img/home/*.jpg', './public/src/img/home/*.png'])
+
+    .pipe(responsive({
+            '*': imgConfig
+        }, {
+            quality: 95,
+            progressive: true,
+            compressionLevel: 6,
+            withMetadata: false
+        }))
+        .pipe(gulp.dest('./public/dist/img/home'));
 });
 
 // Styles
