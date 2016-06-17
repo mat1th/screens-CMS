@@ -157,6 +157,8 @@ button.top-margin, a.top-margin {
     background: var(--normal-color);
     color: var(--font-color-light);
 }
+.toggle-buttons button:hover,
+.toggle-buttons button:focus,
 .toggle-buttons button:active {
     background: var(--normal-color-hover);
     color: var(--font-color-light);

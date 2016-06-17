@@ -16,6 +16,7 @@
 .slideshow-content .add {
     box-sizing: border-box;
     display: inline-block;
+    background: var(--background-color-semidark);
     width: 5em;
     height: 100%;
     margin: 0;
@@ -40,6 +41,10 @@
     height: 6em;
     padding: 0.1em;
     cursor: pointer;
+}
+.contentitem a:focus{
+  background: var(--font-color-gray);
+  display: block;
 }
 .contentitem span {
     display: none;

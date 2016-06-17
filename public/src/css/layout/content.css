@@ -62,9 +62,6 @@ figcaption time {
 .content .check svg {
     width: 2.9em;
 }
-.content .not-cheked .triangle {
-    right: 0;
-}
 /*play icon on the vimeo movies*/
 .content .play-icon-bottom {
     position: absolute;
