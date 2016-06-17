@@ -12,26 +12,23 @@ header > nav {
     background: var(--background-color-dark);
     z-index: 15;
 }
-.transparant header > nav {
-    position: absolute;
-    background: none;
-}
+
 header ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
     list-style-type: none;
 }
-header ul > li {
+header li {
     display: inline-block;
 }
-header ul > .name > a {
+header .name > a {
     display: none;
     padding: 0 1em 0 0;
     font-size: 1em;
     font-weight: 600;
 }
-header ul > li > a {
+header a {
     display: block;
     padding: 0.35em 1em 0 0;
     color: var(--font-color-light);
@@ -40,8 +37,16 @@ header ul > li > a {
     text-decoration: none;
     text-transform: uppercase;
 }
-header ul > li > a:hover {
+header a:hover {
     -webkit-transition: color .2s ease-out;
     color: var(--primary-color);
     transition: color .2s ease-out;
+}
+
+.transparant nav {
+    position: absolute;
+    background: none;
+}
+.transparant header a {
+    color: var(--font-color-dark);
 }

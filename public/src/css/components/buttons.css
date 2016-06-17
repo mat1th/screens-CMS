@@ -44,12 +44,12 @@
 }
 .btn-transparant {
     max-width: 20em;
-    border: 0.06rem solid #fff;
-    background: rgba(255, 255, 255, 0.13);
-    color: #fff;
+    border: 0.06rem solid #000;
+    background: rgba(0, 0, 0, 0.13);
+    color: #000;
 }
 .btn-transparant:hover {
-    background: rgba(255, 255, 255, 0.40);
+    background: rgba(0, 0, 0, 0.4);
 }
 .btn-normal {
     background-color: var(--background-color-semidark);
