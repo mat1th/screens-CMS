@@ -74,7 +74,7 @@
         display: block;
         margin: 0 auto;
     }
-    .no-flexbox .edit-nav small {
+    .no-flexbox .edit-nav span {
         display: block;
         text-align: center;
     }
@@ -83,7 +83,7 @@
     .no-flexbox .edit-nav {
         max-width: 8em;
     }
-    .no-flexbox .edit-nav small {
+    .no-flexbox .edit-nav span {
         width: 60%;
         padding: 0.2em;
         float: right;

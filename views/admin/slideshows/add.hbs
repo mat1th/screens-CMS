@@ -1,7 +1,7 @@
  {{> nav}}
 <noscript>
     <div class="warning" role="alert">
-        <small> Not all functions of the app will work, please enable JS</small>
+        <span> Not all functions of the app will work, please enable JS</span>
     </div>
 </noscript>
 <section class="slideshow-add">
@@ -19,7 +19,7 @@
             {{#each data.general}}
                 <li class="contentitem list" draggable="true">
                     <a href="#">
-                        <small class="number">{{@index}}</small>
+                        <span class="number">{{@index}}</span>
                         <div class="image no-overflow" data-id="{{id}}">
                             {{#checktype type equals="vimeo" }}
                                 <div class="play-icon">

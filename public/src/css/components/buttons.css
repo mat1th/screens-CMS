@@ -18,7 +18,7 @@
     cursor: pointer;
     z-index: 1;
 }
-.btn-small {
+.btn-span {
     padding: 0.15em 0.1em;
     max-width: 1em;
     height: auto;

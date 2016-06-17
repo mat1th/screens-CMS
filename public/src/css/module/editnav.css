@@ -19,7 +19,7 @@
     padding: 0.5em 0.5em;
     text-align: center;
 }
-.edit-nav small {
+.edit-nav span {
     display: none;
     font-size: 0.8em;
 }
@@ -35,7 +35,7 @@
 
 /*icons only*/
 
-.edit-nav.icons-only .user-name small, .edit-nav.icons-only small {
+.edit-nav.icons-only .user-name span, .edit-nav.icons-only span {
     display: none;
 }
 .edit-nav.icons-only svg {
@@ -89,7 +89,7 @@
         display: inline-block;
         margin: 0.4em 0.5em;
     }
-    .edit-nav .user-info small {
+    .edit-nav .user-info span {
         display: block;
         font-weight: 400;
     }
@@ -105,7 +105,7 @@
         min-width: 10em;
         max-width: 10em;
     }
-    .edit-nav small {
+    .edit-nav span {
         display: inline-block;
         height: 100%;
         margin: auto 0;

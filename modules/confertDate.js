@@ -11,7 +11,7 @@ var isValidDate = function(date) {
         //english fromat
         return moment(date, 'DD-MM-YYYY').format('YYYY-M-D');
     } else if (moment(date, 'DD-MM-YY').isValid()) {
-        //small year
+        //span year
         return moment(date, 'DD-MM-YY').format('DD-MM-YY');
     } else {
         return false;

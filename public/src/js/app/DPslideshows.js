@@ -18,7 +18,7 @@ DP.slideshows = (function() {
     var CreateLi = function(id, filename) {
         return '<li class="contentitem list" draggable="true">' +
             '<a href="#">' +
-            '<small class="number">' + id + '</small>' +
+            '<span class="number">' + id + '</span>' +
             '<div class="image no-overflow" data-id="' + id + '">' +
             '<img src="/download/' + filename + '" alt="" draggable="false" data-id="' + id + '">' +
             '</div>' +

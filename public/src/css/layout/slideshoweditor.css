@@ -41,7 +41,7 @@
     padding: 0.1em;
     cursor: pointer;
 }
-.slideshow-content .contentitem small {
+.slideshow-content .contentitem span {
     display: none;
 }
 .slideshow-content .contentitem div {
@@ -85,7 +85,7 @@
         padding: 0;
         cursor: pointer;
     }
-    .slideshow-content .contentitem small {
+    .slideshow-content .contentitem span {
         display: inline-block;
     }
     .slideshow-content .contentitem div {

@@ -62,7 +62,7 @@ span.error {
     text-align: center;
     z-index: 16;
 }
-.warning small {
+.warning span {
     padding: 0.2em 0.5em;
     border-radius: var(--border-radius);
     background: var( --warn-color);
