@@ -31,14 +31,14 @@
     font-size: 0.8em;
     height: auto;
 }
-.btn-filter:hover {
+.btn-filter:hover, .btn-filter:focus {
     color: var( --normal-color);
 }
 .btn-filter.expired {
     color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.52);
 }
-.btn-filter.expired:hover {
+.btn-filter.expired:focus, .btn-filter.expired:hover {
     color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.82);
 }
@@ -55,6 +55,7 @@
     background-color: var(--background-color-semidark);
     color: var(--font-color-dark);
 }
+.btn-normal:focus,
 .btn-normal:hover {
     background-color: rgb(89, 89, 89);
     color: var(--font-color-light);
@@ -63,13 +64,18 @@
     background-color: var(--normal-color);
     color: var(--font-color-light);
 }
+.btn-default:focus,
 .btn-default:hover {
+    background-color: var(--normal-color-hover);
+}
+.btn-default:focus{
     background-color: var(--normal-color-hover);
 }
 .btn-accept {
     background-color: var(--eddit-color);
     color: var(--font-color-light);
 }
+.btn-accept:focus,
 .btn-accept:hover {
     background-color: var(--eddit-color-hover);
 }
@@ -77,6 +83,7 @@
     background-color: var(--warn-color);
     color: var(--font-color-light);
 }
+.btn-warn:focus,
 .btn-warn:hover {
     background-color: var(--warn-color-hover);
 }

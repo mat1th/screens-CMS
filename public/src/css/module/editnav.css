@@ -23,9 +23,11 @@
     display: none;
     font-size: 0.8em;
 }
+.edit-nav a:focus svg,
 .edit-nav a:hover svg {
     fill: var(--font-color-light);
 }
+.edit-nav a:focus,
 .edit-nav a:hover {
     background: var( --background-color-dark);
     color: var(--font-color-light);

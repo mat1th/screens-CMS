@@ -22,6 +22,7 @@
 .content-header svg {
     fill: var( --font-color-gray);
 }
+.content-header button:focus svg, .content-header a:focus svg,
 .content-header button:hover svg, .content-header a:hover svg {
     fill: var( --normal-color);
 }

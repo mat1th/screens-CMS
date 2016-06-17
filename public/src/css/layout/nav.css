@@ -37,6 +37,7 @@ header a {
     text-decoration: none;
     text-transform: uppercase;
 }
+header a:focus,
 header a:hover {
     -webkit-transition: color .2s ease-out;
     color: var(--primary-color);

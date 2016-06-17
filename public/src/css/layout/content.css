@@ -7,6 +7,7 @@
     padding: 0.5em;
     border-radius: var( --border-radius);
 }
+.content:focus,
 .content:hover {
     background: var( --background-color-semidark);
 }
@@ -20,6 +21,7 @@
     object-fit: contain;
     z-index: 1;
 }
+.content:focus img,
 .content:hover img {
     filter: brightness(90%);
 }
@@ -64,6 +66,7 @@
     margin: 7em auto;
     z-index: 1;
 }
+.content:focus .play-icon-bottom,
 .content:hover .play-icon-bottom {
     -webkit-animation-name: pulse;
     animation-name: pulse;
@@ -101,6 +104,7 @@ small.vimeo-tag {
 .info-tooltip a {
     color: var(--primary-color);
 }
+.info-tooltip:focus small,
 .info-tooltip:hover small {
     display: block;
 }
