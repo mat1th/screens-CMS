@@ -6,6 +6,15 @@ var express = require('express'),
     paswordStrength = require('../../modules/paswordStrength.js'),
     router = express.Router();
 
+
+var setSession = function(req, userId, userName, role) {
+    var hour = 10200000;
+    req.session.cookie.expires = new Date(Date.now() + hour);
+    req.session.user_id = userId;
+    req.session.user_name = userName;
+    req.session.role = role;
+};
+
 router.get('/login', function(req, res) {
     var general = {
             title: 'Login',
@@ -22,7 +31,6 @@ router.post('/login', function(req, res) {
     var body = req.body,
         email = body.email,
         password = body.password,
-        hour = 10200000,
         general = {
             title: 'Login',
             pagelayout: 'transparant'
@@ -37,10 +45,7 @@ router.post('/login', function(req, res) {
             if (rows.length > 0) {
                 var credentials = saltHash.check(rows[0].salt, rows[0].hash, password);
                 if (credentials) {
-                    req.session.cookie.expires = new Date(Date.now() + hour);
-                    req.session.user_id = rows[0].id;
-                    req.session.user_name = rows[0].name;
-                    req.session.role = rows[0].role;
+                    setSession(req, rows[0].id, rows[0].name, rows[0].role);
                     res.redirect('/admin');
                 } else {
                     renderTemplate(res, req, 'users/login', {}, general, postUrls, 'Username or password is false.');
@@ -109,5 +114,7 @@ router.get('/logout', function(req, res) {
         res.redirect('/');
     });
 });
+
+
 
 module.exports = router;

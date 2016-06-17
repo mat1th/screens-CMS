@@ -8,7 +8,7 @@
                   {{> svg/addicon}}
                 </a>
                 <button type="button" name="button" title="delete" class="btn-action" disabled>
-                  {{> svg/trashicon}}
+                    {{> svg/trashicon}}
                 </button>
             </div>
             <form class="" action="index.html" method="post">
@@ -24,20 +24,30 @@
                 {{#each data.general}}
                     <li class="content zoom-in animate">
                         <a href="/admin/content/show/{{id}}">
-                            <figure class="" >
-                              <div class="image no-overflow" style="background-color: {{color}}">
-                                {{#checktype type equals="vimeo" }}
-                                    <img src="{{vimeoImage}}" alt="" />
-                                {{/checktype}}
-                                {{#checktype type equals="poster" }}
-                                    <img src="/download/{{filename}}" alt="" />
-                                {{/checktype}}
-                              </div>
-                              <figcaption >
-                                  <h2>{{name}}
+                            <figure class="">
+                                <div class="image no-overflow" style="background-color: {{color}}">
+                                    {{#checktype type equals="vimeo" }}
+                                        {{#if vimeoImage.length}}
+                                            <img src="{{vimeoImage}}" alt="" />
+                                        {{else}}
+                                            <img src="/img/no-screen.jpg" alt="" />
+                                        {{/if}}
+                                    {{/checktype}}
+                                    {{#checktype type equals="poster" }}
+                                        {{#if filename.length}}
+                                            <img src="/download/{{filename}}" alt="" />
+                                        {{else}}
+                                            <img src="/img/no-screen.jpg" alt="" />
+                                        {{/if}}
+                                    {{/checktype}}
+                                </div>
+                                <figcaption>
+                                    <h2>{{name}}
                                   {{#checktype type equals="vimeo" }}<span class="vimeo-tag">Vimeo</span>{{/checktype}}</h2>
-                                  <time>{{#beginEnd dateStart dateEnd}}{{/beginEnd}}</time>
-                              </figcaption>
+                                    <time>
+                                        {{#beginEnd dateStart dateEnd}}{{/beginEnd}}
+                                    </time>
+                                </figcaption>
                             </figure>
 
 
