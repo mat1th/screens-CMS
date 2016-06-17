@@ -24,19 +24,22 @@
                 {{#each data.general}}
                     <li class="content zoom-in animate">
                         <a href="/admin/content/show/{{id}}">
-                            <figure class="image no-overflow" style="background-color: {{color}}">
+                            <figure class="" >
+                              <div class="image no-overflow" style="background-color: {{color}}">
                                 {{#checktype type equals="vimeo" }}
                                     <img src="{{vimeoImage}}" alt="" />
                                 {{/checktype}}
                                 {{#checktype type equals="poster" }}
                                     <img src="/download/{{filename}}" alt="" />
                                 {{/checktype}}
-                            </figure>
-                            <div class="name">
-                                <h2>{{name}}
+                              </div>
+                              <figcaption >
+                                  <h2>{{name}}
                                   {{#checktype type equals="vimeo" }}<small class="vimeo-tag">Vimeo</small>{{/checktype}}</h2>
                                   <small>{{#beginEnd dateStart dateEnd}}{{/beginEnd}}</small>
-                            </div>
+                              </figcaption>
+                            </figure>
+
 
                             {{#if ../rights.admin}}
                                 {{#checktype checked equals="0" }}

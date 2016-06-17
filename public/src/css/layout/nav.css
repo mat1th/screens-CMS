@@ -22,12 +22,6 @@ header ul {
 header li {
     display: inline-block;
 }
-header .name > a {
-    display: none;
-    padding: 0 1em 0 0;
-    font-size: 1em;
-    font-weight: 600;
-}
 header a {
     display: block;
     padding: 0.35em 1em 0 0;
