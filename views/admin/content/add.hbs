@@ -17,7 +17,6 @@
                         <input type="radio" name="type" value="poster" id="field-content" checked>
                         <label for="field-content">Poster</label>
                     </li>
-
                     <li>
                         <input type="radio" name="type" value="vimeo" id="field-vimeo">
                         <label for="field-vimeo">Vimeo video</label>
@@ -34,18 +33,18 @@
                 <label for="field-vimeo-id">Vimeo id:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>The last numbers of the viemo url.</span>
+                        <p>The last numbers of the viemo url.</p>
                     </div>
                 </label>
                 <input type="text" id="field-vimeo-id" name="vimeoId" value="{{data.general.vimeoId}}" placeholder="125229524">
-                <span class="error" id="vimeo-id-error"></span>
+                <p class="error" id="vimeo-id-error"></p>
             </div>
 
             <div>
                 <label for="field-name">Title:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>This will be shown in the CMS. So you know what kind of poster it is.</span>
+                        <p>This will be shown in the CMS. So you know what kind of poster it is.</p>
                     </div>
                 </label>
                 <input type="text" id="field-name" name="name" value="{{data.general.name}}" placeholder="Won't show in the slideshow">
@@ -54,7 +53,7 @@
                 <label for="field-vimeoImage">Vimeo preview image:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>This is the url to the preview form the vimeo video.</span>
+                        <p>This is the url to the preview form the vimeo video.</p>
                     </div>
                 </label>
                 <input type="text" id="field-vimeoImage" name="vimeoImage" value="/download/no-poster.png" placeholder="https://vimeo.com/image">
@@ -63,7 +62,7 @@
                 <label for="field-discription">Discription:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>This will be shown in the CMS so the adminstrator knows where the poster is going about.</span>
+                        <p>This will be shown in the CMS so the adminstrator knows where the poster is going about.</p>
                     </div>
                 </label>
                 <textarea name="discription" rows="2" cols="40"  id="field-discription" placeholder="Won't show in the slideshow">{{data.general.discription}}</textarea>
@@ -72,13 +71,12 @@
                 <label for="field-animation">Animation:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>The incomming transision from the poster.</span>
+                        <p>The incomming transision from the poster.</p>
                     </div>
                 </label>
                 <div class="select-icon">
                     <select class="" name="animation" id="field-animation">
                         <option value="fadein">fade in</option>
-                        <!-- <option value="pop">pop</option> -->
                         <option value="top-push">push from top</option>
                         <option value="left-push">push from left</option>
                     </select>
@@ -88,17 +86,17 @@
                 <label for="field-color">Background color:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>If the poster has not the right size for the screen. This will be the collor of the background of the poster. On <a href="https://duckduckgo.com/?q=colorpicker">this site</a> you can pick a color.</span>
+                        <p>If the poster has not the right size for the screen. This will be the collor of the background of the poster. On <a href="https://duckduckgo.com/?q=colorpicker">this site</a> you can pick a color.</p>
                     </div>
                 </label>
                 <input type="color" name="color" id="field-color" value="{{data.general.color}}" placeholder="#FFCC00 (background of the slideshow)">
-                <span class="error" id="color-error"></span>
+                <p class="error" id="color-error"></p>
             </div>
             <div>
                 <label for="field-duration">Duration:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>This is the time how long the poster will be shown on the display.</span>
+                        <p>This is the time how long the poster will be shown on the display.</p>
                     </div>
                 </label>
                 <input type="number" id="field-duration" name="duration" min="10" max="400" value="{{data.general.duration}}" placeholder="30 (s)" required>
@@ -107,21 +105,21 @@
                 <label for="field-date-start">Start date:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>On which date must the poster be started to be shown.</span>
+                        <p>On which date must the poster be started to be shown.</p>
                     </div>
                 </label>
                 <input type="date" id="field-date-start" name="dateStart" value="{{data.general.dateStart}}" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
-                <span class="error" id="date-start-error"></span>
+                <p class="error" id="date-start-error"></p>
             </div>
             <div>
                 <label for="field-date-end">End date:
                     <div class="info-tooltip">
                         {{> svg/info}}
-                        <span>Tho which date should the poster be on the display.</span>
+                        <p>Tho which date should the poster be on the display.</p>
                     </div>
                 </label>
                 <input type="date" id="field-date-end" name="dateEnd" value="{{data.general.dateEnd}}" min="01-06-2016" placeholder="DD-MM-JJJJ" required>
-                <span class="error" id="date-end-error"></span>
+                <p class="error" id="date-end-error"></p>
             </div>
             <button class="btn btn-default top-margin"  {{#unless rights.admin}} onclick="alert('Your poster will be checked by the admin.')"  {{/unless}}>Submit</button>
             <a href="/admin/content" class="btn top-margin" type="submit">Cancel</a>

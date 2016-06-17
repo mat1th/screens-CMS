@@ -46,6 +46,12 @@ figcaption h2 {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+figcaption time {
+    font-size: 0.8em;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .content .check {
     position: absolute;
     top: 0;
@@ -107,11 +113,11 @@ span.vimeo-tag {
 .info-tooltip a {
     color: var(--primary-color);
 }
-.info-tooltip:focus span,
-.info-tooltip:hover span {
+.info-tooltip:focus p,
+.info-tooltip:hover p {
     display: block;
 }
-.info-tooltip span {
+.info-tooltip p {
     display: none;
     position: absolute;
     bottom: 1.5em;

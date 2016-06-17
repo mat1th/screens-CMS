@@ -19,6 +19,9 @@ video {
 a {
     text-decoration: none;
 }
+time {
+   font-size: 0.8em;
+}
 .bold {
     font-size: 1em;
     font-weight: bold;
