@@ -20,7 +20,7 @@
     --background-color-normal: #efecea;
     --background-color-semidark: #c4c4c3;
     /*shadows*/
-    --shadow-normal: rgba(0, 0, 0, 0.14902) 4px 4px 8px 0px;
+    --shadow-normal: rgba(0, 0, 0, 0.14902) 0.25rem 0.25rem 0.5rem 0em;
     --border-radius: 0.21em;
     --display: flex;
 }

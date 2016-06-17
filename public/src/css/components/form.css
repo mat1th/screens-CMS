@@ -125,7 +125,7 @@ input[type="radio"]:checked+ label::after, input[type="checkbox"]:checked+ label
     z-index: 1;
 }
 select {
-    box-shadow: 0 0.0625em 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.0625em 0.18755em rgba(0, 0, 0, 0.08);
     cursor: pointer;
 }
 select::-ms-expand {
@@ -141,7 +141,7 @@ form li {
     user-select: none;
     display: inline-block;
     position: relative;
-    margin: 0 26px 16px 0;
+    margin: 0 1.625em 1em 0;
 }
 .edit.btn {
     width: 1em;

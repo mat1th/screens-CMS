@@ -82,7 +82,7 @@
     position: absolute;
     top: 0;
     left: 49.85%;
-    width: 5px;
+    width: 0.3125em;
     height: 100%;
     background-color: var(--background-color-normal);
     content: '';
