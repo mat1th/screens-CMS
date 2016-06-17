@@ -20,23 +20,8 @@
     width: 100%;
 }
 
-.content-header svg {
-    fill: var( --font-color-gray);
-}
-.content-header button:focus svg, .content-header a:focus svg,
-.content-header button:hover svg, .content-header a:hover svg {
-    fill: var( --normal-color);
-}
-.content-header button[disabled] {
-    cursor: not-allowed;
-}
-.content-header button[disabled] svg {
-    fill: var( --background-color-semidark);
-}
-.content-header a, .content-header button, .content-header div {
-    display: inline-block;
-}
 /*toolbar*/
+
 .toolbar {
     display: var(--display);
     flex-grow: 1;
@@ -56,6 +41,21 @@
     padding: 0;
     font-size: .8em;
     font-weight: 400;
+}
+.toolbar svg {
+    fill: var( --font-color-gray);
+}
+.toolbar button:focus svg, .toolbar a:focus svg, .toolbar button:hover svg, .toolbar a:hover svg {
+    fill: var( --normal-color);
+}
+.toolbar button[disabled] {
+    cursor: not-allowed;
+}
+.toolbar button[disabled] svg {
+    fill: var( --background-color-semidark);
+}
+.toolbar a, .toolbar button, .toolbar div {
+    display: inline-block;
 }
 
 /*content-body*/
@@ -89,6 +89,7 @@
 }
 
 /*make responsive*/
+
 @media (--narrow-window-width) {
     .content-header {
         flex-direction: row;

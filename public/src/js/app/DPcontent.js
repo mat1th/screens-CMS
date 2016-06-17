@@ -16,7 +16,7 @@ DP.content = (function() {
                 vimeoImage = DP.helper.selectId('vimeo-image'),
                 fieldDuration = DP.helper.selectId('field-duration');
 
-            vimeoImage.classList.add('none');
+            vimeoImage.classList.add('disabled');
 
             fieldVimeoId.addEventListener('blur', function(e) { // get the date from the vimeo api to auto fill in the form
                 console.log(e.target.value);
@@ -54,7 +54,7 @@ DP.content = (function() {
             });
         } else {
             //disable the preview id the URL API is not supported
-            _preview.setAttribute('class', 'none'); // use the setAttribute becorse it has better browser support
+            _preview.setAttribute('class', 'disabled'); // use the setAttribute becorse it has better browser support
         }
         //lisssen to the collor field an set the background from the field the filled collor
         fieldColor.addEventListener('input', function(e) {
@@ -85,15 +85,15 @@ DP.content = (function() {
             vimeoIdInput = DP.helper.selectId('vimeo-id-input');
 
         //disable vimeoID input
-        vimeoIdInput.classList.add('none');
+        vimeoIdInput.classList.add('disabled');
 
         radioOptionField.addEventListener('change', function(e) {
             if (e.target.value === 'poster') {
-                fileInput.classList.remove('none');
-                vimeoIdInput.classList.add('none');
+                fileInput.classList.remove('disabled');
+                vimeoIdInput.classList.add('disabled');
             } else {
-                fileInput.classList.add('none');
-                vimeoIdInput.classList.remove('none');
+                fileInput.classList.add('disabled');
+                vimeoIdInput.classList.remove('disabled');
             }
         });
         _setVimeoForm();

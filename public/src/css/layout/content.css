@@ -75,8 +75,8 @@ figcaption time {
     margin: 7em auto;
     z-index: 1;
 }
-.content:focus .play-icon-bottom,
-.content:hover .play-icon-bottom {
+.content a:focus .play-icon-bottom,
+.content a:hover .play-icon-bottom {
     -webkit-animation-name: pulse;
     animation-name: pulse;
 }

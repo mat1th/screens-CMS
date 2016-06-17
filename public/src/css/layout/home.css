@@ -2,6 +2,7 @@
 
 .banner {
     height: 30em;
+    text-align: center;
     background: url(../../img/background.jpg);
     background-position: 100% 0;
     background-repeat: no-repeat;
@@ -21,7 +22,9 @@
 .banner p {
     font-weight: 500;
 }
+
 /*the introduction section witch is yello*/
+
 .introduction {
     padding: 2em;
     background: var(--primary-color);
@@ -30,25 +33,31 @@
     max-width: 30em;
     margin: 0 auto;
 }
+
 /*the steps the user needs to take*/
+
 .steps {
     text-align: center;
 }
+
 /*for the z-index*/
+
 .wrap {
     position: relative;
     margin: 0 auto;
     z-index: 2;
 }
-.wrap picture{
-  max-width: 50em;
-  width: 100%;
+.wrap picture {
+    max-width: 50em;
+    width: 100%;
 }
-.wrap picture.mobile{
-  max-height: 20em;
-  width: auto;
+.wrap picture.mobile {
+    max-height: 20em;
+    width: auto;
 }
+
 /*css for every step*/
+
 .step {
     position: relative;
     padding: 1em;
@@ -81,6 +90,7 @@
 }
 
 /*the step description*/
+
 .step-description {
     padding: 0.8em 0 1.2em;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, .001), var(--background-color-light) 1.2em, var(--background-color-light) 70%, rgba(255, 255, 255, .001));
@@ -91,7 +101,9 @@
 .step-description a {
     color: var( --normal-color);
 }
+
 /*css for step 2*/
+
 .step[data-section="2"]:before {
     border-color: #acacaa;
     background-color: #DEDDDA
@@ -107,6 +119,7 @@
 }
 
 /*the css for the register step*/
+
 .step.register {
     color: var( --font-color-light);
     background: var(--eddit-color);

@@ -45,7 +45,7 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     {{{piwik}}}
     <style media="screen">
-      
+
     </style>
     <noscript>
         <link rel="stylesheet" href="/css/style.css">
@@ -60,16 +60,16 @@
                 <li><a href="/">Home</a></li>
                 {{#if rights.logedin}}
                     <li><a href="/admin">Admin</a> </li>
-                    <li class="right"><a href="/users/logout">log out</a></li>
+                    <li class="user-login"><a href="/users/logout">log out</a></li>
                 {{else}}
-                    <li class="right"><a href="/users/login">Login</a></li>
+                    <li class="user-login"><a href="/users/login">Login</a></li>
                 {{/if}}
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="warning none animate" role="alert" id="error-popup">
+        <div class="warning disabled animate" role="alert" id="error-popup">
             <span id="error-popup-content"></span>
         </div>
         {{{body}}}

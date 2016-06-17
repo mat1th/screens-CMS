@@ -92,10 +92,10 @@ DP.helper = (function() {
             var loader = selectId('loader');
             var time = 5000;
             if (status === true) {
-                loader.classList.remove('none');
+                loader.classList.remove('disabled');
             } else if (status === false) {
                 setTimeout(function() {
-                    loader.classList.add('none');
+                    loader.classList.add('disabled');
                 }, time);
             }
         },
@@ -108,10 +108,10 @@ DP.helper = (function() {
             var errorPopupContent = selectId('error-popup-content');
             if (show) {
                 errorPopupContent.innerHTML = errorMessage;
-                errorPopup.classList.remove('none');
+                errorPopup.classList.remove('disabled');
                 errorPopup.classList.add('top-push');
             } else {
-                errorPopup.classList.add('none');
+                errorPopup.classList.add('disabled');
                 errorPopup.classList.remove('top-push');
             }
 

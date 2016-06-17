@@ -49,7 +49,7 @@ DP.slideshows = (function() {
     };
 
     var _toggleAddNewPoster = function() {
-        _selector.classList.toggle('none');
+        _selector.classList.toggle('disabled');
         _plusButtonIcon.classList.toggle('rotate-right');
     };
 
@@ -154,11 +154,11 @@ DP.slideshows = (function() {
             tabcontent = DP.helper.selectAll('.tabcontent');
         for (var i = 0; i < toggleButtons.length; i++) {
             if (target === toggleButtons[i] || show[i]) {
-                tabcontent[i].classList.remove('none');
+                tabcontent[i].classList.remove('disabled');
                 tabcontent[i].setAttribute('aria-hidden', false);
                 toggleButtons[i].setAttribute('aria-selected', true);
             } else {
-                tabcontent[i].classList.add('none');
+                tabcontent[i].classList.add('disabled');
                 tabcontent[i].setAttribute('aria-hidden', true);
                 toggleButtons[i].setAttribute('aria-selected', false);
             }

@@ -7,7 +7,7 @@ body, html {
 main {
     width: 100%;
     height: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 3.753em);
 }
 img {
     max-width: 100%;
@@ -22,7 +22,7 @@ a {
 time {
    font-size: 0.8em;
 }
-.bold {
+strong {
     font-size: 1em;
     font-weight: bold;
 }
@@ -35,13 +35,7 @@ time {
     overflow-y: auto;
 }
 /*postions*/
-.center {
-    text-align: center;
-}
-.right {
-    float: right;
-}
-.none, .disabled {
+.disabled {
     visibility: hidden;
     display: none !important;
 }
@@ -73,6 +67,7 @@ span.error {
     font-size: 1.1em;
 }
 .not-found {
+  text-align: center;
     margin: 2em auto;
 }
 @media (--narrow-window-width) {

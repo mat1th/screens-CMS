@@ -1,6 +1,6 @@
 /*menu styling*/
 
-header > nav {
+header> nav {
     box-sizing: border-box;
     position: relative;
     width: 100%;
@@ -12,7 +12,9 @@ header > nav {
     background: var(--background-color-dark);
     z-index: 15;
 }
-
+.user-login {
+    float: right;
+}
 header ul {
     margin: 0;
     padding: 0;
@@ -31,13 +33,11 @@ header a {
     text-decoration: none;
     text-transform: uppercase;
 }
-header a:focus,
-header a:hover {
+header a:focus, header a:hover {
     -webkit-transition: color .2s ease-out;
     color: var(--primary-color);
     transition: color .2s ease-out;
 }
-
 .transparant nav {
     position: absolute;
     background: none;

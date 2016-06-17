@@ -59,7 +59,7 @@ slideshow.start = (function() {
         hideLoader = function functionName() {
             window.onload = function functionName() {
                 setTimeout(function() {
-                    loader.classList.add('none');
+                    loader.classList.add('disabled');
                 }, 1000);
             };
         },
