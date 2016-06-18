@@ -243,7 +243,7 @@ gulp.task('styles-slider', function() {
             './public/src/css/base.css',
             './public/src/css/webfonts.css',
             './public/src/css/typography.css',
-            './public/src/css/components/slider.css'
+            './public/src/css/layout/slider.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(concat('slider.css'))
