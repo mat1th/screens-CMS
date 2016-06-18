@@ -35,7 +35,7 @@
 
 /*icons only*/
 
-.edit-nav.icons-only .user-name span, .edit-nav.icons-only span {
+.edit-nav.icons-only .user-name, .edit-nav.icons-only span {
     display: none;
 }
 .edit-nav.icons-only svg {
@@ -86,7 +86,6 @@
         border-bottom: 0.1em solid var(--font-color-dark);
     }
     .edit-nav .user-name {
-        display: inline-block;
         margin: 0.4em 0.5em;
     }
     .edit-nav .user-info span {

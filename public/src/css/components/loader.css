@@ -16,7 +16,6 @@
     width: 100%;
     height: 0.3em;
     background-color: var(--normal-color);
-    /*transform: translate(350%, 0);*/
     animation: loading 4s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
     content: "";
 }

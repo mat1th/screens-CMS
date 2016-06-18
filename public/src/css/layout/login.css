@@ -1,8 +1,8 @@
 .users-form {
     display: var(--display);
     height: 100vh;
-    background: red;
-    background: url(/img/background.jpg);
+    background: var(--normal-color);
+    background: url('/img/background_login.jpg');
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: auto 100%;
