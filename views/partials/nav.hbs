@@ -1,6 +1,10 @@
 <section class="edit-nav {{navStyle}}">
     <section class="user-info">
-        <img src="/download/61.jpg" alt="" class="" />
+        {{#if userimg}}
+            <img src="/download/{{userimg}}.jpg" alt="user profile photo" class="" />
+        {{else}}
+            <img src="/download/61.jpg" alt="user profile photo" class="" />
+        {{/if}}
         <div class="user-name">
             <span>Hello,</span>
             <span>{{username}}!</span>

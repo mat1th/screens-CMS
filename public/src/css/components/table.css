@@ -30,19 +30,19 @@ table a {
 table tr {
     font-size: 0.9em;
 }
-.responsive tr {
+table tr {
     margin: 1em 0;
     background: #fff;
     display: block;
 }
-.responsive td {
+table td {
     height: 1em;
     padding: 1em;
 }
 td a {
     display: inline-block
 }
-.responsive td:before {
+table td:before {
     text-align: left;
     color: var( --font-color-dark);
     text-align: left;
@@ -50,20 +50,20 @@ td a {
     font-weight: 600;
     content: attr(data-th) ": ";
 }
-.responsive table td:last-child {
+table table td:last-child {
     border: none;
 }
 
 /*dont show the eddit table*/
 
-.responsive td.edit:before {
+table td.edit:before {
     display: none;
 }
-.responsive td.checkboxes label {
+table td.checkboxes label {
     position: absolute;
     margin: 0 auto;
 }
-.responsive td.checkboxes {
+table td.checkboxes {
     display: none;
     width: 4em;
     max-width: 4em;
@@ -79,10 +79,10 @@ table a.btn {
     margin: 0;
 }
 @media (--medium-window-width) {
-    .responsive {
+    table {
         background: #fff;
     }
-    .responsive td.checkboxes {
+    table td.checkboxes {
         display: table-cell;
     }
     table td {
@@ -91,14 +91,14 @@ table a.btn {
     table th {
         display: table-cell;
     }
-    .responsive td:before {
+    table td:before {
         display: none;
     }
     table tr {
         padding: 0;
         display: table-row;
     }
-    .responsive tr {
+    table tr {
         display: table-row;
     }
     table th:first-child, table td:first-child {

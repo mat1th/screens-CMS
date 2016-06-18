@@ -4,8 +4,8 @@
         <h1>{{data.general.name}} </h1>
         <time>{{#datefronow data.general.dataCreated}}{{/datefronow}}</time>
     </section>
-    <section class="content-body detail">
-        <section>
+    <section class="content-body {{data.general.type}}">
+        <section class=" ">
             {{#checktype data.general.type equals="poster" }}
                 <img src="/download/{{data.general.filename}}" alt="{{type}}" />
             {{/checktype}}
@@ -42,7 +42,7 @@
                     <td>{{data.general.animation}}</td>
                 </tr>
                 <tr>
-                    <th>type</th>
+                    <th>Type</th>
                     <td>{{data.general.type}}</td>
                 </tr>
                 <tr>

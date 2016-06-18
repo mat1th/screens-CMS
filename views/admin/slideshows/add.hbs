@@ -19,7 +19,7 @@
                 <li class="contentitem list" draggable="true">
                     <a href="#">
                         <span class="number">{{@index}}</span>
-                        <div class="image no-overflow" data-id="{{id}}">
+                        <div class="image no-overflow" data-id="{{id}}" style="background: {{{color}}}">
                             {{#checktype type equals="vimeo" }}
                                 <div class="play-icon">
                                     <svg fill="#fff" height="50" viewbox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
             {{#each data.allContent}}
                 <div>
                     <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
-                    <div class="image no-overflow">
+                    <div class="image no-overflow" style="background: {{{color}}}">
                         {{#checktype type equals="vimeo" }}
                             <img src="{{vimeoImage}}" alt="" draggable="false" data-id="{{id}}" />
                             <div class="play-icon">
