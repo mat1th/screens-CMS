@@ -100,6 +100,11 @@
                     </div>
                 </div>
                 <div>
+                    <label for="field-color">Background color: </label>
+                    <input type="color" name="color" id="field-color" value="{{data.general.0.color}}" placeholder="#FFCC00 (background of the slideshow)">
+                    <p class="error" id="color-error"></p>
+                </div>
+                <div>
                     <label for="field-duration">Duration: </label>
                     <input type="number" id="field-duration" name="duration" value="{{data.general.0.duration}}" placeholder="60 (s)">
                 </div>

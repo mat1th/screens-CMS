@@ -242,7 +242,7 @@ router.post('/add', checkLogin, function(req, res) {
 
 router.post('/edit/:contentId', checkLogin, function(req, res) {
     var cr = credentials(req.session),
-        updateSqlQuery = 'UPDATE content SET animation = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
+        updateSqlQuery = 'UPDATE content SET animation = ?, color = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
         removeSqlQuery = 'DELETE FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?',
         body = req.body,
         remove = body.remove,
@@ -265,7 +265,7 @@ router.post('/edit/:contentId', checkLogin, function(req, res) {
                     throw err;
                 });
             } else {
-                insertData(updateSqlQuery, [data.animation, data.duration, data.dateStart, data.dateEnd, data.contentId], connection).then(function() {
+                insertData(updateSqlQuery, [data.animation, data.color, data.duration, data.dateStart, data.dateEnd, data.contentId], connection).then(function() {
                     res.redirect('/admin/slideshows/add/613042');
                 }).catch(function(err) {
                     res.send('error:' + err);
