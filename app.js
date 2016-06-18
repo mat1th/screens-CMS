@@ -9,7 +9,7 @@ var express = require('express'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
-    Promise = require('bluebird'),
+    cookieParser = require('cookie-parser'),
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -46,6 +46,9 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
+
+//define cookies
+app.use(cookieParser())
 
 //define static path
 app.use(express.static(path.join(__dirname, 'public/dist')));

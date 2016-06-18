@@ -6,7 +6,7 @@ var fs = require('fs'),
 router.get('/', function(req, res, next) {
     var cr = credentials(req.session),
         login = cr.login;
-
+        
     res.render('home', {
         title: 'Home',
         pagelayout: 'transparant',

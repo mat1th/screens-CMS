@@ -24,6 +24,7 @@ var renderTemplate = function(res, req, template, data, general, postUrls, error
         },
         error: error,
         pagelayout: general.pagelayout,
+        styleCookie: req.cookies.style,
         layout: layout || 'layout'
     });
 };
