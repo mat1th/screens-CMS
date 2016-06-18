@@ -13,31 +13,22 @@
 .loader:before {
     display: block;
     position: absolute;
-    left: -30em;
+    left: 0em;
     width: 30em;
     height: 0.3em;
     background-color: var(--normal-color);
-    animation: loading 2s linear infinite;
+    /*transform: translate(350%, 0);*/
+    animation: loading 4s cubic-bezier(0.165, 0.840, 0.440, 1.000) infinite;
     content: "";
 }
 @keyframes loading {
     from {
-        left: -30em;
-        width: 30%;
-    }
-    50% {
-        width: 30%;
-    }
-    70% {
-        width: 70%;
-    }
-    80% {
-        left: 50%;
+        transform: translate(0, 0);
     }
     95% {
-        left: 120%;
+        transform: translate(160%, 0);
     }
     to {
-        left: 100%;
+        transform: translate(180%, 0);
     }
 }
