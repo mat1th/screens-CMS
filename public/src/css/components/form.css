@@ -18,7 +18,7 @@ input[type="text"], input[type="email"], input[type="date"], input[type="passwor
     display: block;
     width: 100%;
     max-width: 30em;
-    min-height: 1em;
+    min-height: 2em;
 }
 input[type="text"].error, input[type="email"].error, input[type="date"].error, input[type="number"].error, input[type="password"].error, input[type="color"].error, textarea.error, select.error, legend.error {
     border-color: var( --warn-color) !important;

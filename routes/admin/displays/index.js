@@ -1,17 +1,51 @@
 var express = require('express'),
     checkLogin = require('../../middleware/checklogin.js'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
+    checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     getData = require('../../../modules/getData.js'),
     insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
+    renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
 
-router.get('/', checkLogin, function(req, res) {
-    res.redirect('/admin/slideshows');
-});
+// router.get('/', checkLogin, function(req, res) {
+//     res.redirect('/admin/slideshows');
+// });
 
+router.get('/', checkLogin, checkRightsEditor, function(req, res) {
+    var cr = credentials(req.session),
+        general = {
+            title: 'Your content',
+            login: cr.login,
+            admin: cr.admin,
+            editor: cr.editor
+        },
+        sql, sqlDisplays;
+
+    req.getConnection(function(err, connection) {
+
+        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
+        // Get the user id using username
+        getData(sqlDisplays, connection).then(function(displays) {
+            return {
+                general: {
+                    displays: displays
+                }
+            };
+        }).then(function(data) {
+            //renderTemplate
+            renderTemplate(res, req, 'admin/displays/show', data, general, {}, false);
+
+        }).catch(function(err) {
+            console.log(err);
+            throw err;
+        });
+
+    });
+
+});
 router.get('/add', checkLogin, checkRightsAdmin, function(req, res) {
     var cr = credentials(req.session),
         login = cr.login,
@@ -102,7 +136,7 @@ router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) {
             });
 
         }).then(function() {
-            res.redirect('/admin/slideshows/add'+ slideshowId);
+            res.redirect('/admin/slideshows/add' + slideshowId);
         }).catch(function(err) {
             throw err;
         });
