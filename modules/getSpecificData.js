@@ -1,4 +1,4 @@
-var getSpecificData = function(sqlQuery, connection, data) {
+var getSpecificData = function(sqlQuery, connection, data) { //create from mysql a prommmise 
     return new Promise(function(resolve, reject) {
         try {
             connection.query(sqlQuery, data, function(err, rows) {

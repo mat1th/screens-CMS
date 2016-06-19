@@ -211,7 +211,7 @@ router.get('/preview/:slideshowId', checkLogin, checkRightsEditor, function(req,
     });
 });
 
-router.get('/content/:slideshowId', function(req, res) {
+router.get('/content/:slideshowId', checkLogin, function(req, res) {
     var slideshowId = req.params.slideshowId,
         filesPath = __dirname + '/../../../uploads/',
         notfoundPath = __dirname + '/../../../public/dist/img/',

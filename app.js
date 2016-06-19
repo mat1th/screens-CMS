@@ -33,24 +33,22 @@ require('./config/config.js')({
     base: '/'
 });
 // inport libs
-require('./lib/hsbHelper.js');
-require('./lib/socketConnection.js')(http);
+require('./lib/hsbHelper.js'); //register hbs helpers
+require('./lib/socketConnection.js')(http); //starting web socket
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/views/partials'); //register hbs partials
 
 //define body parser
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false })); //set body parser for the post requests
+app.use(bodyParser.json()); //create json from body
 
 //define cookies
-app.use(cookieParser())
+app.use(cookieParser()); //enable cookies
 
-//define static path
+//define static paths
 app.use(express.static(path.join(__dirname, 'public/dist')));
 app.use('/download', express.static(path.join(__dirname, 'uploads')));
 
@@ -68,7 +66,7 @@ app.use(session({
     genid: function(req) {
         return generateUUID() // use UUIDs for session IDs
     },
-    store: new FileStore(),
+    store: new FileStore(), //store the session in a file
     saveUninitialized: true,
     resave: false
 }));
@@ -114,6 +112,10 @@ app.use('/api', api);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
     next(err);
 });
 

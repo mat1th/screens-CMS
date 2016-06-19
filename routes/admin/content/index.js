@@ -1,5 +1,5 @@
 var express = require('express'),
-    checkLogin = require('../../middleware/checklogin.js'),
+    checkLogin = require('../../middleware/checklogin.js'), // for checking the user is loged in
     setRights = require('../../middleware/setRights.js'),
     randNumber = require('../../../modules/randNumber.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
@@ -9,9 +9,9 @@ var express = require('express'),
     isValidDate = require('../../../modules/isValidDate.js'),
     confertDate = require('../../../modules/confertDate.js'),
     sendMessage = require('../../../modules/sendMessage.js'),
-    router = express.Router();
+    router = express.Router(); //create router
 
-router.get('/', checkLogin, setRights, function(req, res) {
+router.get('/', checkLogin, setRights, function(req, res) { // the admin/content page
     var cr = credentials(req.session),
         expired = req.query.expired,
         general = {
@@ -58,7 +58,7 @@ router.get('/', checkLogin, setRights, function(req, res) {
     });
 });
 
-router.get('/add', checkLogin, function(req, res) {
+router.get('/add', checkLogin, function(req, res) {// the admin/content/add page
     var cr = credentials(req.session),
         general = {
             title: 'Add content',
@@ -109,7 +109,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
     });
 });
 
-router.post('/decision', checkLogin, setRights, function(req, res) {
+router.post('/decision', checkLogin, setRights, function(req, res) { // the admin/content/decision post
     var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),
@@ -161,7 +161,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) {
 });
 
 
-router.post('/add', checkLogin, function(req, res) {
+router.post('/add', checkLogin, function(req, res) { // the admin/content/add post
 
     var cr = credentials(req.session),
         body = req.body,

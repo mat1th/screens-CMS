@@ -1,5 +1,5 @@
-const currentCacheName = 'DP-app-v1';
-const casheContent = [
+const currentCacheName = 'DP-app-v1.0'; // the app version number
+const casheContent = [ // the files that will be saved
     '/',
     '/admin/',
     '/admin/content',
@@ -10,7 +10,7 @@ const casheContent = [
 ];
 
 //install service worker
-this.addEventListener('install', event => {
+this.addEventListener('install', event => { //lissen to the install event
     event.waitUntil(
         caches.open(currentCacheName)
         .then(cache => {
@@ -19,7 +19,7 @@ this.addEventListener('install', event => {
     );
 });
 
-this.addEventListener('fetch', event => {
+this.addEventListener('fetch', event => { // if the browser asks for a page firrst chech te chace
     event.respondWith(
         caches.match(event.request).then(response => {
             return response || fetch(event.request)
@@ -37,7 +37,7 @@ this.addEventListener('fetch', event => {
     )
 });
 
-this.addEventListener('activate', event => {
+this.addEventListener('activate', event => { // lissen to the acitvate 
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(

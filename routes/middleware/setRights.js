@@ -3,7 +3,7 @@ var setRights = function(req, res, next) {
     req.admin = false;
     req.editor = false;
 
-    if (role === 'admin') {
+    if (role === 'admin') { //set the rigths of the user
         req.admin = true;
         req.editor = true;
     } else if (role === 'editor') {
@@ -13,6 +13,3 @@ var setRights = function(req, res, next) {
 };
 
 module.exports = setRights;
-
-
-// admin: (session.role === 'admin') ? true : false,

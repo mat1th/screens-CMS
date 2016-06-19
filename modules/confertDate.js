@@ -1,6 +1,6 @@
 var moment = require('moment');
 
-var isValidDate = function(date) {
+var isValidDate = function(date) { //validate the user input date and than confert it 
     if (moment(date, 'MM-DD-YYYY').isValid()) {
         //dutch format
         return moment(date, 'MM-DD-YYYY').format('YYYY-M-D');
