@@ -1,3 +1,15 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 192.168.99.100 (MySQL 5.7.12)
+# Database: POSTERS
+# Generation Time: 2016-06-19 21:28:23 +0000
+# ************************************************************
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -8,34 +20,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table displays
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `displays`;
-
-CREATE TABLE `displays` (
-  `display_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `slideshowId` int(11) DEFAULT NULL,
-  `name` varchar(100) DEFAULT 'No name',
-  `dataCreated` datetime DEFAULT NULL,
-  `location` varchar(100) NOT NULL DEFAULT 'TTH',
-  PRIMARY KEY (`display_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `displays` WRITE;
-/*!40000 ALTER TABLE `displays` DISABLE KEYS */;
-
-/*!40000 ALTER TABLE `displays` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 # Dump of table content
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `content`;
 
 CREATE TABLE `content` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL DEFAULT '0',
   `type` varchar(100) NOT NULL DEFAULT 'poster',
   `name` varchar(100) DEFAULT 'No title',
@@ -43,7 +34,7 @@ CREATE TABLE `content` (
   `animation` varchar(100) DEFAULT 'easeOut',
   `filename` varchar(255) DEFAULT 'no-poster.jpg',
   `duration` decimal(10,0) NOT NULL DEFAULT '1000',
-  `color` varchar(10) DEFAULT '#FFCC00',
+  `color` varchar(10) DEFAULT '#000',
   `dateStart` date DEFAULT NULL,
   `dateEnd` date DEFAULT NULL,
   `dataCreated` datetime DEFAULT NULL,
@@ -66,15 +57,36 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_In_slideshow`;
 
 CREATE TABLE `content_In_slideshow` (
-  `screen_id` int(11) NOT NULL,
+  `content_id` int(11) NOT NULL,
   `slideshow_id` int(11) NOT NULL,
-  `short` int(11) NOT NULL
+  `short` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `content_In_slideshow` WRITE;
 /*!40000 ALTER TABLE `content_In_slideshow` DISABLE KEYS */;
 
 /*!40000 ALTER TABLE `content_In_slideshow` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table displays
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `displays`;
+
+CREATE TABLE `displays` (
+  `display_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `slideshowId` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT 'No name',
+  `dataCreated` datetime DEFAULT NULL,
+  `location` varchar(100) NOT NULL DEFAULT 'TTH',
+  PRIMARY KEY (`display_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `displays` WRITE;
+/*!40000 ALTER TABLE `displays` DISABLE KEYS */;
+
+/*!40000 ALTER TABLE `displays` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -114,9 +126,12 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

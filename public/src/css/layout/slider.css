@@ -1,3 +1,4 @@
+/*the overall styling of the app*/
 html, body {
     background: var(--primary-color);
 }
