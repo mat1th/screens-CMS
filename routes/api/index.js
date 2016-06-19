@@ -14,7 +14,7 @@ router.get('/content/:contentId', checkLogin, function(req, res) {
     var contentId = req.params.contentId;
 
     req.getConnection(function(err, connection) {
-        var sqlSlideshows = 'SELECT filename, name,animation, duration, dateStart,dateEnd, id FROM content WHERE id = ?';
+        var sqlSlideshows = 'SELECT filename, name,animation, duration, color, dateStart, dateEnd, id FROM content WHERE id = ?';
         connection.query(sqlSlideshows, [contentId], function(err, match) {
             if (err) throw err;
             var data = {
@@ -22,6 +22,7 @@ router.get('/content/:contentId', checkLogin, function(req, res) {
                 name: match[0].name,
                 animation: match[0].animation,
                 duration: match[0].duration,
+                color: match[0].color,
                 dateStart: moment(match[0].dateStart).format('L'),
                 dateEnd: moment(match[0].dateEnd).format('L'),
                 id: match[0].id
