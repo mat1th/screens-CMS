@@ -2,10 +2,9 @@ DP.content = (function() {
     var _inputPreview = DP.helper.selectId('input-preview'),
         _preview = DP.helper.selectId('preview'),
 
-        /**
-         * _setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
-         */
-
+         /**
+          *_setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
+          */
         _setVimeoForm = function() { //get the data from the specific vimeo id
             var client = new DP.helper.getData(),
                 fieldVimeoId = DP.helper.selectId('field-vimeo-id'),
@@ -23,8 +22,8 @@ DP.content = (function() {
                 client.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + e.target.value, function(response) {
                     if (response !== 'error') {
                         fieldVimeoId.classList.remove('error');
-                        var data = JSON.parse(response);
-                        console.log(data);
+                        var data = JSON.parse(response); //parse the data
+                        //set the data in the input fields
                         vimeoIdError.innerHTML = '';
                         fieldDiscription.value = data.description;
                         fieldname.value = data.title;
@@ -67,6 +66,7 @@ DP.content = (function() {
             filename.innerHTML = event.target.files[0].name;
         }
     };
+    //Add a animation to the poster preview. So the user knows what the animation wil be
     var animateSelect = function() {
         var select = DP.helper.selectId('field-animation');
         var animations = ['fadein', 'left-push', 'top-push'];
@@ -78,15 +78,18 @@ DP.content = (function() {
             _inputPreview.classList.add(e.target.value);
         });
     };
-
+    /**
+     * You can select the options for vimeo and the poster. Only the nessesery input fields will appear.
+     */
     var watchOptions = function() {
         var radioOptionField = DP.helper.selectId('radio-option-field'),
             fileInput = DP.helper.select('.file-input'),
             vimeoIdInput = DP.helper.selectId('vimeo-id-input');
 
-        //disable vimeoID input
+        //disable vimeoID input as default
         vimeoIdInput.classList.add('disabled');
 
+        //lisssen to the option field and toggle the input fields
         radioOptionField.addEventListener('change', function(e) {
             if (e.target.value === 'poster') {
                 fileInput.classList.remove('disabled');
@@ -98,13 +101,16 @@ DP.content = (function() {
         });
         _setVimeoForm();
     };
+    //validate the collor filed show a warning if the field is not #000 or #000000
     var colorValidate = function() {
+
         var fieldColor = DP.helper.selectId('field-color'),
             colorErr = DP.helper.selectId('color-error'),
             error = 'Please add a #fn0 color code'
 
         DP.validate.setErrorColor(fieldColor, colorErr, error); //validate the color of the color input field
     };
+    //validate the data and show a error
     var dataValidate = function() {
         var startDateField = DP.helper.selectId('field-date-start'),
             dateStartErr = DP.helper.selectId('date-start-error'),
@@ -115,7 +121,7 @@ DP.content = (function() {
         DP.validate.setErrorDate(startDateField, dateStartErr, error);
         DP.validate.setErrorDate(endDateField, stareDatetErr, error);
     };
-
+    //run all functions. 
     var init = function() {
         DP.validate.form(); // validate the from on the page. If some elements are empty they will become red.
         watchOptions();

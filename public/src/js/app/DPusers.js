@@ -2,7 +2,7 @@ DP.users = (function() {
     var init = function() {
         email();
     };
-    var email = function() {
+    var email = function() { //validate the email on the sigin in and sign up page 
         var emailField = DP.helper.selectId('field_email'),
             emailErr = DP.helper.select('#email-error');
 

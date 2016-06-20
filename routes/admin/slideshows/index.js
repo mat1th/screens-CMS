@@ -11,59 +11,59 @@ var express = require('express'),
     sendRefresh = require('../../../modules/sendRefresh.js'),
     router = express.Router();
 
-router.get('/', checkLogin, checkRightsEditor, function(req, res) {
-    var cr = credentials(req.session),
-        general = {
-            title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
-        },
-        sql, sqlDisplays;
+// router.get('/', checkLogin, checkRightsEditor, function(req, res) { //the route admin/sideshows/ (now not used in the new flow)
+//     var cr = credentials(req.session),
+//         general = {
+//             title: 'Your content',
+//             login: cr.login,
+//             admin: cr.admin,
+//             editor: cr.editor
+//         },
+//         sql, sqlDisplays;
+//
+//     req.getConnection(function(err, connection) {
+//         sql = 'SELECT * FROM slideshows';
+//         sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
+//         // Get the user id using username
+//         getData(sql, connection).then(function(slideshows) {
+//             getData(sqlDisplays, connection).then(function(displays) {
+//                 return {
+//                     general: {
+//                         slideshows: slideshows,
+//                         displays: displays
+//                     }
+//                 };
+//             }).then(function(data) {
+//                 //renderTemplate
+//                 if (slideshows.length > 0) {
+//                     renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, false);
+//                 } else {
+//                     renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
+//                 }
+//             }).catch(function(err) {
+//                 throw err;
+//             });
+//         }).catch(function(err) {
+//             throw err;
+//         });
+//     });
+// });
 
-    req.getConnection(function(err, connection) {
-        sql = 'SELECT * FROM slideshows';
-        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
-        // Get the user id using username
-        getData(sql, connection).then(function(slideshows) {
-            getData(sqlDisplays, connection).then(function(displays) {
-                return {
-                    general: {
-                        slideshows: slideshows,
-                        displays: displays
-                    }
-                };
-            }).then(function(data) {
-                //renderTemplate
-                if (slideshows.length > 0) {
-                    renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, false);
-                } else {
-                    renderTemplate(res, req, 'admin/slideshows/show', data, general, {}, 'You don\' have any slideshows.');
-                }
-            }).catch(function(err) {
-                throw err;
-            });
-        }).catch(function(err) {
-            throw err;
-        });
-    });
-
-});
-
-//create unique id and redirect
-router.get('/add', checkLogin, checkRightsEditor, function(req, res) {
-    var userID = req.session.user_id,
-        createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = ?',
-        number = randNumber(1000000);
-
-    req.getConnection(function(err, connection) {
-        insertData(createSlideshow, [number, userID], connection).then(function() {
-            res.redirect('/admin/slideshows/add/' + number);
-        }).catch(function(err) {
-            throw err;
-        });
-    });
-});
+// //create unique id and redirect  (now not used in the new flow)
+// router.get('/add', checkLogin, checkRightsEditor, function(req, res) { // the route admin/slideshows/add
+//     var userID = req.session.user_id,
+//         createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = ?',
+//         number = randNumber(1000000);
+//
+//       //generate a random number and redirecht to the new created slideshow
+//     req.getConnection(function(err, connection) {
+//         insertData(createSlideshow, [number, userID], connection).then(function() {
+//             res.redirect('/admin/slideshows/add/' + number);
+//         }).catch(function(err) {
+//             throw err;
+//         });
+//     });
+// });
 
 router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res) {
     var cr = credentials(req.session),
@@ -211,7 +211,7 @@ router.get('/preview/:slideshowId', checkLogin, checkRightsEditor, function(req,
     });
 });
 
-router.get('/content/:slideshowId', function(req, res) {
+router.get('/content/:slideshowId', checkLogin, function(req, res) {
     var slideshowId = req.params.slideshowId,
         filesPath = __dirname + '/../../../uploads/',
         notfoundPath = __dirname + '/../../../public/dist/img/',

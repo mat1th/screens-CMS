@@ -12,6 +12,7 @@
                 </div>
             {{/if}}
             <div>
+              <!-- the toggle on top of the page -->
                 <ul id="radio-option-field">
                     <li>
                         <input type="radio" name="type" value="poster" id="field-content" checked>
@@ -124,6 +125,7 @@
             <button class="btn btn-default top-margin"  {{#unless rights.admin}} onclick="alert('Your poster will be checked by the admin.')"  {{/unless}}>Submit</button>
             <a href="/admin/content" class="btn top-margin" type="submit">Cancel</a>
         </form>
+        <!-- The preview of the poster or vimeo -->
         <section class="preview" id="preview">
             <h2>Preview of the poster</h2>
             <div class="preview-size">

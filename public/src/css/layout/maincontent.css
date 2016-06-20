@@ -1,3 +1,4 @@
+/*the conten on every pge */
 .main-content {
     display: var(--display);
     flex-direction: row;

@@ -1,3 +1,4 @@
+// replace this file with your own content as filename config.js
 var env = process.env.NODE_ENV || 'development',
     core = require('./config.json');
 

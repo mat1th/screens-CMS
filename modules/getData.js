@@ -1,4 +1,4 @@
-var getData = function(sqlQuery, connection) {
+var getData = function(sqlQuery, connection) { //cerate from a connection a prommise 
     return new Promise(function(resolve, reject) {
         try {
             connection.query(sqlQuery, function(err, rows) {

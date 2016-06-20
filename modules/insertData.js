@@ -1,10 +1,10 @@
-var getData = function(sqlQuery, sqlValues, connection) {
+var inserData = function(sqlQuery, sqlValues, connection) { //create from inserting data prommise
     return new Promise(function(resolve, reject) {
         try {
             connection.query(sqlQuery, sqlValues, function(err, row) {
                 if (err) return reject(err);
                 // console.log(row);
-                resolve();
+                resolve(row);
 
             });
         } catch (err) {
@@ -13,4 +13,4 @@ var getData = function(sqlQuery, sqlValues, connection) {
     });
 };
 
-module.exports = getData;
+module.exports = inserData;

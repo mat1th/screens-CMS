@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-var saltHash = (function() {
+var saltHash = (function() { //enqriptin a password
     var genRandomString = function(length) {
         return crypto.randomBytes(Math.ceil(length / 2))
             .toString('hex')
@@ -16,8 +16,11 @@ var saltHash = (function() {
             passwordHash: value
         };
     };
-
-
+    /**
+     *  Generate a hash from a password
+     * @param   {string}  the password string
+     * @returns {Object}  a hash and a string to save in the databe
+     */
     var saltHashPassword = function(userPassword) {
         var salt = genRandomString(16);
         var passwordData = sha512(userPassword, salt);
@@ -26,7 +29,13 @@ var saltHash = (function() {
             hash: passwordData.passwordHash,
             salt: passwordData.salt
         };
-    }
+    };
+
+    /**
+     *  checks if the two hashes are the same
+     * @param   {string, string, string}    the salt to enqript the password, the hash from the databse and the filled in password
+     * @returns {Object} true of false 
+     */
     var check = function(salt, hash, password) {
         var passwordData = sha512(password, salt);
         if (passwordData.passwordHash === hash) {
@@ -34,7 +43,7 @@ var saltHash = (function() {
         } else {
             return false;
         }
-    }
+    };
     return {
         get: saltHashPassword,
         check: check
