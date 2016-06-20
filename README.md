@@ -123,12 +123,7 @@ For css I'm using [cssnext](http://cssnext.io). With this plugin you can use the
 ### JS syntax
 Im using some new JS functions with Babel this will be converted to code that can be used by older browsers.
 
-## Branch structure
-The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
-If you want to create a new feature please create a 'feature/your-feature' branch.
-
 ## NPM packages
-
 Name                 | Version | Description
 :------------------- | :------ | :----------
 bluebird             | 3.4.1   | Full featured Promises/A+ implementation with exceptionally good performance
@@ -146,6 +141,17 @@ body-parser          | 1.10.1  | Node.js body parsing middleware
 moment               | 2.9.0   | Parse, validate, manipulate, and display dates
 session-file-store   | 0.0.2   | Session file store is a provision for storing session data in the session file
 socket.io            | 1.4.6   | Node.js realtime framework server
+
+
+# Contributing
+The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
+
+- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Fork the project.
+- Start a feature/bugfix branch.
+- Commit and push until you are happy with your contribution.
+- Make sure to add tests for it. This is important so we don't break it in a future version unintentionally.
 
 ## Contributor
 - [Matthias (Mat1th)](https://dolstra.me)
