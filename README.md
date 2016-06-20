@@ -1,16 +1,16 @@
-# MeesterProef CMD digitale Content
+# MeesterProef CMD screens Content
 
 ![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-html.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-css.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)
 
 ## Synopsis
-
-The university of Amsterdam needs an application.
+A CMS to upload posters of Vimeo movies and show them on a screen.
 
 ## Motivation
+The university of Amsterdam needs an application for displaying posters on screens. They are using A0 posters now. But there are to less places for all students to show their poster. Now they have asked to create a CMS for uploading the posters and editing them in a slideshow
 
 ## Installation
 
-Download: <https://github.com/mat1th/meesterproef.git>
+Download: [https://github.com/mat1th/meesterproef.git](https://github.com/mat1th/meesterproef.git)
 
 Go to the project:
 
@@ -23,6 +23,35 @@ Install node modules:
 ```bash
 npm install
 ```
+
+## Setting things up
+Before you can start the application you need to connect to the database. And you need to setup the mail part of the application.
+
+### Connect to the database
+Please duplicate ```config/config_example.json``` and rename the file to ```config/config.json```. In this file you define all the passwords form the app and the database connections. The variables in the ``all`` section are available in each environment.
+
+An example setting block:
+```json
+"development": {
+    "env": "development",
+    "dbOptions": {
+        "host": "host",
+        "user": "user",
+        "password": "ww",
+        "database": "database",
+        "port": 10000
+    }
+}
+```
+You van create as mutch environment as you want. To use a stage duplicate ```config/config_example.js``` and rename the file to ```config/config.js```. This this file will be used for selecting the environment. Replace the string on the first row with the environment you want to use.
+
+```js
+var env = process.env.NODE_ENV || 'development'
+```
+
+### Add database structure
+Now we have got to set up the database structure. In the file ``database/database.sql`` can you find the the database structure. Please add it to your database. Now you can build the app.
+
 
 ## Building
 
@@ -44,24 +73,22 @@ Install dev npm modules:
 npm install --dev
 ```
 
-Start Gulp for style and js:
+### For the first time you need to run:
 
 ```bash
-gulp
+gulp build
 ```
+This conferts all the images and place the other files from the ```public/src``` to the ```public/dist``` folder. Then you can start the browser-sync task to run browser sync with nodemon to auto refrech the browser.
+
 Start Gulp for browser sync:
 
 ```bash
 gulp browser-sync
 ```
 
-Start Gulp to build for server:
 
-```bash
-gulp build
-```
 
-##Branch structure
+## Branch structure
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
 If you want to create a new feature please create a 'feature/your-feature' branch.
 
@@ -85,8 +112,9 @@ moment               | 2.9.0   | Parse, validate, manipulate, and display dates
 session-file-store   | 0.0.2   | Session file store is a provision for storing session data in the session file
 socket.io            | 1.4.6   | Node.js realtime framework server
 
-#Contributor
-[Matthias](https://dolstra.me)
+## Contributor
+- [Matthias (Mat1th)](https://dolstra.me)
 
-#License
+## License
+
 This code is published under Apache License.
