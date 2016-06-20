@@ -31,16 +31,16 @@ router.get('/', checkLogin, setRights, function(req, res) { // the admin/content
         },
         sql;
     req.getConnection(function(err, connection) {
-        if (!expired) {
-            data.url = '/admin/content?expired=true';
-            if (req.admin) {
+        if (!expired) { //check if the the ?expired=true queu is in the url
+            data.url = '/admin/content?expired=true'; //set the link of the button to this
+            if (req.admin) { //if its a admin show all the content
                 sql = 'SELECT * FROM content WHERE dateEnd > CURDATE()';
             } else {
                 sql = 'SELECT * FROM content WHERE userId = ?  AND dateEnd > CURDATE()';
             }
-        } else {
+        } else { //show only expired content
             data.url = '/admin/content';
-            if (req.admin) {
+            if (req.admin) { //if its a admin show all the content
                 sql = 'SELECT * FROM content WHERE dateEnd < CURDATE()';
             } else {
                 sql = 'SELECT * FROM content WHERE userId = ?  AND dateEnd < CURDATE()';
@@ -50,7 +50,7 @@ router.get('/', checkLogin, setRights, function(req, res) { // the admin/content
         getSpecificData(sql, connection, [req.session.user_id]).then(function(rows) {
             data.general = rows;
             //renderTemplate
-            renderTemplate(res, req, 'admin/content/show', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/content/show', data, general, postUrls, false); //render the tepmlate
 
         }).catch(function(err) {
             throw err;
@@ -67,14 +67,14 @@ router.get('/add', checkLogin, function(req, res) {// the admin/content/add page
             editor: cr.editor
         },
         postUrls = {
-            general: '/admin/content/add'
+            general: '/admin/content/add' //the url the form should post to
         };
     renderTemplate(res, req, 'admin/content/add', {}, general, postUrls, false);
 });
 
 
 // GET a content and present the full content page
-router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
+router.get('/show/:contentId', checkLogin, setRights, function(req, res) { //the admin/show/id page
     var contentId = req.params.contentId,
         cr = credentials(req.session),
         general = {
@@ -84,13 +84,13 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
             editor: cr.editor
         },
         postUrls = {
-            general: '/admin/content/decision'
+            general: '/admin/content/decision'  //the url the form should post to
         },
         sql;
 
     req.getConnection(function(err, connection, next) {
         if (err) return next(err);
-        if (req.admin) {
+        if (req.admin) { // if its a admin show all the content if not only the poster form the user himself
             sql = 'SELECT id, name, discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ?';
         } else {
             sql = 'SELECT id, name,discription, duration, animation, filename, type, dateStart, dateEnd, checked, dataCreated, vimeoId FROM content WHERE id = ? AND userId = ? ';
@@ -103,7 +103,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) {
             renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
             //
         }).catch(function(err) {
-            console.log(err);
+          renderTemplate(res, req, 'admin/content/detail', {}, general, postUrls, err);
             throw err;
         });
     });
@@ -115,7 +115,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) { // the admi
         decision = JSON.parse(body.decision),
         posterId = body.posterId;
 
-    if (typeof(decision) === 'boolean') {
+    if (typeof(decision) === 'boolean') { //the dission to accept op decline the poster.
         req.getConnection(function(err, connection) {
             if (decision === true) {
                 sqlQuery = 'UPDATE content SET `checked` = 1 WHERE id = ?';
@@ -126,7 +126,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) { // the admi
                 var emailQuery = 'SELECT * FROM content T1 LEFT JOIN users T2 ON T1.userId = T2.id WHERE T1.id = ?';
                 getSpecificData(emailQuery, connection, [posterId]).then(function(rows) {
                     var data = rows[0];
-                    var message = {
+                    var message = { //the mail that will be send to the user if the admin has deleted the poster
                         text: '',
                         from: 'Digitale Posters mail <matthias.d@outlook.com>',
                         to: 'someone <' + data.email + '>',
@@ -143,13 +143,13 @@ router.post('/decision', checkLogin, setRights, function(req, res) { // the admi
                     sendMessage(message);
 
                 }).catch(function(err) {
-                    console.log(err);
+                    console.log(err); //log the error
                     throw err;
                 });
             }
 
             insertData(sqlQuery, [posterId], connection).then(function() {
-                res.redirect('/admin/content/');
+                res.redirect('/admin/content/');  //h
             }).catch(function(err) {
                 console.log(err);
                 throw err;
