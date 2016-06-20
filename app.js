@@ -9,7 +9,7 @@ var express = require('express'),
     multer = require('multer'),
     mysql = require('mysql'),
     hbs = require('hbs'),
-    Promise = require('bluebird'),
+    cookieParser = require('cookie-parser'),
     myConnection = require('express-myconnection'),
     //own modules
     generateUUID = require('./modules/generateUUID.js'),
@@ -20,7 +20,7 @@ var express = require('express'),
     //get files for admin
     dashboard = require('./routes/admin/index'),
     displaysAdmin = require('./routes/admin/displays/index'),
-    screens = require('./routes/admin/screens/index'),
+    content = require('./routes/admin/content/index'),
     slideshows = require('./routes/admin/slideshows/index'),
     display = require('./routes/display/index'),
     users = require('./routes/admin/users/index'),
@@ -33,21 +33,22 @@ require('./config/config.js')({
     base: '/'
 });
 // inport libs
-require('./lib/hsbHelper.js');
-require('./lib/socketConnection.js')(http);
+require('./lib/hsbHelper.js'); //register hbs helpers
+require('./lib/socketConnection.js')(http); //starting web socket
 
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/views/partials'); //register hbs partials
 
 //define body parser
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false })); //set body parser for the post requests
+app.use(bodyParser.json()); //create json from body
 
-//define static path
+//define cookies
+app.use(cookieParser()); //enable cookies
+
+//define static paths
 app.use(express.static(path.join(__dirname, 'public/dist')));
 app.use('/download', express.static(path.join(__dirname, 'uploads')));
 
@@ -65,7 +66,7 @@ app.use(session({
     genid: function(req) {
         return generateUUID() // use UUIDs for session IDs
     },
-    store: new FileStore(),
+    store: new FileStore(), //store the session in a file
     saveUninitialized: true,
     resave: false
 }));
@@ -100,7 +101,7 @@ app.use('/users', userAcounts);
 //get files for admin
 app.use('/admin', dashboard);
 app.use('/admin/displays', displaysAdmin);
-app.use('/admin/screens', screens);
+app.use('/admin/content', content);
 app.use('/admin/slideshows', slideshows);
 app.use('/admin/users', users);
 //get files for slidewhows
@@ -111,6 +112,10 @@ app.use('/api', api);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
     next(err);
 });
 

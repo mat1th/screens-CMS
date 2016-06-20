@@ -1,0 +1,91 @@
+ {{> nav}}
+<section class="main-content scrollable">
+    <section class="content-header">
+        <h1>Your content</h1>
+        <section class="toolbar">
+            <div class="icons">
+                <a href="/admin/content/add" title="add" class="btn-action ">
+                  {{> svg/addicon}}
+                </a>
+                <button type="button" name="button" title="delete" class="btn-action" disabled>
+                    {{> svg/trashicon}}
+                </button>
+            </div>
+            <form class="" action="index.html" method="post">
+                <button type="button" name="name" class="btn btn-filter">Name</button>
+                <button type="button" name="name" class="btn btn-filter">Date</button>
+                <a href="{{data.url}}" class="btn btn-filter expired">Show expired</a>
+            </form>
+        </section>
+    </section>
+    <section class="content-body">
+        {{#if data.general}}
+            <ul>
+              <!-- loop all content  -->
+                {{#each data.general}}
+                    <li class="content zoom-in animate">
+                        <a href="/admin/content/show/{{id}}">
+                            <figure class="">
+                                <div class="image no-overflow" style="background-color: {{color}}">
+                                    {{#checktype type equals="vimeo" }}
+                                        {{#if vimeoImage.length}}
+                                            <img src="{{vimeoImage}}" alt="" />
+                                        {{else}}
+                                            <img src="/img/no-screen.jpg" alt="" />
+                                        {{/if}}
+                                    {{/checktype}}
+                                    {{#checktype type equals="poster" }}
+                                        {{#if filename.length}}
+                                            <img src="/download/{{filename}}" alt="" />
+                                        {{else}}
+                                            <img src="/img/no-screen.jpg" alt="" />
+                                        {{/if}}
+                                    {{/checktype}}
+                                </div>
+                                <figcaption>
+                                    <h2>{{name}}
+                                  {{#checktype type equals="vimeo" }}<span class="vimeo-tag">Vimeo</span>{{/checktype}}</h2>
+                                    <time>
+                                        {{#beginEnd dateStart dateEnd}}{{/beginEnd}}
+                                    </time>
+                                </figcaption>
+                            </figure>
+
+
+                            {{#if ../rights.admin}}
+                                {{#checktype checked equals="0" }}
+                                    <div class="check">
+                                        <svg version="1.1" width="2.9em" height="2.9em" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 42.8 42.8" xml:space="preserve">
+                                            <polygon style="fill:#EB5D56;" points="0,0 42.8,0 42.8,42.8 " />
+                                            <path style="fill:#FFFFFF;" d="M37.9,6l-1.4-1.4l-5.6,5.6l-5.6-5.6L23.9,6l5.6,5.6l-5.6,5.6l1.4,1.4l5.6-5.6l5.6,5.6l1.4-1.4l-5.6-5.6L37.9,6z" />
+                                        </svg>
+                                    </div>
+                                {{/checktype}}
+                                {{#checktype checked equals="1" }}
+                                    <div class="check">
+                                        <svg version="1.1" width="2.9em" height="2.9em" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 42.8 42.8" style="enable-background:new 0 0 42.8 42.8;" xml:space="preserve">
+                                            <polygon style="fill:#009B8F;" points="0,0 42.8,0 42.8,42.8 " />
+                                            <path style="fill:#FFFFFF;" d="M27.7,15.5l-4.2-4.2l-1.4,1.4l5.6,5.6l12-12l-1.4-1.4L27.7,15.5z" />
+                                        </svg>
+                                    </div>
+                                {{/checktype}}
+                            {{/if}}
+                            {{#checktype type equals="vimeo" }}
+                                <div class="play-icon-bottom animate">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="5em" height="5em" viewbox="0 0 36.2 36.2">
+                                        <circle style="fill: rgba(255, 255, 255, 0.80)" class="st0" cx="18.1" cy="18.1" r="18.1" />
+                                        <path style="fill: rgba(0, 0, 0, 0.8)" d="M14.1,11.1v14l11-7L14.1,11.1z" />
+                                    </svg>
+                                </div>
+                            {{/checktype}}
+                        </a>
+                    </li>
+
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>You have got no main-content please add one.</p>
+            <a href="/admin/content/add">New content</a>
+        {{/if}}
+    </section>
+</section>

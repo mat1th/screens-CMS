@@ -1,7 +1,8 @@
 @custom-media --narrow-window-width (min-width: 30em);
 @custom-media --medium-window-width  (min-width: 40em);
 @custom-media --medium-big-window-width  (min-width: 55em);
-/*@custom-media --medium-window-height  (min-height: 10em);*/
+
+/*if you will change the collor here in the wholl app will change that color */
 
 :root {
     --primary-color: #FFCC00;
@@ -20,7 +21,7 @@
     --background-color-normal: #efecea;
     --background-color-semidark: #c4c4c3;
     /*shadows*/
-    --shadow-normal: rgba(0, 0, 0, 0.14902) 4px 4px 8px 0px;
+    --shadow-normal: rgba(0, 0, 0, 0.14902) 0.25rem 0.25rem 0.5rem 0em;
     --border-radius: 0.21em;
     --display: flex;
 }

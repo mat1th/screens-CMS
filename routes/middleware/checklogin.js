@@ -1,11 +1,10 @@
 var checkLogin = function(req, res, next) {
-    var email = req.session.email;
+    var userId = req.session.user_id;
 
-    if (email === null || email === undefined) {
-        req.session.backTo = req.originalUrl;
+    if (userId === null || userId === undefined) { //check if a user id is set if not go to the login page 
         res.redirect('/users/login');
     } else {
-        req.email = email;
+        req.userId = userId;
         next();
     }
 };

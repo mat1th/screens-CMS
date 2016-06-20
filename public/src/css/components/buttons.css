@@ -1,8 +1,8 @@
+/*buttons in the app*/
 .btn {
     box-sizing: border-box;
     display: inline-block;
     flex-grow: 0;
-    min-width: 8em;
     max-width: 30em;
     height: 2.4em;
     margin: auto;
@@ -19,11 +19,12 @@
     cursor: pointer;
     z-index: 1;
 }
-.btn-small {
+.btn-span {
     padding: 0.15em 0.1em;
     max-width: 1em;
     height: auto;
 }
+/*use this button in the bar on the show page */
 .btn-filter {
     padding: 0.3em;
     min-width: inherit;
@@ -32,52 +33,64 @@
     font-size: 0.8em;
     height: auto;
 }
-.btn-filter:hover {
+.btn-filter:hover, .btn-filter:focus {
     color: var( --normal-color);
 }
 .btn-filter.expired {
     color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.52);
 }
-.btn-filter.expired:hover {
+.btn-filter.expired:focus, .btn-filter.expired:hover {
     color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.82);
 }
+/*this button is used on the home page*/
 .btn-transparant {
     max-width: 20em;
-    border: 0.06rem solid #fff;
-    background: rgba(255, 255, 255, 0.13);
-    color: #fff;
+    border: 0.06rem solid #000;
+    background: rgba(0, 0, 0, 0.13);
+    color: #000;
 }
 .btn-transparant:hover {
-    background: rgba(255, 255, 255, 0.40);
+    background: rgba(0, 0, 0, 0.4);
 }
+/*the normal button gray bacgroun*/
 .btn-normal {
     background-color: var(--background-color-semidark);
     color: var(--font-color-dark);
 }
+.btn-normal:focus,
 .btn-normal:hover {
     background-color: rgb(89, 89, 89);
     color: var(--font-color-light);
 }
+/*this is the default button the background is green*/
 .btn-default {
     background-color: var(--normal-color);
     color: var(--font-color-light);
 }
+.btn-default:focus,
 .btn-default:hover {
     background-color: var(--normal-color-hover);
 }
+.btn-default:focus{
+    background-color: var(--normal-color-hover);
+}
+/*this is the accept button the background is blue */
 .btn-accept {
     background-color: var(--eddit-color);
     color: var(--font-color-light);
 }
+.btn-accept:focus,
 .btn-accept:hover {
     background-color: var(--eddit-color-hover);
 }
+/*this is the warn button the background is red*/
 .btn-warn {
     background-color: var(--warn-color);
     color: var(--font-color-light);
 }
+.btn-warn:focus,
 .btn-warn:hover {
     background-color: var(--warn-color-hover);
 }
@@ -85,9 +98,11 @@
     background-color: var(--background-color-semidark);
     color: var(--font-color-dark);
 }
+/*if you would like a big button */
 .btn-width {
     min-width: 10em;
 }
+/*if you would like a botton that is the full with*/
 button.fullwith {
     box-sizing: border-box;
     width: 100%;
@@ -140,7 +155,7 @@ button.top-margin, a.top-margin {
 .toggle-buttons button {
     box-sizing: border-box;
     display: inline-block;
-    width: 33.3333333%;
+    width: 50%;
     margin: 0;
     padding: 0.8em 1em;
     border: 0.15em solid var(--normal-color);
@@ -151,6 +166,8 @@ button.top-margin, a.top-margin {
     background: var(--normal-color);
     color: var(--font-color-light);
 }
+.toggle-buttons button:hover,
+.toggle-buttons button:focus,
 .toggle-buttons button:active {
     background: var(--normal-color-hover);
     color: var(--font-color-light);

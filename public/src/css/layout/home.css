@@ -1,0 +1,137 @@
+/*top banner*/
+
+.banner {
+    height: 30em;
+    text-align: center;
+    background: url(../../img/background.jpg);
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-size: cover;
+}
+.banner h1 {
+    display: block;
+    width: 100%;
+    margin: auto auto;
+    color: var( --normal-color);
+    font-size: 3em;
+}
+.banner .banner-content {
+    padding: 5em 1em 1em 1em;
+}
+.banner p {
+    font-weight: 500;
+}
+
+/*the introduction section witch is yello*/
+
+.introduction {
+    padding: 2em;
+    background: var(--primary-color);
+}
+.introduction p {
+    max-width: 30em;
+    margin: 0 auto;
+}
+
+/*the steps the user needs to take*/
+
+.steps {
+    text-align: center;
+}
+
+/*for the z-index*/
+
+.wrap {
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+}
+.wrap picture {
+    max-width: 50em;
+    width: 100%;
+}
+.wrap picture.mobile {
+    max-height: 20em;
+    width: auto;
+}
+
+/*css for every step*/
+
+.step {
+    position: relative;
+    padding: 1em;
+    background: var(--background-color-light);
+    padding-bottom: 4em;
+}
+.step[data-section]:before {
+    background: var(--background-color-light);
+    display: inline-block;
+    position: relative;
+    width: 1.3em;
+    height: 1.3em;
+    padding: 0.5em;
+    border: 0.25em solid var( --background-color-semidark);
+    border-radius: 100%;
+    font-size: 1em;
+    font-weight: 400;
+    content: attr(data-section);
+    z-index: 2;
+}
+.step[data-section]:after {
+    position: absolute;
+    top: 0;
+    left: 49.85%;
+    width: 0.3125em;
+    height: 100%;
+    background-color: var(--background-color-normal);
+    content: '';
+    z-index: 1;
+}
+
+/*the step description*/
+
+.step-description {
+    padding: 0.8em 0 1.2em;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, .001), var(--background-color-light) 1.2em, var(--background-color-light) 70%, rgba(255, 255, 255, .001));
+    z-index: 10;
+    max-width: 30em;
+    margin: 0 auto;
+}
+.step-description a {
+    color: var( --normal-color);
+}
+
+/*css for step 2*/
+
+.step[data-section="2"]:before {
+    border-color: #acacaa;
+    background-color: #DEDDDA
+}
+.step[data-section="2"]:after {
+    background-color: #acacaa
+}
+.step[data-section="2"] {
+    background-color: #DEDDDA
+}
+.step[data-section="2"] .step-description {
+    background-image: linear-gradient(to bottom, rgba(222, 221, 217, 0.08), #DEDDDA 1.2em, #DEDDDA 70%, rgba(222, 221, 217, 0.08));
+}
+
+/*the css for the register step*/
+
+.step.register {
+    color: var( --font-color-light);
+    background: var(--eddit-color);
+}
+.step.register:before {
+    border-color: #062950;
+    background: var(--eddit-color);
+}
+.step.register:after {
+    background-image: linear-gradient(to bottom, #062950, #062950 3em, #0A4C96 3em, #0A4C96);
+    background-color: #062950;
+}
+.step.register .step-description {
+    background-image: linear-gradient(to bottom, rgba(10, 76, 150, 0.04), #0A4C96 1.2em, #0A4C96 70%, rgba(10, 76, 150, 0.04));
+}

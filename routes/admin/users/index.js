@@ -10,43 +10,34 @@ var express = require('express'),
 router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
     var cr = credentials(req.session),
         general = {
-            title: 'Displays',
+            title: 'Displays', //the title of the page
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor
         },
         sql;
 
-    if (general.admin) {
-        req.getConnection(function(err, connection) {
-            sql = 'SELECT email, name, role, id FROM users';
-            // Get the user id using username
-            connection.query(sql, function(err, match) {
-                if (err) {
-                    throw err;
-                }
-                if (match !== '' && match.length > 0) {
-                    renderTemplate(res, 'admin/users/show', {
-                        general: match
-                    }, general, {}, false);
-                } else {
-                    renderTemplate(res, 'admin/users/show', {
-                        general: match
-                    }, general, {}, 'There are no users');
-                }
-            });
+    req.getConnection(function(err, connection) {
+        sql = 'SELECT email, name, role, id FROM users'; //get all the users
+        // Get the user id using username
+        connection.query(sql, function(err, match) {
+            if (err) {
+                throw err;
+            }
+            if (match !== '' && match.length > 0) {
+                renderTemplate(res, req, 'admin/users/show', { //render the tempate with the data from the users
+                    general: match
+                }, general, {}, false);
+            } //no else because there will never be no users
         });
-    } else {
-        res.redirect('/admin');
-    }
-
+    });
 });
 
-router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, next) {
+router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res) { // edit the user with the user id
     var userId = req.params.userId,
         cr = credentials(req.session),
         general = {
-            title: 'Your screens',
+            title: 'Your content',
             login: cr.login,
             admin: cr.admin,
             editor: cr.editor
@@ -64,7 +55,7 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, nex
             };
 
             //renderTemplate
-            renderTemplate(res, 'admin/users/edit', data, general, postUrls, false);
+            renderTemplate(res, req, 'admin/users/edit', data, general, postUrls, false);
             //
         }).catch(function(err) {
             throw err;
@@ -73,36 +64,37 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res, nex
 });
 
 
-router.post('/edit', checkLogin, function(req, res) {
-    var cr = credentials(req.session),
-        sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
-        general = {
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor,
-            email: cr.email
-        },
+router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) { //post to eddit and only the user with admin rights will be
+    var sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
         body = req.body,
+        cr = credentials(req.session),
         data = {
             role: body.role,
             name: body.name,
             email: body.email,
             id: body.id
+        },
+        general = {
+            title: 'Your content',
+            login: cr.login,
+            admin: cr.admin,
+            editor: cr.editor
+        },
+        postUrls = {
+            general: '/admin/users/edit'
         };
-
-    req.getConnection(function(err, connection) {
-        insertData(sqlQuery, [data.role, data.name, data.email, data.id], connection).then(function() {
-            res.redirect('/admin/users/edit/' + data.id);
-        }).catch(function(err) {
-            console.log(err);
-            throw err;
+    if (data.role === 'admin' || data.role === 'editor' || data.role === 'publisher') { //check if there is set a right that exists
+        req.getConnection(function(err, connection) { //get the connection with the mysql databasae
+            insertData(sqlQuery, [data.role, data.name, data.email, data.id], connection).then(function() {
+                res.redirect('/admin/users/edit/' + data.id);
+            }).catch(function(err) {
+                console.log(err);
+                throw err;
+            });
         });
-    });
-
-    console.log(data);
-
+    } else {
+        renderTemplate(res, req, 'admin/users/edit', data, general, postUrls, false);
+    }
 });
-
-
 
 module.exports = router;

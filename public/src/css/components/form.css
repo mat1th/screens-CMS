@@ -18,7 +18,7 @@ input[type="text"], input[type="email"], input[type="date"], input[type="passwor
     display: block;
     width: 100%;
     max-width: 30em;
-    min-height: 1em;
+    min-height: 2em;
 }
 input[type="text"].error, input[type="email"].error, input[type="date"].error, input[type="number"].error, input[type="password"].error, input[type="color"].error, textarea.error, select.error, legend.error {
     border-color: var( --warn-color) !important;
@@ -84,10 +84,10 @@ input[type="checkbox"]+ label::before, input[type="checkbox"]+ label::after {
     border-radius: .25em;
 }
 input[type="checkbox"]+ label::after {
+    top: 50%;
     width: 1.1em;
     height: 1.1em;
     background-image: url("/img/icons/check.svg");
-    top: 50%;
     background-size: 90%;
 }
 input[type="radio"]+ label::after, input[type="checkbox"]+ label::after {
@@ -125,7 +125,7 @@ input[type="radio"]:checked+ label::after, input[type="checkbox"]:checked+ label
     z-index: 1;
 }
 select {
-    box-shadow: 0 0.0625em 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.0625em 0.18755em rgba(0, 0, 0, 0.08);
     cursor: pointer;
 }
 select::-ms-expand {
@@ -141,11 +141,11 @@ form li {
     user-select: none;
     display: inline-block;
     position: relative;
-    margin: 0 26px 16px 0;
+    margin: 0 1.625em 1em 0;
 }
 .edit.btn {
-    min-width: inherit;
     width: 1em;
+    min-width: inherit;
 }
 
 /*file upload */

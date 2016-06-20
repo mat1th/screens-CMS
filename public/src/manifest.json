@@ -1,7 +1,7 @@
 {
     "lang": "en",
-    "name": "Digital screens",
-    "short_name": "Digitalscreens",
+    "name": "Digital content",
+    "short_name": "Digitalcontent",
     "icons": [{
         "src": "favicon-96.png",
         "sizes": "96x96",

@@ -1,0 +1,169 @@
+/*overview*/
+
+.content {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+.content a {
+    display: block;
+    position: relative;
+    padding: 0.5em;
+    margin: 0em;
+    border-radius: var( --border-radius);
+}
+.content img {
+    display: block;
+    display: inline-block;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    z-index: 1;
+}
+.content a:focus, .content a:hover {
+    background: var( --background-color-semidark);
+}
+.content a:focus img, .content a:hover img {
+    filter: brightness(90%);
+}
+.content .image {
+    background: #fc0;
+}
+figcaption {
+    display: inline-block;
+    width: 100%;
+    margin: auto;
+    padding: 0.5em 0 0 0;
+    color: var(--font-color-darkgray);
+}
+figcaption h2 {
+    padding: 0;
+    overflow: hidden;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+figcaption time {
+    font-size: 0.8em;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.content .check {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5em;
+    z-index: 2;
+}
+.content .check svg {
+    width: 2.9em;
+}
+/*play icon on the vimeo movies*/
+.content .play-icon-bottom {
+    position: absolute;
+    top: 1em;
+    right: 0;
+    left: 0;
+    width: 5em;
+    margin: 7em auto;
+    z-index: 1;
+}
+.content a:focus .play-icon-bottom,
+.content a:hover .play-icon-bottom {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+.preview {
+    margin: 1em;
+}
+.preview-size {
+    width: 32.4vh;
+    height: 57.6vh;
+    overflow: hidden;
+    background: #000;
+    text-align: center;
+}
+.preview-size img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
+/*tag icon*/
+span.vimeo-tag {
+    padding: 0.1em 0.3em;
+    border-radius: var( --border-radius);
+    background: var(--normal-color);
+    color: var(--font-color-light);
+    font-weight: 600;
+}
+
+/*info tooltip on the content add page*/
+
+.info-tooltip {
+    display: inline-block;
+    position: relative;
+}
+.info-tooltip a {
+    color: var(--primary-color);
+}
+.info-tooltip:focus p,
+.info-tooltip:hover p {
+    display: block;
+}
+.info-tooltip p {
+    display: none;
+    position: absolute;
+    bottom: 1.5em;
+    width: 15em;
+    max-width: 90vw;
+    padding: 0.5em;
+    border-radius: var( --border-radius);
+    background: rgba(0, 0, 0, 0.88);
+    color: var(--font-color-light);
+    font-size: 0.8em;
+    font-weight: 400;
+    z-index: 100;
+}
+
+/*detail page*/
+.content-body.vimeo{
+  display: block;
+
+}
+.content-body.vimeo section{
+  width: 100%;
+  height: 20em;
+}
+.content-body.vimeo iframe{
+  width: 100%;
+  height: 100%;
+}
+
+/*responsive*/
+
+@media screen and (--medium-window-width) {
+    .content .image {
+        height: 20em;
+    }
+    .content {
+        max-width: 15em;
+    }
+}
+@media screen and (--medium-big-window-width) {
+    form {
+        flex-shrink: 1;
+    }
+    .img-preview {
+        flex-basis: 50%;
+        flex-shrink: 1;
+    }
+    .add-content {
+        display: var(--display);
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

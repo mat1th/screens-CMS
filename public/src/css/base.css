@@ -6,7 +6,8 @@ body, html {
 }
 main {
     width: 100%;
-    height: calc(100% - 60px);
+    height: 100%;
+    height: calc(100% - 3.753em);
 }
 img {
     max-width: 100%;
@@ -18,25 +19,27 @@ video {
 a {
     text-decoration: none;
 }
-.bold {
+time {
+   font-size: 0.8em;
+}
+strong {
     font-size: 1em;
     font-weight: bold;
 }
-.none, .disabled {
-    display: none !important;
-}
+
+/*scolls */
 .no-overflow {
     overflow: hidden;
 }
 .scrollable {
     overflow-y: auto;
 }
-.center {
-    text-align: center;
+/*postions*/
+.disabled {
+    visibility: hidden;
+    display: none !important;
 }
-.right {
-    float: right;
-}
+/*warnings */
 .error {
     color: var( --warn-color);
 }
@@ -45,10 +48,9 @@ span.error {
     font-size: 0.8em;
     font-weight: 400;
 }
-.not-found {
-    margin: 2em auto;
-}
 .warning {
+    max-width: 30em;
+    width: 80%;
     position: absolute;
     top: 0;
     right: 0;
@@ -57,12 +59,16 @@ span.error {
     text-align: center;
     z-index: 16;
 }
-.warning small {
+.warning span {
     padding: 0.2em 0.5em;
     border-radius: var(--border-radius);
     background: var( --warn-color);
     color: var(--font-color-light);
     font-size: 1.1em;
+}
+.not-found {
+  text-align: center;
+    margin: 2em auto;
 }
 @media (--narrow-window-width) {
     main {
@@ -70,6 +76,9 @@ span.error {
         flex-direction: row;
         align-content: stretch;
         margin: 0 auto 0 auto;
+    }
+    .transparant main {
+      display: block;
     }
 }
 ::selection {

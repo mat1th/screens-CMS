@@ -1,20 +1,21 @@
 {{> nav}}
-<section class="content scrollable">
+<section class="main-content scrollable">
     <section class="content-header">
         <h1>Dashboard</h1>
     </section>
     <article class="card">
         <section class="card-header">
-            <h2>Screens</h2>
+            <h2>Content</h2>
         </section>
         <section class="card-body">
-            <p>You have <span class="bold">{{data.general.screens}}</span> screen(s).
+            <p>You have <strong>{{data.general.content}}</strong> poster(s) or vimeo video(s).
                 {{#if rights.admin}}
-                    Form these screens are <span class="bold">{{data.general.uncheckedScreens}}</span> uncheked.
+                    From these poster(s) or vimeo video(s) are <strong>{{data.general.uncheckedContent}}</strong> uncheked.
                 {{/if}}
                 For more information go to display page.</p>
         </section>
-        <a href="/admin/screens" class="btn btn-default">Go</a>
+        <a href="/admin/content" class="btn btn-default">Show content</a>
+        <a href="/admin/content/add" class="btn btn-default">Ad new content</a>
     </article>
 
     {{#if rights.admin}}
@@ -23,9 +24,10 @@
                 <h2>Slideshows</h2>
             </section>
             <section class="card-body">
-                <p>You have got <span class="bold">{{data.general.slideshows}}</span> slideshows. For more details go to the slideshow page. </p>
+                <p>There are now <strong>{{data.general.slideshowscontent}}</strong> posters or vimeo video's in your slideshow. For more details go to the slideshow page. </p>
+                <!-- <strong>{{data.general.slideshows}}</strong> -->
             </section>
-            <a href="/admin/slideshows" class="btn btn-default">Go</a>
+            <a href="/admin/slideshows" class="btn btn-default">Show slideshow</a>
         </article>
 
         <article class="card">
@@ -33,9 +35,9 @@
                 <h2>Displays</h2>
             </section>
             <section class="card-body">
-                <p>There are <span class="bold">{{data.general.displays}}</span> displays. For more information go to display page.</p>
+                <p>There are <strong>{{data.general.displays}}</strong> displays. For more information go to display page.</p>
             </section>
-            <a href="/admin/displays" class="btn btn-default">Go</a>
+            <a href="/admin/displays" class="btn btn-default">Show displays</a>
         </article>
     {{/if}}
 

@@ -1,12 +1,13 @@
 /*table*/
+/*all tables in the app will be responsive on small screens */
 
-.content-body table {
+table {
     width: 100%;
     text-align: left;
     border-spacing: 0;
     margin: 0 0 1em 0;
 }
-.content-body table td, table th {
+table td, table th {
     display: block;
     padding: 0 0 0 3em;
     height: 3em;
@@ -17,35 +18,32 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.content-body table a {
-    color: inherit;
-}
-.content-body table th {
+table th {
     display: none;
-    font-size: 0.9em;
     font-weight: 500;
     color: var( --normal-color);
-    white-space: nowrap;
     padding: 0;
-    height: 3em;
     outline: none;
 }
-.content-body table tr {
+table a {
+    color: inherit;
+}
+table tr {
     font-size: 0.9em;
 }
-.content-body .responsvive tr {
+table tr {
     margin: 1em 0;
     background: #fff;
     display: block;
 }
-.content-body .responsvive td {
+table td {
     height: 1em;
     padding: 1em;
 }
-.content-body td a {
+td a {
     display: inline-block
 }
-.content-body .responsvive td:before {
+table td:before {
     text-align: left;
     color: var( --font-color-dark);
     text-align: left;
@@ -53,17 +51,20 @@
     font-weight: 600;
     content: attr(data-th) ": ";
 }
-.content-body .responsvive td.edit:before {
-    display: none;
-}
-.content-body .responsvive table td:last-child {
+table table td:last-child {
     border: none;
 }
-.content-body .responsvive td.checkboxes label {
+
+/*dont show the eddit table*/
+
+table td.edit:before {
+    display: none;
+}
+table td.checkboxes label {
     position: absolute;
     margin: 0 auto;
 }
-.content-body .responsvive td.checkboxes {
+table td.checkboxes {
     display: none;
     width: 4em;
     max-width: 4em;
@@ -72,47 +73,39 @@ td.edit a {
     display: inline-block;
     padding: 0;
 }
-.content-body table a.btn {
+table a.btn {
     width: 3em;
+    min-width: 4em;
     color: var(--font-color-light);
     margin: 0;
 }
-tr input[disabled] {
-    border: none;
-    color: var(--font-color-dark);
-}
-tr select[disabled] {
-    border: none;
-    color: var(--font-color-dark);
-    cursor: default;
-}
 @media (--medium-window-width) {
-    .content-body .responsvive {
+    table {
         background: #fff;
     }
-    .content-body .responsvive td.checkboxes {
+    table td.checkboxes {
         display: table-cell;
     }
-    .content-body table td {
+    table td {
         display: table-cell;
     }
-    .content-body table th {
+    table th {
         display: table-cell;
     }
-    .content-body .responsvive td:before {
+    table td:before {
         display: none;
     }
-    .content-body table tr {
+    table tr {
         padding: 0;
         display: table-row;
     }
-    .content-body .responsvive tr {
+    table tr {
         display: table-row;
     }
-    .content-body table th:first-child, .content-body table td:first-child {
+    table th:first-child, table td:first-child {
         padding: 0 0 0 1.8em;
     }
-    .content-body table th:last-child, .content-body table td:last-child {
+    table th:last-child, table td:last-child {
         padding: 0 0.9em 0 0;
         width: 8em;
     }

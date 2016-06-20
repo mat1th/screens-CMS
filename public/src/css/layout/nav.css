@@ -1,0 +1,47 @@
+/*menu styling on top of the app*/
+
+header > nav {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    min-width: 13em;
+    padding: 1em;
+    border-bottom-width: 0.065rem;
+    border-bottom-style: solid;
+    border-bottom-color: RGBA(254, 254, 254, 0.22);
+    background: var(--background-color-dark);
+    z-index: 15;
+}
+.user-login {
+    float: right;
+}
+header ul {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+}
+header li {
+    display: inline-block;
+}
+header a {
+    display: block;
+    padding: 0.35em 1em 0 0;
+    color: var(--font-color-light);
+    font-size: 0.8em;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+header a:focus, header a:hover {
+    -webkit-transition: color .2s ease-out;
+    color: var(--primary-color);
+    transition: color .2s ease-out;
+}
+.transparant nav {
+    position: absolute;
+    background: none;
+}
+.transparant header a {
+    color: var(--font-color-dark);
+}

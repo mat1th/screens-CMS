@@ -4,20 +4,21 @@ DP.slideshows = (function() {
         _selector = DP.helper.select('.slideshow-picker'),
         _numbers = DP.helper.selectAll('.number'),
         _selectImage = DP.helper.selectAll('.select-image'),
+        _preview = DP.helper.select('.slideshow-preview img'),
         _addImages = DP.helper.select('.slideshow-picker button');
 
     var _getIds = function() {
-        var _screenlistItemImage = DP.helper.selectAll('.screenitem .image');
+        var _contentlistItemImage = DP.helper.selectAll('.contentitem .image');
         var dataIds = [];
-        for (var i = 0; i < _screenlistItemImage.length; i++) {
-            dataIds.push(_screenlistItemImage[i].getAttribute('data-id'));
+        for (var i = 0; i < _contentlistItemImage.length; i++) {
+            dataIds.push(_contentlistItemImage[i].getAttribute('data-id'));
         }
         return dataIds;
     };
-    var CreateLi = function(id, filename) {
-        return '<li class="screenitem list" draggable="true">' +
+    var CreateLi = function(id, filename) { //return a li item with the nessesery structure
+        return '<li class="contentitem list" draggable="true">' +
             '<a href="#">' +
-            '<small class="number">' + id + '</small>' +
+            '<span class="number">' + id + '</span>' +
             '<div class="image no-overflow" data-id="' + id + '">' +
             '<img src="/download/' + filename + '" alt="" draggable="false" data-id="' + id + '">' +
             '</div>' +
@@ -25,8 +26,8 @@ DP.slideshows = (function() {
             '</li>';
     };
 
-    var _addNewPoster = function() {
-        var _screenlist = DP.helper.select('#screenlist');
+    var _addNewPoster = function() { //ad a new poster dropdown
+        var _contentlist = DP.helper.select('#contentlist');
 
         _plusButton.addEventListener('click', function() {
             _toggleAddNewPoster();
@@ -39,51 +40,51 @@ DP.slideshows = (function() {
                     var id = _selectImage[i].getAttribute('data-id'),
                         filename = _selectImage[i].getAttribute('data-image');
 
-                    _screenlist.innerHTML += CreateLi(id, filename);
+                    _contentlist.innerHTML += CreateLi(id, filename); // add a new li to the content html
                 }
             }
             //post data to the server
-            DP.helper.postData(DP.routes.currentPath(), 'screens=' + _getIds());
+            DP.helper.postData(DP.routes.currentPath(), 'content=' + _getIds()); //send the post request to the server to save the new poster in the slideshow
         });
     };
 
-    var _toggleAddNewPoster = function() {
-        _selector.classList.toggle('none');
+    var _toggleAddNewPoster = function() { //toggle the plus button and content picker
+        _selector.classList.toggle('disabled');
         _plusButtonIcon.classList.toggle('rotate-right');
     };
 
-    var _sortable = function() {
+    var _sortable = function() { //make the content shortable
         // inspiration form http://codepen.io/agate1/pen/vOoRvj
-        var _screenlist = DP.helper.select('#screenlist'),
+        var _contentlist = DP.helper.select('#contentlist'),
             item, ul;
 
-        var screenitems = DP.helper.selectAll('.screenitem');
+        var contentitems = DP.helper.selectAll('.contentitem');
 
-        _screenlist.addEventListener('dragenter', function(ev) {
-            ev.preventDefault();
-            if (listNumber(ev.target) > listNumber(item)) {
+        _contentlist.addEventListener('dragenter', function(ev) { //lissen to changes in the ol
+            if (listNumber(ev.target) > listNumber(item)) { //if the number of the item is bigger than isert before
                 ul.insertBefore(ev.target, item);
             } else {
                 ul.insertBefore(item, ev.target);
             }
+            ev.preventDefault();
             return true;
         });
 
-        _screenlist.addEventListener('dragend', function() {
-            DP.helper.postData(DP.routes.currentPath(), 'screens=' + _getIds());
-            item.classList.remove('placeholder');
+        _contentlist.addEventListener('dragend', function() { //if a is dragged post the new order to the server
+            DP.helper.postData(DP.routes.currentPath(), 'content=' + _getIds());
+            item.classList.remove('placeholder'); //remove the placeholder
             return false;
         });
-        _screenlist.addEventListener('drop', function functionName(ev) {
+        _contentlist.addEventListener('drop', function functionName(ev) { //if the elemnent is dropped stop the preview of the elemnent in the list
             ev.stopPropagation();
             return false;
         });
-        _screenlist.addEventListener('dragover', function functionName() {
+        _contentlist.addEventListener('dragover', function functionName() {
             return false;
         });
 
-        for (var p = 0; p < screenitems.length; p++) {
-            screenitems[p].addEventListener('dragstart', function(ev) {
+        for (var p = 0; p < contentitems.length; p++) { // add a event to each li item
+            contentitems[p].addEventListener('dragstart', function(ev) {
                 item = ev.target;
                 ul = ev.target.parentNode;
                 ev.dataTransfer.effectAllowed = 'move';
@@ -96,7 +97,7 @@ DP.slideshows = (function() {
             });
         }
 
-        function listNumber(el) {
+        function listNumber(el) { // get the list number of the item
             for (var i = 0; i < ul.children.length; i++) {
                 if (ul.children[i].getAttribute('id') === el.id) {
                     return i;
@@ -105,43 +106,43 @@ DP.slideshows = (function() {
         }
 
     };
-    var recount = function() {
+    var recount = function() { //recoun the list
         for (var n = 0; n < _numbers.length; n++) {
             // console.log(ul.children.querySelectorAll('.number'));
             _numbers[n].innerHTML = n;
         }
     };
-    var _edditPoster = function() {
+    var _edditPoster = function() { //set the values in the form so the user doesn't have to fill it by hissef
         var _client = new DP.helper.getData(),
-            _screenlist = DP.helper.select('#screenlist'),
-            _preview = DP.helper.select('.slideshow-preview img'),
+            _contentlist = DP.helper.select('#contentlist'),
             formElements = {
-                form: DP.helper.select('.slideshow-screen-settings form'),
+                form: DP.helper.select('.slideshow-content-settings form'),
                 animaion: DP.helper.select('#field-animation'),
                 duration: DP.helper.select('#field-duration'),
                 startDate: DP.helper.select('#field-date-start'),
+                color: DP.helper.select('#field-color'),
                 endDate: DP.helper.select('#field-date-end')
             };
 
-        _screenlist.addEventListener('click', function functionName(ev) {
-            if (ev.target.tagName === 'IMG') {
-                var screenID = ev.target.getAttribute('data-id');
+        _contentlist.addEventListener('click', function functionName(ev) {
+            if (ev.target.tagName === 'IMG') { // if the target is a image
+                var contentID = ev.target.getAttribute('data-id');
 
-                _client.get('/api/screen/' + screenID, function(response) {
+                _client.get('/api/content/' + contentID, function(response) { //get the data from the api
                     var data = JSON.parse(response);
-
-                    formElements.form.action = '/admin/screens/edit/' + data.id;
+                    console.log(data);
+                    formElements.form.action = '/admin/content/edit/' + data.id;
                     formElements.animaion.value = data.animation;
                     formElements.duration.value = data.duration;
                     formElements.startDate.value = data.dateStart;
+                    formElements.color.value = data.color;
                     formElements.endDate.value = data.dateEnd;
                 });
                 _preview.src = ev.target.src;
             }
-
         });
     };
-    var _toggleButtons = function() {
+    var _toggleButtons = function() { //show or hide the tap on the right menu
         var toggleButtonsDiv = DP.helper.select('.toggle-buttons');
 
         toggleButtonsDiv.addEventListener('click', function(e) {
@@ -149,27 +150,39 @@ DP.slideshows = (function() {
             if (target.nodeName === 'BUTTON') {
                 toggleAll(target, []);
             }
-
         });
     };
-    var toggleAll = function(target, show) {
+    var toggleAll = function(target, show) { // togglle all the itemns
         var toggleButtons = DP.helper.selectAll('.toggle-buttons button'),
             tabcontent = DP.helper.selectAll('.tabcontent');
         for (var i = 0; i < toggleButtons.length; i++) {
             if (target === toggleButtons[i] || show[i]) {
-                tabcontent[i].classList.remove('none');
+                tabcontent[i].classList.remove('disabled');
                 tabcontent[i].setAttribute('aria-hidden', false);
                 toggleButtons[i].setAttribute('aria-selected', true);
             } else {
-                tabcontent[i].classList.add('none');
+                tabcontent[i].classList.add('disabled');
                 tabcontent[i].setAttribute('aria-hidden', true);
                 toggleButtons[i].setAttribute('aria-selected', false);
             }
         }
     };
+    var animateSelect = function() { // add a anumtion to the poster if a user selects a animaion
+        var select = DP.helper.selectId('field-animation');
+        var animations = ['fadein', 'left-push', 'top-push'];
+
+        select.addEventListener('change', function(e) {
+            console.log(e.target.value);
+            for (var i = 0; i < animations.length; i++) {
+                _preview.classList.remove(animations[i]);
+                console.log(_preview.classList);
+            }
+            _preview.classList.add(e.target.value);
+        });
+    };
 
     var init = function() {
-        window.onload = function functionName() {
+        window.onload = function functionName() { // on window load enable the first tab 
             toggleAll(false, [true, false, false]);
         };
 
@@ -177,6 +190,7 @@ DP.slideshows = (function() {
         _addNewPoster();
         _sortable();
         _edditPoster();
+        animateSelect();
     };
 
     return {
