@@ -2,6 +2,9 @@
 
 ![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-html.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-css.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)
 
+## Live url
+[https://posters.dolstra.me](https://posters.dolstra.me)
+
 ## Synopsis
 A CMS to upload posters of Vimeo movies and show them on a screen.
 
@@ -52,7 +55,6 @@ var env = process.env.NODE_ENV || 'development'
 ### Add database structure
 Now we have got to set up the database structure. In the file ``database/database.sql`` can you find the the database structure. Please add it to your database. Now you can build the app.
 
-
 ## Building
 
 Install Gulp:
@@ -86,7 +88,40 @@ Start Gulp for browser sync:
 gulp browser-sync
 ```
 
+### Code structure
+In the app.js file you can find the start file from the app. For every route is a file in the route folder. The files are so strucured that the path of the file is the path of the url.
 
+```
+/config                //the config of the application
+/lib
+  /hbsHelper.js        //the hbs template helpers
+  /socketConnection.js //connection to the socket
+/modules               //all the modules from the app
+/public
+  /src
+    /img               //all the images if the application
+    /js
+    /css
+/routes     
+  /admin               //the admin part of the application (for all these routes you need to be logged in)
+  /api                 //The api that can be used in the front end
+  /display             //the display route that will be shown on a display
+  /middleware          //the middleware for the routes
+  /users               //to log in and register the users
+/sessions              //in this folder the sessions files will be saved
+/uploads               //in this folder the uploaded files will be saved
+/views                 //all the views of the application. It is structured the same as the routes in the routes folder
+app.js                //the root of the application. This file you need to start.
+
+```
+
+## Code syntax
+
+### Css syntax
+For css I'm using [cssnext](http://cssnext.io). With this plugin you can use the css syntax that will be supported later by the browsers.
+
+### JS syntax
+Im using some new JS functions with Babel this will be converted to code that can be used by older browsers.
 
 ## Branch structure
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
