@@ -3,10 +3,9 @@ var express = require('express'),
     renderTemplate = require('../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', function(req, res) { //if ther is no id defined render the displays page
     res.redirect('/admin/displays');
 });
-
 
 router.get('/:displayId', function(req, res) {
     var displayId = req.params.displayId,
@@ -23,14 +22,14 @@ router.get('/:displayId', function(req, res) {
                 specificId: displayId
             };
             if (rows.length > 0 && rows[0].slideshow_id !== null) {
-                //render the template
+                //render the template with the content
                 renderTemplate(res, req, 'display/view', data, general, {}, false, 'layout2');
             } else {
-                //render the template
+                //show a arror that there is no content for this display and use layout 2
                 renderTemplate(res, req, 'display/view', data, general, {}, 'There are no content in your slideshow this is display' + displayId, 'layout2');
             }
         }).catch(function(err) {
-                    console.log(err);
+            renderTemplate(res, req, 'display/view', {}, general, {}, 'Ther went somthing wrong with getting the data', 'layout2');
             throw err;
         });
     });

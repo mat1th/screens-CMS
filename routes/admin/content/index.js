@@ -58,7 +58,7 @@ router.get('/', checkLogin, setRights, function(req, res) { // the admin/content
     });
 });
 
-router.get('/add', checkLogin, function(req, res) {// the admin/content/add page
+router.get('/add', checkLogin, function(req, res) { // the admin/content/add page
     var cr = credentials(req.session),
         general = {
             title: 'Add content',
@@ -84,7 +84,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) { //the
             editor: cr.editor
         },
         postUrls = {
-            general: '/admin/content/decision'  //the url the form should post to
+            general: '/admin/content/decision' //the url the form should post to
         },
         sql;
 
@@ -103,7 +103,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) { //the
             renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
             //
         }).catch(function(err) {
-          renderTemplate(res, req, 'admin/content/detail', {}, general, postUrls, err);
+            renderTemplate(res, req, 'admin/content/detail', {}, general, postUrls, err);
             throw err;
         });
     });
@@ -149,7 +149,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) { // the admi
             }
 
             insertData(sqlQuery, [posterId], connection).then(function() {
-                res.redirect('/admin/content/');  //h
+                res.redirect('/admin/content/');
             }).catch(function(err) {
                 console.log(err);
                 throw err;
@@ -171,7 +171,7 @@ router.post('/add', checkLogin, function(req, res) { // the admin/content/add po
             admin: cr.admin,
             editor: cr.editor
         },
-        data = {
+        data = { //the data for the error and the insert to the
             general: {
                 id: randNumber(1000000),
                 name: body.name,
@@ -195,19 +195,19 @@ router.post('/add', checkLogin, function(req, res) { // the admin/content/add po
     if (isValidDate(data.general.dateStart) && isValidDate(data.general.dateEnd)) {
         if (data.general.type !== null) {
             req.getConnection(function(err, connection) {
-                if (general.admin || general.editor) {
+                if (general.admin || general.editor) { //if the user is a admin or an editor auto check the poster
                     sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?';
-                } else {
+                } else { //don't check the poster
                     sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `vimeoId` = ?, `vimeoImage` = ?';
                 }
-                if (data.general.upload.imageFile) {
+                if (data.general.upload.imageFile) { //id the imageFile file var is defined add the filename var to the data.general.fileName
                     data.general.fileName = data.general.upload.imageFile.name;
                 }
 
                 insertData(sqlQuery, [req.session.user_id, data.general.id, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
                     //send a mail if the use is not a admin
                     if (!general.admin) {
-                        var message = {
+                        var message = { //the message that will be send
                             text: '',
                             from: 'Digitale Posters mail <matthias.d@outlook.com>',
                             to: 'someone <matthias@dolstra.me',
@@ -217,13 +217,13 @@ router.post('/add', checkLogin, function(req, res) { // the admin/content/add po
                                 alternative: true
                             }]
                         };
-                        sendMessage(message);
+                        sendMessage(message); //send the message
                     }
                     insertData(sqlQuerySlideshow, [data.general.id], connection).then(function() {
                         res.redirect('/admin/content');
                     }).catch(function(err) {
                         console.log(err);
-                        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error');
+                        renderTemplate(res, req, 'admin/content/add', data, general, {}, 'There was a error' + err); //show the error to the user
                         throw err;
                     });
                 }).catch(function(err) {
@@ -241,8 +241,7 @@ router.post('/add', checkLogin, function(req, res) { // the admin/content/add po
 });
 
 router.post('/edit/:contentId', checkLogin, function(req, res) {
-    var cr = credentials(req.session),
-        updateSqlQuery = 'UPDATE content SET animation = ?, color = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
+    var updateSqlQuery = 'UPDATE content SET animation = ?, color = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
         removeSqlQuery = 'DELETE FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?',
         body = req.body,
         remove = body.remove,
@@ -256,7 +255,7 @@ router.post('/edit/:contentId', checkLogin, function(req, res) {
         };
     if (isValidDate(data.dateStart) && isValidDate(data.dateEnd)) {
         req.getConnection(function(err, connection) {
-            if (remove) {
+            if (remove) { //if the remove button is clicked there will be a remove value then delete the poster from the slideshow
                 insertData(removeSqlQuery, [data.contentId, '613042'], connection).then(function() {
                     res.redirect('/admin/slideshows/add/613042');
                 }).catch(function(err) {
@@ -264,7 +263,7 @@ router.post('/edit/:contentId', checkLogin, function(req, res) {
                     console.log(err);
                     throw err;
                 });
-            } else {
+            } else { //change the values in the database
                 insertData(updateSqlQuery, [data.animation, data.color, data.duration, data.dateStart, data.dateEnd, data.contentId], connection).then(function() {
                     res.redirect('/admin/slideshows/add/613042');
                 }).catch(function(err) {

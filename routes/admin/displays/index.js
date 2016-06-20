@@ -9,11 +9,6 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-
-// router.get('/', checkLogin, function(req, res) {
-//     res.redirect('/admin/slideshows');
-// });
-
 router.get('/', checkLogin, checkRightsEditor, function(req, res) {
     var cr = credentials(req.session),
         general = {
@@ -22,11 +17,11 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
             admin: cr.admin,
             editor: cr.editor
         },
-        sql, sqlDisplays;
+        sqlDisplays;
 
     req.getConnection(function(err, connection) {
 
-        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id';
+        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id'; //select all displays
         // Get the user id using username
         getData(sqlDisplays, connection).then(function(displays) {
             return {
@@ -35,39 +30,40 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
                 }
             };
         }).then(function(data) {
-            //renderTemplate
+            //render the template
             renderTemplate(res, req, 'admin/displays/show', data, general, {}, false);
 
         }).catch(function(err) {
-            console.log(err);
+            renderTemplate(res, req, 'admin/displays/show', {}, general, {}, 'there was a error with getting the data');
             throw err;
         });
 
     });
 
 });
-router.get('/add', checkLogin, checkRightsAdmin, function(req, res) {
+
+router.get('/add', checkLogin, checkRightsAdmin, function(req, res) { //render the admin/displays/add tempate
     var cr = credentials(req.session),
-        login = cr.login,
         editor = cr.editor,
         admin = cr.admin;
 
-    getDisplayNames(req, res, false, login, admin, editor);
+    getDisplayNames(req, res, false, admin, editor);
 });
 
-router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
+router.post('/add', checkLogin, checkRightsAdmin, function(req, res) { //post to the admin/displays/add tempate
     var cr = credentials(req.session),
         login = cr.login,
         admin = cr.admin,
         editor = cr.editor,
         body = req.body,
         name = body.name,
-        slideshowId = body.slideshowId,
+        // slideshowId = body.slideshowId,
+        slideshowId = 613042,
         now = new Date();
 
-    if (name !== undefined && name.length !== 0 && slideshowId !== null) {
+    if (name !== undefined && name.length !== 0 && slideshowId !== null) { //check if the values are not undefined
         req.getConnection(function(err, connection) {
-            var sqlQuery = 'INSERT INTO displays SET ?',
+            var sqlQuery = 'INSERT INTO displays SET ?', //insert query for the database
                 sqlValues = {
                     display_id: randNumber(1000),
                     name: name,
@@ -80,7 +76,7 @@ router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
                 if (err) {
                     throw err;
                 }
-                res.redirect('/admin/displays');
+                res.redirect('/admin/displays'); //redirect to the displays overvieuw
             });
         });
     } else {
@@ -88,92 +84,88 @@ router.post('/add', checkLogin, checkRightsAdmin, function(req, res) {
     }
 });
 
-router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) {
-    var body = req.body,
-        slideshowId = body.slideshowId,
-        displaysChecked = body['displays[]'] || '',
-        sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id',
-        sqlUpdate = 'UPDATE displays SET `slideshowId` = ? WHERE display_id = ?';
+// router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) { (now not used in the new flow)
+//     var body = req.body, //get the post request
+//         slideshowId = body.slideshowId,
+//         displaysChecked = body['displays[]'] || '', //get the array of displays
+//         sqlDisplays = 'SELECT * FROM displays T1 LEFT JOIN slideshows T2 ON T1.slideshowId = T2.id',
+//         sqlUpdate = 'UPDATE displays SET `slideshowId` = ? WHERE display_id = ?';
+//
+//     req.getConnection(function(err, connection) { //get the myqsl connection
+//         getData(sqlDisplays, connection).then(function(rows) {
+//             var displaysUnchecked = [];
+//             rows.forEach(function(all) { //loop trught the displays
+//                 if (typeof(displaysChecked) === 'string') { //if the displays is  a sting (so there is only one display checked)
+//                     if (checkSame(JSON.parse(displaysChecked), all.display_id)) { //check if they are the same as the current display
+//                         insert(sqlUpdate, slideshowId, all.display_id); // if they are the same insert it to the databasae
+//                     } else {
+//                         var displayObject = { //create a object with not the same data
+//                             id: all.display_id,
+//                             slideshow: all.slideshowId
+//                         };
+//                         displaysUnchecked.push(displayObject); // add it to the array of unchecked displays
+//                     }
+//                 } else if (typeof(displaysChecked) === 'object') { //if there are more dispalys checkt it would be a []
+//                     displaysChecked.forEach(function(displayid) {
+//                         var id = JSON.parse(displayid);
+//
+//                         if (checkSame(id, all.display_id)) { //if they are the same
+//                             insert(sqlUpdate, slideshowId, all.display_id); // if they are the same insert it to the databasae
+//                         } else {
+//                             var displayObject = { //create a object with not the same data
+//                                 id: all.display_id,
+//                                 slideshow: all.slideshowId
+//                             };
+//                             contains(displayObject, displaysUnchecked);
+//                         }
+//                     });
+//                 }else {
+//                   //ther is a stange error
+//                 }
+//             });
+//             return displaysUnchecked;
+//
+//         }).then(function(displaysUnchecked) { //if the loop is finished the displaysChecked dispays will be checked if they have an another id or the same slieshow id
+//             displaysUnchecked.forEach(function(display) {
+//                 if (checkSame(display.slideshow, JSON.parse(slideshowId))) { // if they have the same sideshow id insert a 0 sildeshow so there is no silideshow on it
+//                     insert(sqlUpdate, '0', display.id);
+//                 }
+//             });
+//
+//         }).then(function() {
+//             res.redirect('/admin/slideshows/add' + slideshowId); //redirect to the sideshow
+//         }).catch(function(err) {
+//             throw err;
+//         });
+//
+//         var contains = function (obj, objects) { //check if it contains
+//             var i, l = objects.length;
+//             for (i = 0; i < l; i++) {
+//                 if (objects[i] === obj) return true;
+//             }
+//             return false;
+//         };
+//         //insert the new data into the database
+//         var insert = function (sqlUpdate, slideshowId, displayid) {
+//             insertData(sqlUpdate, [slideshowId, displayid], connection).then(function() {
+//                 console.log('done insert'); //the insert is done
+//             }).catch(function(err) {
+//                 console.log(err);
+//                 throw err;
+//             });
+//         };
+//
+//         var checkSame = function (var1, var2) { //check if two values are the same
+//             if (var1 === var2) {
+//                 return true;
+//             } else {
+//                 return false;
+//             }
+//         };
+//     });
+// });
 
-    req.getConnection(function(err, connection) {
-
-        getData(sqlDisplays, connection).then(function(rows) {
-            var displaysUnchecked = [];
-            rows.forEach(function(all) {
-                if (typeof(displaysChecked) === 'string') {
-                    if (checkSame(JSON.parse(displaysChecked), all.display_id)) {
-                        insert(sqlUpdate, slideshowId, all.display_id);
-                    } else {
-                        var displayObject = {
-                            id: all.display_id,
-                            slideshow: all.slideshowId
-                        };
-                        displaysUnchecked.push(displayObject);
-                    }
-                } else if (typeof(displaysChecked) === 'object') {
-                    displaysChecked.forEach(function(displayid) {
-                        var id = JSON.parse(displayid);
-
-                        if (checkSame(id, all.display_id)) {
-                            insert(sqlUpdate, slideshowId, all.display_id);
-                        } else {
-                            var displayObject = {
-                                id: all.display_id,
-                                slideshow: all.slideshowId
-                            };
-                            contains(displayObject, displaysUnchecked);
-                        }
-                    });
-                }
-            });
-            return displaysUnchecked;
-
-        }).then(function(displaysUnchecked) {
-            displaysUnchecked.forEach(function(display) {
-                if (checkSame(display.slideshow, JSON.parse(slideshowId))) {
-                    insert(sqlUpdate, '0', display.id);
-                }
-            });
-
-        }).then(function() {
-            res.redirect('/admin/slideshows/add' + slideshowId);
-        }).catch(function(err) {
-            throw err;
-        });
-
-        // function contains(obj, objects) {
-        //     var i, l = objects.length;
-        //     console.log(l);
-        //     for (i = 0; i < l; i++) {
-        //         console.log('----');
-        //         console.log(objects[i]);
-        //         console.log(obj);
-        //         console.log('----');
-        //         if (objects[i] == obj) return true;
-        //     }
-        //     return false;
-        // }
-
-        function insert(sqlUpdate, slideshowId, displayid) {
-            insertData(sqlUpdate, [slideshowId, displayid], connection).then(function() {
-                console.log('done inser');
-            }).catch(function(err) {
-                console.log(err);
-                throw err;
-            });
-        }
-
-        function checkSame(var1, var2) {
-            if (var1 === var2) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    });
-});
-
-function getDisplayNames(req, res, error, login, admin, editor) {
+var getDisplayNames = function (req, res, error, admin, editor) { // a function to display the page
     req.getConnection(function(err, connection) {
         var sql = 'SELECT id, slideshow_name FROM slideshows';
         // Get the user id using username
@@ -185,7 +177,6 @@ function getDisplayNames(req, res, error, login, admin, editor) {
                 title: 'Add a display',
                 rights: {
                     admin: admin,
-                    logedin: login,
                     editor: editor
                 },
                 postUrl: '/admin/displays/add',
@@ -194,7 +185,6 @@ function getDisplayNames(req, res, error, login, admin, editor) {
             });
         });
     });
-}
-
+};
 
 module.exports = router;

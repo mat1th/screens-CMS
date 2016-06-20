@@ -1,18 +1,18 @@
-var fs = require('fs'),
-    express = require('express'),
+var express = require('express'),
     credentials = require('../modules/credentials.js'),
-    renderTemplate = require('../modules/renderTemplate.js'),
     router = express.Router();
 
 router.get('/', function(req, res) {
     var cr = credentials(req.session),
+        admin = cr.admin,
         login = cr.login;
 
-    res.render('home', {
+    res.render('home', { //render the home page
         title: 'Home',
         pagelayout: 'transparant',
         rights: {
-            logedin: login
+            logedin: login,
+            admin: admin
         },
         styleCookie: req.cookies.style
     });
