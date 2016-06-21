@@ -173,6 +173,32 @@ If a browser supports a service Worker it will cache serveral pages. So the load
 #### Progressive web app
 The application is a progressive web app. I've created a ``manifest.json`` file so the Android phone knows witch icons the app should use. Combined with the Service Worker the app could used offline to view the app.
 
+### Browser Technologies
+#### Images
+All the images have a alt tag, so the blind people know what kind of image it is. If the images aren't shown because the user has slow internet the alt tag will show up.
+
+#### Icons
+The icons are svgs so if the user has a font blocker or has slow internet the icons will appear. If the there is only a icon used for a button there is a title used for the blind people. The app uses inline SVGs with a fallback to a png image.
+
+#### Accessibility
+The whole app can be used by bad vision people the contrasts of the app are big enough the see the difference between the colors. The whole app can used with the tab key. So for example the advanced users of the blind people can use the app.
+#### Voice over
+The whole application can be used with voice over. I've tested it with Firefox, Safari and Vivaldi.
+
+#### Bandwith and privacy
+The most actions of the application are server side. So a user with low bandwith can also use the app. The site uses HTTPS so the 'free' hotspots can't insert code to show adds in the site.
+
+#### Feature detection
+The client side JS is written that the most code can be used by old browsers. I've used ```document.getElementByID()``` on paces where I could use it. So the older browsers also can use the JS enhances.
+
+#### Old browsers and slow internet
+The application is build on the 3 layers: HTML, CSS & JS. The application is build with HTML5 elements. These elements are backward compatable. The old browsers that don't support this elements will create a unknown element, but the website doesn't break. The website will also work without client side JS. So the the application will work in older browsers or with slow internet.
+
+### Real time web
+I haven't used meteor to create a realtime web app, but i've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
+
+### Extra features
+I've used some extra features in my application. Such as MySQL, emailjs, momentjs and login sessions. I didn't follow the 'databases' cource but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. 
 
 ## NPM packages
 Name                 | Version | Description
@@ -186,7 +212,6 @@ express-myconnection | 1.0.4   | Connect/Express middleware that auto provides m
 express-session      | 1.10.1  | Simple session middleware for Express
 gsap                 | 1.18.5  | Think of GSAP as the Swiss Army Knife of animation...but better. It animates anything JavaScript can touch (CSS properties, canvas library objects, SVG, generic objects, whatever) and it solves countless browser inconsistencies, all with blazing speed (up
 hbs                  | 1.18.2  | Express.js template engine plugin for Handlebars
-path                 | 4.0.0   | This is an exact copy of the NodeJS ’path’ module published to the NPM registry.
 MySQL                | 2.5.4   | A node.js driver for MySQL. It is written in JavaScript, does not require compiling, and is 100% MIT licensed.
 body-parser          | 1.10.1  | Node.js body parsing middleware
 moment               | 2.9.0   | Parse, validate, manipulate, and display dates
@@ -196,6 +221,8 @@ socket.io            | 1.4.6   | Node.js realtime framework server
 
 ## Contributing
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
+
+###Things to do
 
 - Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 - Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -209,8 +236,6 @@ For CSS I'm using [cssnext](http://cssnext.io). With this plugin, you can use th
 
 ### JS syntax
 I'm using some new JS functions with Babel this will be converted to code that can be used by older browsers.
-
-
 
 ## Contributor
 - [Matthias (Mat1th)](https://dolstra.me)
