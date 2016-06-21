@@ -236,7 +236,7 @@ There are much things to do. Here a feature list with features that could be imp
 ## Bugs to fix
 - [ ] On old browsers the 'home' button in the menu will sign out the user.
 - [ ] Make the slideshow editor work on older browsers that don't support draggable.
-- [ ] Don't show the added posters in the picker on the slideshow edit page. 
+- [ ] Don't show the added posters in the picker on the slideshow edit page.
 
 ## Contributing
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
@@ -256,8 +256,9 @@ For CSS I'm using [cssnext](http://cssnext.io). With this plugin, you can use th
 ### JS syntax
 I'm using some new JS functions with Babel this will be converted to code that can be used by older browsers.
 
-## Contributor
-- [Matthias (Mat1th)](https://dolstra.me)
+## Contributors
+- [Mat1th](https://github.com/mat1th)
+- [joostf](https://github.com/joostf)
 
 ## License
 
