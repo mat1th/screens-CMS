@@ -14,7 +14,7 @@ router.get('/:displayId', function(req, res) {
         };
     req.getConnection(function(err, connection) {
         //only show slides that are checked and that are between the start and end date
-        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = 1 ) T1 LEFT JOIN content_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN content T3 ON T3.id = T2.content_id  WHERE dateStart < CURDATE() AND dateEnd > CURDATE() AND checked = 1 ORDER BY T2.short ASC';
+        var sql = 'SELECT * FROM (SELECT slideshowId FROM displays WHERE display_id = ? ) T1 LEFT JOIN content_In_slideshow T2  ON T1.slideshowId = T2.slideshow_id LEFT JOIN content T3 ON T3.id = T2.content_id  WHERE dateStart < CURDATE() AND dateEnd > CURDATE() AND checked = 1 ORDER BY T2.short ASC';
 
         getSpecificData(sql, connection, [displayId]).then(function(rows) {
             var data = {
