@@ -1,8 +1,10 @@
  {{> nav}}
-<section class="main-content scrollable">
+<section class="main-content">
     <header class="content-header">
         <h1>{{data.general.name}} </h1>
-        <time>{{#datefronow data.general.dataCreated}}{{/datefronow}}</time>
+        <time>
+            {{#datefronow data.general.dataCreated}}{{/datefronow}}
+        </time>
     </header>
     <section class="content-body {{data.general.type}}">
         <section class=" ">
@@ -58,7 +60,6 @@
                     </td>
                 </tr>
             </table>
-
         </section>
     </section>
 </section>

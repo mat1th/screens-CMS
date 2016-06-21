@@ -42,9 +42,9 @@
     padding: 0.1em;
     cursor: pointer;
 }
-.contentitem a:focus{
-  background: var(--font-color-gray);
-  display: block;
+.contentitem a:focus {
+    background: var(--font-color-gray);
+    display: block;
 }
 .contentitem span {
     display: none;
@@ -117,6 +117,9 @@
     border-radius: var(--border-radius);
     background: var(--background-color-light);
     text-align: center;
+}
+.slideshow-picker .select {
+    overflow-y: auto;
 }
 .slideshow-picker:after {
     display: block;
@@ -221,6 +224,7 @@
 
 .right-panel {
     bottom: -100vh;
+    overflow-y: auto;
     width: 100%;
     min-width: 18em;
     background: var(--background-color-semidark);

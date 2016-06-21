@@ -1,15 +1,14 @@
 var express = require('express'),
-    checkLogin = require('../../middleware/checklogin.js'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
     checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     getData = require('../../../modules/getData.js'),
-    insertData = require('../../../modules/insertData.js'),
+    // insertData = require('../../../modules/insertData.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', checkLogin, checkRightsEditor, function(req, res) {
+router.get('/', checkRightsEditor, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your content',
@@ -42,7 +41,7 @@ router.get('/', checkLogin, checkRightsEditor, function(req, res) {
 
 });
 
-router.get('/add', checkLogin, checkRightsAdmin, function(req, res) { //render the admin/displays/add tempate
+router.get('/add', checkRightsAdmin, function(req, res) { //render the admin/displays/add tempate
     var cr = credentials(req.session),
         editor = cr.editor,
         admin = cr.admin;
@@ -50,7 +49,7 @@ router.get('/add', checkLogin, checkRightsAdmin, function(req, res) { //render t
     getDisplayNames(req, res, false, admin, editor);
 });
 
-router.post('/add', checkLogin, checkRightsAdmin, function(req, res) { //post to the admin/displays/add tempate
+router.post('/add', checkRightsAdmin, function(req, res) { //post to the admin/displays/add tempate
     var cr = credentials(req.session),
         login = cr.login,
         admin = cr.admin,
@@ -84,7 +83,7 @@ router.post('/add', checkLogin, checkRightsAdmin, function(req, res) { //post to
     }
 });
 
-// router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) { (now not used in the new flow)
+// router.post('/edit', checkRightsAdmin, function(req, res) { (now not used in the new flow)
 //     var body = req.body, //get the post request
 //         slideshowId = body.slideshowId,
 //         displaysChecked = body['displays[]'] || '', //get the array of displays

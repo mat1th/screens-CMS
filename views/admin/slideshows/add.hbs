@@ -37,7 +37,7 @@
     </section>
 
     <section class="slideshow-picker disabled">
-        <div class="select scrollable">
+        <div class="select">
             {{#each data.allContent}}
                 <div>
                     <input class="select-image" type="checkbox" id="lab{{id}}" data-id="{{id}}" data-image="{{filename}}">
@@ -73,7 +73,7 @@
         {{/if}}
     </section>
 
-    <section class="right-panel scrollable">
+    <section class="right-panel">
         <a href="/admin/slideshows/preview/{{data.specificId}}" class="btn btn-default slideshow-button">Preview '{{data.general.0.slideshow_name}}'</a>
         <!-- <a href="#" class="btn btn-general left-rigt-margin">Preview</a> -->
         <section class="toggle-buttons" role="tablist">
@@ -82,7 +82,7 @@
 
             <!-- <button id="displays" type="button" name="button" aria-selected="false">Displays</button> -->
         </section>
-        <section class="slideshow-content-settings scrollable tabcontent animate" aria-hidden="true">
+        <section class="slideshow-content-settings tabcontent animate" aria-hidden="true">
             <form action="{{postUrl.content}}/{{data.general.0.id}}" method="post">
                 <h2>Edit poster or vimeo</h2>
                 <div>

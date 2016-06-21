@@ -1,5 +1,4 @@
 var express = require('express'),
-    checkLogin = require('../../middleware/checklogin.js'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
     credentials = require('../../../modules/credentials.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
@@ -7,7 +6,7 @@ var express = require('express'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
+router.get('/', checkRightsAdmin, function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Displays', //the title of the page
@@ -33,7 +32,7 @@ router.get('/', checkLogin, checkRightsAdmin, function(req, res) {
     });
 });
 
-router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res) { // edit the user with the user id
+router.get('/edit/:userId', checkRightsAdmin, function(req, res) { // edit the user with the user id
     var userId = req.params.userId,
         cr = credentials(req.session),
         general = {
@@ -64,7 +63,7 @@ router.get('/edit/:userId', checkLogin, checkRightsAdmin, function(req, res) { /
 });
 
 
-router.post('/edit', checkLogin, checkRightsAdmin, function(req, res) { //post to eddit and only the user with admin rights will be
+router.post('/edit', checkRightsAdmin, function(req, res) { //post to eddit and only the user with admin rights will be
     var sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
         body = req.body,
         cr = credentials(req.session),

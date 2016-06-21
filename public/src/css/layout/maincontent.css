@@ -1,4 +1,5 @@
 /*the conten on every pge */
+
 .main-content {
     display: var(--display);
     flex-direction: row;
@@ -7,6 +8,7 @@
     align-content: flex-start;
     align-items: flex-end;
     justify-content: flex-start;
+    overflow-y: auto;
     padding: 1em;
 }
 .content-header {

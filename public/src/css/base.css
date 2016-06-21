@@ -19,7 +19,7 @@ img:before {
     position: absolute;
     top: -0.8em;
     left: 0;
-    height: calc(100% + 0.8em);
+    height: calc(100%+ 0.8em);
     width: 100%;
     background-color: rgb(230, 230, 230);
 }
@@ -50,14 +50,14 @@ strong {
     font-size: 1em;
     font-weight: bold;
 }
+section {
+    text-rendering: optimizeLegibility;
+}
 
 /*scolls */
 
 .no-overflow {
     overflow: hidden;
-}
-.scrollable {
-    overflow-y: auto;
 }
 
 /*postions*/

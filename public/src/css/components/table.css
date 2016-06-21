@@ -1,4 +1,6 @@
 /*table*/
+
+
 /*all tables in the app will be responsive on small screens */
 
 table {
@@ -11,7 +13,8 @@ table td, table th {
     display: block;
     padding: 0 0 0 3em;
     height: 3em;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    font-weight: 400;
     color: var( --font-color-dark);
     border-bottom: solid 0.1em #DDDDDD;
     white-space: nowrap;

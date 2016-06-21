@@ -1,6 +1,5 @@
 var express = require('express'),
     moment = require('moment'),
-    checkLogin = require('../middleware/checklogin.js'),
     router = express.Router();
 
 //set up moment localization
@@ -9,7 +8,7 @@ moment.locale('nl'); //localization to nl
 
 
 //get data from content
-router.get('/content/:contentId', checkLogin, function(req, res) { //the route /api/content/id
+router.get('/content/:contentId', function(req, res) { //the route /api/content/id
     var contentId = req.params.contentId; //get the id param
 
     req.getConnection(function(err, connection) {

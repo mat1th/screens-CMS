@@ -1,5 +1,4 @@
 var express = require('express'),
-    checkLogin = require('../../middleware/checklogin.js'), // for checking the user is loged in
     setRights = require('../../middleware/setRights.js'),
     randNumber = require('../../../modules/randNumber.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
@@ -11,7 +10,7 @@ var express = require('express'),
     sendMessage = require('../../../modules/sendMessage.js'),
     router = express.Router(); //create router
 
-router.get('/', checkLogin, setRights, function(req, res) { // the admin/content page
+router.get('/', setRights, function(req, res) { // the admin/content page
     var cr = credentials(req.session),
         expired = req.query.expired,
         general = {
@@ -58,7 +57,7 @@ router.get('/', checkLogin, setRights, function(req, res) { // the admin/content
     });
 });
 
-router.get('/add', checkLogin, function(req, res) { // the admin/content/add page
+router.get('/add', function(req, res) { // the admin/content/add page
     var cr = credentials(req.session),
         general = {
             title: 'Add content',
@@ -74,7 +73,7 @@ router.get('/add', checkLogin, function(req, res) { // the admin/content/add pag
 
 
 // GET a content and present the full content page
-router.get('/show/:contentId', checkLogin, setRights, function(req, res) { //the admin/show/id page
+router.get('/show/:contentId', setRights, function(req, res) { //the admin/show/id page
     var contentId = req.params.contentId,
         cr = credentials(req.session),
         general = {
@@ -109,7 +108,7 @@ router.get('/show/:contentId', checkLogin, setRights, function(req, res) { //the
     });
 });
 
-router.post('/decision', checkLogin, setRights, function(req, res) { // the admin/content/decision post
+router.post('/decision', setRights, function(req, res) { // the admin/content/decision post
     var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),
@@ -161,7 +160,7 @@ router.post('/decision', checkLogin, setRights, function(req, res) { // the admi
 });
 
 
-router.post('/add', checkLogin, function(req, res) { // the admin/content/add post
+router.post('/add', function(req, res) { // the admin/content/add post
 
     var cr = credentials(req.session),
         body = req.body,
@@ -240,7 +239,7 @@ router.post('/add', checkLogin, function(req, res) { // the admin/content/add po
     }
 });
 
-router.post('/edit/:contentId', checkLogin, function(req, res) {
+router.post('/edit/:contentId', function(req, res) {
     var updateSqlQuery = 'UPDATE content SET animation = ?, color = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
         removeSqlQuery = 'DELETE FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?',
         body = req.body,
