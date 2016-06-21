@@ -1,10 +1,9 @@
 DP.content = (function() {
     var _inputPreview = DP.helper.selectId('input-preview'),
         _preview = DP.helper.selectId('preview'),
-
-         /**
-          *_setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
-          */
+        /**
+         *_setVimeoForm gets the vimeo id from the input filed and sets the data from the vimeo api in the other inputs fileds
+         */
         _setVimeoForm = function() { //get the data from the specific vimeo id
             var client = new DP.helper.getData(),
                 fieldVimeoId = DP.helper.selectId('field-vimeo-id'),
@@ -15,13 +14,12 @@ DP.content = (function() {
                 vimeoImage = DP.helper.selectId('vimeo-image'),
                 fieldDuration = DP.helper.selectId('field-duration');
 
-            vimeoImage.classList.add('disabled');
+            DP.helper.setAtribute(vimeoImage, 'class', 'disabled');
 
             fieldVimeoId.addEventListener('blur', function(e) { // get the date from the vimeo api to auto fill in the form
-                console.log(e.target.value);
                 client.get('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + e.target.value, function(response) {
                     if (response !== 'error') {
-                        fieldVimeoId.classList.remove('error');
+                        DP.helper.removeClass(fieldVimeoId, 'error');
                         var data = JSON.parse(response); //parse the data
                         //set the data in the input fields
                         vimeoIdError.innerHTML = '';
@@ -31,14 +29,13 @@ DP.content = (function() {
                         fieldVimeoImage.value = data.thumbnail_url;
                         _inputPreview.src = data.thumbnail_url;
                     } else {
-                        fieldVimeoId.classList.add('error');
+                        DP.helper.addClass(fieldVimeoId, 'error');
                         vimeoIdError.innerHTML = 'Fill only the id, not the url';
                         console.log('There was a error with the vimeo API or input');
                     }
                 });
             });
         };
-
     //if a file select ad the selected image to the html
     var uploadPreview = function() {
         var fieldFile = DP.helper.selectId('field-file'),
@@ -73,9 +70,9 @@ DP.content = (function() {
 
         select.addEventListener('change', function(e) {
             for (var i = 0; i < animations.length; i++) {
-                _inputPreview.classList.remove(animations[i]);
+                DP.helper.removeClass(_inputPreview, animations[i]);
             }
-            _inputPreview.classList.add(e.target.value);
+            DP.helper.setAtribute(_inputPreview, 'class', 'img-preview animate ' + e.target.value);
         });
     };
     /**
@@ -87,16 +84,16 @@ DP.content = (function() {
             vimeoIdInput = DP.helper.selectId('vimeo-id-input');
 
         //disable vimeoID input as default
-        vimeoIdInput.classList.add('disabled');
+        DP.helper.addClass(vimeoIdInput, 'disabled');
 
         //lisssen to the option field and toggle the input fields
         radioOptionField.addEventListener('change', function(e) {
             if (e.target.value === 'poster') {
-                fileInput.classList.remove('disabled');
-                vimeoIdInput.classList.add('disabled');
+                DP.helper.removeClass(fileInput, 'disabled');
+                DP.helper.addClass(vimeoIdInput, 'disabled');
             } else {
-                fileInput.classList.add('disabled');
-                vimeoIdInput.classList.remove('disabled');
+                DP.helper.addClass(fileInput, 'disabled');
+                DP.helper.removeClass(vimeoIdInput, 'disabled');
             }
         });
         _setVimeoForm();
@@ -121,7 +118,7 @@ DP.content = (function() {
         DP.validate.setErrorDate(startDateField, dateStartErr, error);
         DP.validate.setErrorDate(endDateField, stareDatetErr, error);
     };
-    //run all functions. 
+    //run all functions.
     var init = function() {
         DP.validate.form(); // validate the from on the page. If some elements are empty they will become red.
         watchOptions();

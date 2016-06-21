@@ -19,7 +19,7 @@ img:before {
     position: absolute;
     top: -0.8em;
     left: 0;
-    height: calc(100%+ 0.8em);
+    height: calc(100% + 0.8em);
     width: 100%;
     background-color: rgb(230, 230, 230);
 }
