@@ -20,7 +20,7 @@ DP.slideshows = (function() {
             '<a href="#">' +
             '<span class="number">' + id + '</span>' +
             '<div class="image no-overflow" data-id="' + id + '">' +
-            '<img src="/download/' + filename + '" alt="" draggable="false" data-id="' + id + '">' +
+            '<img src="/download/' + filename + '" alt="content" draggable="false" data-id="' + id + '">' +
             '</div>' +
             '</a>' +
             '</li>';
@@ -182,7 +182,7 @@ DP.slideshows = (function() {
     };
 
     var init = function() {
-        window.onload = function functionName() { // on window load enable the first tab 
+        window.onload = function functionName() { // on window load enable the first tab
             toggleAll(false, [true, false, false]);
         };
 
