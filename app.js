@@ -49,10 +49,13 @@ app.use(bodyParser.json()); //create json from body
 
 //define cookies
 app.use(cookieParser()); //enable cookies
-// app.use('/', function(req, res, next) {
-//     console.log('cookie');
-//     next();
-// });
+app.use('/', function(req, res, next) {
+    res.cookie('style', 'false', {
+        maxAge: 90000,
+        httpOnly: true
+    });
+    next();
+});
 
 //define static paths
 app.use(express.static(path.join(__dirname, 'public/dist')));
@@ -101,7 +104,7 @@ var dbOptions = {
 app.use(myConnection(mysql, dbOptions, 'single'));
 
 
-//check if the user is loged in
+//check if the user is loged in others redirect to the login page
 app.use('/admin', function(req, res, next) {
     var userId = req.session.user_id;
     if (userId === null || userId === undefined) { //check if a user id is set if not go to the login page

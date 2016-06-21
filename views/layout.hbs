@@ -78,7 +78,6 @@
     {{#unless styleCookie}}
     <script  type="text/javascript">
         !function(e){"use strict";var t=function(t,n,o){function i(e){return s.body?e():void setTimeout(function(){i(e)})}function r(){a.addEventListener&&a.removeEventListener("load",r),a.media=o||"all"}var d,s=e.document,a=s.createElement("link");if(n)d=n;else{var l=(s.body||s.getElementsByTagName("head")[0]).childNodes;d=l[l.length-1]}var f=s.styleSheets;a.rel="stylesheet",a.href=t,a.media="only x",i(function(){d.parentNode.insertBefore(a,n?d:d.nextSibling)});var u=function(e){for(var t=a.href,n=f.length;n--;)if(f[n].href===t)return e();setTimeout(function(){u(e)})};return a.addEventListener&&a.addEventListener("load",r),a.onloadcssdefined=u,u(r),a};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),loadCSS("/css/style.css");
-        document.cookie = "style=true";
     </script>
     {{/unless}}
 
