@@ -121,8 +121,6 @@ app.use('/admin', function(req, res, next) {
         } else if (role === 'editor') {
             req.editor = true;
         }
-        console.log(req.admin);
-        console.log(req.editor);
         next(); //go to the route
     }
 });
