@@ -133,11 +133,12 @@ app.use('/api', api);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
+    res.status(err.status || 404);
     res.render('error', {
+        errornumber: err.status,
         message: err.message,
-        error: err
+        error: {}
     });
-    next(err);
 });
 
 // error handlers

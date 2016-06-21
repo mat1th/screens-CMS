@@ -111,7 +111,7 @@ In the app.js file, you can find the start file from the app. For every route is
 /sessions              //in this folder the sessions files will be saved
 /uploads               //in this folder the uploaded files will be saved
 /views                 //all the views of the application. It is structured the same as the routes in the routes folder
-app.js                //the root of the application. This file you need to start.
+app.js                 //the root of the application. This file you need to start.
 
 ```
 
