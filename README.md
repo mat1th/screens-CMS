@@ -238,6 +238,7 @@ There are many things to do. Here a feature list with features that could be imp
 
 - [x] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
 - [ ] Ability to delete posters, users, and displays.
+- [ ] A set up wizard.
 - [ ] Ability to edit a poster start and end date on the poster detail page.
 - [ ] Translate the app to dutch.
 - [ ] Logged-in variant of the home page.

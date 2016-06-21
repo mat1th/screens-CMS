@@ -24,7 +24,7 @@ img:before {
     background-color: rgb(230, 230, 230);
 }
 img:after {
-    content: "Deze afbeelding is kapot " attr(alt);
+    content: "The img is broken " attr(alt);
     display: block;
     font-size: 1em;
     font-style: normal;
