@@ -120,7 +120,7 @@ In this section I will tell witch things I've learned in the subjects an I've im
 
 ### Web App from Scratch
 #### IFFE
-The client side application part is structured in Modules. Every part of the code is in an IFFE. That is an  Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is safer than open fuctions. A hacker can't get access to the other functions in the IFEE. And because the code is modular I could use it in another application.
+The client side application part is structured in Modules. Every part of the code is in an IFFE. That is an  Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is safer than open functions. A hacker can't get access to the other functions in the IFEE. And because the code is modular I could use it in another application.
 
 #### Functional animations with hardware accelerated properties
 With CSS keyframes, you can animate a lot of properties, but the most of them are not hardware accelerated. The most used hardware accelerated CSS properties are:
@@ -138,8 +138,8 @@ I've used a drag gesture to create a better experience with the slideshow editor
 #### Get and Post data with AJAX
 On the slideshow page, the application gets and sends requests to the server. So the user can edit the order of the posters. The function is located in the ```public/src/js/app/DPhelper.js``` file.
 
-#### Server side templating
-On the server the application uses HBS, a server side variant of Handlebars, to render the pages. Everytime the app needs to render a page the function in the ```modules/renderTemplate.js``` file will be called. This function sets all the vars and parse them to HBS.
+#### Server-side templating
+On the server the application uses HBS, a server-side variant of Handlebars, to render the pages. Everytime the app needs to render a page the function in the ```modules/renderTemplate.js``` file will be called. This function sets all the vars and parse them to HBS.
 
 ### CSS To The Rescue
 #### Flexbox
@@ -198,7 +198,7 @@ The application is built on the 3 layers: HTML, CSS & JS. The application is bui
 I haven't used meteor to create a realtime web app, but I've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
 
 ### Extra features
-I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automaticaly opens the browser on the slideshow page.
+I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
 
 ## NPM packages
 Name                 | Version | Description
@@ -219,18 +219,18 @@ session-file-store   | 0.0.2   | Session file store is a provision for storing s
 socket.io            | 1.4.6   | Node.js realtime framework server
 
 ## Upcoming features
-There are much things to do. Here a feature list with features that could be implemented.
+There are many things to do. Here a feature list with features that could be implemented.
 
-- [ ] Ability to delete posters, users and displays.
+- [ ] Ability to delete posters, users, and displays.
 - [ ] Ability to edit a poster start and end date on the poster detail page.
 - [ ] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
 - [ ] Translate the app to dutch.
 - [ ] Ability to change your password.
-- [ ] Logged in variant of the home page.
-- [ ] Ability to add a profile photo to a account.
+- [ ] Logged-in variant of the home page.
+- [ ] Ability to add a profile photo to an account. [#33](https://github.com/mat1th/meesterproef/issues/33)
 - [ ] Ability to turn of a display (or go on dark).
 - [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos ).
-- [ ] Optimize uploaded images. So there will be a height resolution, small preview and a bigger preview.
+- [ ] Optimize uploaded images. So there will be a height resolution, small preview, and a bigger preview.
 - [ ] Ability to filter the content on the content page, display page, and user page on name and date.
 
 ## Bugs to fix
@@ -241,8 +241,7 @@ There are much things to do. Here a feature list with features that could be imp
 ## Contributing
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
 
-###Things to do
-
+### What to do
 - Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 - Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 - Fork the project.
