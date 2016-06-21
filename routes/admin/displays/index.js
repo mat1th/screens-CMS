@@ -1,20 +1,14 @@
 var express = require('express'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
-    checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     getData = require('../../../modules/getData.js'),
     // insertData = require('../../../modules/insertData.js'),
-    credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
-router.get('/', checkRightsEditor, function(req, res) {
-    var cr = credentials(req.session),
-        general = {
-            title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+router.get('/', checkRightsAdmin, function(req, res) {
+    var general = {
+            title: 'Displays'
         },
         sqlDisplays;
 
@@ -42,31 +36,24 @@ router.get('/', checkRightsEditor, function(req, res) {
 });
 
 router.get('/add', checkRightsAdmin, function(req, res) { //render the admin/displays/add tempate
-    var cr = credentials(req.session),
-        editor = cr.editor,
-        admin = cr.admin;
-
-    getDisplayNames(req, res, false, admin, editor);
+    getDisplayNames(req, res, false);
 });
 
 router.post('/add', checkRightsAdmin, function(req, res) { //post to the admin/displays/add tempate
-    var cr = credentials(req.session),
-        login = cr.login,
-        admin = cr.admin,
-        editor = cr.editor,
-        body = req.body,
+    var body = req.body,
         name = body.name,
-        // slideshowId = body.slideshowId,
+        location = body.location,
         slideshowId = 613042,
         now = new Date();
 
-    if (name !== undefined && name.length !== 0 && slideshowId !== null) { //check if the values are not undefined
+    if (name !== undefined && name.length !== 0 && location !== null) { //check if the values are not undefined
         req.getConnection(function(err, connection) {
             var sqlQuery = 'INSERT INTO displays SET ?', //insert query for the database
                 sqlValues = {
                     display_id: randNumber(1000),
                     name: name,
                     slideshowId: slideshowId,
+                    location: location,
                     dataCreated: now
                 };
 
@@ -79,7 +66,7 @@ router.post('/add', checkRightsAdmin, function(req, res) { //post to the admin/d
             });
         });
     } else {
-        getDisplayNames(req, res, 'You haven\'t filled in a name', login, admin, editor);
+        getDisplayNames(req, res, 'You haven\'t filled in a name');
     }
 });
 
@@ -164,24 +151,23 @@ router.post('/add', checkRightsAdmin, function(req, res) { //post to the admin/d
 //     });
 // });
 
-var getDisplayNames = function (req, res, error, admin, editor) { // a function to display the page
+var getDisplayNames = function(req, res, error) { // a function to display the page
     req.getConnection(function(err, connection) {
-        var sql = 'SELECT id, slideshow_name FROM slideshows';
+        var sql = 'SELECT id, slideshow_name FROM slideshows',
+            general = {
+                title: 'Add a display'
+            },
+            postUrls = {
+                general: '/admin/displays/add'
+            };
         // Get the user id using username
         connection.query(sql, function(err, match) {
-            if (err) {
-                throw err;
-            }
-            res.render('admin/displays/add', {
-                title: 'Add a display',
-                rights: {
-                    admin: admin,
-                    editor: editor
-                },
-                postUrl: '/admin/displays/add',
-                error: error,
-                data: match
-            });
+            if (err) throw err;
+
+            var data = {
+                general: match
+            };
+            renderTemplate(res, req, 'admin/displays/add', data, general, postUrls, error); //render the tepmlate
         });
     });
 };

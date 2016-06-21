@@ -49,7 +49,7 @@ app.use(bodyParser.json()); //create json from body
 
 //define cookies
 app.use(cookieParser()); //enable cookies
-app.use('/', function(req, res, next) {
+app.use('/', function(req, res, next) { //add a cookie that the page is loaded once for the style
     res.cookie('style', 'true', {
         maxAge: 90000,
         httpOnly: true
@@ -103,15 +103,27 @@ var dbOptions = {
 // Add connection middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
 
-
 //check if the user is loged in others redirect to the login page
 app.use('/admin', function(req, res, next) {
     var userId = req.session.user_id;
+    var role = req.session.role;
+
+    //set all roles to false
+    req.admin = false;
+    req.editor = false;
     if (userId === null || userId === undefined) { //check if a user id is set if not go to the login page
         res.redirect('/users/login');
     } else {
-        req.userId = userId;
-        next();
+        req.userId = userId; //set the user id
+        if (role === 'admin') { //set the rigths of the user
+            req.admin = true;
+            req.editor = true;
+        } else if (role === 'editor') {
+            req.editor = true;
+        }
+        console.log(req.admin);
+        console.log(req.editor);
+        next(); //go to the route
     }
 });
 

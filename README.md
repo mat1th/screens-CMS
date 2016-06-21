@@ -236,14 +236,14 @@ socket.io            | 1.4.6   | Node.js realtime framework server
 ## Upcoming features
 There are many things to do. Here a feature list with features that could be implemented.
 
+- [x] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
 - [ ] Ability to delete posters, users, and displays.
 - [ ] Ability to edit a poster start and end date on the poster detail page.
-- [ ] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
 - [ ] Translate the app to dutch.
-- [ ] Ability to change your password.
 - [ ] Logged-in variant of the home page.
+- [ ] Ability to change your password.
 - [ ] Ability to add a profile photo to an account. [#33](https://github.com/mat1th/meesterproef/issues/33)
-- [ ] Ability to turn of a display (or go on dark).
+- [ ] Ability to turn of a display (or go on black).
 - [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos ).
 - [ ] Optimize uploaded images. So there will be a height resolution, small preview, and a bigger preview.
 - [ ] Ability to filter the content on the content page, display page, and user page on name and date.

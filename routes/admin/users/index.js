@@ -1,18 +1,13 @@
 var express = require('express'),
     checkRightsAdmin = require('../../middleware/checkRightsAdmin.js'),
-    credentials = require('../../../modules/credentials.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     insertData = require('../../../modules/insertData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     router = express.Router();
 
 router.get('/', checkRightsAdmin, function(req, res) {
-    var cr = credentials(req.session),
-        general = {
-            title: 'Displays', //the title of the page
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+    var general = {
+            title: 'Displays' //the title of the page
         },
         sql;
 
@@ -34,12 +29,8 @@ router.get('/', checkRightsAdmin, function(req, res) {
 
 router.get('/edit/:userId', checkRightsAdmin, function(req, res) { // edit the user with the user id
     var userId = req.params.userId,
-        cr = credentials(req.session),
         general = {
-            title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+            title: 'Your content'
         },
         postUrls = {
             general: '/admin/users/edit'
@@ -62,11 +53,9 @@ router.get('/edit/:userId', checkRightsAdmin, function(req, res) { // edit the u
     });
 });
 
-
 router.post('/edit', checkRightsAdmin, function(req, res) { //post to eddit and only the user with admin rights will be
     var sqlQuery = 'UPDATE users SET `role` = ?, `name` = ?, `email` = ? WHERE id = ?',
         body = req.body,
-        cr = credentials(req.session),
         data = {
             role: body.role,
             name: body.name,
@@ -74,10 +63,7 @@ router.post('/edit', checkRightsAdmin, function(req, res) { //post to eddit and 
             id: body.id
         },
         general = {
-            title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+            title: 'Your content'
         },
         postUrls = {
             general: '/admin/users/edit'
@@ -85,7 +71,7 @@ router.post('/edit', checkRightsAdmin, function(req, res) { //post to eddit and 
     if (data.role === 'admin' || data.role === 'editor' || data.role === 'publisher') { //check if there is set a right that exists
         req.getConnection(function(err, connection) { //get the connection with the mysql databasae
             insertData(sqlQuery, [data.role, data.name, data.email, data.id], connection).then(function() {
-                res.redirect('/admin/users/edit/' + data.id);
+                res.redirect('/admin/users/');
             }).catch(function(err) {
                 console.log(err);
                 throw err;

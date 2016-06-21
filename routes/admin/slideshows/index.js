@@ -1,8 +1,7 @@
 var express = require('express'),
     fs = require('fs'),
     checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
-    credentials = require('../../../modules/credentials.js'),
-    randNumber = require('../../../modules/randNumber.js'),
+    // randNumber = require('../../../modules/randNumber.js'),
     getData = require('../../../modules/getData.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     insertData = require('../../../modules/insertData.js'),
@@ -11,12 +10,8 @@ var express = require('express'),
     router = express.Router();
 
 // router.get('/', checkRightsEditor, function(req, res) { //the route admin/sideshows/ (now not used in the new flow)
-//     var cr = credentials(req.session),
-//         general = {
+//     var general = {
 //             title: 'Your content',
-//             login: cr.login,
-//             admin: cr.admin,
-//             editor: cr.editor
 //         },
 //         sql, sqlDisplays;
 //
@@ -65,13 +60,9 @@ var express = require('express'),
 // });
 
 router.get('/add/:slideshowId', checkRightsEditor, function(req, res) {
-    var cr = credentials(req.session),
-        slideshowId = req.params.slideshowId,
+    var slideshowId = req.params.slideshowId,
         general = {
             title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor,
             navStyle: 'icons-only'
         },
         postUrls = {
