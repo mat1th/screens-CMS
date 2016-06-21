@@ -42,11 +42,17 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials'); //register hbs partials
 
 //define body parser
-app.use(bodyParser.urlencoded({ extended: false })); //set body parser for the post requests
+app.use(bodyParser.urlencoded({
+    extended: false
+})); //set body parser for the post requests
 app.use(bodyParser.json()); //create json from body
 
 //define cookies
 app.use(cookieParser()); //enable cookies
+// app.use('/', function(req, res, next) {
+//     console.log('cookie');
+//     next();
+// });
 
 //define static paths
 app.use(express.static(path.join(__dirname, 'public/dist')));
@@ -93,6 +99,18 @@ var dbOptions = {
 
 // Add connection middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
+
+
+//check if the user is loged in
+app.use('/admin', function(req, res, next) {
+    var userId = req.session.user_id;
+    if (userId === null || userId === undefined) { //check if a user id is set if not go to the login page
+        res.redirect('/users/login');
+    } else {
+        req.userId = userId;
+        next();
+    }
+});
 
 //use routes
 app.use('/', index);

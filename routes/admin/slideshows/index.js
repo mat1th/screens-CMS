@@ -1,6 +1,5 @@
 var express = require('express'),
     fs = require('fs'),
-    checkLogin = require('../../middleware/checklogin.js'),
     checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     credentials = require('../../../modules/credentials.js'),
     randNumber = require('../../../modules/randNumber.js'),
@@ -11,7 +10,7 @@ var express = require('express'),
     sendRefresh = require('../../../modules/sendRefresh.js'),
     router = express.Router();
 
-// router.get('/', checkLogin, checkRightsEditor, function(req, res) { //the route admin/sideshows/ (now not used in the new flow)
+// router.get('/', checkRightsEditor, function(req, res) { //the route admin/sideshows/ (now not used in the new flow)
 //     var cr = credentials(req.session),
 //         general = {
 //             title: 'Your content',
@@ -50,7 +49,7 @@ var express = require('express'),
 // });
 
 // //create unique id and redirect  (now not used in the new flow)
-// router.get('/add', checkLogin, checkRightsEditor, function(req, res) { // the route admin/slideshows/add
+// router.get('/add', checkRightsEditor, function(req, res) { // the route admin/slideshows/add
 //     var userID = req.session.user_id,
 //         createSlideshow = 'INSERT INTO slideshows SET id = ?, slideshow_userId = ?',
 //         number = randNumber(1000000);
@@ -65,7 +64,7 @@ var express = require('express'),
 //     });
 // });
 
-router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res) {
+router.get('/add/:slideshowId', checkRightsEditor, function(req, res) {
     var cr = credentials(req.session),
         slideshowId = req.params.slideshowId,
         general = {
@@ -122,7 +121,7 @@ router.get('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res
     });
 });
 
-router.post('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, res) {
+router.post('/add/:slideshowId', checkRightsEditor, function(req, res) {
     var slideshowId = req.params.slideshowId,
         body = req.body,
         content = JSON.parse('[' + body.content + ']');
@@ -167,7 +166,7 @@ router.post('/add/:slideshowId', checkLogin, checkRightsEditor, function(req, re
 
 });
 
-router.post('/add/settings/:slideshowId', checkLogin, checkRightsEditor, function(req, res) {
+router.post('/add/settings/:slideshowId', checkRightsEditor, function(req, res) {
     var slideshowId = req.params.slideshowId,
         body = req.body,
         discription = body.discription,
@@ -186,7 +185,7 @@ router.post('/add/settings/:slideshowId', checkLogin, checkRightsEditor, functio
     });
 });
 
-router.get('/preview/:slideshowId', checkLogin, checkRightsEditor, function(req, res) {
+router.get('/preview/:slideshowId', checkRightsEditor, function(req, res) {
     var slideshowId = req.params.slideshowId,
         general = {
             title: 'Slideshow ' + slideshowId
@@ -211,7 +210,7 @@ router.get('/preview/:slideshowId', checkLogin, checkRightsEditor, function(req,
     });
 });
 
-router.get('/content/:slideshowId', checkLogin, function(req, res) {
+router.get('/content/:slideshowId', function(req, res) {
     var slideshowId = req.params.slideshowId,
         filesPath = __dirname + '/../../../uploads/',
         notfoundPath = __dirname + '/../../../public/dist/img/',

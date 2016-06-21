@@ -1,11 +1,10 @@
 var express = require('express'),
-    checkLogin = require('../middleware/checklogin.js'),
     getSpecificData = require('../../modules/getSpecificData.js'),
     renderTemplate = require('../../modules/renderTemplate.js'),
     credentials = require('../../modules/credentials.js'),
     router = express.Router();
 
-router.get('/', checkLogin, function(req, res) {
+router.get('/', function(req, res) {
     var cr = credentials(req.session),
         general = {
             title: 'Your content',

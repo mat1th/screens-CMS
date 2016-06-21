@@ -198,7 +198,7 @@ The application is built on the 3 layers: HTML, CSS & JS. The application is bui
 I haven't used meteor to create a realtime web app, but I've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
 
 ### Extra features
-I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions.
+I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automaticaly opens the browser on the slideshow page.
 
 ## NPM packages
 Name                 | Version | Description
@@ -217,6 +217,19 @@ body-parser          | 1.10.1  | Node.js body parsing middleware
 moment               | 2.9.0   | Parse, validate, manipulate, and display dates
 session-file-store   | 0.0.2   | Session file store is a provision for storing session data in the session file
 socket.io            | 1.4.6   | Node.js realtime framework server
+
+## Future
+There are much things to do. Here a feature list with features that could be implemented.
+
+- [ ] Ability to delete posters
+- [ ] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50)
+- [ ] Translate the app to dutch
+- [ ] Ability to change your password
+- [ ] Ability to add a profile photo to a account
+- [ ] Ability to turn of a display (or go on dark)
+- [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos )
+- [ ] Optimize uploaded images. So there will be a height resolution, small preview and a bigger preview.
+
 
 
 ## Contributing
