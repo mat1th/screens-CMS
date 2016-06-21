@@ -50,7 +50,7 @@ app.use(bodyParser.json()); //create json from body
 //define cookies
 app.use(cookieParser()); //enable cookies
 app.use('/', function(req, res, next) {
-    res.cookie('style', 'false', {
+    res.cookie('style', 'true', {
         maxAge: 90000,
         httpOnly: true
     });

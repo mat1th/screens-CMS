@@ -218,19 +218,25 @@ moment               | 2.9.0   | Parse, validate, manipulate, and display dates
 session-file-store   | 0.0.2   | Session file store is a provision for storing session data in the session file
 socket.io            | 1.4.6   | Node.js realtime framework server
 
-## Future
+## Upcoming features
 There are much things to do. Here a feature list with features that could be implemented.
 
-- [ ] Ability to delete posters
-- [ ] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50)
-- [ ] Translate the app to dutch
-- [ ] Ability to change your password
-- [ ] Ability to add a profile photo to a account
-- [ ] Ability to turn of a display (or go on dark)
-- [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos )
+- [ ] Ability to delete posters, users and displays.
+- [ ] Ability to edit a poster start and end date on the poster detail page.
+- [ ] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
+- [ ] Translate the app to dutch.
+- [ ] Ability to change your password.
+- [ ] Logged in variant of the home page.
+- [ ] Ability to add a profile photo to a account.
+- [ ] Ability to turn of a display (or go on dark).
+- [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos ).
 - [ ] Optimize uploaded images. So there will be a height resolution, small preview and a bigger preview.
+- [ ] Ability to filter the content on the content page, display page, and user page on name and date.
 
-
+## Bugs to fix
+- [ ] On old browsers the 'home' button in the menu will sign out the user.
+- [ ] Make the slideshow editor work on older browsers that don't support draggable.
+- [ ] Don't show the added posters in the picker on the slideshow edit page. 
 
 ## Contributing
 The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
