@@ -80,7 +80,7 @@ npm install --dev
 ```bash
 gulp build
 ```
-This conferts all the images and place the other files from the ```public/src``` to the ```public/dist``` folder. Then you can start the browser-sync task to run browser sync with nodemon to auto refrech the browser.
+This conferts all the images and place the other files from the ```public/src``` to the ```public/dist``` folder. Then you can start the browser-sync task to run browser sync with nodemon to auto refresh the browser.
 
 Start Gulp for browser sync:
 
@@ -104,7 +104,7 @@ In the app.js file, you can find the start file from the app. For every route is
     /css
 /routes     
   /admin               //the admin part of the application (for all these routes you need to be logged in)
-  /api                 //The api that can be used in the front end
+  /api                 //The API that can be used in the front end
   /display             //the display route that will be shown on a display
   /middleware          //the middleware for the routes
   /users               //to log in and register the users
@@ -120,40 +120,40 @@ In this section I will tell witch things I've learned in the subjects an I've im
 
 ### Web App from Scratch
 #### IFFE
-The client side application part is structured in Modules. Every part of the code is in an IFFE. That is a  Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is saver. A hacker can't get access to the other functions in the IFEE. And because the code is modular I could use it in a other application.
+The client side application part is structured in Modules. Every part of the code is in an IFFE. That is an  Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is safer than open fuctions. A hacker can't get access to the other functions in the IFEE. And because the code is modular I could use it in another application.
 
 #### Functional animations with hardware accelerated properties
-With CSS keyframes you can animate a lot of properties, but the most of them are not hardware accelerated. The most used hardware accelerated CSS properties are:
+With CSS keyframes, you can animate a lot of properties, but the most of them are not hardware accelerated. The most used hardware accelerated CSS properties are:
 - opacity
 - transform: rotate
 - transform: scale
 - transform: translate
 - filter
 
-In my animations in the application I only use these properties.
+In my animations in the application, I only use these properties.
 
 #### Gestures
-I've used a drag gesture to create a better expericne with the slideshow editor. This is a self written gesture.
+I've used a drag gesture to create a better experience with the slideshow editor. This is a self-written gesture.
 
 #### Get and Post data with AJAX
-On the slideshow page the application gets and sends requests to the server. So the user can edit the order of the posters. The function is located in the ```public/src/js/app/DPhelper.js``` file.
+On the slideshow page, the application gets and sends requests to the server. So the user can edit the order of the posters. The function is located in the ```public/src/js/app/DPhelper.js``` file.
 
 #### Server side templating
 On the server the application uses HBS, a server side variant of Handlebars, to render the pages. Everytime the app needs to render a page the function in the ```modules/renderTemplate.js``` file will be called. This function sets all the vars and parse them to HBS.
 
 ### CSS To The Rescue
 #### Flexbox
-The application is fully written with flexbox. For the oder browsers there is a fallback. You can see the fallback file in ```public/src/css/layout/fallbackflexbox.css```.
+The application is fully written with flexbox. For the other browsers, there is a fallback. You can see the fallback file in ```public/src/css/layout/fallbackflexbox.css```.
 
 #### Special CSS
-The elements in the banner on the home page has a vertical center. And manny other elements in the application. There are also transitions on hover. So the color of the poster preview transitions to dark on a hover. The cursor will be on hinting on elements if you can use them or not. And for mobile devices i've extended the clickable area so It's easier to touch on these elements. The checkboxes, selects and options elements in the app are also custom. On the home page I've used ::bevore and ::after elements to show the timeline interface.
+The elements in the banner on the home page has a vertical center. And manny other elements in the application. There are also transitions on hover. So the color of the poster preview transitions to dark on a hover. The cursor will be on hinting on elements if you can use them or not. And for mobile devices, I've extended the clickable area so It's easier to touch on these elements. The checkboxes, selects and options elements in the app are also custom. On the home page, I've used ::before and ::after elements to show the timeline interface.
 
 ### Performance Matters
 #### CSS
-On the first load of the application all the css will be in the head of the body. (I can use this because the css file is only 91Kb) So the first render will be very fast. After this render the css file will load with loadCSS. Afther the load of this CSS there will be a cookie set whith the value ```"style=true"```. If this cookie is in the request of the page it won't give the inline CSS. Now it gives a ``` <link rel="stylesheet" href="/css/style.css">```.
+On the first load of the application, all the CSS will be in the head of the body. (I can use this because the CSS file is only 91Kb) So the first render will be very fast. After this render, the CSS file will load with loadCSS. After the load of this CSS, there will be a cookie set with the value ```"style=true"```. If this cookie is in the request of the page it won't give the inline CSS. Now it gives a ``` <link rel="stylesheet" href="/css/style.css">```.
 
 #### Gulp
-The app is using gulp to minify the CSS, JS and the images. The images on the home page are responsive images. So the browser choses the right size for the screen.
+The app is using gulp to minify the CSS, JS, and the images. The images on the home page are responsive images. So the browser chooses the right size for the screen.
 ```html
 <picture class="">
   <source srcset="/img/home/step1-1500.png" media="(min-width: 1500w)" />
@@ -168,37 +168,37 @@ The app is using gulp to minify the CSS, JS and the images. The images on the ho
 All CSS selectors are not longer than 3 deep. So the render engine is fast with parsing the css. The HTML is semantic an the classes and id's are nicely chosen.
 
 #### Service Worker
-If a browser supports a service Worker it will cache serveral pages. So the load times of the page will be a lot faster.
+If a browser supports a service Worker it will cache several pages. So the load times of the page will be a lot faster.
 
 #### Progressive web app
-The application is a progressive web app. I've created a ``manifest.json`` file so the Android phone knows witch icons the app should use. Combined with the Service Worker the app could used offline to view the app.
+The application is a progressive web app. I've created a ``manifest.json`` file so the Android phone knows witch icons the app should use. Combined with the Service Worker the app could use offline to view the app.
 
 ### Browser Technologies
 #### Images
-All the images have a alt tag, so the blind people know what kind of image it is. If the images aren't shown because the user has slow internet the alt tag will show up.
+All the images have an alt tag, so the blind people know what kind of image it is. If the images aren't shown because the user has slow internet the alt tag will show up.
 
 #### Icons
-The icons are svgs so if the user has a font blocker or has slow internet the icons will appear. If the there is only a icon used for a button there is a title used for the blind people. The app uses inline SVGs with a fallback to a png image.
+The icons are SVG so if the user has a font blocker or has slow internet the icons will appear. If the there is only an icon used for a button there is a title used for the blind people. The app uses inline SVGs with a fallback to a png image.
 
 #### Accessibility
-The whole app can be used by bad vision people the contrasts of the app are big enough the see the difference between the colors. The whole app can used with the tab key. So for example the advanced users of the blind people can use the app.
+The whole app can be used by bad vision people the contrasts of the app are big enough the see the difference between the colors. The whole app can use with the tab key. So, for example, the advanced users of the blind people can use the app.
 #### Voice over
-The whole application can be used with voice over. I've tested it with Firefox, Safari and Vivaldi.
+The whole application can be used with voice over. I've tested it with Firefox, Safari, and Vivaldi.
 
 #### Bandwith and privacy
-The most actions of the application are server side. So a user with low bandwith can also use the app. The site uses HTTPS so the 'free' hotspots can't insert code to show adds in the site.
+The most actions of the application are server side. So a user with low bandwidth can also use the app. The site uses HTTPS so the 'free' hotspots can't insert code to show adds on the site.
 
 #### Feature detection
-The client side JS is written that the most code can be used by old browsers. I've used ```document.getElementByID()``` on paces where I could use it. So the older browsers also can use the JS enhances.
+The client-side JS is written that the most code can be used by old browsers. I've used ```document.getElementByID()``` on paces where I could use it. So the older browsers also can use the JS enhances.
 
 #### Old browsers and slow internet
-The application is build on the 3 layers: HTML, CSS & JS. The application is build with HTML5 elements. These elements are backward compatable. The old browsers that don't support this elements will create a unknown element, but the website doesn't break. The website will also work without client side JS. So the the application will work in older browsers or with slow internet.
+The application is built on the 3 layers: HTML, CSS & JS. The application is build with HTML5 elements. These elements are backward compatible. The old browsers that don't support these elements will create an unknown element, but the website doesn't break. The website will also work without client-side JS. So the application will work in older browsers or with slow internet.
 
-### Real time web
-I haven't used meteor to create a realtime web app, but i've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
+### Real-time web
+I haven't used meteor to create a realtime web app, but I've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
 
 ### Extra features
-I've used some extra features in my application. Such as MySQL, emailjs, momentjs and login sessions. I didn't follow the 'databases' cource but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. 
+I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions.
 
 ## NPM packages
 Name                 | Version | Description
