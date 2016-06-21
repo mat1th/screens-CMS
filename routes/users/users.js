@@ -101,11 +101,11 @@ router.post('/register', function(req, res) {
                 });
             });
         } else {
-          //if the passwords are not the same
+            //if the passwords are not the same
             renderTemplate(res, req, 'users/register', {}, general, postUrls, 'The passwords are not the same.');
         }
     } else {
-      //if there is a filed empty
+        //if there is a filed empty
         renderTemplate(res, req, 'users/register', {}, general, postUrls, 'Username or pasword are empty.');
 
     }

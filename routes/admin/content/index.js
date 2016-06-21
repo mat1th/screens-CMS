@@ -1,23 +1,18 @@
 var express = require('express'),
-    setRights = require('../../middleware/setRights.js'),
     randNumber = require('../../../modules/randNumber.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
     insertData = require('../../../modules/insertData.js'),
-    credentials = require('../../../modules/credentials.js'),
     isValidDate = require('../../../modules/isValidDate.js'),
     confertDate = require('../../../modules/confertDate.js'),
     sendMessage = require('../../../modules/sendMessage.js'),
+    checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     router = express.Router(); //create router
 
-router.get('/', setRights, function(req, res) { // the admin/content page
-    var cr = credentials(req.session),
-        expired = req.query.expired,
+router.get('/', function(req, res) { // the admin/content page
+    var expired = req.query.expired,
         general = {
-            title: 'Your content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+            title: 'Your content'
         },
         postUrls = {
             settings: '/admin/slideshows/edit',
@@ -58,12 +53,8 @@ router.get('/', setRights, function(req, res) { // the admin/content page
 });
 
 router.get('/add', function(req, res) { // the admin/content/add page
-    var cr = credentials(req.session),
-        general = {
-            title: 'Add content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+    var general = {
+            title: 'Add content'
         },
         postUrls = {
             general: '/admin/content/add' //the url the form should post to
@@ -73,14 +64,10 @@ router.get('/add', function(req, res) { // the admin/content/add page
 
 
 // GET a content and present the full content page
-router.get('/show/:contentId', setRights, function(req, res) { //the admin/show/id page
+router.get('/show/:contentId', function(req, res) { //the admin/show/id page
     var contentId = req.params.contentId,
-        cr = credentials(req.session),
         general = {
-            title: 'Add content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
+            title: 'Add content'
         },
         postUrls = {
             general: '/admin/content/decision' //the url the form should post to
@@ -98,9 +85,12 @@ router.get('/show/:contentId', setRights, function(req, res) { //the admin/show/
             var data = {
                 general: rows[0]
             };
-            //renderTemplate
-            renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
-            //
+            if (rows[0] === undefined) {
+                res.redirect('/admin/content');
+            } else {
+                //renderTemplate
+                renderTemplate(res, req, 'admin/content/detail', data, general, postUrls, false);
+            }
         }).catch(function(err) {
             renderTemplate(res, req, 'admin/content/detail', {}, general, postUrls, err);
             throw err;
@@ -108,7 +98,7 @@ router.get('/show/:contentId', setRights, function(req, res) { //the admin/show/
     });
 });
 
-router.post('/decision', setRights, function(req, res) { // the admin/content/decision post
+router.post('/decision', function(req, res) { // the admin/content/decision post
     var sqlQuery,
         body = req.body,
         decision = JSON.parse(body.decision),
@@ -162,13 +152,9 @@ router.post('/decision', setRights, function(req, res) { // the admin/content/de
 
 router.post('/add', function(req, res) { // the admin/content/add post
 
-    var cr = credentials(req.session),
-        body = req.body,
+    var body = req.body,
         general = {
             title: 'Add content',
-            login: cr.login,
-            admin: cr.admin,
-            editor: cr.editor
         },
         data = { //the data for the error and the insert to the
             general: {
@@ -194,7 +180,7 @@ router.post('/add', function(req, res) { // the admin/content/add post
     if (isValidDate(data.general.dateStart) && isValidDate(data.general.dateEnd)) {
         if (data.general.type !== null) {
             req.getConnection(function(err, connection) {
-                if (general.admin || general.editor) { //if the user is a admin or an editor auto check the poster
+                if (req.editor || req.admin) { //if the user is a admin or an editor auto check the poster
                     sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `checked` = 1,  `vimeoId` = ?, `vimeoImage` = ?';
                 } else { //don't check the poster
                     sqlQuery = 'INSERT INTO content SET `userId` = ?, `id` = ?, `name` = ?, `discription` = ?, `animation` = ?, `color` = ?, `filename` = ?, `duration` = ?, `type` = ?, `dateStart` = ?, `dateEnd` = ?, `dataCreated` = now(), `vimeoId` = ?, `vimeoImage` = ?';
@@ -204,15 +190,15 @@ router.post('/add', function(req, res) { // the admin/content/add post
                 }
 
                 insertData(sqlQuery, [req.session.user_id, data.general.id, data.general.name, data.generaldiscription, data.general.animation, data.general.color, data.general.fileName, data.general.duration, data.general.type, data.general.dateStart, data.general.dateEnd, data.general.vimeoId, data.general.vimeoImage], connection).then(function() {
-                    //send a mail if the use is not a admin
-                    if (!general.admin) {
+                    //send a mail if the user is not a admin
+                    if (!req.admin) {
                         var message = { //the message that will be send
                             text: '',
                             from: 'Digitale Posters mail <matthias.d@outlook.com>',
                             to: 'someone <matthias@dolstra.me',
                             subject: 'A new content needs to be checked',
                             attachment: [{
-                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + req.session.name + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.upload.imageFile.name + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
+                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + req.session.name + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.general.fileName + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
                                 alternative: true
                             }]
                         };
@@ -239,7 +225,7 @@ router.post('/add', function(req, res) { // the admin/content/add post
     }
 });
 
-router.post('/edit/:contentId', function(req, res) {
+router.post('/edit/:contentId', checkRightsEditor, function(req, res) {
     var updateSqlQuery = 'UPDATE content SET animation = ?, color = ?, duration = ?, dateStart = ?, dateEnd = ? WHERE id = ?',
         removeSqlQuery = 'DELETE FROM content_In_slideshow WHERE content_id = ? AND slideshow_id = ?',
         body = req.body,

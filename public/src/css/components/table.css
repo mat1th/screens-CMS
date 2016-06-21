@@ -16,7 +16,7 @@ table td, table th {
     font-size: 0.95em;
     font-weight: 400;
     color: var( --font-color-dark);
-    border-bottom: solid 0.1em #DDDDDD;
+    border-bottom: solid 0.14em #DDDDDD;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -30,6 +30,7 @@ table th {
 }
 table a {
     color: inherit;
+    font-weight: 400;
 }
 table tr {
     font-size: 0.9em;

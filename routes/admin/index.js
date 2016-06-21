@@ -1,16 +1,11 @@
 var express = require('express'),
     getSpecificData = require('../../modules/getSpecificData.js'),
     renderTemplate = require('../../modules/renderTemplate.js'),
-    credentials = require('../../modules/credentials.js'),
     router = express.Router();
 
 router.get('/', function(req, res) {
-    var cr = credentials(req.session),
-        general = {
-            title: 'Your content',
-            admin: cr.admin,
-            editor: cr.editor,
-            login: cr.login
+    var general = {
+            title: 'Your content'
         },
         sql;
 

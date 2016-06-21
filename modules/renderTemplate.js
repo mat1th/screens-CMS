@@ -11,9 +11,9 @@ var renderTemplate = function(res, req, template, data, general, postUrls, error
             url: null || data.url
         },
         rights: { //the rights for showing the content
-            admin: general.admin,
-            editor: general.editor,
-            logedin: general.login
+            admin: req.admin,
+            editor: req.editor,
+            logedin: (req.session.user_id !== undefined) ? true : false
         },
         navStyle: general.navStyle, //the nav style class
         postUrl: { // the post urls for the forms
@@ -22,10 +22,10 @@ var renderTemplate = function(res, req, template, data, general, postUrls, error
             content: postUrls.content || null,
             displays: postUrls.displays || null
         },
-        error: error, // the erro on the page
+        error: error, // the error on the page
         pagelayout: general.pagelayout, // the page layout
         styleCookie: req.cookies.style, //the cookie for if the style would be inline or not
-        layout: layout || 'layout' // the layout
+        layout: layout || 'layout' // the layout of the app by default use the 'layout' layout
     });
 };
 
