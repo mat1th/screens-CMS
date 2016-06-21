@@ -31,6 +31,21 @@ DP.helper = (function() {
                 return false;
             }
         },
+        setAtribute = function(element, atr, value) {
+            element.setAttribute(atr, value);
+        },
+        addClass = function(element, className) {
+            if (!hasClass(element, className)) element.className += ' ' + className;
+        },
+        hasClass = function(element, className) {
+            return element.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+        },
+        removeClass = function(element, className) {
+            if (hasClass(element, className)) {
+                var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+                element.className = element.className.replace(reg, ' ');
+            }
+        },
         /**
          * Creates a get XMLHttpRequest you can use it by   var _client = new DP.helper.GetData(),   _client.get('url', function(response) {})
          * @param   {String, String}    The url form the page you would like to get
@@ -92,10 +107,10 @@ DP.helper = (function() {
             var loader = selectId('loader');
             var time = 5000;
             if (status === true) {
-                loader.classList.remove('disabled');
+                removeClass(loader, 'disabled');
             } else if (status === false) {
                 setTimeout(function() {
-                    loader.classList.add('disabled');
+                    addClass(loader, 'disabled');
                 }, time);
             }
         },
@@ -108,18 +123,21 @@ DP.helper = (function() {
             var errorPopupContent = selectId('error-popup-content');
             if (show) {
                 errorPopupContent.innerHTML = errorMessage;
-                errorPopup.classList.remove('disabled');
-                errorPopup.classList.add('top-push');
+                removeClass(errorPopup, 'disabled');
+                addClass(errorPopup, 'top-push');
             } else {
-                errorPopup.classList.add('disabled');
-                errorPopup.classList.remove('top-push');
+                errorPopup(errorPopup, 'disabled');
+                removeClass(errorPopup, 'top-push');
             }
-
         };
+        
     return {
         select: select,
         selectId: selectId,
         selectAll: selectAll,
+        setAtribute: setAtribute,
+        addClass: addClass,
+        removeClass: removeClass,
         getData: GetData,
         postData: postData,
         loader: loader,

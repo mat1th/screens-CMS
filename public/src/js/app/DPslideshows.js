@@ -72,7 +72,9 @@ DP.slideshows = (function() {
 
         _contentlist.addEventListener('dragend', function() { //if a is dragged post the new order to the server
             DP.helper.postData(DP.routes.currentPath(), 'content=' + _getIds());
-            item.classList.remove('placeholder'); //remove the placeholder
+
+            DP.helper.removeClass(item, 'placeholder'); //remove the placeholder
+
             return false;
         });
         _contentlist.addEventListener('drop', function functionName(ev) { //if the elemnent is dropped stop the preview of the elemnent in the list
@@ -90,7 +92,7 @@ DP.slideshows = (function() {
                 ev.dataTransfer.effectAllowed = 'move';
                 ev.dataTransfer.setData('Text', item.id);
                 item.ondrag = function() {
-                    item.classList.add('placeholder');
+                    DP.helper.addClass(item, 'placeholder');
                 };
                 recount();
                 return true;
@@ -130,7 +132,6 @@ DP.slideshows = (function() {
 
                 _client.get('/api/content/' + contentID, function(response) { //get the data from the api
                     var data = JSON.parse(response);
-                    console.log(data);
                     formElements.form.action = '/admin/content/edit/' + data.id;
                     formElements.animaion.value = data.animation;
                     formElements.duration.value = data.duration;
@@ -157,11 +158,11 @@ DP.slideshows = (function() {
             tabcontent = DP.helper.selectAll('.tabcontent');
         for (var i = 0; i < toggleButtons.length; i++) {
             if (target === toggleButtons[i] || show[i]) {
-                tabcontent[i].classList.remove('disabled');
+                DP.helper.removeClass(tabcontent[i], 'disabled');
                 tabcontent[i].setAttribute('aria-hidden', false);
                 toggleButtons[i].setAttribute('aria-selected', true);
             } else {
-                tabcontent[i].classList.add('disabled');
+                DP.helper.addClass(tabcontent[i], 'disabled');
                 tabcontent[i].setAttribute('aria-hidden', true);
                 toggleButtons[i].setAttribute('aria-selected', false);
             }
@@ -172,12 +173,11 @@ DP.slideshows = (function() {
         var animations = ['fadein', 'left-push', 'top-push'];
 
         select.addEventListener('change', function(e) {
-            console.log(e.target.value);
             for (var i = 0; i < animations.length; i++) {
-                _preview.classList.remove(animations[i]);
+                DP.helper.removeClass(_preview, animations[i]);
                 console.log(_preview.classList);
             }
-            _preview.classList.add(e.target.value);
+            DP.helper.addClass(_preview, e.target.value);
         });
     };
 

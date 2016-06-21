@@ -16,23 +16,23 @@ DP.validate = (function() {
         return re.test(date);
     };
 
-    var form = function() { //add a red error collor if a input field is empty 
+    var form = function() { //add a red error collor if a input field is empty
         var form = DP.helper.select('form');
         form.addEventListener('input', function(e) {
             if (e.target.value.length === 0) {
-                e.target.classList.add('error');
+                DP.helper.addClass(e.target, 'error');
             } else {
-                e.target.classList.remove('error');
+                DP.helper.removeClass(e.target, 'error');
             }
         });
     };
     var setErrorDate = function(elm, elmErr, err) { // set a error if the date is falsein the form
         elm.addEventListener('blur', function(e) {
             if (!_date(e.target.value)) {
-                elm.classList.add('error');
+                DP.helper.addClass(elm, 'error');
                 elmErr.innerHTML = err;
             } else {
-                elm.classList.remove('error');
+                DP.helper.removeClass(elm, 'error');
                 elmErr.innerHTML = '';
             }
         });
@@ -40,10 +40,10 @@ DP.validate = (function() {
     var setErrorColor = function(elm, elmErr, err) { // set a error is the color is false in the form
         elm.addEventListener('blur', function(e) {
             if (!_color(e.target.value)) {
-                elm.classList.add('error');
+                DP.helper.addClass(elm, 'error');
                 elmErr.innerHTML = err;
             } else {
-                elm.classList.remove('error');
+                DP.helper.removeClass(elm, 'error');
                 elmErr.innerHTML = '';
             }
         });
@@ -51,10 +51,10 @@ DP.validate = (function() {
     var setErrorEmail = function(elm, elmErr, err) { //set a erro if the email is false in the form
         elm.addEventListener('blur', function(e) {
             if (!_email(e.target.value)) {
-                elm.classList.add('error');
+                DP.helper.addClass(elm, 'error');
                 elmErr.innerHTML = err;
             } else {
-                elm.classList.remove('error');
+                DP.helper.removeClass(elm, 'error');
                 elmErr.innerHTML = '';
             }
         });

@@ -117,11 +117,11 @@ router.post('/decision', function(req, res) { // the admin/content/decision post
                     var data = rows[0];
                     var message = { //the mail that will be send to the user if the admin has deleted the poster
                         text: '',
-                        from: 'Digitale Posters mail <matthias.d@outlook.com>',
+                        from: 'CMD screens mail <matthias.d@outlook.com>',
                         to: 'someone <' + data.email + '>',
                         subject: 'Your content isn\'t accepted.',
                         attachment: [{
-                            data: '<html> Hello ' + data.name + ', </br> </br>' + 'Your poster has been deleted trught the admin. Ask ' + req.session.name + ' why. </br>  </br> The Digital poster team' + '</html>',
+                            data: '<html> Hello ' + data.name + ', </br> </br>' + 'Your poster has been deleted trught the admin. Ask ' + req.session.name + ' why. </br>  </br> The CMD screens team' + '</html>',
                             alternative: true
                         }]
                     };
@@ -194,11 +194,11 @@ router.post('/add', function(req, res) { // the admin/content/add post
                     if (!req.admin) {
                         var message = { //the message that will be send
                             text: '',
-                            from: 'Digitale Posters mail <matthias.d@outlook.com>',
+                            from: 'CMD screens mail <matthias.d@outlook.com>',
                             to: 'someone <matthias@dolstra.me',
                             subject: 'A new content needs to be checked',
                             attachment: [{
-                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + req.session.name + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.general.fileName + '" alt="uploaded poster" />  </br>  </br> The Digital poster team' + '</html>',
+                                data: '<html> Hello ' + 'Matthias' + ', </br> </br>' + req.session.name + ' has uploaded a poster or vimeo movie. </br> </br> Please check the <a href="http://posters.dolstra.me/login">Website</a> for the content.  </br>  </br> <img src="http://posters.dolstra.me/download' + data.general.fileName + '" alt="uploaded poster" />  </br>  </br> The CMD screens team' + '</html>',
                                 alternative: true
                             }]
                         };
