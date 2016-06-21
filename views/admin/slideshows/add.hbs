@@ -8,11 +8,8 @@
     <!-- the content you can choose from -->
     <section class="slideshow-content">
         <!-- add button  -->
-        <button class="add">
-            <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" class="animate">
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
+        <button class="add" title="add">
+              {{> svg/addicon}}
         </button>
         <ol id="contentlist">
             {{#each data.general}}
@@ -27,10 +24,10 @@
                                         <path d="M0 0h24v24H0z" fill="none" />
                                     </svg>
                                 </div>
-                                <img src="{{vimeoImage}}" alt="" draggable="false" data-id="{{id}}" />
+                                <img src="{{vimeoImage}}" alt="priview vimeo" draggable="false" data-id="{{id}}" />
                             {{/checktype}}
                             {{#checktype type equals="poster" }}
-                                <img src="/download/{{filename}}" alt="" draggable="false" data-id="{{id}}" />
+                                <img src="/download/{{filename}}" alt="priview poster" draggable="false" data-id="{{id}}" />
                             {{/checktype}}
                         </div>
                     </a>

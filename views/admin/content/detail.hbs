@@ -1,9 +1,11 @@
  {{> nav}}
 <section class="main-content">
-    <section class="content-header">
+    <header class="content-header">
         <h1>{{data.general.name}} </h1>
-        <time>{{#datefronow data.general.dataCreated}}{{/datefronow}}</time>
-    </section>
+        <time>
+            {{#datefronow data.general.dataCreated}}{{/datefronow}}
+        </time>
+    </header>
     <section class="content-body {{data.general.type}}">
         <section class=" ">
             {{#checktype data.general.type equals="poster" }}
@@ -58,7 +60,6 @@
                     </td>
                 </tr>
             </table>
-
         </section>
     </section>
 </section>

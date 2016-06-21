@@ -10,7 +10,31 @@ main {
     height: calc(100% - 3.753em);
 }
 img {
+    min-height: 2em;
     max-width: 100%;
+}
+img:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: -0.8em;
+    left: 0;
+    height: calc(100% + 0.8em);
+    width: 100%;
+    background-color: rgb(230, 230, 230);
+}
+img:after {
+    content: "Deze afbeelding is kapot " attr(alt);
+    display: block;
+    font-size: 1em;
+    font-style: normal;
+    font-family: FontAwesome;
+    color: rgb(100, 100, 100);
+    position: absolute;
+    top: 0.4em;
+    left: 0;
+    width: 100%;
+    text-align: center;
 }
 video {
     width: 100%;
