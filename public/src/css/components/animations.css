@@ -2,8 +2,8 @@
 .animate {
     transition: all 0.3s ease;
     animation-duration: 1s;
+    will-change: transform;
 }
-
 /*animations for the slieshow preview */
 
 
