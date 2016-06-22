@@ -14,16 +14,24 @@ router.get('/content/:contentId', function(req, res) { //the route /api/content/
         var sqlSlideshows = 'SELECT filename, name,animation, duration, color, dateStart, dateEnd, id FROM content WHERE id = ?'; //get the data from the database
         connection.query(sqlSlideshows, [contentId], function(err, match) {
             if (err) throw err;
-            var data = {
-                filename: match[0].filename,
-                name: match[0].name,
-                animation: match[0].animation,
-                duration: match[0].duration,
-                color: match[0].color,
-                dateStart: moment(match[0].dateStart).format('L'), //format the date
-                dateEnd: moment(match[0].dateEnd).format('L'), //format the date
-                id: match[0].id
-            };
+            var data;
+            if (match[0] !== undefined) {
+                data = {
+                    filename: match[0].filename,
+                    name: match[0].name,
+                    animation: match[0].animation,
+                    duration: match[0].duration,
+                    color: match[0].color,
+                    dateStart: moment(match[0].dateStart).format('L'), //format the date
+                    dateEnd: moment(match[0].dateEnd).format('L'), //format the date
+                    id: match[0].id
+                };
+            } else {
+                data = {
+                    error: 'Not found'
+                };
+            }
+
             res.send(JSON.stringify(data)); //send a json object
         });
     });
