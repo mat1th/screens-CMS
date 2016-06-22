@@ -62,7 +62,9 @@ figcaption time {
 .content .check svg {
     width: 2.9em;
 }
+
 /*play icon on the vimeo movies*/
+
 .content .play-icon-bottom {
     position: absolute;
     top: 1em;
@@ -72,8 +74,7 @@ figcaption time {
     margin: 7em auto;
     z-index: 1;
 }
-.content a:focus .play-icon-bottom,
-.content a:hover .play-icon-bottom {
+.content a:focus .play-icon-bottom, .content a:hover .play-icon-bottom {
     -webkit-animation-name: pulse;
     animation-name: pulse;
 }
@@ -92,7 +93,9 @@ figcaption time {
     height: 100%;
     object-fit: contain;
 }
+
 /*tag icon*/
+
 span.vimeo-tag {
     padding: 0.1em 0.3em;
     border-radius: var( --border-radius);
@@ -110,8 +113,7 @@ span.vimeo-tag {
 .info-tooltip a {
     color: var(--primary-color);
 }
-.info-tooltip:focus p,
-.info-tooltip:hover p {
+.info-tooltip:focus p, .info-tooltip:hover p {
     display: block;
 }
 .info-tooltip p {
@@ -130,17 +132,17 @@ span.vimeo-tag {
 }
 
 /*detail page*/
-.content-body.vimeo{
-  display: block;
 
+.content-body.vimeo {
+    display: block;
 }
-.content-body.vimeo section{
-  width: 100%;
-  height: 20em;
+.content-body.vimeo section {
+    width: 100%;
+    height: 20em;
 }
-.content-body.vimeo iframe{
-  width: 100%;
-  height: 100%;
+.content-body.vimeo iframe {
+    width: 100%;
+    height: 100%;
 }
 
 /*responsive*/
@@ -148,6 +150,7 @@ span.vimeo-tag {
 @media screen and (--medium-window-width) {
     .content .image {
         height: 20em;
+        min-width: 14em;
     }
     .content {
         max-width: 15em;

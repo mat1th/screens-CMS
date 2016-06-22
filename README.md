@@ -198,7 +198,7 @@ The application is built on the 3 layers: HTML, CSS & JS. The application is bui
 I haven't used meteor to create a realtime web app, but I've used a socket.io for live reloading the slideshow. If a user adds a new poster or Vimeo to the slideshow the slideshow will reload.
 
 ### Extra features
-I've used some extra features in my application. Such as MySQL, emailjs, momentjs and right roles. I didn't follow the 'databases' course but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
+I've used some extra features in my application. Such as MySQL, emailjs, hsb, momentjs and right roles. I didn't follow the 'databases' course, but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page. 
 
 ## Screenshots
 ### home page
