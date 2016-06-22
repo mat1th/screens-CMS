@@ -139,6 +139,11 @@ button.top-margin, a.top-margin {
 .btn-action svg {
     fill: var(--font-color-gray);
 }
+.btn-standalone{
+  width: 100%;
+  margin: 1em 0;
+  text-align: left;
+}
 
 /*toggle buttons*/
 
