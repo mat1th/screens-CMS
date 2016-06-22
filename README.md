@@ -1,4 +1,4 @@
-# MeesterProef CMD screens Content
+# MeesterProef CMD screens
 
 ![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-html.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-css.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)
 
@@ -12,7 +12,7 @@ A CMS to upload posters of Vimeo movies and show them on a screen.
 
 ## Motivation
 
-The university of Amsterdam needs an application for displaying posters on screens. They are using A0 posters now. But there are too few places for all students to show their poster. Now they have asked to create a CMS for uploading the posters and editing them in a slideshow
+The Amsterdam University of Applied Sciences needs an application for displaying posters on screens. They are using A0 posters now. But there are not enough places for all students to show their poster. Now they have asked to create a CMS for uploading the posters and display them in a slideshow
 
 ## Installation
 
@@ -32,11 +32,11 @@ npm install
 
 ## Setting things up
 
-Before you can start the application you need to connect to the database. And you need to setup the mail part of the application.
+Before you can start the application you need to connect to the database. Also you need to setup the mail configuration of the application.
 
 ### Connect to the database
 
-Please duplicate `config/config_example.json` and rename the file to `config/config.json`. In this file you define all the passwords form the app and the database connections. The variables in the `all` section are available in each environment.
+Please duplicate `config/config_example.json` and rename the file to `config/config.json`. In this file you define all the passwords of the app and the database connections. The variables in the `all` section are available in each environment.
 
 An example setting block:
 
@@ -53,7 +53,7 @@ An example setting block:
 }
 ```
 
-You van create as mutch environment as you want. To use a stage duplicate `config/config_example.js` and rename the file to `config/config.js`. This this file will be used for selecting the environment. Replace the string on the first row with the environment you want to use.
+You can create as much environments as you want. To use a stage duplicate `config/config_example.js` and rename the file to `config/config.js`. This file will be used for selecting the environment. Replace the string on the first line with the environment you want to use.
 
 ```javascript
 var env = process.env.NODE_ENV || 'development'
@@ -61,7 +61,7 @@ var env = process.env.NODE_ENV || 'development'
 
 ### Add database structure
 
-Now we have got to set up the database structure. In the file `database/database.sql` can you find the database structure. Please add it to your database. Now you can build the app.
+Now we have to set up the database connection. In the file `database/database.sql` you can find the database structure. Please add it to your database. Now you can build the app.
 
 ## Building
 
@@ -89,7 +89,7 @@ npm install --dev
 gulp build
 ```
 
-This conferts all the images and place the other files from the `public/src` to the `public/dist` folder. Then you can start the browser-sync task to run browser sync with nodemon to auto refresh the browser.
+This converts all the images and places the other files from the directory `public/src` to the `public/dist` folder. Then you can start the browser-sync task to run browser sync with nodemon to auto refresh the browser.
 
 Start Gulp for browser sync:
 
@@ -99,7 +99,7 @@ gulp browser-sync
 
 ### Code structure
 
-In the app.js file, you can find the start file from the app. For every route is a file in the route folder. The files are so structured that the path of the file is the path of the URL.
+In the app.js file, you can find the start file of the app. For every route there is a file in the route folder. The files are structured in the way that the path of the file is the path of the URL.
 
 ```
 /config                //the config of the application
@@ -126,7 +126,7 @@ app.js                 //the root of the application. This file you need to star
 
 ## API
 
-The app has an API. You can get call the API on `api/content/:contentId`. You will get all the content from the poster id. The object that will be returned is:
+The app has an API. You can call the API on `api/content/:contentId`. You'll get all the content from the poster id. The object that you'll get is:
 
 ```json
 {
@@ -141,7 +141,7 @@ The app has an API. You can get call the API on `api/content/:contentId`. You wi
 }
 ```
 
-If the Id is not defined the API will return a error.
+If the Id is not defined the API will give a error.
 
 ```json
 {
@@ -151,17 +151,17 @@ If the Id is not defined the API will return a error.
 
 ## Features from subjects
 
-In this section I will tell witch things I've learned in the subjects an I've implemented.
+In this section I will tell which things I've learned in the schoolsubjects and used in this application.
 
 ### Web App from Scratch
 
 #### IFFE
 
-The client side application part is structured in Modules. Every part of the code is in an IFFE. That is an Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is safer than open functions. A hacker can't get access to the other functions in the IFEE. And because the code is modular I could use it in another application.
+The client side application part is structured in Modules. Every part of the code is in an IFFE. That is an Immediately-Invoked Function Expression. Only the parts that will be used outside the function will be returned. This is safer than open functions. A hacker can't get access to the other functions in the IFFE. Because the code is modular I can use it in other applications.
 
 #### Functional animations with hardware accelerated properties
 
-With CSS keyframes, you can animate a lot of properties, but the most of them are not hardware accelerated. The most used hardware accelerated CSS properties are:
+With CSS keyframes, you can animate a lot of properties, but most of them are not hardware accelerated. The most used hardware accelerated CSS properties are:
 
 - opacity
 - transform: rotate
@@ -169,7 +169,7 @@ With CSS keyframes, you can animate a lot of properties, but the most of them ar
 - transform: translate
 - filter
 
-In my animations in the application, I only use these properties.
+In my animations in the application, I only used these properties.
 
 #### Gestures
 
@@ -187,17 +187,17 @@ On the server the application uses HBS, a server-side variant of Handlebars, to 
 
 #### Flexbox
 
-The application is fully written with flexbox. For the other browsers, there is a fallback. You can see the fallback file in `public/src/css/layout/fallbackflexbox.css`.
+The application is fully written with flexbox. For other browsers, there is a fallback. You can see the fallback file in `public/src/css/layout/fallbackflexbox.css`.
 
 #### Special CSS
 
-The elements in the banner on the home page has a vertical center. And manny other elements in the application. There are also transitions on hover. So the color of the poster preview transitions to dark on a hover. The cursor will be on hinting on elements if you can use them or not. And for mobile devices, I've extended the clickable area so It's easier to touch on these elements. The checkboxes, selects and options elements in the app are also custom. On the home page, I've used ::before and ::after elements to show the timeline interface.
+The elements in the banner on the home page have a vertical center. Many other elements in the application too. There are also transitions when you hover. The color of the poster preview transitions to dark on a hover. The cursor will hint on elements to show whether you can use them or not. For mobile devices, I've extended the clickable area so it's easier to touch on these elements. The checkboxes, selects and option elements in the app are also customized. On the home page, I've used ::before and ::after elements to show the timeline interface.
 
 ### Performance Matters
 
 #### CSS
 
-On the first load of the application, all the CSS will be in the head of the body. (I can use this because the CSS file is only 91Kb) So the first render will be very fast. After this render, the CSS file will load with loadCSS. After the load of this CSS, there will be a cookie set with the value `"style=true"`. If this cookie is in the request of the page it won't give the inline CSS. Now it gives a `<link rel="stylesheet" href="/css/style.css">`.
+When you load the application for the first time, all the CSS will be in the head of the body. (I can use this because the CSS file is only 91Kb) So the first render will be very fast. After this render, the CSS file will load with loadCSS. After the load of this CSS, there will be a cookie set with the value `"style=true"`. If this cookie is in the request of the page it won't give the inline CSS. Now it gives a `<link rel="stylesheet" href="/css/style.css">`.
 
 #### Gulp
 
@@ -216,15 +216,15 @@ The app is using gulp to minify the CSS, JS, and the images. The images on the h
 
 ### Optimized CSS and HTML
 
-All CSS selectors are not longer than 3 deep. So the render engine is fast with parsing the css. The HTML is semantic an the classes and id's are nicely chosen.
+All CSS selectors are no more than 3 deep. So the render engine is fast with parsing the CSS. The HTML is semantic and the classes and id's are nicely chosen.
 
 #### Service Worker
 
-If a browser supports a service Worker it will cache several pages. So the load times of the page will be a lot faster.
+If a browser supports a service Worker it will cache several pages. So the load time of the page will be a lot faster.
 
 #### Progressive web app
 
-The application is a progressive web app. I've created a `manifest.json` file so the Android phone knows witch icons the app should use. Combined with the Service Worker the app could use offline to view the app.
+The application is a progressive web app. I've created a `manifest.json` file so the Android phone knows which icons the app should use. Combined with the Service Worker the app could be used offline to view the app.
 
 #### Screenshots
 
@@ -258,19 +258,19 @@ This is tested on a Good 3G (40ms, 1.5mb, 750kb/s)
 
 #### Images
 
-All the images have an alt tag, so the blind people know what kind of image it is. If the images aren't shown because the user has slow internet the alt tag will show up.
+All the images have an alt tag, so blind people know what kind of image it is. If the images aren't shown because the user has slow internet the alt tag will show up.
 
 #### Icons
 
-The icons are SVG so if the user has a font blocker or has slow internet the icons will appear. If the there is only an icon used for a button there is a title used for the blind people. The app uses inline SVGs with a fallback to a png image.
+The icons are SVG so if the user has a font blocker or has slow internet the icons will appear. If there is only an icon used for a button there is a title used for the blind people. The app uses inline SVGs with a fallback to a png image.
 
 #### Accessibility
 
-The whole app can be used by bad vision people the contrasts of the app are big enough the see the difference between the colors. The whole app can use with the tab key. So, for example, the advanced users of the blind people can use the app.
+The whole app can be used by visualy impaired people. The contrasts of the app are big enough to see the difference between the colors. The whole app can be operated with the tab key. So blind people that are advanced users can use the app.
 
 #### Voice over
 
-The whole application can be used with voice over. I've tested it with Firefox, Safari, and Vivaldi.
+The whole application can be used with voice over. I've tested it with Firefox, Safari and Vivaldi.
 
 #### Bandwith and privacy
 
@@ -278,11 +278,11 @@ The most actions of the application are server side. So a user with low bandwidt
 
 #### Feature detection
 
-The client-side JS is written that the most code can be used by old browsers. I've used `document.getElementByID()` on paces where I could use it. So the older browsers also can use the JS enhances.
+The client-side JS is written so that most code can be used by old browsers. I've used `document.getElementByID()` on places where I was able to use it. So the older browsers also can use the JS enhances.
 
 #### Old browsers and slow internet
 
-The application is built on the 3 layers: HTML, CSS & JS. The application is build with HTML5 elements. These elements are backward compatible. The old browsers that don't support these elements will create an unknown element, but the website doesn't break. The website will also work without client-side JS. So the application will work in older browsers or with slow internet.
+The application is built on the 3 layers: HTML, CSS & JS. The application is build with HTML5 elements. These elements are backward compatible. Old browsers that don't support these elements will create an unknown element, but the website doesn't break. The website will also work without client-side JS. So the application will work in older browsers or with slow internet.
 
 ### Real-time web
 
@@ -290,7 +290,10 @@ I haven't used meteor to create a realtime web app, but I've used a socket.io fo
 
 ### Extra features
 
-I've used some extra features in my application. Such as MySQL, emailjs, hsb, momentjs and right roles. I didn't follow the 'databases' course, but I would like to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
+I've used some extra features in my application. Such as MySQL, emailjs, hsb, momentjs and right roles. I didn't follow the 'databases' course, but I wanted to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
+
+## User testing The app is tested by some users. After that tests I made some changes on the application. 
+- redesign flow of adding content to the slideshow. The content is now automatically added to the slideshow. Before this change the admin had to add them manually. - only one slideshow instead of multiple ones. - Add a home page with a flow of the application
 
 ## Screenshots
 
@@ -345,10 +348,10 @@ There are many things to do. Here a feature list with features that could be imp
 - [ ] Logged-in variant of the home page.
 - [ ] Ability to change your password.
 - [ ] Ability to add a profile photo to an account. [#33](https://github.com/mat1th/meesterproef/issues/33)
-- [ ] Ability to turn of a display (or go on black).
+- [ ] Ability to turn off a display (or go on black).
 - [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos ).
 - [ ] Optimize uploaded images. So there will be a height resolution, small preview, and a bigger preview.
-- [ ] Ability to filter the content on the content page, display page, and user page on name and date.
+- [ ] Ability to filter the content on the content page, display page, and user page on name or date.
 
 ## Bugs to fix
 
@@ -363,7 +366,7 @@ The Master branch is the branch where the final features are pushed to. The [mas
 ### What to do
 
 - Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Check out the issue tracker to make sure someone hasn't already requested it and/or contributed it.
 - Fork the project.
 - Start a feature/bugfix branch.
 - Commit and push until you are happy with your contribution.
@@ -371,14 +374,14 @@ The Master branch is the branch where the final features are pushed to. The [mas
 
 ### CSS syntax
 
-For CSS I'm using [cssnext](http://cssnext.io). With this plugin, you can use the CSS syntax that will be supported later by the browsers.
+For CSS I've used [cssnext](http://cssnext.io). With this plugin, you can use the CSS syntax that will be supported later by new browsers.
 
 ### JS syntax
 
-I'm using some new JS functions with Babel this will be converted to code that can be used by older browsers.
+I've used some new JS functions with Babel. This will be converted to code that can be used by older browsers.
 
 ### Work load
-I've used Trello for planning the work I would do each week. I've constantly my board so I always knew what to do.
+I've used Trello for planning the work that I would do each week. I've constantly updated my board so I always knew what to do.
 ![displays screenshot](readme/trello.png)
 
 ## Contributors
