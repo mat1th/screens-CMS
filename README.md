@@ -352,7 +352,7 @@ There are many things to do. Here a feature list with features that could be imp
 
 ## Bugs to fix
 
-- [ ] On old browsers the 'home' button in the menu will sign out the user.
+- [x] On old browsers the 'home' button in the menu will sign out the user.
 - [ ] Make the slideshow editor work on older browsers that don't support draggable.
 - [ ] Don't show the added posters in the picker on the slideshow edit page.
 
@@ -376,6 +376,10 @@ For CSS I'm using [cssnext](http://cssnext.io). With this plugin, you can use th
 ### JS syntax
 
 I'm using some new JS functions with Babel this will be converted to code that can be used by older browsers.
+
+### Work load
+I've used Trello for planning the work I would do each week. I've constantly my board so I always knew what to do.
+![displays screenshot](readme/trello.png)
 
 ## Contributors
 
