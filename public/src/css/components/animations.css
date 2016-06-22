@@ -3,7 +3,7 @@
 .animate {
     transition: all 0.3s ease;
     animation-duration: 1s;
-    will-change: transform;
+    will-change: transform, opacity;
     backface-visibility: hidden;
     perspective: 1000;
 }

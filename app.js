@@ -39,7 +39,7 @@ require('./lib/socketConnection.js')(http); //starting web socket
 //set vieuw enging
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/views/partials'); //register hbs partials
+hbs.registerPartials(__dirname + '/views/partials');
 
 //define body parser
 app.use(bodyParser.urlencoded({
@@ -66,7 +66,7 @@ app.use(function(req, res, next) {
     if (req.url.substr(-1) == '/' && req.url.length > 1) {
         res.redirect(301, req.url.slice(0, -1));
     } else {
-        next();
+        next(); //go to next functiton
     }
 });
 // Add session support

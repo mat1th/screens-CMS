@@ -220,11 +220,11 @@ gulp.task('styles-app', function() {
             './public/src/css/layout/footer.css',
             './public/src/css/layout/fallbackflexbox.css'
         ])
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
         .pipe(concat('style.css'))
         .pipe(postcss(processors))
         .pipe(cssnano())
-        .pipe(sourcemaps.write())
+        // .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'));
 });
 
@@ -245,11 +245,11 @@ gulp.task('styles-slider', function() {
             './public/src/css/typography.css',
             './public/src/css/layout/slider.css'
         ])
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
         .pipe(concat('slider.css'))
         .pipe(postcss(processors))
         .pipe(cssnano())
-        .pipe(sourcemaps.write())
+        // .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/css/'));
 });
 
@@ -269,13 +269,13 @@ gulp.task('scripts-app', function() {
             './public/src/js/app/DPvalidate.js',
             './public/src/js/app/DPinit.js'
         ])
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        // .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'));
 });
 // Scripts slideshow
@@ -284,13 +284,13 @@ gulp.task('scripts-slideshow', function() {
             './node_modules/gsap/src/minified/TweenMax.min.js',
             './public/src/js/slideshow/*.js'
         ])
-        .pipe(sourcemaps.init())
+        // .pipe(sourcemaps.init())
         .pipe(concat('slideshow.js'))
         .pipe(babel({
             presets: ['es2015']
         }))
-        // .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(uglify())
+        // .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public/dist/js/'));
 });
 
