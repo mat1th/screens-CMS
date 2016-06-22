@@ -19,6 +19,9 @@ html, body {
     height: 100vh;
     list-style: none;
     z-index: 0;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000;
 }
 .slide iframe, .slide img {
     display: block;

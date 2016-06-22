@@ -226,6 +226,34 @@ If a browser supports a service Worker it will cache several pages. So the load 
 
 The application is a progressive web app. I've created a `manifest.json` file so the Android phone knows witch icons the app should use. Combined with the Service Worker the app could use offline to view the app.
 
+#### Screenshots
+
+The google Page speed Insights gives me a 98/100 on mobile and desktop.
+
+##### Desktop (home page)
+
+![performance-desktop](readme/performance-desktop.png)
+
+##### Mobile (home page)
+
+![performance-desktop](readme/performance-mobile.png)
+
+#### inspector (slideshow editor page)
+In the browser you can see the first paint of the page and other performance tests.
+
+![inspector](readme/inspector.png)
+
+This is tested on a Good 3G (40ms, 1.5mb, 750kb/s)
+
+| function       | Time           |
+| :------------- | :------------- |
+| First paint    | 195ms          |
+| Dom load event | 170ms          |
+| Load event     | 1.53s          |
+
+![inspector](readme/inspector2.png)
+
+
 ### Browser Technologies
 
 #### Images
