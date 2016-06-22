@@ -29,7 +29,7 @@ router.get('/:displayId', function(req, res) {
                 renderTemplate(res, req, 'display/view', data, general, {}, 'There are no content in your slideshow this is display' + displayId, 'layout2');
             }
         }).catch(function(err) {
-            renderTemplate(res, req, 'display/view', {}, general, {}, 'Ther went somthing wrong with getting the data', 'layout2');
+            renderTemplate(res, req, 'display/view', {}, general, {}, 'There went somthing wrong with getting the data.', 'layout2');
             throw err;
         });
     });
