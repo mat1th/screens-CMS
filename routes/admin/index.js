@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
             //render the Template
             renderTemplate(res, req, 'admin/index', data, general, {}, false);
         }).catch(function(err) {
-            renderTemplate(res, req, 'admin/index', {}, general, {}, 'there was a error with getting the data');
+            renderTemplate(res, req, 'admin/index', {}, general, {}, 'There was a error with getting the data. Please mail the admin.');
             throw err;
         });
     });

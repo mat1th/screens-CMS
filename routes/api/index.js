@@ -6,7 +6,6 @@ var express = require('express'),
 require('moment/locale/nl');
 moment.locale('nl'); //localization to nl
 
-
 //get data from content
 router.get('/content/:contentId', function(req, res) { //the route /api/content/id
     var contentId = req.params.contentId; //get the id param

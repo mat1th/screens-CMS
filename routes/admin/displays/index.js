@@ -27,7 +27,7 @@ router.get('/', checkRightsAdmin, function(req, res) {
             renderTemplate(res, req, 'admin/displays/show', data, general, {}, false);
 
         }).catch(function(err) {
-            renderTemplate(res, req, 'admin/displays/show', {}, general, {}, 'there was a error with getting the data');
+            renderTemplate(res, req, 'admin/displays/show', {}, general, {}, 'There was a error with getting the data');
             throw err;
         });
 
