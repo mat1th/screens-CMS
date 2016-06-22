@@ -141,6 +141,14 @@ The app has an API. You can get call the API on `api/content/:contentId`. You wi
 }
 ```
 
+If the Id is not defined the API will return a error.
+
+```json
+{
+  "error": "Not found"
+}
+```
+
 ## Features from subjects
 
 In this section I will tell witch things I've learned in the subjects an I've implemented.
