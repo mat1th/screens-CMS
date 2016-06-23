@@ -2,12 +2,12 @@
 
 .banner {
     height: 30em;
-    text-align: center;
     background: url(../../img/background.jpg);
     background-position: 100% 0;
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-size: cover;
+    text-align: center;
 }
 .banner h1 {
     display: block;
@@ -48,12 +48,12 @@
     z-index: 2;
 }
 .wrap picture {
-    max-width: 50em;
     width: 100%;
+    max-width: 50em;
 }
 .wrap picture.mobile {
-    max-height: 20em;
     width: auto;
+    max-height: 20em;
 }
 
 /*css for every step*/
@@ -61,11 +61,10 @@
 .step {
     position: relative;
     padding: 1em;
-    background: var(--background-color-light);
     padding-bottom: 4em;
+    background: var(--background-color-light);
 }
 .step[data-section]:before {
-    background: var(--background-color-light);
     display: inline-block;
     position: relative;
     width: 1.3em;
@@ -73,6 +72,7 @@
     padding: 0.5em;
     border: 0.25em solid var( --background-color-semidark);
     border-radius: 100%;
+    background: var(--background-color-light);
     font-size: 1em;
     font-weight: 400;
     content: attr(data-section);
@@ -92,11 +92,11 @@
 /*the step description*/
 
 .step-description {
+    max-width: 30em;
+    margin: 0 auto;
     padding: 0.8em 0 1.2em;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, .001), #fff 1.2em, #fff 70%, rgba(255, 255, 255, .001));
     z-index: 10;
-    max-width: 30em;
-    margin: 0 auto;
 }
 .step-description a {
     color: var( --normal-color);
@@ -121,16 +121,16 @@
 /*the css for the register step*/
 
 .step.register {
-    color: var( --font-color-light);
     background: var(--eddit-color);
+    color: var( --font-color-light);
 }
 .step.register:before {
     border-color: #062950;
     background: var(--eddit-color);
 }
 .step.register:after {
-    background-image: linear-gradient(to bottom, #062950, #062950 3em, #0A4C96 3em, #0A4C96);
     background-color: #062950;
+    background-image: linear-gradient(to bottom, #062950, #062950 3em, #0A4C96 3em, #0A4C96);
 }
 .step.register .step-description {
     background-image: linear-gradient(to bottom, rgba(10, 76, 150, 0.04), #0A4C96 1.2em, #0A4C96 70%, rgba(10, 76, 150, 0.04));

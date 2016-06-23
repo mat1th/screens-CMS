@@ -8,8 +8,8 @@
 .content a {
     display: block;
     position: relative;
-    padding: 0.5em;
     margin: 0em;
+    padding: 0.5em;
     border-radius: var( --border-radius);
 }
 .content img {
@@ -149,8 +149,8 @@ span.vimeo-tag {
 
 @media screen and (--medium-window-width) {
     .content .image {
-        height: 20em;
         min-width: 14em;
+        height: 20em;
     }
     .content {
         max-width: 15em;

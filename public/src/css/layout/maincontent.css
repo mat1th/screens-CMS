@@ -8,8 +8,8 @@
     align-content: flex-start;
     align-items: flex-end;
     justify-content: flex-start;
-    overflow-y: auto;
     padding: 1em;
+    overflow-y: auto;
 }
 .content-header {
     width: 100%;

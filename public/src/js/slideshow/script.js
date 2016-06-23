@@ -185,6 +185,8 @@ slideshow.refresh = (function() {
             if (refresh === true && id === slideshowId) {
                 console.log('reloading');
                 location.reload();
+            } else if (refresh === true && slideshowId === 'all') {
+                location.reload();
             }
         });
     };
