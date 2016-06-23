@@ -1,4 +1,5 @@
 var express = require('express'),
+    moment = require('moment'),
     randNumber = require('../../../modules/randNumber.js'),
     getSpecificData = require('../../../modules/getSpecificData.js'),
     renderTemplate = require('../../../modules/renderTemplate.js'),
@@ -6,6 +7,7 @@ var express = require('express'),
     isValidDate = require('../../../modules/isValidDate.js'),
     confertDate = require('../../../modules/confertDate.js'),
     sendMessage = require('../../../modules/sendMessage.js'),
+    sendRefresh = require('../../../modules/sendRefresh.js'),
     checkRightsEditor = require('../../middleware/checkRightsEditor.js'),
     router = express.Router(); //create router
 
@@ -151,10 +153,9 @@ router.post('/decision', function(req, res) { // the admin/content/decision post
 
 
 router.post('/add', function(req, res) { // the admin/content/add post
-
     var body = req.body,
         general = {
-            title: 'Add content',
+            title: 'Add content'
         },
         data = { //the data for the error and the insert to the
             general: {
@@ -205,6 +206,9 @@ router.post('/add', function(req, res) { // the admin/content/add post
                         sendMessage(message); //send the message
                     }
                     insertData(sqlQuerySlideshow, [data.general.id], connection).then(function() {
+                        if (moment().isBetween(data.general.dateStart, data.general.dateEnd && req.admin)) { //refrech the slideshow if a admin adds a poster that should show now
+                            sendRefresh('all', true);
+                        }
                         res.redirect('/admin/content');
                     }).catch(function(err) {
                         console.log(err);
