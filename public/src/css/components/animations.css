@@ -1,11 +1,16 @@
 /*a class to animate stuff*/
 
 .animate {
-    transition: all 0.3s ease;
-    animation-duration: 1s;
-    will-change: transform, opacity;
     backface-visibility: hidden;
+    animation-duration: 1s;
     perspective: 1000;
+    transition: all 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.animate-fast {
+    transition: all 0.1s ease;
+
 }
 
 /*animations for the slieshow preview */
@@ -36,8 +41,8 @@
         opacity: 1;
     }
     to {
-        opacity: 0;
         transform: translate3d(0, 100%, 0);
+        opacity: 0;
     }
 }
 @keyframes fadeIn {
@@ -50,28 +55,28 @@
 }
 @keyframes fadeInDownBig {
     from {
-        opacity: 0;
         transform: translate3d(0, -150em, 0);
+        opacity: 0;
     }
     to {
-        opacity: 1;
         transform: none;
+        opacity: 1;
     }
 }
 @keyframes fadeInLeftBig {
     from {
-        opacity: 0;
         transform: translate3d(-150em, 0, 0);
+        opacity: 0;
     }
     to {
-        opacity: 1;
         transform: none;
+        opacity: 1;
     }
 }
 @keyframes zoomIn {
     from {
-        opacity: 0;
         transform: scale3d(.9, .9, .9);
+        opacity: 0;
     }
     50% {
         opacity: 1;

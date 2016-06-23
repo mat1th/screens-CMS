@@ -5,28 +5,28 @@
 
 table {
     width: 100%;
-    text-align: left;
-    border-spacing: 0;
     margin: 0 0 1em 0;
+    border-spacing: 0;
+    text-align: left;
 }
 table td, table th {
     display: block;
-    padding: 0 0 0 3em;
     height: 3em;
+    padding: 0 0 0 3em;
+    overflow: hidden;
+    border-bottom: solid 0.14em #DDDDDD;
+    color: var( --font-color-dark);
     font-size: 0.95em;
     font-weight: 400;
-    color: var( --font-color-dark);
-    border-bottom: solid 0.14em #DDDDDD;
-    white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 table th {
     display: none;
-    font-weight: 500;
-    color: var( --normal-color);
     padding: 0;
     outline: none;
+    color: var( --normal-color);
+    font-weight: 500;
 }
 table a {
     color: inherit;
@@ -36,9 +36,9 @@ table tr {
     font-size: 0.9em;
 }
 table tr {
+    display: block;
     margin: 1em 0;
     background: #fff;
-    display: block;
 }
 table td {
     height: 1em;
@@ -48,11 +48,11 @@ td a {
     display: inline-block
 }
 table td:before {
-    text-align: left;
-    color: var( --font-color-dark);
-    text-align: left;
     width: 5em;
+    color: var( --font-color-dark);
     font-weight: 600;
+    text-align: left;
+    text-align: left;
     content: attr(data-th) ": ";
 }
 table table td:last-child {
@@ -80,8 +80,8 @@ td.edit a {
 table a.btn {
     width: 3em;
     min-width: 4em;
-    color: var(--font-color-light);
     margin: 0;
+    color: var(--font-color-light);
 }
 @media (--medium-window-width) {
     table {
@@ -100,8 +100,8 @@ table a.btn {
         display: none;
     }
     table tr {
-        padding: 0;
         display: table-row;
+        padding: 0;
     }
     table tr {
         display: table-row;
@@ -110,8 +110,8 @@ table a.btn {
         padding: 0 0 0 1.8em;
     }
     table th:last-child, table td:last-child {
-        padding: 0 0.9em 0 0;
         width: 8em;
+        padding: 0 0.9em 0 0;
     }
     td.checkboxes {
         display: block;

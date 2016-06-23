@@ -6,43 +6,43 @@
     max-width: 30em;
     height: 2.4em;
     margin: auto;
-    line-height: 1.45;
-    font-weight: 400;
     padding: .5em 1em;
     border: none;
     border-radius: var(--border-radius);
     color: var(--font-color-dark);
     font-size: 100%;
     font-weight: 400;
+    font-weight: 400;
+    line-height: 1.45;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
 }
 .btn-span {
-    padding: 0.15em 0.1em;
     max-width: 1em;
     height: auto;
+    padding: 0.15em 0.1em;
 }
 /*use this button in the bar on the show page */
 .btn-filter {
-    padding: 0.3em;
     min-width: inherit;
+    height: auto;
+    padding: 0.3em;
     background: none;
     color: var( --font-color-gray);
     font-size: 0.8em;
-    height: auto;
 }
 .btn-filter:hover, .btn-filter:focus {
     color: var( --normal-color);
 }
 .btn-filter.expired {
-    color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.52);
+    color: var(--font-color-light);
 }
 .btn-filter.expired:focus, .btn-filter.expired:hover {
-    color: var(--font-color-light);
     background: rgba(0, 156, 144, 0.82);
+    color: var(--font-color-light);
 }
 /*this button is used on the home page*/
 .btn-transparant {
@@ -118,23 +118,23 @@ button.top-margin, a.top-margin {
 .btn-action {
     box-sizing: border-box;
     display: inline-block;
+    position: relative;
+    margin: auto;
     border: none;
-    text-align: center;
     background: none;
     color: var(--background-color-semidark);
+    text-align: center;
     text-decoration: none;
     cursor: pointer;
     z-index: 1;
-    position: relative;
-    margin: auto;
 }
 .btn-action:before {
-    content: '';
     position: absolute;
     top: -0.5em;
     right: -0.5em;
     bottom: -0.5em;
     left: -0.5em;
+    content: '';
 }
 .btn-action svg {
     fill: var(--font-color-gray);

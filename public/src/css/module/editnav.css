@@ -36,7 +36,7 @@
 
 /*icons only*/
 
-.edit-nav.icons-only .user-name, .edit-nav.icons-only span {
+.icons-only .user-name, .edit-nav.icons-only span {
     display: none;
 }
 .edit-nav.icons-only svg {

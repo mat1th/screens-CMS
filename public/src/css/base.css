@@ -10,31 +10,31 @@ main {
     height: calc(100% - 3.753em);
 }
 img {
-    min-height: 2em;
     max-width: 100%;
+    min-height: 2em;
 }
 img:before {
-    content: " ";
     display: block;
     position: absolute;
     top: -0.8em;
     left: 0;
-    height: calc(100% + 0.8em);
     width: 100%;
+    height: calc(100% + 0.8em);
     background-color: rgb(230, 230, 230);
+    content: " ";
 }
 img:after {
-    content: "The img is broken " attr(alt);
     display: block;
-    font-size: 1em;
-    font-style: normal;
-    font-family: FontAwesome;
-    color: rgb(100, 100, 100);
     position: absolute;
     top: 0.4em;
     left: 0;
     width: 100%;
+    color: rgb(100, 100, 100);
+    font-family: FontAwesome;
+    font-size: 1em;
+    font-style: normal;
     text-align: center;
+    content: "The img is broken " attr(alt);
 }
 video {
     width: 100%;
@@ -63,8 +63,8 @@ section {
 /*postions*/
 
 .disabled {
-    visibility: hidden;
     display: none !important;
+    visibility: hidden;
 }
 
 /*warnings */
@@ -78,12 +78,12 @@ span.error {
     font-weight: 400;
 }
 .warning {
-    max-width: 30em;
-    width: 80%;
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
+    width: 80%;
+    max-width: 30em;
     margin: 1em auto 0 auto;
     text-align: center;
     z-index: 16;
@@ -96,8 +96,8 @@ span.error {
     font-size: 1.1em;
 }
 .not-found {
-    text-align: center;
     margin: 2em auto;
+    text-align: center;
 }
 @media (--narrow-window-width) {
     main {
