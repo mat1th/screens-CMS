@@ -2,9 +2,6 @@
 
 ![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-html.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-css.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)
 
-## Live url
-
-<https://posters.dolstra.me>
 
 ## Synopsis
 
@@ -292,8 +289,8 @@ I haven't used meteor to create a realtime web app, but I've used a socket.io fo
 
 I've used some extra features in my application. Such as MySQL, emailjs, hsb, momentjs and right roles. I didn't follow the 'databases' course, but I wanted to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
 
-## User testing The app is tested by some users. After that tests I made some changes on the application. 
-- redesign flow of adding content to the slideshow. The content is now automatically added to the slideshow. Before this change the admin had to add them manually. - only one slideshow instead of multiple ones. - Add a home page with a flow of the application
+## User testingThe app is tested by some users. After that tests I made some changes on the application.
+- redesign flow of adding content to the slideshow. The content is now automatically added to the slideshow. Before this change the admin had to add them manually.- only one slideshow instead of multiple ones.- Add a home page with a flow of the application
 
 ## Screenshots
 

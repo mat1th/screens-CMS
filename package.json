@@ -3,15 +3,8 @@
   "version": "0.1.0",
   "description": "Application for the masterproof",
   "main": "app.js",
-  "author": "Matthias Dolstra",
+  "author": "matthias",
   "license": "MIT",
-  "homepage": "https://posters.dolstra.me",
-  "contributors": [
-    {
-      "name": "Matthias Dolstra",
-      "email": "mail@dolstra.me"
-    }
-  ],
   "scripts": {
     "start": "nodemon app.js"
   },
