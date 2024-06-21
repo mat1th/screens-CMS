@@ -1,7 +1,10 @@
-# MeesterProef CMD screens
+# Screens-CMS screens
 
 ![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-html.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-css.svg) ![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)
 
+
+> [!WARNING]
+> This project is no longer maintained. Only there for code reference. It contains multiple security issues in dependecies.
 
 ## Synopsis
 
@@ -13,7 +16,7 @@ The Amsterdam University of Applied Sciences needs an application for displaying
 
 ## Installation
 
-Download: <https://github.com/mat1th/meesterproef.git>
+Download: <https://github.com/mat1th/screens-CMS.git>
 
 Go to the project:
 
@@ -289,8 +292,12 @@ I haven't used meteor to create a realtime web app, but I've used a socket.io fo
 
 I've used some extra features in my application. Such as MySQL, emailjs, hsb, momentjs and right roles. I didn't follow the 'databases' course, but I wanted to learn MySQL. So I've used MySQL in my application to learn. Now I've learned the most MySQL functions. And I've worked with the raspberry pi. This is a low power mini computer. I've installed the Chromium browser on it and edited the boot files, so it automatically opens the browser on the slideshow page.
 
-## User testingThe app is tested by some users. After that tests I made some changes on the application.
-- redesign flow of adding content to the slideshow. The content is now automatically added to the slideshow. Before this change the admin had to add them manually.- only one slideshow instead of multiple ones.- Add a home page with a flow of the application
+## User testing
+The app is tested by some users. After that tests I made some changes on the application.
+
+- redesign flow of adding content to the slideshow. The content is now automatically added to the slideshow. Before this change the admin had to add them manually.
+- only one slideshow instead of multiple ones.
+- Add a home page with a flow of the application
 
 ## Screenshots
 
@@ -337,14 +344,14 @@ socket.io            | 1.4.6   | Node.js realtime framework server
 
 There are many things to do. Here a feature list with features that could be implemented.
 
-- [x] Better performance on slower devices see [#50](https://github.com/mat1th/meesterproef/issues/50).
+- [x] Better performance on slower devices see [#50](https://github.com/mat1th/screens-CMS/issues/50).
 - [ ] Ability to delete posters, users, and displays.
 - [ ] A set up wizard.
 - [ ] Ability to edit a poster start and end date on the poster detail page.
 - [ ] Translate the app to dutch.
 - [ ] Logged-in variant of the home page.
 - [ ] Ability to change your password.
-- [ ] Ability to add a profile photo to an account. [#33](https://github.com/mat1th/meesterproef/issues/33)
+- [ ] Ability to add a profile photo to an account. [#33](https://github.com/mat1th/screens-CMS/issues/33)
 - [ ] Ability to turn off a display (or go on black).
 - [ ] Ability to upload videos from your mobile phone. (not Vimeo, normal mp4 videos ).
 - [ ] Optimize uploaded images. So there will be a height resolution, small preview, and a bigger preview.
@@ -358,7 +365,7 @@ There are many things to do. Here a feature list with features that could be imp
 
 ## Contributing
 
-The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/meesterproef/tree/master-v0.5) branch is the old master branch with the old interaction.
+The Master branch is the branch where the final features are pushed to. The [master-v0.5](https://github.com/mat1th/screens-CMS/tree/master-v0.5) branch is the old master branch with the old interaction.
 
 ### What to do
 
